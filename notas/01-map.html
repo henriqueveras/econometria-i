@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Henrique Veras">
+<title>Econometrics, the DGP, and the Map of the Course – Econometrics I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../notas/02-projection.html" rel="next">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f53dd81e4532dc1ad2d5a3da1ba84db5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-85294af6fad2849895ed9755e431b126.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<!--
+  MathJax configuration for Econometrics I.
+
+  Two jobs:
+   (1) load the [tex]/html package so \class{} works, which is what lets
+       \eqt{key}{body} tag a sub-expression for the annotated-equation widget;
+   (2) define the course-wide macro set, so notation is declared once here
+       instead of being re-typed in every lecture.
+
+  This block is injected into <head> via `include-in-header`, so it runs before
+  MathJax itself is loaded and the configuration is picked up.
+
+  Shared by the website AND the Reveal.js decks, so the macro set is declared
+  once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
+  _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
+  MathJax 2 and is neutralised by the Hub shim below.
+--><script>
+window.MathJax = {
+  loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
+  tex: {
+    packages: { '[+]': ['html', 'ams', 'boldsymbol'] },
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams',
+    macros: {
+      // --- annotated-equation term tag -------------------------------------
+      eqt: ['\\class{eqt eqt-#1}{#2}', 2],
+
+      // --- estimators and operators ----------------------------------------
+      plim:  ['\\operatorname*{plim}', 0],
+      argmin:['\\operatorname*{arg\\,min}', 0],
+      argmax:['\\operatorname*{arg\\,max}', 0],
+      tr:    ['\\operatorname{tr}', 0],
+      rank:  ['\\operatorname{rank}', 0],
+      diag:  ['\\operatorname{diag}', 0],
+      vect:  ['\\operatorname{vec}', 0],
+
+      // --- probability ------------------------------------------------------
+      E:     ['\\mathbb{E}', 0],
+      Var:   ['\\operatorname{Var}', 0],
+      Cov:   ['\\operatorname{Cov}', 0],
+      Prob:  ['\\mathbb{P}', 0],
+      indep: ['\\perp\\!\\!\\!\\perp', 0],
+      pto:   ['\\xrightarrow{\\;p\\;}', 0],
+      dto:   ['\\xrightarrow{\\;d\\;}', 0],
+      asto:  ['\\xrightarrow{\\;a.s.\\;}', 0],
+      Normal:['\\mathcal{N}', 0],
+
+      // --- vectors and matrices (bold upright) ------------------------------
+      mat:   ['\\mathbf{#1}', 1],
+      vecb:  ['\\mathbf{#1}', 1],
+      bbeta: ['\\boldsymbol{\\beta}', 0],
+      beps:  ['\\boldsymbol{\\varepsilon}', 0],
+      btheta:['\\boldsymbol{\\theta}', 0],
+      bX:    ['\\mathbf{X}', 0],
+      bY:    ['\\mathbf{y}', 0],
+      bZ:    ['\\mathbf{Z}', 0],
+      bb:    ['\\mathbf{b}', 0],
+      be:    ['\\mathbf{e}', 0],
+      bP:    ['\\mathbf{P}', 0],
+      bM:    ['\\mathbf{M}', 0],
+      bI:    ['\\mathbf{I}', 0],
+      bQ:    ['\\mathbf{Q}', 0],
+      bzero: ['\\mathbf{0}', 0]
+    }
+  },
+  options: {
+    enableMenu: true,
+    menuOptions: { settings: { zoom: 'DoubleClick' } }
+  },
+  chtml: { displayAlign: 'center', displayIndent: '0' },
+  startup: {
+    ready: function () {
+      // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
+      // plugin. Pointed at v3 it loads the library correctly and then throws
+      // once on `MathJax.Hub.Config`, because v3 has no Hub. The error is
+      // cosmetic -- Reveal has already initialised and MathJax 3 typesets on
+      // its own. A Hub shim does not help: the plugin's callback runs before
+      // this hook, so there is nothing to shim yet.
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(function () {
+        // Signal the annotated-equation script that \eqt terms are in the DOM.
+        document.dispatchEvent(new CustomEvent('econ:mathjax-done'));
+        // Reveal sizes slides before the maths exists, so re-measure once it
+        // does. No-op on the website, where Reveal is undefined.
+        if (typeof Reveal !== 'undefined' && Reveal.layout) { Reveal.layout(); }
+      });
+    }
+  }
+};
+
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../assets/components.css">
+</head>
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Econometrics I</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa/ementa-2026.html"> 
+<span class="menu-text">Ementa</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto"></ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/01-map.html">I — Foundations</a></li><li class="breadcrumb-item"><a href="../notas/01-map.html">1 · Econometrics, the DGP, and the Map</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Map</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I — Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II — Linear Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">IV — Nonlinear Estimation</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">V — Panel Data</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Component Reference</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#what-this-course-is-about" id="toc-what-this-course-is-about" class="nav-link active" data-scroll-target="#what-this-course-is-about"><span class="header-section-number">0.1</span> What this course is about</a>
+  <ul class="collapse">
+<li><a href="#a-definition-worth-arguing-with" id="toc-a-definition-worth-arguing-with" class="nav-link" data-scroll-target="#a-definition-worth-arguing-with">A definition worth arguing with</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#three-questions-and-a-fourth" id="toc-three-questions-and-a-fourth" class="nav-link" data-scroll-target="#three-questions-and-a-fourth"><span class="header-section-number">0.2</span> Three questions and a fourth</a>
+  <ul class="collapse">
+<li><a href="#the-claim-we-cannot-yet-evaluate" id="toc-the-claim-we-cannot-yet-evaluate" class="nav-link" data-scroll-target="#the-claim-we-cannot-yet-evaluate">The claim we cannot yet evaluate</a></li>
+  <li><a href="#the-three-questions" id="toc-the-three-questions" class="nav-link" data-scroll-target="#the-three-questions">The three questions</a></li>
+  <li><a href="#and-a-fourth-underneath" id="toc-and-a-fourth-underneath" class="nav-link" data-scroll-target="#and-a-fourth-underneath">And a fourth, underneath</a></li>
+  <li><a href="#identification-is-not-a-small-sample-problem" id="toc-identification-is-not-a-small-sample-problem" class="nav-link" data-scroll-target="#identification-is-not-a-small-sample-problem">Identification is not a small-sample problem</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-map" id="toc-the-map" class="nav-link" data-scroll-target="#the-map"><span class="header-section-number">0.3</span> The map</a>
+  <ul class="collapse">
+<li><a href="#the-architecture-of-the-semester" id="toc-the-architecture-of-the-semester" class="nav-link" data-scroll-target="#the-architecture-of-the-semester">The architecture of the semester</a></li>
+  <li><a href="#two-features-worth-stating" id="toc-two-features-worth-stating" class="nav-link" data-scroll-target="#two-features-worth-stating">Two features worth stating</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-data-generating-process" id="toc-the-data-generating-process" class="nav-link" data-scroll-target="#the-data-generating-process"><span class="header-section-number">0.4</span> The Data Generating Process</a>
+  <ul class="collapse">
+<li><a href="#what-a-dgp-is" id="toc-what-a-dgp-is" class="nav-link" data-scroll-target="#what-a-dgp-is">What a DGP is</a></li>
+  <li><a href="#a-useful-fiction" id="toc-a-useful-fiction" class="nav-link" data-scroll-target="#a-useful-fiction">A useful fiction</a></li>
+  <li><a href="#three-objects-that-get-confused" id="toc-three-objects-that-get-confused" class="nav-link" data-scroll-target="#three-objects-that-get-confused">Three objects that get confused</a></li>
+  <li><a href="#why-the-distinction-is-not-pedantry" id="toc-why-the-distinction-is-not-pedantry" class="nav-link" data-scroll-target="#why-the-distinction-is-not-pedantry">Why the distinction is not pedantry</a></li>
+  <li><a href="#the-sampling-distribution-is-invisible" id="toc-the-sampling-distribution-is-invisible" class="nav-link" data-scroll-target="#the-sampling-distribution-is-invisible">The sampling distribution is invisible</a></li>
+  <li><a href="#one-dgp-many-samples" id="toc-one-dgp-many-samples" class="nav-link" data-scroll-target="#one-dgp-many-samples">One DGP, many samples</a></li>
+  <li><a href="#the-same-information-one-dimension-at-a-time" id="toc-the-same-information-one-dimension-at-a-time" class="nav-link" data-scroll-target="#the-same-information-one-dimension-at-a-time">The same information, one dimension at a time</a></li>
+  <li><a href="#three-questions-follow-immediately" id="toc-three-questions-follow-immediately" class="nav-link" data-scroll-target="#three-questions-follow-immediately">Three questions follow immediately</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#where-the-models-come-in" id="toc-where-the-models-come-in" class="nav-link" data-scroll-target="#where-the-models-come-in"><span class="header-section-number">0.5</span> Where the models come in</a>
+  <ul class="collapse">
+<li><a href="#a-sequence-of-failures-and-repairs" id="toc-a-sequence-of-failures-and-repairs" class="nav-link" data-scroll-target="#a-sequence-of-failures-and-repairs">A sequence of failures and repairs</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-two-families" id="toc-the-two-families" class="nav-link" data-scroll-target="#the-two-families"><span class="header-section-number">0.6</span> The two families</a>
+  <ul class="collapse">
+<li><a href="#recognise-the-shapes-now" id="toc-recognise-the-shapes-now" class="nav-link" data-scroll-target="#recognise-the-shapes-now">Recognise the shapes now</a></li>
+  <li><a href="#the-two-families-overlap" id="toc-the-two-families-overlap" class="nav-link" data-scroll-target="#the-two-families-overlap">The two families overlap</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#econometrics-as-practice" id="toc-econometrics-as-practice" class="nav-link" data-scroll-target="#econometrics-as-practice"><span class="header-section-number">0.7</span> Econometrics as practice</a>
+  <ul class="collapse">
+<li><a href="#card-krueger-1994" id="toc-card-krueger-1994" class="nav-link" data-scroll-target="#card-krueger-1994">Card &amp; Krueger (1994)</a></li>
+  <li><a href="#angrist-krueger-1991" id="toc-angrist-krueger-1991" class="nav-link" data-scroll-target="#angrist-krueger-1991">Angrist &amp; Krueger (1991)</a></li>
+  <li><a href="#theoretical-and-applied-econometrics" id="toc-theoretical-and-applied-econometrics" class="nav-link" data-scroll-target="#theoretical-and-applied-econometrics">Theoretical and applied econometrics</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#computation-and-replication" id="toc-computation-and-replication" class="nav-link" data-scroll-target="#computation-and-replication"><span class="header-section-number">0.8</span> Computation and replication</a>
+  <ul class="collapse">
+<li><a href="#three-facts-that-will-matter" id="toc-three-facts-that-will-matter" class="nav-link" data-scroll-target="#three-facts-that-will-matter">Three facts that will matter</a></li>
+  <li><a href="#two-practices-expected-in-this-course" id="toc-two-practices-expected-in-this-course" class="nav-link" data-scroll-target="#two-practices-expected-in-this-course">Two practices, expected in this course</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#what-you-should-be-able-to-do" id="toc-what-you-should-be-able-to-do" class="nav-link" data-scroll-target="#what-you-should-be-able-to-do"><span class="header-section-number">0.9</span> What you should be able to do</a>
+  <ul class="collapse">
+<li><a href="#the-goal" id="toc-the-goal" class="nav-link" data-scroll-target="#the-goal">The goal</a></li>
+  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">Reading</a></li>
+  </ul>
+</li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">0.10</span> References</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/01-map.html">I — Foundations</a></li><li class="breadcrumb-item"><a href="../notas/01-map.html">1 · Econometrics, the DGP, and the Map</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Econometrics, the DGP, and the Map of the Course</h1>
+<p class="subtitle lead">Lecture 1</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Henrique Veras </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            PIMES/UFPE
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header><section id="what-this-course-is-about" class="level2" data-number="0.1"><h2 data-number="0.1" class="anchored" data-anchor-id="what-this-course-is-about">
+<span class="header-section-number">0.1</span> What this course is about</h2>
+<section id="a-definition-worth-arguing-with" class="level3"><h3 class="anchored" data-anchor-id="a-definition-worth-arguing-with">A definition worth arguing with</h3>
+<p>Econometrics is often introduced as the meeting point of economic theory, mathematics and statistics. That is true, and not very useful: it lists the ingredients without saying what is being cooked.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Econometrics is the study of how we learn about unknown parameters from data generated by a probabilistic process.</strong></p>
+</div>
+</div>
+</div>
+<p>Every word in that sentence does work. <em>Unknown parameters</em>: there is something in the world we would like to know and cannot observe. <em>Data</em>: we observe a finite sample, not the world. <em>Generated by a probabilistic process</em>: the sample is one realisation among many that could have occurred, and any claim we make must account for that.</p>
+<p>The consequence is that econometrics is not a catalogue of techniques. It is a small number of questions, asked repeatedly, in increasingly demanding settings.</p>
+</section></section><section id="three-questions-and-a-fourth" class="level2" data-number="0.2"><h2 data-number="0.2" class="anchored" data-anchor-id="three-questions-and-a-fourth">
+<span class="header-section-number">0.2</span> Three questions and a fourth</h2>
+<section id="the-claim-we-cannot-yet-evaluate" class="level3"><h3 class="anchored" data-anchor-id="the-claim-we-cannot-yet-evaluate">The claim we cannot yet evaluate</h3>
+<p>An economist reports that an additional year of schooling raises earnings by 8%.</p>
+<p>Three things must be settled before that number means anything — and they are genuinely separate, which is why confusing them is the most common failure in applied work.</p>
+</section><section id="the-three-questions" class="level3"><h3 class="anchored" data-anchor-id="the-three-questions">The three questions</h3>
+<div class="econ-box econ-box-questions" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">What organises the whole course</span>
+</div>
+<div class="econ-box-body">
+<ol type="1">
+<li>
+<strong>Identification.</strong> Under what conditions do the data and the model permit us to learn about the parameter at all? A question about the <em>population</em>.</li>
+<li>
+<strong>Estimation.</strong> Given identification, how do we construct an estimate from a finite sample?</li>
+<li>
+<strong>Inference.</strong> How precisely have we learned? An estimate without uncertainty is not a result.</li>
+</ol>
+</div>
+</div>
+</section><section id="and-a-fourth-underneath" class="level3"><h3 class="anchored" data-anchor-id="and-a-fourth-underneath">And a fourth, underneath</h3>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Computation</span>
+</div>
+<div class="econ-box-body">
+<p>How are the estimator and the inference procedure actually carried out?</p>
+<p>Not “which command do I type”, but: what sequence of numerical operations produces the number on the screen, and when does that sequence fail?</p>
+</div>
+</div>
+</section><section id="identification-is-not-a-small-sample-problem" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="identification-is-not-a-small-sample-problem">Identification is not a small-sample problem</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If a parameter is not identified, collecting more data does not help. Not “helps slowly” — does not help.</p>
+<p>The estimator may converge, beautifully and with tight standard errors, to the wrong thing.</p>
+</div>
+</div>
+<p>This is why identification comes first in the map below, and why it is a question about the population rather than about the sample. It is settled before any data are collected.</p>
+</section></section><section id="the-map" class="level2" data-number="0.3"><h2 data-number="0.3" class="anchored" data-anchor-id="the-map">
+<span class="header-section-number">0.3</span> The map</h2>
+<section id="the-architecture-of-the-semester" class="level3"><h3 class="anchored" data-anchor-id="the-architecture-of-the-semester">The architecture of the semester</h3>
+<p>The diagram below is the skeleton of the entire course. Every method we study occupies a position in it, and each lecture will begin by locating itself here.</p>
+<div class="coursemap" id="coursemap">
+<div class="coursemap-figure">
+<svg viewbox="0 0 680 512" role="group" aria-label="Architecture of the course: DGP, identification, estimation, asymptotic theory, inference, and computation"><defs><marker id="cm-arrow" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="6" markerheight="6" orient="auto-start-reverse"><path class="cm-arrowhead" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs><!-- edges --><path class="cm-edge" d="M280,72 L280,100" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M280,148 L280,176" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M280,224 L280,244 L185,244 L185,262" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M280,224 L280,244 L375,244 L375,262" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M185,314 L185,332 L280,332 L280,348" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M375,314 L375,332 L280,332 L280,348" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M280,396 L280,424" marker-end="url(#cm-arrow)"></path><!-- computation: transversal, so it brackets the column rather than sitting in it --><path class="cm-edge" d="M500,60 L470,60" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M500,200 L410,200" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M500,288 L465,288" marker-end="url(#cm-arrow)"></path><path class="cm-edge" d="M500,448 L400,448" marker-end="url(#cm-arrow)"></path><!-- nodes --><g class="cm-node cm-dgp" data-cm="dgp" tabindex="0" role="button" aria-label="Data Generating Process"><rect class="cm-box" x="170" y="24" width="220" height="48" rx="6"></rect><text class="cm-label" x="280" y="43">Data Generating Process</text><text class="cm-sub" x="280" y="59">what produced the sample</text></g><g class="cm-node cm-identification" data-cm="identification" tabindex="0" role="button" aria-label="Identification"><rect class="cm-box" x="170" y="100" width="220" height="48" rx="6"></rect><text class="cm-label" x="280" y="119">Identification</text><text class="cm-sub" x="280" y="135">can the parameter be learned?</text></g><g class="cm-node cm-estimation" data-cm="estimation" tabindex="0" role="button" aria-label="Estimation"><rect class="cm-box" x="170" y="176" width="220" height="48" rx="6"></rect><text class="cm-label" x="280" y="195">Estimation</text><text class="cm-sub" x="280" y="211">two ways to build an estimator</text></g><g class="cm-node cm-mest" data-cm="mest" tabindex="0" role="button" aria-label="M-estimation"><rect class="cm-box" x="100" y="262" width="170" height="52" rx="6"></rect><text class="cm-label" x="185" y="281">M-estimation</text><text class="cm-sub" x="185" y="297">optimisation</text></g><g class="cm-node cm-zest" data-cm="zest" tabindex="0" role="button" aria-label="Z-estimation and GMM"><rect class="cm-box" x="290" y="262" width="170" height="52" rx="6"></rect><text class="cm-label" x="375" y="281">Z-estimation / GMM</text><text class="cm-sub" x="375" y="297">moment conditions</text></g><g class="cm-node cm-asymptotics" data-cm="asymptotics" tabindex="0" role="button" aria-label="Asymptotic theory"><rect class="cm-box" x="170" y="348" width="220" height="48" rx="6"></rect><text class="cm-label" x="280" y="367">Asymptotic Theory</text><text class="cm-sub" x="280" y="383">LLN · CLT · CMT · Slutsky · Delta</text></g><g class="cm-node cm-inference" data-cm="inference" tabindex="0" role="button" aria-label="Inference"><rect class="cm-box" x="170" y="424" width="220" height="48" rx="6"></rect><text class="cm-label" x="280" y="443">Inference</text><text class="cm-sub" x="280" y="459">how precisely did we learn?</text></g><g class="cm-node cm-computation" data-cm="computation" tabindex="0" role="button" aria-label="Computation, transversal to every stage"><rect class="cm-box" x="500" y="24" width="150" height="448" rx="6"></rect><text class="cm-label" x="575" y="240" transform="rotate(-90 575 240)">Computation</text><text class="cm-sub" x="575" y="256" transform="rotate(-90 575 256)">transversal to every stage</text></g></svg>
+</div>
+
+<div class="coursemap-detail" id="coursemap-detail" aria-live="polite">
+  <p class="coursemap-hint">Select a stage to see the question it asks and where the course answers it.</p>
+</div>
+</div>
+
+<script>
+(function () {
+  var MAP = {
+    dgp: {
+      title: "Data Generating Process",
+      accent: "--econ-dgp",
+      where: "Lectures 1–2, then reopened at the start of every part",
+      q: "What probabilistic process produced the data we observe?",
+      body: "Everything begins here. Before asking what to estimate, we state what we are willing to assume about how the sample came into being — the distribution of the observables, and how observations relate to one another. Change the DGP and every answer downstream changes with it."
+    },
+    identification: {
+      title: "Identification",
+      accent: "--econ-connection",
+      where: "Lectures 2, 10, 13, 15",
+      q: "Do the data and the model determine the parameter at all?",
+      body: "A parameter is identified when no other value of it could have produced the same distribution of observables. This is prior to estimation: no quantity of data rescues a parameter that is not identified. In the linear model it is full rank plus exogeneity; in IV, relevance plus exclusion; in maximum likelihood, a model not observationally equivalent to another."
+    },
+    estimation: {
+      title: "Estimation",
+      accent: "--econ-questions",
+      where: "Lectures 3–4, 7, 10–15",
+      q: "Given identification, how do we construct an estimate?",
+      body: "Almost every estimator in this course is built in one of two ways: by optimising a criterion function, or by imposing sample analogues of population moment conditions. Recognising which of the two you are looking at is most of what it means to read modern econometrics fluently."
+    },
+    mest: {
+      title: "M-estimation",
+      accent: "--econ-toolbox",
+      where: "Lecture 4 (OLS) · Lecture 13 (MLE)",
+      q: "Which estimators come from an optimisation problem?",
+      body: "Estimators of the form θ̂ = argmin Qₙ(θ). Least squares minimises the sum of squared residuals; maximum likelihood maximises the log-likelihood; nonlinear least squares minimises squared residuals in a nonlinear model. Same shape, different criterion — and therefore, largely, the same asymptotic argument."
+    },
+    zest: {
+      title: "Z-estimation and GMM",
+      accent: "--econ-montecarlo",
+      where: "Lecture 10 (IV) · Lecture 12 (GMM)",
+      q: "Which estimators come from moment conditions?",
+      body: "Estimators solving n⁻¹ Σ ψ(Wᵢ, θ) = 0. The OLS normal equations X′e = 0 are already of this form. IV replaces the regressors with instruments, giving E[Zᵢεᵢ] = 0. GMM generalises to any E[g(Wᵢ, θ)] = 0 and, crucially, handles the case with more moments than parameters."
+    },
+    asymptotics: {
+      title: "Asymptotic Theory",
+      accent: "--econ-literature",
+      where: "Lecture 5, then used in every lecture after it",
+      q: "What happens to the estimator as the sample grows?",
+      body: "One language, not a toolbox of separate tricks. The law of large numbers delivers consistency; the central limit theorem delivers asymptotic normality; the Continuous Mapping Theorem and Slutsky's theorem let us manipulate limits; the Delta Method carries all of it over to functions of the estimator."
+    },
+    inference: {
+      title: "Inference",
+      accent: "--econ-connection",
+      where: "Lectures 6–8, 11, 16",
+      q: "How precisely have we learned about the parameter?",
+      body: "An estimate without inference is an anecdote. Standard errors, confidence intervals and tests — and, more importantly, the question of whether they remain valid under heteroskedasticity, clustering, weak instruments or small samples. This is a pillar of the course, not a step appended to estimation."
+    },
+    computation: {
+      title: "Computation",
+      accent: "--econ-hood",
+      where: "Every lecture, in the Under the Hood boxes",
+      q: "What is the computer actually doing?",
+      body: "Transversal to every stage above. QR decomposition rather than matrix inversion; Newton-Raphson and BFGS for likelihoods; the within transformation for panels; resampling for the bootstrap. Not a programming course — an insistence that the numbers on the screen are produced by specific, inspectable procedures."
+    }
+  };
+
+  var wrap = document.getElementById('coursemap');
+  if (!wrap) return;
+  var panel = document.getElementById('coursemap-detail');
+  var nodes = wrap.querySelectorAll('.cm-node');
+
+  function show(key, node) {
+    var d = MAP[key];
+    if (!d) return;
+    nodes.forEach(function (n) {
+      n.classList.toggle('cm-selected', n === node);
+      n.setAttribute('aria-pressed', n === node ? 'true' : 'false');
+    });
+    panel.style.setProperty('--cm-accent', 'var(' + d.accent + ')');
+    panel.innerHTML =
+      '<div class="coursemap-detail-head">' +
+        '<span class="coursemap-detail-title"></span>' +
+        '<span class="coursemap-detail-where"></span>' +
+      '</div>' +
+      '<p class="coursemap-detail-q"></p>' +
+      '<p class="coursemap-detail-body"></p>';
+    // textContent, not innerHTML, for the data itself
+    panel.querySelector('.coursemap-detail-title').textContent = d.title;
+    panel.querySelector('.coursemap-detail-where').textContent = d.where;
+    panel.querySelector('.coursemap-detail-q').textContent = d.q;
+    panel.querySelector('.coursemap-detail-body').textContent = d.body;
+  }
+
+  nodes.forEach(function (node) {
+    var key = node.getAttribute('data-cm');
+    node.setAttribute('aria-pressed', 'false');
+    node.addEventListener('click', function () { show(key, node); });
+    node.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); show(key, node); }
+    });
+  });
+})();
+</script></section><section id="two-features-worth-stating" class="level3"><h3 class="anchored" data-anchor-id="two-features-worth-stating">Two features worth stating</h3>
+<p>These are what distinguish the diagram from a table of contents.</p>
+<p><strong>Estimation branches.</strong> There are two ways to build an estimator — optimisation, or moment conditions. Nearly everything in the course is one or the other. We meet both in the linear model long before we have names for them.</p>
+<p><strong>Asymptotic theory sits between estimation and inference</strong>, not off to the side. It is not a mathematical preliminary to be endured. It is the machinery that converts <em>“here is an estimator”</em> into <em>“here is what we can say about the parameter”</em>.</p>
+</section></section><section id="the-data-generating-process" class="level2" data-number="0.4"><h2 data-number="0.4" class="anchored" data-anchor-id="the-data-generating-process">
+<span class="header-section-number">0.4</span> The Data Generating Process</h2>
+<section id="what-a-dgp-is" class="level3"><h3 class="anchored" data-anchor-id="what-a-dgp-is">What a DGP is</h3>
+<div class="econ-box econ-box-dgp" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span>
+</div>
+<div class="econ-box-body">
+<p>A <strong>data generating process</strong> is a complete probabilistic description of how the observed sample was produced: the distribution of the observable variables, and the relationship between observations.</p>
+<p>Write <span class="math inline">\(W_i\)</span> for the observables of unit <span class="math inline">\(i\)</span> — in regression, <span class="math inline">\(W_i = (y_i, \mathbf{x}_i)\)</span> — and assume <span class="math inline">\(\{W_i\}_{i=1}^n\)</span> is drawn from a population distribution <span class="math inline">\(F\)</span>.</p>
+</div>
+</div>
+</section><section id="a-useful-fiction" class="level3"><h3 class="anchored" data-anchor-id="a-useful-fiction">A useful fiction</h3>
+<p>The DGP is a fiction in a precise sense: we never observe it, and no real economy was ever generated by one. It is nonetheless indispensable, because it is the only thing that gives the central vocabulary of the course any meaning at all.</p>
+<p><em>Bias</em>, <em>consistency</em>, <em>standard error</em>, <em>confidence interval</em> — every one of these is a statement about what would happen <strong>across repeated samples</strong> from the DGP. Remove the DGP and not one of those words can be defined, let alone computed.</p>
+</section><section id="three-objects-that-get-confused" class="level3"><h3 class="anchored" data-anchor-id="three-objects-that-get-confused">Three objects that get confused</h3>
+<div id="def-estimand" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Estimand, estimator, estimate)</strong></span> The <strong>estimand</strong> <span class="math inline">\(\theta\)</span> is the unknown feature of the population — a fixed, non-random functional of <span class="math inline">\(F\)</span>.</p>
+<p>An <strong>estimator</strong> <span class="math inline">\(\hat\theta_n = \hat\theta(W_1,\dots,W_n)\)</span> is a rule mapping samples to numbers. Because the sample is random, the estimator is a <em>random variable</em>.</p>
+<p>An <strong>estimate</strong> is the number the estimator returns on the sample you have. It is not random.</p>
+</div>
+</section><section id="why-the-distinction-is-not-pedantry" class="level3"><h3 class="anchored" data-anchor-id="why-the-distinction-is-not-pedantry">Why the distinction is not pedantry</h3>
+<ul>
+<li>“<span class="math inline">\(\hat\beta\)</span> is unbiased” — a statement about the <strong>estimator</strong>: <span class="math inline">\(\E[\hat\beta] = \beta\)</span> over repeated samples.</li>
+<li>“<span class="math inline">\(\hat\beta = 0.081\)</span>” — an <strong>estimate</strong>. It is neither biased nor unbiased. It is 0.081.</li>
+<li>“<span class="math inline">\(\beta\)</span> is the return to schooling” — identifies the <strong>estimand</strong>, and says nothing about either of the above.</li>
+</ul>
+<p>Students routinely blur these three. The distinction is the entire basis of inference: every property we prove this semester is a property of the estimator, established by reasoning about the distribution it inherits from the DGP.</p>
+</section><section id="the-sampling-distribution-is-invisible" class="level3"><h3 class="anchored" data-anchor-id="the-sampling-distribution-is-invisible">The sampling distribution is invisible</h3>
+<p>The single most important idea in the course is that the estimator has a distribution. We see one sample and compute one number, but that number is a draw from a distribution generated by the DGP — and it is that distribution, not the number, which every claim about bias, precision and significance refers to.</p>
+<p>Since we only ever observe one draw, the distribution is invisible. Simulation is the one device that can show it to us: fix a DGP, draw from it repeatedly, and watch what the estimator does.</p>
+</section><section id="one-dgp-many-samples" class="level3"><h3 class="anchored" data-anchor-id="one-dgp-many-samples">One DGP, many samples</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sampling-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sampling-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-map_files/figure-html/fig-sampling-distribution-1.svg" class="img-fluid figure-img" width="2400">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sampling-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Each grey line is the fitted regression from a different sample of size <span class="math inline">\(n = 40\)</span> drawn from the same population; the dashed line is the population relationship.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Every grey line is a legitimate result that a careful researcher could have obtained. The estimand <span class="math inline">\(\beta_1 = 2\)</span> is fixed; the estimates scatter around it. The spread of the bundle <em>is</em> the sampling distribution.</p>
+</section><section id="the-same-information-one-dimension-at-a-time" class="level3"><h3 class="anchored" data-anchor-id="the-same-information-one-dimension-at-a-time">The same information, one dimension at a time</h3>
+<p>Collapsing the bundle of lines to the slope alone gives the object we will spend Lectures 4 to 6 characterising: the sampling distribution of a single coefficient.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-spread" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-spread-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-map_files/figure-html/fig-spread-1.svg" class="img-fluid figure-img" width="2400">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spread-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The sampling distribution of <span class="math inline">\(\hat\beta_1\)</span> from the simulation above, with the estimand marked.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="three-questions-follow-immediately" class="level3"><h3 class="anchored" data-anchor-id="three-questions-follow-immediately">Three questions follow immediately</h3>
+<ul>
+<li>Do the estimates centre on the truth? — <em>unbiasedness</em>, <strong>Lecture 4</strong>
+</li>
+<li>Do they concentrate as <span class="math inline">\(n\)</span> grows? — <em>consistency</em>, <strong>Lecture 5</strong>
+</li>
+<li>Can we say, from <strong>one</strong> sample, how wide the bundle is? — <em>inference</em>, <strong>Lecture 6</strong>
+</li>
+</ul>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The third is the remarkable one. A single sample carries enough information to estimate the spread of a distribution we can never observe.</p>
+</div>
+</div>
+</div>
+</section></section><section id="where-the-models-come-in" class="level2" data-number="0.5"><h2 data-number="0.5" class="anchored" data-anchor-id="where-the-models-come-in">
+<span class="header-section-number">0.5</span> Where the models come in</h2>
+<section id="a-sequence-of-failures-and-repairs" class="level3"><h3 class="anchored" data-anchor-id="a-sequence-of-failures-and-repairs">A sequence of failures and repairs</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th>Setting</th>
+<th>The problem it responds to</th>
+<th>Lectures</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Linear regression</td>
+<td>A baseline: what can be learned under exogeneity?</td>
+<td>2–6</td>
+</tr>
+<tr class="even">
+<td>Heteroskedasticity, clustering</td>
+<td>The variance assumption fails; inference breaks</td>
+<td>7, 16</td>
+</tr>
+<tr class="odd">
+<td>Bootstrap</td>
+<td>The asymptotic approximation may be poor</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>Instrumental variables</td>
+<td>Exogeneity fails; identification is at risk</td>
+<td>10–11</td>
+</tr>
+<tr class="odd">
+<td>GMM</td>
+<td>Moment conditions as a general language</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>Maximum likelihood</td>
+<td>The parameter is not a conditional mean</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td>Logit and probit</td>
+<td>The outcome is binary</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>Panel data</td>
+<td>Unobserved heterogeneity, and what variation survives it</td>
+<td>15–16</td>
+</tr>
+</tbody>
+</table>
+<p>Read down the middle column. It is not a list of techniques; it is a sequence of failures and the repairs they provoked.</p>
+</section></section><section id="the-two-families" class="level2" data-number="0.6"><h2 data-number="0.6" class="anchored" data-anchor-id="the-two-families">
+<span class="header-section-number">0.6</span> The two families</h2>
+<section id="recognise-the-shapes-now" class="level3"><h3 class="anchored" data-anchor-id="recognise-the-shapes-now">Recognise the shapes now</h3>
+<p>We will not develop either of these yet. The point is that you should recognise the shapes when they appear — and they appear immediately, in Lecture 3, before either has a name.</p>
+<div class="econ-box econ-box-toolbox" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">Optimisation and moment conditions</span>
+</div>
+<div class="econ-box-body">
+<p><strong>M-estimation.</strong> Estimators defined as the solution to an optimisation problem: <span class="math display">\[\hat\btheta = \argmin_{\btheta \in \Theta} Q_n(\btheta).\]</span> Least squares takes <span class="math inline">\(Q_n(\bbeta) = n^{-1}\sum_i (y_i - \mathbf{x}_i'\bbeta)^2\)</span>; maximum likelihood takes <span class="math inline">\(Q_n\)</span> to be the negative log-likelihood. Same shape, different criterion.</p>
+<p><strong>Z-estimation.</strong> Estimators defined as the solution to a system of equations: <span class="math display">\[\frac{1}{n}\sum_{i=1}^n \psi(W_i, \btheta) = \bzero.\]</span> The OLS normal equations <span class="math inline">\(\bX'\be = \bzero\)</span> are already of this form. IV replaces <span class="math inline">\(\mathbf{x}_i\)</span> with an instrument; GMM generalises to any <span class="math inline">\(\E[g(W_i,\btheta)] = \bzero\)</span>.</p>
+</div>
+</div>
+</section><section id="the-two-families-overlap" class="level3"><h3 class="anchored" data-anchor-id="the-two-families-overlap">The two families overlap</h3>
+<p>Least squares belongs to both: the first-order condition of the optimisation problem <strong>is</strong> the moment condition.</p>
+<p>That overlap is not a coincidence, and Lecture 13 explains it. For now, note only that the first-order condition of an M-estimation problem always produces a Z-estimation problem — which is why the asymptotic arguments for the two families look so similar.</p>
+<div class="econ-box econ-box-connection" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Why this matters now</span>
+</div>
+<div class="econ-box-body">
+<p>When you read <em>“we estimate <span class="math inline">\(\theta\)</span> by GMM using the moment conditions implied by the model”</em>, the sentence should parse structurally before you know anything about the application.</p>
+<p>That is the vocabulary this course is trying to install.</p>
+</div>
+</div>
+</section></section><section id="econometrics-as-practice" class="level2" data-number="0.7"><h2 data-number="0.7" class="anchored" data-anchor-id="econometrics-as-practice">
+<span class="header-section-number">0.7</span> Econometrics as practice</h2>
+<section id="card-krueger-1994" class="level3"><h3 class="anchored" data-anchor-id="card-krueger-1994">Card &amp; Krueger (1994)</h3>
+<div class="econ-box econ-box-literature" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">The contribution is an identification argument</span>
+</div>
+<div class="econ-box-body">
+<p>New Jersey raised its minimum wage in 1992; Pennsylvania did not. Comparing employment changes in fast-food restaurants across the border, <span class="citation" data-cites="card1994minimum">Card and Krueger (<a href="#ref-card1994minimum" role="doc-biblioref">1994</a>)</span> found no evidence of employment losses.</p>
+<p>The paper is famous for its conclusion. It belongs in the <em>first</em> lecture for a different reason: <strong>the estimation is arithmetic</strong>. What made it publishable was the case that the comparison isolates the effect of the policy.</p>
+</div>
+</div>
+<p>This is the shape of a great deal of modern empirical economics. The hard part is rarely the estimator.</p>
+</section><section id="angrist-krueger-1991" class="level3"><h3 class="anchored" data-anchor-id="angrist-krueger-1991">Angrist &amp; Krueger (1991)</h3>
+<div class="econ-box econ-box-literature" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">An identification claim buys an instrument</span>
+</div>
+<div class="econ-box-body">
+<p>Quarter of birth affects years of schooling through compulsory attendance laws, but should not otherwise affect earnings <span class="citation" data-cites="angrist1991does">(<a href="#ref-angrist1991does" role="doc-biblioref">Angrist and Krueger 1991</a>)</span>.</p>
+<p>Read it after Lecture 10. Then read the critiques after Lecture 11 — it is also the canonical illustration of what goes wrong when an instrument is weak.</p>
+</div>
+</div>
+</section><section id="theoretical-and-applied-econometrics" class="level3"><h3 class="anchored" data-anchor-id="theoretical-and-applied-econometrics">Theoretical and applied econometrics</h3>
+<p>Theoretical econometrics develops estimators and establishes their properties. Applied econometrics uses them to answer economic questions.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This course is aimed at the applied economist — and it is a <em>theoretical</em> course, because the applied economist who does not know why an estimator works cannot tell when it stops working.</p>
+</div>
+</div>
+</div>
+</section></section><section id="computation-and-replication" class="level2" data-number="0.8"><h2 data-number="0.8" class="anchored" data-anchor-id="computation-and-replication">
+<span class="header-section-number">0.8</span> Computation and replication</h2>
+<section id="three-facts-that-will-matter" class="level3"><h3 class="anchored" data-anchor-id="three-facts-that-will-matter">Three facts that will matter</h3>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Why we open the hood</span>
+</div>
+<div class="econ-box-body">
+<ul>
+<li>No software computes <span class="math inline">\((\bX'\bX)^{-1}\bX'\by\)</span> by inverting <span class="math inline">\(\bX'\bX\)</span>. Forming the cross-product squares the condition number of <span class="math inline">\(\bX\)</span>. R uses a QR decomposition. <em>(Lecture 3)</em>
+</li>
+<li>Maximum likelihood has no closed form for logit or probit. The estimate is the output of an iterative optimiser that can fail to converge. <em>(Lecture 14)</em>
+</li>
+<li>
+<code>vcovHC()</code> has at least four variants that differ in finite samples, and packages disagree about the default. <em>(Lecture 7)</em>
+</li>
+</ul>
+</div>
+</div>
+<p>None of these is a programming detail. Each is a place where the mathematics and the number on the screen can part company.</p>
+</section><section id="two-practices-expected-in-this-course" class="level3"><h3 class="anchored" data-anchor-id="two-practices-expected-in-this-course">Two practices, expected in this course</h3>
+<p><strong>Set a seed.</strong> Any result involving simulation must be reproducible. A Monte Carlo without a seed is not a result.</p>
+<p><strong>Keep the code with the paper.</strong> Replication is not a courtesy to referees; it is how you discover your own errors.</p>
+</section></section><section id="what-you-should-be-able-to-do" class="level2" data-number="0.9"><h2 data-number="0.9" class="anchored" data-anchor-id="what-you-should-be-able-to-do">
+<span class="header-section-number">0.9</span> What you should be able to do</h2>
+<section id="the-goal" class="level3"><h3 class="anchored" data-anchor-id="the-goal">The goal</h3>
+<p>Not that you can say <em>“I know OLS, IV, logit and panel data.”</em></p>
+<p>That, faced with an empirical question, you can think:</p>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>I have a DGP and a parameter of interest. I need to establish whether that parameter is identified, choose an estimation strategy suited to it, work out the properties of the resulting estimator, and construct inference valid under the assumptions I am actually willing to make.</p>
+</div>
+</div>
+</div>
+</section><section id="reading" class="level3"><h3 class="anchored" data-anchor-id="reading">Reading</h3>
+<table class="caption-top table"><tbody>
+<tr class="odd">
+<td><strong>Hansen</strong></td>
+<td>Chapter 1</td>
+</tr>
+<tr class="even">
+<td><strong>Greene</strong></td>
+<td>Chapter 1</td>
+</tr>
+</tbody></table>
+<p>Hansen’s first chapter is short and worth reading in full, particularly its remarks on econometric software and replication. Greene’s covers the same ground with more attention to the history of the field.</p>
+</section></section><section id="references" class="level2" data-number="0.10"><h2 data-number="0.10" class="anchored" data-anchor-id="references">
+<span class="header-section-number">0.10</span> References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-angrist1991does" class="csl-entry" role="listitem">
+Angrist, Joshua D., and Alan B. Krueger. 1991. <span>“Does Compulsory School Attendance Affect Schooling and Earnings?”</span> <em>Quarterly Journal of Economics</em> 106 (4): 979–1014.
+</div>
+<div id="ref-card1994minimum" class="csl-entry" role="listitem">
+Card, David, and Alan B. Krueger. 1994. <span>“Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania.”</span> <em>American Economic Review</em> 84 (4): 772–93.
+</div>
+</div>
+
+
+</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><!--
+  Annotated equations: link each \eqt{key}{...} term in the rendered math to its
+  explanation card, in both directions.
+
+  Injected via `include-after-body`, so the DOM exists when this runs. MathJax
+  typesets asynchronously, so we wait for the `econ:mathjax-done` event fired by
+  assets/mathjax.html (with a polling fallback in case MathJax is absent or the
+  event was missed).
+
+  Behaviour: hovering or focusing either a term or its card highlights both.
+  Clicking a term pins the pair, so it survives the pointer moving away — which
+  matters when the note is long enough to read.
+--><script>
+(function () {
+  'use strict';
+
+  var PINNED = 'eqt-pinned';
+  var ACTIVE = 'eqt-active';
+
+  // wire() can be reached from three paths (the MathJax event, DOMContentLoaded,
+  // and the polling fallback). Without this guard the later paths bind a second
+  // set of handlers and every click toggles the pin twice, i.e. never pins.
+  var wired = false;
+
+  function wire(root) {
+    if (wired) return true;
+
+    var terms = root.querySelectorAll('.eqt');
+    if (!terms.length) return false;
+
+    wired = true;
+
+    // MathJax emits \class{eqt eqt-a} on possibly several nested nodes; index by key.
+    var byKey = {};
+    terms.forEach(function (el) {
+      var key = null;
+      el.classList.forEach(function (c) {
+        if (c.indexOf('eqt-') === 0 && c !== 'eqt-active' && c !== 'eqt-pinned') {
+          key = c.slice(4);
+        }
+      });
+      if (!key) return;
+      (byKey[key] = byKey[key] || []).push(el);
+      el.setAttribute('data-eqt', key);
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Equation term ' + key);
+    });
+
+    var notes = root.querySelectorAll('.econ-eqnote-note');
+    var noteByKey = {};
+    notes.forEach(function (n) { noteByKey[n.getAttribute('data-eqt')] = n; });
+
+    function partners(key) {
+      var list = (byKey[key] || []).slice();
+      if (noteByKey[key]) list.push(noteByKey[key]);
+      return list;
+    }
+
+    function setActive(key, on) {
+      partners(key).forEach(function (el) { el.classList.toggle(ACTIVE, on); });
+    }
+
+    function clearPins(scope) {
+      scope.querySelectorAll('.' + PINNED).forEach(function (el) {
+        el.classList.remove(PINNED);
+        el.classList.remove(ACTIVE);
+      });
+    }
+
+    function togglePin(key, container) {
+      var already = (byKey[key] || []).some(function (el) {
+        return el.classList.contains(PINNED);
+      });
+      clearPins(container);
+      if (!already) {
+        partners(key).forEach(function (el) {
+          el.classList.add(PINNED);
+          el.classList.add(ACTIVE);
+        });
+      }
+    }
+
+    function bind(el) {
+      var key = el.getAttribute('data-eqt');
+      if (!key) return;
+      var container = el.closest('.econ-eqnote') || root;
+
+      el.addEventListener('mouseenter', function () { setActive(key, true); });
+      el.addEventListener('mouseleave', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('focus', function () { setActive(key, true); });
+      el.addEventListener('blur', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        togglePin(key, container);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          togglePin(key, container);
+        }
+      });
+    }
+
+    terms.forEach(bind);
+    notes.forEach(bind);
+
+    // Clicking outside any annotated equation releases the pin.
+    document.addEventListener('click', function (ev) {
+      if (!ev.target.closest('.econ-eqnote')) clearPins(root);
+    });
+
+    return true;
+  }
+
+  var timer = null;
+
+  function stopPolling() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    if (wire(document)) {
+      stopPolling();
+      return;
+    }
+    if (timer !== null) return;
+    // Fallback: MathJax may not have finished (or may not be present at all).
+    var tries = 0;
+    timer = setInterval(function () {
+      if (wire(document) || ++tries > 40) stopPolling();
+    }, 150);
+  }
+
+  document.addEventListener('econ:mathjax-done', start);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Course Map">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Course Map</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../notas/02-projection.html" class="pagination-link" aria-label="2 · Conditional Expectation and Projection">
+        <span class="nav-page-text">2 · Conditional Expectation and Projection</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Econometrics I — PIMES/UFPE</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

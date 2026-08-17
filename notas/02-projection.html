@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Henrique Veras">
+<title>Conditional Expectation, Linear Projection, and the Linear Regression Model – Econometrics I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../notas/03-algebra.html" rel="next">
+<link href="../notas/01-map.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f53dd81e4532dc1ad2d5a3da1ba84db5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-85294af6fad2849895ed9755e431b126.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<!--
+  MathJax configuration for Econometrics I.
+
+  Two jobs:
+   (1) load the [tex]/html package so \class{} works, which is what lets
+       \eqt{key}{body} tag a sub-expression for the annotated-equation widget;
+   (2) define the course-wide macro set, so notation is declared once here
+       instead of being re-typed in every lecture.
+
+  This block is injected into <head> via `include-in-header`, so it runs before
+  MathJax itself is loaded and the configuration is picked up.
+
+  Shared by the website AND the Reveal.js decks, so the macro set is declared
+  once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
+  _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
+  MathJax 2 and is neutralised by the Hub shim below.
+--><script>
+window.MathJax = {
+  loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
+  tex: {
+    packages: { '[+]': ['html', 'ams', 'boldsymbol'] },
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams',
+    macros: {
+      // --- annotated-equation term tag -------------------------------------
+      eqt: ['\\class{eqt eqt-#1}{#2}', 2],
+
+      // --- estimators and operators ----------------------------------------
+      plim:  ['\\operatorname*{plim}', 0],
+      argmin:['\\operatorname*{arg\\,min}', 0],
+      argmax:['\\operatorname*{arg\\,max}', 0],
+      tr:    ['\\operatorname{tr}', 0],
+      rank:  ['\\operatorname{rank}', 0],
+      diag:  ['\\operatorname{diag}', 0],
+      vect:  ['\\operatorname{vec}', 0],
+
+      // --- probability ------------------------------------------------------
+      E:     ['\\mathbb{E}', 0],
+      Var:   ['\\operatorname{Var}', 0],
+      Cov:   ['\\operatorname{Cov}', 0],
+      Prob:  ['\\mathbb{P}', 0],
+      indep: ['\\perp\\!\\!\\!\\perp', 0],
+      pto:   ['\\xrightarrow{\\;p\\;}', 0],
+      dto:   ['\\xrightarrow{\\;d\\;}', 0],
+      asto:  ['\\xrightarrow{\\;a.s.\\;}', 0],
+      Normal:['\\mathcal{N}', 0],
+
+      // --- vectors and matrices (bold upright) ------------------------------
+      mat:   ['\\mathbf{#1}', 1],
+      vecb:  ['\\mathbf{#1}', 1],
+      bbeta: ['\\boldsymbol{\\beta}', 0],
+      beps:  ['\\boldsymbol{\\varepsilon}', 0],
+      btheta:['\\boldsymbol{\\theta}', 0],
+      bX:    ['\\mathbf{X}', 0],
+      bY:    ['\\mathbf{y}', 0],
+      bZ:    ['\\mathbf{Z}', 0],
+      bb:    ['\\mathbf{b}', 0],
+      be:    ['\\mathbf{e}', 0],
+      bP:    ['\\mathbf{P}', 0],
+      bM:    ['\\mathbf{M}', 0],
+      bI:    ['\\mathbf{I}', 0],
+      bQ:    ['\\mathbf{Q}', 0],
+      bzero: ['\\mathbf{0}', 0]
+    }
+  },
+  options: {
+    enableMenu: true,
+    menuOptions: { settings: { zoom: 'DoubleClick' } }
+  },
+  chtml: { displayAlign: 'center', displayIndent: '0' },
+  startup: {
+    ready: function () {
+      // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
+      // plugin. Pointed at v3 it loads the library correctly and then throws
+      // once on `MathJax.Hub.Config`, because v3 has no Hub. The error is
+      // cosmetic -- Reveal has already initialised and MathJax 3 typesets on
+      // its own. A Hub shim does not help: the plugin's callback runs before
+      // this hook, so there is nothing to shim yet.
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(function () {
+        // Signal the annotated-equation script that \eqt terms are in the DOM.
+        document.dispatchEvent(new CustomEvent('econ:mathjax-done'));
+        // Reveal sizes slides before the maths exists, so re-measure once it
+        // does. No-op on the website, where Reveal is undefined.
+        if (typeof Reveal !== 'undefined' && Reveal.layout) { Reveal.layout(); }
+      });
+    }
+  }
+};
+
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../assets/components.css">
+</head>
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Econometrics I</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa/ementa-2026.html"> 
+<span class="menu-text">Ementa</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto"></ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/01-map.html">I — Foundations</a></li><li class="breadcrumb-item"><a href="../notas/02-projection.html">2 · Conditional Expectation and Projection</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Map</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I — Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/02-projection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II — Linear Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">IV — Nonlinear Estimation</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">V — Panel Data</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Component Reference</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#before-any-model" id="toc-before-any-model" class="nav-link active" data-scroll-target="#before-any-model"><span class="header-section-number">0.1</span> Before any model</a>
+  <ul class="collapse">
+<li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
+  <li><a href="#the-question-of-this-lecture" id="toc-the-question-of-this-lecture" class="nav-link" data-scroll-target="#the-question-of-this-lecture">The question of this lecture</a></li>
+  <li><a href="#two-objects-and-why-the-order-matters" id="toc-two-objects-and-why-the-order-matters" class="nav-link" data-scroll-target="#two-objects-and-why-the-order-matters">Two objects, and why the order matters</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-conditional-expectation-function" id="toc-the-conditional-expectation-function" class="nav-link" data-scroll-target="#the-conditional-expectation-function"><span class="header-section-number">0.2</span> The conditional expectation function</a>
+  <ul class="collapse">
+<li><a href="#what-we-actually-want-to-know" id="toc-what-we-actually-want-to-know" class="nav-link" data-scroll-target="#what-we-actually-want-to-know">What we actually want to know</a></li>
+  <li><a href="#the-cef-error" id="toc-the-cef-error" class="nav-link" data-scroll-target="#the-cef-error">The CEF error</a></li>
+  <li><a href="#nothing-here-has-been-assumed" id="toc-nothing-here-has-been-assumed" class="nav-link" data-scroll-target="#nothing-here-has-been-assumed">Nothing here has been assumed</a></li>
+  <li><a href="#why-the-mean-and-not-something-else" id="toc-why-the-mean-and-not-something-else" class="nav-link" data-scroll-target="#why-the-mean-and-not-something-else">Why the mean, and not something else?</a></li>
+  <li><a href="#a-pattern-to-notice" id="toc-a-pattern-to-notice" class="nav-link" data-scroll-target="#a-pattern-to-notice">A pattern to notice</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#linear-projection" id="toc-linear-projection" class="nav-link" data-scroll-target="#linear-projection"><span class="header-section-number">0.3</span> Linear projection</a>
+  <ul class="collapse">
+<li><a href="#a-more-modest-target" id="toc-a-more-modest-target" class="nav-link" data-scroll-target="#a-more-modest-target">A more modest target</a></li>
+  <li><a href="#you-can-always-project" id="toc-you-can-always-project" class="nav-link" data-scroll-target="#you-can-always-project">You can always project</a></li>
+  <li><a href="#a-small-equation-with-a-long-future" id="toc-a-small-equation-with-a-long-future" class="nav-link" data-scroll-target="#a-small-equation-with-a-long-future">A small equation with a long future</a></li>
+  <li><a href="#the-projection-error-is-not-the-cef-error" id="toc-the-projection-error-is-not-the-cef-error" class="nav-link" data-scroll-target="#the-projection-error-is-not-the-cef-error">The projection error is not the CEF error</a></li>
+  <li><a href="#seeing-the-gap" id="toc-seeing-the-gap" class="nav-link" data-scroll-target="#seeing-the-gap">Seeing the gap</a></li>
+  <li><a href="#the-two-statements-side-by-side" id="toc-the-two-statements-side-by-side" class="nav-link" data-scroll-target="#the-two-statements-side-by-side">The two statements, side by side</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-linear-regression-model" id="toc-the-linear-regression-model" class="nav-link" data-scroll-target="#the-linear-regression-model"><span class="header-section-number">0.4</span> The linear regression model</a>
+  <ul class="collapse">
+<li><a href="#now-we-assume-something" id="toc-now-we-assume-something" class="nav-link" data-scroll-target="#now-we-assume-something">Now we assume something</a></li>
+  <li><a href="#matrix-form-and-notation" id="toc-matrix-form-and-notation" class="nav-link" data-scroll-target="#matrix-form-and-notation">Matrix form and notation</a></li>
+  <li><a href="#a2-full-rank-and-why-it-is-about-identification" id="toc-a2-full-rank-and-why-it-is-about-identification" class="nav-link" data-scroll-target="#a2-full-rank-and-why-it-is-about-identification">A2 · Full rank, and why it is about identification</a></li>
+  <li><a href="#what-that-looks-like" id="toc-what-that-looks-like" class="nav-link" data-scroll-target="#what-that-looks-like">What that looks like</a></li>
+  <li><a href="#a3-exogeneity" id="toc-a3-exogeneity" class="nav-link" data-scroll-target="#a3-exogeneity">A3 · Exogeneity</a></li>
+  <li><a href="#where-exogeneity-fails" id="toc-where-exogeneity-fails" class="nav-link" data-scroll-target="#where-exogeneity-fails">Where exogeneity fails</a></li>
+  <li><a href="#a4-spherical-disturbances" id="toc-a4-spherical-disturbances" class="nav-link" data-scroll-target="#a4-spherical-disturbances">A4 · Spherical disturbances</a></li>
+  <li><a href="#a5-and-a6" id="toc-a5-and-a6" class="nav-link" data-scroll-target="#a5-and-a6">A5 and A6</a></li>
+  <li><a href="#what-each-assumption-buys" id="toc-what-each-assumption-buys" class="nav-link" data-scroll-target="#what-each-assumption-buys">What each assumption buys</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#identification-before-estimation" id="toc-identification-before-estimation" class="nav-link" data-scroll-target="#identification-before-estimation"><span class="header-section-number">0.5</span> Identification, before estimation</a>
+  <ul class="collapse">
+<li><a href="#putting-the-pieces-together" id="toc-putting-the-pieces-together" class="nav-link" data-scroll-target="#putting-the-pieces-together">Putting the pieces together</a></li>
+  <li><a href="#two-assumptions-two-jobs" id="toc-two-assumptions-two-jobs" class="nav-link" data-scroll-target="#two-assumptions-two-jobs">Two assumptions, two jobs</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">0.6</span> Reading</a>
+  <ul class="collapse">
+<li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul>
+</li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">0.7</span> References</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/01-map.html">I — Foundations</a></li><li class="breadcrumb-item"><a href="../notas/02-projection.html">2 · Conditional Expectation and Projection</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Conditional Expectation, Linear Projection, and the Linear Regression Model</h1>
+<p class="subtitle lead">Lecture 2</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Henrique Veras </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            PIMES/UFPE
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header><section id="before-any-model" class="level2" data-number="0.1"><h2 data-number="0.1" class="anchored" data-anchor-id="before-any-model">
+<span class="header-section-number">0.1</span> Before any model</h2>
+<section id="where-this-lecture-sits" class="level3"><h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
+<p></p>
+<div class="econ-stage" role="note" aria-label="Position in the course architecture">
+<div class="econ-stage-row">
+<span class="econ-stage-item econ-stage-dgp is-active">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification is-active">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span>
+</div>
+<div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div>
+</div>
+<p>This lecture answers the <strong>first</strong> of the three questions, and only that one. By the end we will know under exactly what conditions the parameter of a linear model can be learned from data — and we will not have written down a single estimator. Estimation is Lecture 3; inference waits until Lecture 6.</p>
+<p>That separation is deliberate and will be repeated all semester. Identification is a property of the population and the model; it is settled before any data are collected, and no estimator can repair its failure.</p>
+</section><section id="the-question-of-this-lecture" class="level3"><h3 class="anchored" data-anchor-id="the-question-of-this-lecture">The question of this lecture</h3>
+<p>We observe a sample and want to say something about the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(\mathbf{x}\)</span>. The instinct is to write down a model. Resist it for a moment, and ask instead: <strong>what can be said before assuming anything at all?</strong></p>
+<div class="econ-box econ-box-dgp" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span>
+</div>
+<div class="econ-box-body">
+<p><span class="math inline">\(\{(y_i, \mathbf{x}_i)\}_{i=1}^n\)</span> are i.i.d. draws from a population distribution <span class="math inline">\(F\)</span>, with <span class="math inline">\(y_i\)</span> scalar and <span class="math inline">\(\mathbf{x}_i\)</span> a <span class="math inline">\(K \times 1\)</span> vector.</p>
+<p>That is the entire assumption. No linearity, no exogeneity, no functional form.</p>
+</div>
+</div>
+</section><section id="two-objects-and-why-the-order-matters" class="level3"><h3 class="anchored" data-anchor-id="two-objects-and-why-the-order-matters">Two objects, and why the order matters</h3>
+<p>It turns out that a joint distribution alone gives us <strong>two</strong> well-defined objects: the <em>conditional expectation function</em>, which describes the average of <span class="math inline">\(y\)</span> at each value of <span class="math inline">\(\mathbf{x}\)</span>, and the <em>linear projection</em>, which is the best straight-line summary of that relationship. Neither requires a model. Both exist as soon as a few moments are finite.</p>
+<p>Only afterwards do we impose the linear regression model — and the model turns out to be precisely the assumption that these two objects coincide.</p>
+<p>Most treatments run the other way, opening with the assumptions A1–A6 and inviting the belief that linearity is where econometrics begins. Taking the population objects first costs one extra section and repays it many times over: when exogeneity fails in Lecture 10, the student already knows what survives, because they know what was definitional and what was assumed.</p>
+</section></section><section id="the-conditional-expectation-function" class="level2" data-number="0.2"><h2 data-number="0.2" class="anchored" data-anchor-id="the-conditional-expectation-function">
+<span class="header-section-number">0.2</span> The conditional expectation function</h2>
+<section id="what-we-actually-want-to-know" class="level3"><h3 class="anchored" data-anchor-id="what-we-actually-want-to-know">What we actually want to know</h3>
+<p>A model builder is rarely interested in the joint distribution of <span class="math inline">\(y\)</span> and <span class="math inline">\(\mathbf{x}\)</span> as such. The interest is <em>conditional</em>: how does the distribution of earnings shift as schooling changes? And usually not the whole conditional distribution, but one feature of it — most often the mean, sometimes a quantile, occasionally the variance.</p>
+<p>Linear regression is about the conditional mean, so that is where we start.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-conditional-distributions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-conditional-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-projection_files/figure-html/fig-conditional-distributions-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conditional-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</span> at three values of <span class="math inline">\(x\)</span>. The CEF records only the crosses.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The CEF is the line through the crosses. Everything else the conditional distributions contain — here, a spread that widens with <span class="math inline">\(x\)</span> — is discarded by construction. That discarded part becomes heteroskedasticity in Lecture 7.</p>
+<div id="def-cef" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Conditional expectation function)</strong></span> The <strong>conditional expectation function</strong> (CEF) is <span class="math display">\[m(\mathbf{x}) = \E[y \mid \mathbf{x}],\]</span> the mean of <span class="math inline">\(y\)</span> in the subpopulation with covariates equal to <span class="math inline">\(\mathbf{x}\)</span>. It exists whenever <span class="math inline">\(\E|y| &lt; \infty\)</span>, and involves no modelling assumption whatever.</p>
+</div>
+</section><section id="the-cef-error" class="level3"><h3 class="anchored" data-anchor-id="the-cef-error">The CEF error</h3>
+<p>Whatever <span class="math inline">\(m\)</span> happens to be, we can always define the deviation of <span class="math inline">\(y\)</span> from it. Write <span class="math inline">\(\varepsilon = y - m(\mathbf{x})\)</span>, so that <span class="math inline">\(y = m(\mathbf{x}) + \varepsilon\)</span>. This looks like a regression equation, and it is worth being clear immediately about how little it claims.</p>
+<div id="thm-cef-error" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Properties of the CEF error)</strong></span> &nbsp;</p>
+<ol type="1">
+<li><span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span></li>
+<li><span class="math inline">\(\E[\varepsilon] = 0\)</span></li>
+<li>
+<span class="math inline">\(\E[h(\mathbf{x})\,\varepsilon] = 0\)</span> for any <span class="math inline">\(h\)</span> with <span class="math inline">\(\E|h(\mathbf{x})\varepsilon| &lt; \infty\)</span>
+</li>
+</ol>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span></p>
+<ol type="1">
+<li>holds because <span class="math inline">\(m(\mathbf{x})\)</span> is a function of <span class="math inline">\(\mathbf{x}\)</span>, so it passes through the conditional expectation. (2) is (1) plus the law of iterated expectations. (3) follows by conditioning on <span class="math inline">\(\mathbf{x}\)</span> first, which reduces the expression to <span class="math inline">\(\E[h(\mathbf{x}) \cdot 0]\)</span>. <span class="math inline">\(\square\)</span>
+</li>
+</ol>
+</div>
+</section><section id="nothing-here-has-been-assumed" class="level3"><h3 class="anchored" data-anchor-id="nothing-here-has-been-assumed">Nothing here has been assumed</h3>
+<p>Read the theorem again and notice what it is not. The equation <span class="math inline">\(y = m(\mathbf{x}) + \varepsilon\)</span> with <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span> holds <strong>by construction</strong>, for any joint distribution with a finite mean. It has no empirical content: nothing has been assumed, and consequently nothing can be tested.</p>
+<p>This matters because the same equation reappears in a few slides as the linear regression model, where it <em>does</em> carry content. The difference will be whether <span class="math inline">\(m(\mathbf{x})\)</span> is left unrestricted or required to be linear.</p>
+<p>Confusing “the error has conditional mean zero by construction” with “the error has conditional mean zero by assumption” is exactly what makes the exogeneity assumption look either vacuous or mysterious. It is neither.</p>
+</section><section id="why-the-mean-and-not-something-else" class="level3"><h3 class="anchored" data-anchor-id="why-the-mean-and-not-something-else">Why the mean, and not something else?</h3>
+<p>The choice of the conditional mean can look arbitrary — why not the median? There is a precise answer: among all functions of <span class="math inline">\(\mathbf{x}\)</span>, the CEF is the one that predicts <span class="math inline">\(y\)</span> best under squared loss. If you are going to summarise <span class="math inline">\(y\)</span> by a single number at each <span class="math inline">\(\mathbf{x}\)</span>, and you penalise mistakes quadratically, the CEF is the summary you want.</p>
+<div id="thm-cef-best-predictor" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (The CEF minimises mean squared error)</strong></span> Among all <span class="math inline">\(g\)</span> with <span class="math inline">\(\E[g(\mathbf{x})^2] &lt; \infty\)</span>, <span class="math display">\[m(\mathbf{x}) = \argmin_{g} \E\big[(y - g(\mathbf{x}))^2\big].\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Add and subtract <span class="math inline">\(m(\mathbf{x})\)</span> inside the square. The cross term vanishes by <a href="#thm-cef-error" class="quarto-xref">Theorem&nbsp;1</a>(3), since <span class="math inline">\(m - g\)</span> is a function of <span class="math inline">\(\mathbf{x}\)</span>, leaving <span class="math display">\[\E\big[(y - g(\mathbf{x}))^2\big] = \E[\varepsilon^2] + \E\big[(m(\mathbf{x}) - g(\mathbf{x}))^2\big] \ge \E[\varepsilon^2],\]</span> with equality iff <span class="math inline">\(g = m\)</span> almost surely. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="a-pattern-to-notice" class="level3"><h3 class="anchored" data-anchor-id="a-pattern-to-notice">A pattern to notice</h3>
+<p><a href="#thm-cef-best-predictor" class="quarto-xref">Theorem&nbsp;2</a> defines the CEF as the solution to a minimisation problem — a minimisation over a <em>function</em>, which is more than we can do with a finite sample. Least squares, next lecture, solves the sample version of the same problem restricted to linear <span class="math inline">\(g\)</span>. That is the entire relationship between the population object and the estimator, and it is the first instance of a pattern that will organise the course.</p>
+</section></section><section id="linear-projection" class="level2" data-number="0.3"><h2 data-number="0.3" class="anchored" data-anchor-id="linear-projection">
+<span class="header-section-number">0.3</span> Linear projection</h2>
+<section id="a-more-modest-target" class="level3"><h3 class="anchored" data-anchor-id="a-more-modest-target">A more modest target</h3>
+<p>The CEF is unknown and generally nonlinear, so estimating it directly is hard. A more modest goal is the best <em>linear</em> approximation to <span class="math inline">\(y\)</span> — and the striking thing is that this object exists under conditions barely stronger than those for the CEF itself.</p>
+<div id="def-projection-coef" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (Linear projection coefficient)</strong></span> Suppose <span class="math inline">\(\E[y^2] &lt; \infty\)</span>, <span class="math inline">\(\E\|\mathbf{x}\|^2 &lt; \infty\)</span>, and <span class="math inline">\(\bQ_{xx} = \E[\mathbf{x}\mathbf{x}']\)</span> is nonsingular. The <strong>linear projection coefficient</strong> is <span class="math display">\[\bbeta = \argmin_{\mathbf{b}} \E\big[(y - \mathbf{x}'\mathbf{b})^2\big] = \bQ_{xx}^{-1}\,\E[\mathbf{x}y],\]</span> and the <strong>linear projection</strong> of <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(\mathbf{x}'\bbeta\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The criterion is a quadratic form in <span class="math inline">\(\mathbf{b}\)</span>; its first-order condition is <span class="math inline">\(-2\E[\mathbf{x}y] + 2\bQ_{xx}\mathbf{b} = \bzero\)</span>, which has a unique solution because <span class="math inline">\(\bQ_{xx}\)</span> is nonsingular, and is a minimum because <span class="math inline">\(2\bQ_{xx}\)</span> is positive definite. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="you-can-always-project" class="level3"><h3 class="anchored" data-anchor-id="you-can-always-project">You can always project</h3>
+<p>Look at what <a href="#def-projection-coef" class="quarto-xref">Definition&nbsp;2</a> requires: two finite moments and no exact collinearity. It does <strong>not</strong> require the CEF to be linear. It does not require the model to be “true”, or indeed for there to be a model at all. Given any joint distribution with enough moments, the projection exists and is unique.</p>
+</section><section id="a-small-equation-with-a-long-future" class="level3"><h3 class="anchored" data-anchor-id="a-small-equation-with-a-long-future">A small equation with a long future</h3>
+<p>Writing <span class="math inline">\(e = y - \mathbf{x}'\bbeta\)</span> for the projection error, the first-order condition says precisely that <span class="math display">\[\E[\mathbf{x}e] = \bzero.\]</span></p>
+<div class="econ-box econ-box-connection" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first moment condition of the course</span>
+</div>
+<div class="econ-box-body">
+<p><span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span> is a <strong>moment condition</strong> — a statement that some function of the data and the parameter has mean zero. Follow it forward:</p>
+<ul>
+<li>
+<strong>Lecture 3</strong> — its sample analogue <span class="math inline">\(\bX'\be = \bzero\)</span> drops out of least squares algebra</li>
+<li>
+<strong>Lecture 10</strong> — the regressor is replaced by an instrument, giving <span class="math inline">\(\E[\mathbf{z}e] = \bzero\)</span>
+</li>
+<li>
+<strong>Lecture 12</strong> — it generalises to <span class="math inline">\(\E[g(W,\btheta)] = \bzero\)</span>, which is GMM</li>
+</ul>
+</div>
+</div>
+</section><section id="the-projection-error-is-not-the-cef-error" class="level3"><h3 class="anchored" data-anchor-id="the-projection-error-is-not-the-cef-error">The projection error is not the CEF error</h3>
+<p>Both <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(e\)</span> are “errors”, both have mean zero, and it is tempting to treat them as the same object. They are not, and the difference is the whole content of the linearity assumption.</p>
+<p>The projection error satisfies <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span>: it is <em>uncorrelated</em> with <span class="math inline">\(\mathbf{x}\)</span>, by construction. The CEF error satisfies the much stronger <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span>: it is <em>mean-independent</em> of <span class="math inline">\(\mathbf{x}\)</span>. Correlation zero does not imply conditional mean zero, so a projection error can be — and generally is — systematically related to <span class="math inline">\(\mathbf{x}\)</span> while remaining uncorrelated with it.</p>
+</section><section id="seeing-the-gap" class="level3"><h3 class="anchored" data-anchor-id="seeing-the-gap">Seeing the gap</h3>
+<p>The figure below makes the distinction concrete. The true CEF is quadratic; the projection is the best line through it.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-cef-vs-projection" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-cef-vs-projection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-projection_files/figure-html/fig-cef-vs-projection-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cef-vs-projection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A nonlinear CEF (solid) and its linear projection (dashed).
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The projection error is uncorrelated with <span class="math inline">\(x\)</span> — that is what pins the dashed line down. Yet it is systematically negative in the middle of the range and positive at both ends, so <span class="math inline">\(\E[e \mid x] \neq 0\)</span>. Both statements hold at once. The projection is not <em>wrong</em>; it answers a different question from the one the CEF answers.</p>
+</section><section id="the-two-statements-side-by-side" class="level3"><h3 class="anchored" data-anchor-id="the-two-statements-side-by-side">The two statements, side by side</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-orthogonal-not-independent" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-orthogonal-not-independent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-projection_files/figure-html/fig-orthogonal-not-independent-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-orthogonal-not-independent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\)</span> — the fitted line is exactly flat, so the correlation is zero. Right: the same errors averaged within bins of <span class="math inline">\(x\)</span> — clearly not zero.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Same errors, both panels. The left says the projection did its job; the right says the linear model is wrong. Neither contradicts the other.</p>
+</section></section><section id="the-linear-regression-model" class="level2" data-number="0.4"><h2 data-number="0.4" class="anchored" data-anchor-id="the-linear-regression-model">
+<span class="header-section-number">0.4</span> The linear regression model</h2>
+<section id="now-we-assume-something" class="level3"><h3 class="anchored" data-anchor-id="now-we-assume-something">Now we assume something</h3>
+<p>Everything so far was definitional. The linear regression model is the substantive assumption that the CEF is linear — at which point the projection coefficient and the CEF coefficient coincide, and <span class="math inline">\(\bbeta\)</span> finally means what we want it to mean.</p>
+<p><strong>Assumption A1 (Linearity).</strong> <span class="math display">\[\bY = \bX_1\beta_1 + \bX_2\beta_2 + \cdots + \bX_K\beta_K + \beps\]</span></p>
+<p>Linearity here is in the <strong>parameters</strong> and the disturbance, not in the regressors. Including <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\log x\)</span> or an interaction <span class="math inline">\(x_1x_2\)</span> leaves the model perfectly linear — a point we exploit heavily in Lecture 9.</p>
+</section><section id="matrix-form-and-notation" class="level3"><h3 class="anchored" data-anchor-id="matrix-form-and-notation">Matrix form and notation</h3>
+<p>Each observation reads <span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span>, and stacking the <span class="math inline">\(n\)</span> of them gives the form used for the rest of the course:</p>
+<p><span class="math display">\[\underset{n \times 1}{\bY} = \underset{n \times K}{\bX}\;\underset{K \times 1}{\bbeta} + \underset{n \times 1}{\beps}\]</span></p>
+<p>Throughout, boldface <span class="math inline">\(\mathbf{x}\)</span> denotes a column or a row of <span class="math inline">\(\bX\)</span>; subscript <span class="math inline">\(k\)</span> indexes columns, meaning variables, and <span class="math inline">\(i\)</span> indexes rows, meaning observations.</p>
+</section><section id="a2-full-rank-and-why-it-is-about-identification" class="level3"><h3 class="anchored" data-anchor-id="a2-full-rank-and-why-it-is-about-identification">A2 · Full rank, and why it is about identification</h3>
+<p><strong>Assumption A2.</strong> The columns of <span class="math inline">\(\bX\)</span> are linearly independent, and <span class="math inline">\(n \ge K\)</span>.</p>
+<p>Equivalently <span class="math inline">\(\rank(\bX) = K\)</span>, which guarantees <span class="math inline">\(\bX'\bX\)</span> is invertible; in the population, the counterpart is that <span class="math inline">\(\bQ_{xx}\)</span> is nonsingular. It is easy to read this as a technical convenience that makes a formula work. It is not.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If A2 fails, distinct values of <span class="math inline">\(\bbeta\)</span> produce <strong>identical distributions of the observables</strong>. No estimator can tell them apart, at any sample size. This is an identification failure, not a computational one.</p>
+</div>
+</div>
+</section><section id="what-that-looks-like" class="level3"><h3 class="anchored" data-anchor-id="what-that-looks-like">What that looks like</h3>
+<div id="exm-monet" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (An unestimable model)</strong></span> <span class="math display">\[\ln \text{Price} = \beta_1 \ln \text{Size} + \beta_2 \ln \text{AspectRatio} + \beta_3 \ln \text{Height} + \varepsilon\]</span></p>
+<p>with <span class="math inline">\(\text{Size} = W \times H\)</span> and <span class="math inline">\(\text{AspectRatio} = W/H\)</span>. Then <span class="math inline">\(\ln\text{Size} = \ln W + \ln H\)</span> and <span class="math inline">\(\ln\text{AspectRatio} = \ln W - \ln H\)</span>, so <span class="math display">\[\ln\text{Size} - \ln\text{AspectRatio} - 2\ln H = 0\]</span> exactly. The three regressors are collinear, each <span class="math inline">\(\beta_k\)</span> is meaningless on its own, and only certain linear combinations are identified.</p>
+</div>
+</section><section id="a3-exogeneity" class="level3"><h3 class="anchored" data-anchor-id="a3-exogeneity">A3 · Exogeneity</h3>
+<p><strong>Assumption A3.</strong> <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span>.</p>
+<p>No value of <span class="math inline">\(\bX\)</span> carries information about the expected disturbance. Together with A1 this says <span class="math inline">\(\E[\bY \mid \bX] = \bX\bbeta\)</span> — the CEF is linear — which is exactly the condition that makes the projection coefficient the object we set out to learn about.</p>
+<p>Note that A3 is strictly stronger than absence of correlation: <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span> implies <span class="math inline">\(\Cov(\bX,\beps) = \bzero\)</span>, but the converse fails, and <span class="math inline">\(\E[\beps] = 0\)</span> on its own implies neither. This is the population counterpart of the CEF-versus-projection distinction from earlier in the lecture.</p>
+</section><section id="where-exogeneity-fails" class="level3"><h3 class="anchored" data-anchor-id="where-exogeneity-fails">Where exogeneity fails</h3>
+<div id="exm-omitted" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (Omitted variables)</strong></span> Suppose the DGP is <span class="math inline">\(\text{Income} = \gamma_1 + \gamma_2\,\text{educ} + \gamma_3\,\text{age} + u\)</span> but we estimate <span class="math inline">\(\text{Income} = \gamma_1 + \gamma_2\,\text{educ} + \varepsilon\)</span>.</p>
+<p>Then <span class="math inline">\(\varepsilon = \gamma_3\,\text{age} + u\)</span>, so <span class="math inline">\(\E[\varepsilon \mid \text{educ}] = \gamma_3\,\E[\text{age} \mid \text{educ}] \neq 0\)</span> whenever age and education are related.</p>
+</div>
+<p>A3 fails here, and the failure is not a technicality: it is omitted variable bias, which we derive properly in Lecture 4 and spend Lectures 10 and 11 learning to repair.</p>
+</section><section id="a4-spherical-disturbances" class="level3"><h3 class="anchored" data-anchor-id="a4-spherical-disturbances">A4 · Spherical disturbances</h3>
+<p><strong>Assumption A4.</strong> <span class="math inline">\(\E[\beps\beps' \mid \bX] = \sigma^2\bI_n\)</span>, which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\Var[\varepsilon_i \mid \bX] = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no autocorrelation</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
+<p>A4 buys efficiency (Lecture 4) and the conventional variance formula (Lecture 6). It buys nothing at all for unbiasedness or consistency — so when it fails in Lecture 7, the estimator survives intact and only the standard errors need repair.</p>
+</section><section id="a5-and-a6" class="level3"><h3 class="anchored" data-anchor-id="a5-and-a6">A5 and A6</h3>
+<p><strong>Assumption A5.</strong> <span class="math inline">\(\bX\)</span> may be fixed or random. Fixed <span class="math inline">\(\bX\)</span> describes experimental designs where the researcher sets the covariates; random <span class="math inline">\(\bX\)</span> describes observational data, the usual case in economics. Some columns may be fixed while others are random — time trends and period indicators, for instance.</p>
+<p><strong>Assumption A6 (Normality).</strong> <span class="math inline">\(\beps \mid \bX \sim \Normal(\bzero, \sigma^2\bI_n)\)</span>. This delivers exact finite-sample distributions for test statistics, and it is the one assumption we will largely discard: the central limit theorem takes over in Lecture 5.</p>
+</section><section id="what-each-assumption-buys" class="level3"><h3 class="anchored" data-anchor-id="what-each-assumption-buys">What each assumption buys</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>Buys</th>
+<th>Relaxed in</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<strong>A1</strong> Linearity</td>
+<td>Makes the CEF the object OLS estimates</td>
+<td>Lecture 9</td>
+</tr>
+<tr class="even">
+<td>
+<strong>A2</strong> Full rank</td>
+<td>
+<strong>Identification</strong>; <span class="math inline">\((\bX'\bX)^{-1}\)</span> exists</td>
+<td>Lecture 9</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>A3</strong> Exogeneity</td>
+<td>Unbiasedness, consistency</td>
+<td>Lectures 10–11</td>
+</tr>
+<tr class="even">
+<td>
+<strong>A4</strong> Sphericality</td>
+<td>Efficiency, conventional standard errors</td>
+<td>Lectures 7, 16</td>
+</tr>
+<tr class="odd">
+<td>
+<strong>A5</strong> Random <span class="math inline">\(\bX\)</span>
+</td>
+<td>Generality</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>
+<strong>A6</strong> Normality</td>
+<td>Exact finite-sample inference</td>
+<td>Lecture 5</td>
+</tr>
+</tbody>
+</table>
+<p>Read the right-hand column: it is the syllabus for the rest of the course, written as a list of assumptions to be removed one at a time.</p>
+</section></section><section id="identification-before-estimation" class="level2" data-number="0.5"><h2 data-number="0.5" class="anchored" data-anchor-id="identification-before-estimation">
+<span class="header-section-number">0.5</span> Identification, before estimation</h2>
+<section id="putting-the-pieces-together" class="level3"><h3 class="anchored" data-anchor-id="putting-the-pieces-together">Putting the pieces together</h3>
+<p>We now have everything needed to answer the first of the three questions from Lecture 1, and notice that we have not yet written down a single estimator.</p>
+<p>The parameter <span class="math inline">\(\bbeta\)</span> is a functional of the population moments, <span class="math inline">\(\bbeta = \bQ_{xx}^{-1}\E[\mathbf{x}y]\)</span>. It is therefore determined by <span class="math inline">\(F\)</span> alone — provided <span class="math inline">\(\bQ_{xx}\)</span> can be inverted. A2 delivers exactly that: given A2, no two values of <span class="math inline">\(\bbeta\)</span> generate the same joint distribution, and the parameter is identified.</p>
+</section><section id="two-assumptions-two-jobs" class="level3"><h3 class="anchored" data-anchor-id="two-assumptions-two-jobs">Two assumptions, two jobs</h3>
+<p>A3 does a separate job. It makes that identified coefficient the conditional expectation function, rather than merely the best linear approximation to it.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>A2 identifies <span class="math inline">\(\bbeta\)</span>. A3 makes <span class="math inline">\(\bbeta\)</span> the thing we wanted.</strong></p>
+<p>Two different jobs, failing for two different reasons, repaired by two different techniques.</p>
+</div>
+</div>
+<p>Estimation is next lecture — and, as we will see, it is by some distance the easier problem.</p>
+</section></section><section id="reading" class="level2" data-number="0.6"><h2 data-number="0.6" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">0.6</span> Reading</h2>
+<section id="sources" class="level3"><h3 class="anchored" data-anchor-id="sources">Sources</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Hansen</strong></td>
+<td>Chapter 2 — the CEF and projection treatment this lecture follows</td>
+</tr>
+<tr class="even">
+<td><strong>Greene</strong></td>
+<td>Chapter 2 — assumptions A1–A6 and the examples</td>
+</tr>
+</tbody>
+</table>
+<p>Hansen’s Chapter 2 is the source for the ordering used here and is worth reading before Lecture 3. Greene’s Chapter 2 presents the assumptions in the form the later lectures use them.</p>
+</section></section><section id="references" class="level2" data-number="0.7"><h2 data-number="0.7" class="anchored" data-anchor-id="references">
+<span class="header-section-number">0.7</span> References</h2>
+<div id="refs" role="list">
+
+</div>
+
+
+</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><!--
+  Annotated equations: link each \eqt{key}{...} term in the rendered math to its
+  explanation card, in both directions.
+
+  Injected via `include-after-body`, so the DOM exists when this runs. MathJax
+  typesets asynchronously, so we wait for the `econ:mathjax-done` event fired by
+  assets/mathjax.html (with a polling fallback in case MathJax is absent or the
+  event was missed).
+
+  Behaviour: hovering or focusing either a term or its card highlights both.
+  Clicking a term pins the pair, so it survives the pointer moving away — which
+  matters when the note is long enough to read.
+--><script>
+(function () {
+  'use strict';
+
+  var PINNED = 'eqt-pinned';
+  var ACTIVE = 'eqt-active';
+
+  // wire() can be reached from three paths (the MathJax event, DOMContentLoaded,
+  // and the polling fallback). Without this guard the later paths bind a second
+  // set of handlers and every click toggles the pin twice, i.e. never pins.
+  var wired = false;
+
+  function wire(root) {
+    if (wired) return true;
+
+    var terms = root.querySelectorAll('.eqt');
+    if (!terms.length) return false;
+
+    wired = true;
+
+    // MathJax emits \class{eqt eqt-a} on possibly several nested nodes; index by key.
+    var byKey = {};
+    terms.forEach(function (el) {
+      var key = null;
+      el.classList.forEach(function (c) {
+        if (c.indexOf('eqt-') === 0 && c !== 'eqt-active' && c !== 'eqt-pinned') {
+          key = c.slice(4);
+        }
+      });
+      if (!key) return;
+      (byKey[key] = byKey[key] || []).push(el);
+      el.setAttribute('data-eqt', key);
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Equation term ' + key);
+    });
+
+    var notes = root.querySelectorAll('.econ-eqnote-note');
+    var noteByKey = {};
+    notes.forEach(function (n) { noteByKey[n.getAttribute('data-eqt')] = n; });
+
+    function partners(key) {
+      var list = (byKey[key] || []).slice();
+      if (noteByKey[key]) list.push(noteByKey[key]);
+      return list;
+    }
+
+    function setActive(key, on) {
+      partners(key).forEach(function (el) { el.classList.toggle(ACTIVE, on); });
+    }
+
+    function clearPins(scope) {
+      scope.querySelectorAll('.' + PINNED).forEach(function (el) {
+        el.classList.remove(PINNED);
+        el.classList.remove(ACTIVE);
+      });
+    }
+
+    function togglePin(key, container) {
+      var already = (byKey[key] || []).some(function (el) {
+        return el.classList.contains(PINNED);
+      });
+      clearPins(container);
+      if (!already) {
+        partners(key).forEach(function (el) {
+          el.classList.add(PINNED);
+          el.classList.add(ACTIVE);
+        });
+      }
+    }
+
+    function bind(el) {
+      var key = el.getAttribute('data-eqt');
+      if (!key) return;
+      var container = el.closest('.econ-eqnote') || root;
+
+      el.addEventListener('mouseenter', function () { setActive(key, true); });
+      el.addEventListener('mouseleave', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('focus', function () { setActive(key, true); });
+      el.addEventListener('blur', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        togglePin(key, container);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          togglePin(key, container);
+        }
+      });
+    }
+
+    terms.forEach(bind);
+    notes.forEach(bind);
+
+    // Clicking outside any annotated equation releases the pin.
+    document.addEventListener('click', function (ev) {
+      if (!ev.target.closest('.econ-eqnote')) clearPins(root);
+    });
+
+    return true;
+  }
+
+  var timer = null;
+
+  function stopPolling() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    if (wire(document)) {
+      stopPolling();
+      return;
+    }
+    if (timer !== null) return;
+    // Fallback: MathJax may not have finished (or may not be present at all).
+    var tries = 0;
+    timer = setInterval(function () {
+      if (wire(document) || ++tries > 40) stopPolling();
+    }, 150);
+  }
+
+  document.addEventListener('econ:mathjax-done', start);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../notas/03-algebra.html" class="pagination-link" aria-label="3 · Algebra and Geometry of Least Squares">
+        <span class="nav-page-text">3 · Algebra and Geometry of Least Squares</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Econometrics I — PIMES/UFPE</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,514 @@
+/* ==========================================================================
+   Econometrics I — PIMES/UFPE
+   Component styles: pedagogical boxes and annotated equations.
+
+   Plain CSS (not SCSS) on purpose: this file is loaded by BOTH the website and
+   the Reveal.js decks via the `css:` key, so the components look identical in
+   the notes and in the lecture. Colours go through custom properties so the
+   dark theme only has to restate the variables.
+   ========================================================================== */
+
+:root {
+  --econ-ink:        #1a1f2e;
+  --econ-muted:      #5b6478;
+  --econ-rule:       #e2e6ee;
+  --econ-surface:    #ffffff;
+  --econ-surface-2:  #f7f8fb;
+
+  /* One accent per box type. */
+  --econ-dgp:        #475569;
+  --econ-questions:  #2d3f6b;
+  --econ-toolbox:    #0f766e;
+  --econ-hood:       #92400e;
+  --econ-montecarlo: #6d28d9;
+  --econ-connection: #9d174d;
+  --econ-literature: #1e5f8c;
+
+  /* Annotated equations: term highlight. */
+  --econ-eqt:        #b45309;
+  --econ-eqt-bg:     rgba(180, 83, 9, 0.13);
+  --econ-eqt-ring:   rgba(180, 83, 9, 0.38);
+}
+
+.quarto-dark,
+[data-bs-theme="dark"],
+.reveal.dark {
+  --econ-ink:        #e6e9f0;
+  --econ-muted:      #98a2b8;
+  --econ-rule:       #2c3444;
+  --econ-surface:    #151a24;
+  --econ-surface-2:  #1b2130;
+
+  --econ-dgp:        #94a3b8;
+  --econ-questions:  #8fa5d8;
+  --econ-toolbox:    #4dd4c3;
+  --econ-hood:       #e0a458;
+  --econ-montecarlo: #b191f0;
+  --econ-connection: #f08fb4;
+  --econ-literature: #7cb8e0;
+
+  --econ-eqt:        #f0b45f;
+  --econ-eqt-bg:     rgba(240, 180, 95, 0.18);
+  --econ-eqt-ring:   rgba(240, 180, 95, 0.45);
+}
+
+/* NOTE ON UNITS: everything below sizes type in `em`, never `rem`. Reveal.js
+   scales slides by setting a font-size on .reveal; `rem` bypasses that and
+   resolves against the 16px document root, so rem-sized box text renders at
+   under half the surrounding size on a deck.
+
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   1. Pedagogical boxes
+   -------------------------------------------------------------------------- */
+
+.econ-box {
+  --accent: var(--econ-questions);
+  margin: 1.75rem 0;
+  border: 1px solid var(--econ-rule);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  background: var(--econ-surface-2);
+  overflow: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.econ-box-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--econ-rule);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.econ-box-icon {
+  font-size: 0.95em;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.econ-box-label {
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.econ-box-sep { color: var(--econ-muted); opacity: 0.6; }
+
+.econ-box-title {
+  font-size: 0.94em;
+  font-weight: 600;
+  color: var(--econ-ink);
+}
+
+.econ-box-body {
+  padding: 0.9rem 1rem 0.4rem;
+  font-size: 0.96em;
+}
+
+.econ-box-body > *:last-child { margin-bottom: 0.5rem; }
+
+.econ-box-dgp        { --accent: var(--econ-dgp); }
+.econ-box-questions  { --accent: var(--econ-questions); }
+.econ-box-toolbox    { --accent: var(--econ-toolbox); }
+.econ-box-hood       { --accent: var(--econ-hood); }
+.econ-box-montecarlo { --accent: var(--econ-montecarlo); }
+.econ-box-connection { --accent: var(--econ-connection); }
+.econ-box-literature { --accent: var(--econ-literature); }
+
+/* "The Four Questions" is almost always an ordered list; tighten it. */
+.econ-box-questions .econ-box-body ol {
+  margin-bottom: 0.5rem;
+  padding-left: 1.2rem;
+}
+.econ-box-questions .econ-box-body ol li { margin-bottom: 0.3rem; }
+
+/* Under the Hood usually carries code. */
+.econ-box-hood pre {
+  background: var(--econ-surface);
+  border: 1px solid var(--econ-rule);
+  border-radius: 4px;
+  font-size: 0.86em;
+}
+
+/* --------------------------------------------------------------------------
+   2. Annotated equations
+   -------------------------------------------------------------------------- */
+
+.econ-eqnote {
+  margin: 1.9rem 0;
+  padding: 1.1rem 1.15rem 0.85rem;
+  border: 1px solid var(--econ-rule);
+  border-radius: 6px;
+  background: var(--econ-surface-2);
+}
+
+.econ-eqnote-math {
+  margin-bottom: 0.35rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.econ-eqnote-math mjx-container { margin: 0.35em 0 !important; }
+
+.econ-eqnote-notes {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--econ-rule);
+}
+
+.econ-eqnote-note {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  padding: 0.4rem 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 120ms ease, box-shadow 120ms ease;
+}
+
+.econ-eqnote-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--econ-eqt-ring);
+  background: var(--econ-eqt-bg);
+  color: var(--econ-eqt);
+  font-family: var(--bs-font-monospace, ui-monospace, monospace);
+  font-size: 0.78em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.econ-eqnote-text {
+  font-size: 0.93em;
+  color: var(--econ-ink);
+}
+
+.econ-eqnote-text > *:last-child { margin-bottom: 0; }
+
+/* Tagged term inside the typeset math. */
+.eqt {
+  border-radius: 3px;
+  padding: 0.08em 0.12em;
+  cursor: pointer;
+  transition: background 120ms ease, box-shadow 120ms ease;
+}
+
+.eqt:hover { background: var(--econ-eqt-bg); }
+
+.eqt.eqt-active {
+  background: var(--econ-eqt-bg);
+  box-shadow: 0 0 0 2px var(--econ-eqt-ring);
+}
+
+.eqt.eqt-pinned { box-shadow: 0 0 0 2px var(--econ-eqt); }
+
+.econ-eqnote-note.eqt-active {
+  background: var(--econ-eqt-bg);
+  box-shadow: inset 3px 0 0 var(--econ-eqt);
+}
+
+.econ-eqnote-note.eqt-pinned { box-shadow: inset 3px 0 0 var(--econ-eqt); }
+
+.eqt:focus-visible,
+.econ-eqnote-note:focus-visible {
+  outline: 2px solid var(--econ-eqt);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eqt, .econ-eqnote-note { transition: none; }
+}
+
+/* --------------------------------------------------------------------------
+   3. Reveal.js adjustments
+   -------------------------------------------------------------------------- */
+
+.reveal .econ-box { margin: 0.8rem 0; font-size: 1em; }
+.reveal .econ-box-head { padding: 0.4rem 0.75rem; }
+.reveal .econ-box-body { padding: 0.6rem 0.75rem 0.2rem; }
+.reveal .econ-eqnote { margin: 0.9rem 0; padding: 0.8rem; }
+.reveal .econ-eqnote-notes { font-size: 0.86em; gap: 0.3rem; }
+.reveal .econ-eqnote-note { padding: 0.25rem 0.35rem; }
+
+/* Wide math must scroll inside its own box, never the slide. */
+.reveal .econ-eqnote-math { max-width: 100%; }
+
+/* --------------------------------------------------------------------------
+   4. Print
+   -------------------------------------------------------------------------- */
+
+@media print {
+  .econ-box, .econ-eqnote {
+    break-inside: avoid;
+    background: #fff;
+  }
+  .eqt { background: none !important; box-shadow: none !important; }
+  .econ-eqnote-note { cursor: default; }
+}
+
+/* --------------------------------------------------------------------------
+   5. The course map
+   An inline SVG that states the architecture of the course. Every node is a
+   button: selecting one explains what the stage asks and which lectures answer
+   it. Used in Lecture 1 and on the home page, and referred back to all term.
+   -------------------------------------------------------------------------- */
+
+.coursemap {
+  margin: 2rem 0;
+  border: 1px solid var(--econ-rule);
+  border-radius: 8px;
+  background: var(--econ-surface-2);
+  overflow: hidden;
+}
+
+.coursemap-figure {
+  padding: 1.1rem 0.75rem 0.5rem;
+  overflow-x: auto;
+}
+
+.coursemap-figure svg {
+  display: block;
+  width: 100%;
+  min-width: 560px;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Nodes -------------------------------------------------------------------- */
+
+.cm-node { cursor: pointer; }
+
+.cm-node .cm-box {
+  fill: var(--econ-surface);
+  stroke: var(--econ-rule);
+  stroke-width: 1.5;
+  transition: fill 130ms ease, stroke 130ms ease, stroke-width 130ms ease;
+}
+
+.cm-node .cm-label {
+  fill: var(--econ-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cm-node .cm-sub {
+  fill: var(--econ-muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cm-node:hover .cm-box,
+.cm-node:focus-visible .cm-box {
+  stroke: var(--accent, var(--econ-questions));
+  stroke-width: 2.2;
+}
+
+.cm-node.cm-selected .cm-box {
+  fill: color-mix(in srgb, var(--accent, var(--econ-questions)) 12%, var(--econ-surface));
+  stroke: var(--accent, var(--econ-questions));
+  stroke-width: 2.4;
+}
+
+.cm-node:focus { outline: none; }
+.cm-node:focus-visible .cm-box { outline: none; stroke-dasharray: 4 2; }
+
+/* Per-stage accents, reusing the box palette so the whole course reads as one
+   colour system: a stage and its recurring callout share a hue. */
+.cm-dgp            { --accent: var(--econ-dgp); }
+.cm-identification { --accent: var(--econ-connection); }
+.cm-estimation     { --accent: var(--econ-questions); }
+.cm-mest           { --accent: var(--econ-toolbox); }
+.cm-zest           { --accent: var(--econ-montecarlo); }
+.cm-asymptotics    { --accent: var(--econ-literature); }
+.cm-inference      { --accent: var(--econ-connection); }
+.cm-computation    { --accent: var(--econ-hood); }
+
+/* Edges -------------------------------------------------------------------- */
+
+.cm-edge {
+  stroke: var(--econ-muted);
+  stroke-width: 1.4;
+  fill: none;
+  opacity: 0.55;
+}
+
+.cm-arrowhead { fill: var(--econ-muted); opacity: 0.55; }
+
+.cm-computation .cm-box {
+  stroke-dasharray: 5 3;
+}
+
+/* Detail panel ------------------------------------------------------------- */
+
+.coursemap-detail {
+  padding: 0.9rem 1.15rem 1rem;
+  border-top: 1px solid var(--econ-rule);
+  background: var(--econ-surface);
+  min-height: 5.5rem;
+}
+
+.coursemap-detail-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.coursemap-detail-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cm-accent, var(--econ-questions));
+}
+
+.coursemap-detail-where {
+  font-size: 0.76em;
+  color: var(--econ-muted);
+}
+
+.coursemap-detail-q {
+  font-size: 1em;
+  font-style: italic;
+  color: var(--econ-ink);
+  margin-bottom: 0.3rem;
+}
+
+.coursemap-detail-body {
+  font-size: 0.9em;
+  color: var(--econ-muted);
+}
+
+.coursemap-hint {
+  font-size: 0.8em;
+  color: var(--econ-muted);
+  font-style: italic;
+}
+
+/* Reveal.js ---------------------------------------------------------------- */
+
+.reveal .coursemap { margin: 0.5rem 0; }
+.reveal .coursemap-figure { padding: 0.4rem; }
+.reveal .coursemap-figure svg { min-width: 0; max-width: 560px; }
+.reveal .coursemap-detail { padding: 0.5rem 0.7rem; min-height: 4rem; font-size: 0.72em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cm-node .cm-box { transition: none; }
+}
+
+/* The eighth box. Marks a derivation that is worked live on the blackboard, so
+   the written proof stays condensed: the notes give the skeleton, the board
+   gives the steps. Dashed, because what is written is deliberately incomplete. */
+.cm-board { --accent: var(--econ-board); }
+
+:root            { --econ-board: #7c2d12; }
+.quarto-dark,
+[data-bs-theme="dark"],
+.reveal.dark     { --econ-board: #e8a87c; }
+
+.econ-box-board  { --accent: var(--econ-board); }
+.econ-box-board  { border-left-style: dashed; }
+
+/* --------------------------------------------------------------------------
+   6. Stage locator
+   Opens every lecture: the course architecture in one strip, with the stages
+   this lecture occupies lit. Makes "where are we?" structural rather than
+   something the prose has to keep asserting.
+   -------------------------------------------------------------------------- */
+
+.econ-stage {
+  display: block;
+  margin: 0.2em 0 1.2em;
+  padding: 0.5em 0.7em;
+  border: 1px solid var(--econ-rule);
+  border-radius: 6px;
+  background: var(--econ-surface-2);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.econ-stage-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.econ-stage-item,
+.econ-stage-comp {
+  padding: 0.12em 0.5em;
+  border-radius: 3px;
+  font-size: 0.62em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--econ-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.econ-stage-arrow {
+  color: var(--econ-muted);
+  opacity: 0.45;
+  font-size: 0.62em;
+}
+
+.econ-stage-item.is-active {
+  color: #fff;
+  background: var(--stage-accent, var(--econ-questions));
+  border-color: var(--stage-accent, var(--econ-questions));
+}
+
+.econ-stage-dgp.is-active            { --stage-accent: var(--econ-dgp); }
+.econ-stage-identification.is-active { --stage-accent: var(--econ-connection); }
+.econ-stage-estimation.is-active     { --stage-accent: var(--econ-questions); }
+.econ-stage-asymptotics.is-active    { --stage-accent: var(--econ-literature); }
+.econ-stage-inference.is-active      { --stage-accent: var(--econ-connection); }
+
+.econ-stage-band {
+  margin-top: 0.35em;
+  padding-top: 0.3em;
+  border-top: 1px dashed var(--econ-rule);
+}
+
+.econ-stage-comp {
+  border-style: dashed;
+  border-color: var(--econ-rule);
+}
+
+.econ-stage-comp.is-active {
+  color: var(--econ-hood);
+  border-color: var(--econ-hood);
+  background: color-mix(in srgb, var(--econ-hood) 10%, transparent);
+}
+
+.reveal .econ-stage { margin: 0.1em 0 0.6em; padding: 0.35em 0.5em; }
+.reveal .econ-stage-item,
+.reveal .econ-stage-comp { font-size: 0.42em; }
+.reveal .econ-stage-arrow { font-size: 0.42em; }

@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Henrique Veras">
+<title>Component Reference – Econometrics I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../slides/notas/03-algebra.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f53dd81e4532dc1ad2d5a3da1ba84db5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-85294af6fad2849895ed9755e431b126.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<!--
+  MathJax configuration for Econometrics I.
+
+  Two jobs:
+   (1) load the [tex]/html package so \class{} works, which is what lets
+       \eqt{key}{body} tag a sub-expression for the annotated-equation widget;
+   (2) define the course-wide macro set, so notation is declared once here
+       instead of being re-typed in every lecture.
+
+  This block is injected into <head> via `include-in-header`, so it runs before
+  MathJax itself is loaded and the configuration is picked up.
+
+  Shared by the website AND the Reveal.js decks, so the macro set is declared
+  once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
+  _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
+  MathJax 2 and is neutralised by the Hub shim below.
+--><script>
+window.MathJax = {
+  loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
+  tex: {
+    packages: { '[+]': ['html', 'ams', 'boldsymbol'] },
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams',
+    macros: {
+      // --- annotated-equation term tag -------------------------------------
+      eqt: ['\\class{eqt eqt-#1}{#2}', 2],
+
+      // --- estimators and operators ----------------------------------------
+      plim:  ['\\operatorname*{plim}', 0],
+      argmin:['\\operatorname*{arg\\,min}', 0],
+      argmax:['\\operatorname*{arg\\,max}', 0],
+      tr:    ['\\operatorname{tr}', 0],
+      rank:  ['\\operatorname{rank}', 0],
+      diag:  ['\\operatorname{diag}', 0],
+      vect:  ['\\operatorname{vec}', 0],
+
+      // --- probability ------------------------------------------------------
+      E:     ['\\mathbb{E}', 0],
+      Var:   ['\\operatorname{Var}', 0],
+      Cov:   ['\\operatorname{Cov}', 0],
+      Prob:  ['\\mathbb{P}', 0],
+      indep: ['\\perp\\!\\!\\!\\perp', 0],
+      pto:   ['\\xrightarrow{\\;p\\;}', 0],
+      dto:   ['\\xrightarrow{\\;d\\;}', 0],
+      asto:  ['\\xrightarrow{\\;a.s.\\;}', 0],
+      Normal:['\\mathcal{N}', 0],
+
+      // --- vectors and matrices (bold upright) ------------------------------
+      mat:   ['\\mathbf{#1}', 1],
+      vecb:  ['\\mathbf{#1}', 1],
+      bbeta: ['\\boldsymbol{\\beta}', 0],
+      beps:  ['\\boldsymbol{\\varepsilon}', 0],
+      btheta:['\\boldsymbol{\\theta}', 0],
+      bX:    ['\\mathbf{X}', 0],
+      bY:    ['\\mathbf{y}', 0],
+      bZ:    ['\\mathbf{Z}', 0],
+      bb:    ['\\mathbf{b}', 0],
+      be:    ['\\mathbf{e}', 0],
+      bP:    ['\\mathbf{P}', 0],
+      bM:    ['\\mathbf{M}', 0],
+      bI:    ['\\mathbf{I}', 0],
+      bQ:    ['\\mathbf{Q}', 0],
+      bzero: ['\\mathbf{0}', 0]
+    }
+  },
+  options: {
+    enableMenu: true,
+    menuOptions: { settings: { zoom: 'DoubleClick' } }
+  },
+  chtml: { displayAlign: 'center', displayIndent: '0' },
+  startup: {
+    ready: function () {
+      // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
+      // plugin. Pointed at v3 it loads the library correctly and then throws
+      // once on `MathJax.Hub.Config`, because v3 has no Hub. The error is
+      // cosmetic -- Reveal has already initialised and MathJax 3 typesets on
+      // its own. A Hub shim does not help: the plugin's callback runs before
+      // this hook, so there is nothing to shim yet.
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(function () {
+        // Signal the annotated-equation script that \eqt terms are in the DOM.
+        document.dispatchEvent(new CustomEvent('econ:mathjax-done'));
+        // Reveal sizes slides before the maths exists, so re-measure once it
+        // does. No-op on the website, where Reveal is undefined.
+        if (typeof Reveal !== 'undefined' && Reveal.layout) { Reveal.layout(); }
+      });
+    }
+  }
+};
+
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../assets/components.css">
+</head>
+<body class="nav-sidebar docked nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Econometrics I</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa/ementa-2026.html"> 
+<span class="menu-text">Ementa</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto"></ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/00-components.html">Reference</a></li><li class="breadcrumb-item"><a href="../notas/00-components.html">Component Reference</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Map</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I — Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II — Linear Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">IV — Nonlinear Estimation</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">V — Panel Data</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Component Reference</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#theorem-environments" id="toc-theorem-environments" class="nav-link active" data-scroll-target="#theorem-environments"><span class="header-section-number">1</span> 1. Theorem environments</a></li>
+  <li><a href="#annotated-equations" id="toc-annotated-equations" class="nav-link" data-scroll-target="#annotated-equations"><span class="header-section-number">2</span> 2. Annotated equations</a></li>
+  <li>
+<a href="#pedagogical-boxes" id="toc-pedagogical-boxes" class="nav-link" data-scroll-target="#pedagogical-boxes"><span class="header-section-number">3</span> 3. Pedagogical boxes</a>
+  <ul class="collapse">
+<li><a href="#what-is-the-dgp" id="toc-what-is-the-dgp" class="nav-link" data-scroll-target="#what-is-the-dgp"><span class="header-section-number">3.1</span> What is the DGP?</a></li>
+  <li><a href="#the-four-questions" id="toc-the-four-questions" class="nav-link" data-scroll-target="#the-four-questions"><span class="header-section-number">3.2</span> The Four Questions</a></li>
+  <li><a href="#researchers-toolbox" id="toc-researchers-toolbox" class="nav-link" data-scroll-target="#researchers-toolbox"><span class="header-section-number">3.3</span> Researcher’s Toolbox</a></li>
+  <li><a href="#under-the-hood" id="toc-under-the-hood" class="nav-link" data-scroll-target="#under-the-hood"><span class="header-section-number">3.4</span> Under the Hood</a></li>
+  <li><a href="#monte-carlo" id="toc-monte-carlo" class="nav-link" data-scroll-target="#monte-carlo"><span class="header-section-number">3.5</span> Monte Carlo</a></li>
+  <li><a href="#connection" id="toc-connection" class="nav-link" data-scroll-target="#connection"><span class="header-section-number">3.6</span> Connection</a></li>
+  <li><a href="#on-the-board" id="toc-on-the-board" class="nav-link" data-scroll-target="#on-the-board"><span class="header-section-number">3.7</span> On the Board</a></li>
+  <li><a href="#in-the-literature" id="toc-in-the-literature" class="nav-link" data-scroll-target="#in-the-literature"><span class="header-section-number">3.8</span> In the Literature</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#standard-quarto-constructs" id="toc-standard-quarto-constructs" class="nav-link" data-scroll-target="#standard-quarto-constructs"><span class="header-section-number">4</span> 4. Standard Quarto constructs</a>
+  <ul class="collapse">
+<li><a href="#margin-content" id="toc-margin-content" class="nav-link" data-scroll-target="#margin-content"><span class="header-section-number">4.1</span> Margin content</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code"><span class="header-section-number">4.2</span> Code</a></li>
+  <li><a href="#tabsets" id="toc-tabsets" class="nav-link" data-scroll-target="#tabsets"><span class="header-section-number">4.3</span> Tabsets</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#writing-one-source-for-two-outputs" id="toc-writing-one-source-for-two-outputs" class="nav-link" data-scroll-target="#writing-one-source-for-two-outputs"><span class="header-section-number">5</span> 5. Writing one source for two outputs</a>
+  <ul class="collapse">
+<li><a href="#heading-levels-are-the-primary-control" id="toc-heading-levels-are-the-primary-control" class="nav-link" data-scroll-target="#heading-levels-are-the-primary-control">Heading levels are the primary control</a></li>
+  <li><a href="#longform-and-.onslide" id="toc-longform-and-.onslide" class="nav-link" data-scroll-target="#longform-and-.onslide"><code>.longform</code> and <code>.onslide</code></a></li>
+  <li><a href="#the-explicit-form" id="toc-the-explicit-form" class="nav-link" data-scroll-target="#the-explicit-form">The explicit form</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references"><span class="header-section-number">6</span> 6. Cross-references</a>
+  <ul class="collapse">
+<li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6.1</span> References</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/00-components.html">Reference</a></li><li class="breadcrumb-item"><a href="../notas/00-components.html">Component Reference</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Component Reference</h1>
+<p class="subtitle lead">Every authoring construct available in the lecture notes</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Henrique Veras </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            PIMES/UFPE
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header><p>This page is the working reference for writing lectures. Each construct below shows the source on the left of the fence and the rendered result immediately after. Nothing here is course content — it exists so that writing Lecture 5 does not require remembering how the Monte Carlo box is spelled.</p>
+<p>The page also functions as a smoke test: if it renders correctly, the infrastructure is sound.</p>
+<hr>
+<section id="theorem-environments" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> 1. Theorem environments</h1>
+<p>These replace the screenshots of Greene used in the legacy notes. They are numbered automatically, cross-referenceable, searchable, and accessible.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: {#thm-demo}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Frisch-Waugh-Lovell</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>In the regression $\bY = \bX_1\bbeta_1 + \bX_2\bbeta_2 + \beps$, the OLS estimator</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>of $\bbeta_2$ is $\bb_2 = (\bX_2'\bM_1\bX_2)^{-1}\bX_2'\bM_1\bY$.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>As @thm-demo shows, ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="thm-demo" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1.1 (Frisch-Waugh-Lovell)</strong></span> In the regression <span class="math inline">\(\bY = \bX_1\bbeta_1 + \bX_2\bbeta_2 + \beps\)</span>, the OLS estimator of <span class="math inline">\(\bbeta_2\)</span> is <span class="math display">\[\bb_2 = (\bX_2'\bM_1\bX_2)^{-1}\bX_2'\bM_1\bY, \qquad \bM_1 = \bI - \bX_1(\bX_1'\bX_1)^{-1}\bX_1'.\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Partition the normal equations and solve the first block for <span class="math inline">\(\bb_1\)</span>. Substituting into the second block and collecting terms gives the stated expression. <span class="math inline">\(\square\)</span></p>
+</div>
+<p>As <a href="#thm-demo" class="quarto-xref">Theorem&nbsp;1.1</a> shows, a multiple regression coefficient is a simple regression coefficient on partialled-out data.</p>
+<p>The full family is available: <code>#thm-</code>, <code>#lem-</code>, <code>#cor-</code>, <code>#prp-</code>, <code>#def-</code>, <code>#exm-</code>, <code>#exr-</code>, plus <code>::: {.proof}</code> and <code>::: {.remark}</code>.</p>
+<div id="def-projection" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.1 (Projection matrix)</strong></span> <span class="math inline">\(\bP = \bX(\bX'\bX)^{-1}\bX'\)</span> is the orthogonal projection onto the column space of <span class="math inline">\(\bX\)</span>.</p>
+</div>
+<div id="cor-residual-maker" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 1.1 (Residual maker)</strong></span> <span class="math inline">\(\bM = \bI - \bP\)</span> is symmetric, idempotent, and satisfies <span class="math inline">\(\bM\bX = \bzero\)</span>.</p>
+</div>
+<hr></section><section id="annotated-equations" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> 2. Annotated equations</h1>
+<p>The construct that carries the most pedagogical weight. Terms inside the display math are tagged with <code>\eqt{key}{...}</code>; the explanations follow as a definition list keyed by the same letters. Hover or click a term — the term and its note highlight together. Click again, or click outside, to release.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.eqnote}</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>\bb = \bbeta + \eqt{a}{\left(\frac{\bX'\bX}{n}\right)^{-1}}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             \eqt{b}{\left(\frac{\bX'\beps}{n}\right)}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>:   By assumption A2$'$, this converges in probability to $\bQ^{-1}$.</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>b</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:   By the LLN this converges to $\E<span class="co">[</span><span class="ot">\bX_i\varepsilon_i</span><span class="co">]</span> = \bzero$.</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    **This is the term that carries exogeneity.**</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="econ-eqnote">
+<div class="econ-eqnote-math">
+<p><span class="math display">\[
+\bb = \bbeta + \eqt{a}{\left(\frac{\bX'\bX}{n}\right)^{-1}}
+             \eqt{b}{\left(\frac{\bX'\beps}{n}\right)}
+\]</span></p>
+</div>
+<div class="econ-eqnote-notes">
+<div class="econ-eqnote-note" data-eqt="a" tabindex="0">
+<span class="econ-eqnote-key">a</span><div class="econ-eqnote-text">
+By assumption A2<span class="math inline">\('\)</span>, <span class="math inline">\(\bX'\bX/n \pto \bQ\)</span>, a positive definite matrix. The Continuous Mapping Theorem then gives <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span>, a <em>finite</em> limit.
+</div>
+</div>
+<div class="econ-eqnote-note" data-eqt="b" tabindex="0">
+<span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
+By the LLN, <span class="math inline">\(\bX'\beps/n \pto \E[\mathbf{x}_i\varepsilon_i]\)</span>. Under A3 this expectation is <span class="math inline">\(\bzero\)</span>. <strong>This is the term that carries exogeneity</strong> — and the single point at which the whole consistency argument can fail.
+</div>
+</div>
+</div>
+</div>
+<p>Consistency of <span class="math inline">\(\bb\)</span> is the product of these two limits: a finite matrix times zero.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Authoring notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Keys are arbitrary strings (<code>a</code>, <code>b</code>, <code>Q</code>, <code>num</code>). Keep them short — they appear in a circular badge.</li>
+<li>A <code>\eqt{}</code> with no matching note, or the reverse, produces a render-time warning. Silent dead cards are not possible.</li>
+<li>In PDF output <code>\eqt{key}{body}</code> degrades to <code>body</code> and the notes become an ordinary list. Nothing is lost.</li>
+<li>The macro set (<code>\bb</code>, <code>\bX</code>, <code>\beps</code>, <code>\pto</code>, <code>\plim</code>, <code>\E</code>, …) is declared once in <code>assets/mathjax.html</code>. Add to it there rather than redefining per lecture.</li>
+</ul>
+</div>
+</div>
+</div>
+<hr></section><section id="pedagogical-boxes" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> 3. Pedagogical boxes</h1>
+<p>Seven recurring callouts implementing the narrative architecture. All take an optional <code>title=</code>.</p>
+<section id="what-is-the-dgp" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="what-is-the-dgp">
+<span class="header-section-number">3.1</span> What is the DGP?</h2>
+<p>Opens each major topic.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.dgp}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>$y_i = \mathbf{x}_i'\bbeta + \varepsilon_i$, with $(y_i, \mathbf{x}_i)$ i.i.d.</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="econ-box econ-box-dgp" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span>
+</div>
+<div class="econ-box-body">
+<p><span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> with <span class="math inline">\((y_i,\mathbf{x}_i)\)</span> i.i.d. across <span class="math inline">\(i\)</span>, <span class="math inline">\(\E[\varepsilon_i \mid \mathbf{x}_i] = 0\)</span>, and <span class="math inline">\(\E[\mathbf{x}_i\mathbf{x}_i']\)</span> finite and nonsingular.</p>
+<p><strong>Parameter of interest:</strong> <span class="math inline">\(\bbeta\)</span>. <strong>Is it identified?</strong> Yes — full rank plus exogeneity.</p>
+</div>
+</div>
+</section><section id="the-four-questions" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="the-four-questions">
+<span class="header-section-number">3.2</span> The Four Questions</h2>
+<p>Precedes each formal result.</p>
+<div class="econ-box econ-box-questions" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">Before Gauss-Markov</span>
+</div>
+<div class="econ-box-body">
+<ol type="1">
+<li>
+<strong>What problem are we solving?</strong> Many estimators are unbiased. We need a reason to prefer one.</li>
+<li>
+<strong>Why does it matter?</strong> Without an efficiency criterion, “use OLS” is a convention rather than a result.</li>
+<li>
+<strong>What is the idea?</strong> Restrict attention to linear unbiased estimators and minimise variance within that class.</li>
+<li>
+<strong>How do we formalise it?</strong> Show any such estimator has variance exceeding that of OLS by a positive semi-definite matrix.</li>
+</ol>
+</div>
+</div>
+</section><section id="researchers-toolbox" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="researchers-toolbox">
+<span class="header-section-number">3.3</span> Researcher’s Toolbox</h2>
+<div class="econ-box econ-box-toolbox" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">OLS as an M-estimator</span>
+</div>
+<div class="econ-box-body">
+<p>We derived <span class="math inline">\(\bb\)</span> by minimising <span class="math inline">\(S(\mathbf{b}) = (\bY - \bX\mathbf{b})'(\bY - \bX\mathbf{b})\)</span>. That is an instance of <span class="math display">\[\hat\btheta = \argmin_{\btheta} Q_n(\btheta).\]</span> Estimators of this form are <strong>M-estimators</strong>. Maximum likelihood is another. Keep the shape in mind — it returns in Lecture 13, where it becomes the organising idea rather than an observation.</p>
+</div>
+</div>
+</section><section id="under-the-hood" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="under-the-hood">
+<span class="header-section-number">3.4</span> Under the Hood</h2>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">No software inverts X'X</span>
+</div>
+<div class="econ-box-body">
+<p>The textbook formula <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> is not what <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> computes. Forming <span class="math inline">\(\bX'\bX\)</span> squares the condition number, so a design that is merely awkward becomes numerically singular. R uses a QR decomposition instead:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">qr_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/qr.html">qr</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/qr.html">qr.coef</a></span><span class="op">(</span><span class="va">qr_fit</span>, <span class="va">y</span><span class="op">)</span>     <span class="co"># no explicit inverse anywhere</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is why near-collinearity is a <em>numerical</em> problem before it is a statistical one — a point we return to in Lecture 9.</p>
+</div>
+</div>
+</section><section id="monte-carlo" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="monte-carlo">
+<span class="header-section-number">3.5</span> Monte Carlo</h2>
+<div class="econ-box econ-box-montecarlo" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🎲</span><span class="econ-box-label">Monte Carlo</span><span class="econ-box-sep">—</span><span class="econ-box-title">Seeing consistency</span>
+</div>
+<div class="econ-box-body">
+<p>Fix <span class="math inline">\(\beta = 1\)</span>. Draw samples of size <span class="math inline">\(n\)</span>, estimate <span class="math inline">\(\hat\beta\)</span>, repeat 10,000 times, and plot the distribution. As <span class="math inline">\(n\)</span> grows the distribution concentrates on <span class="math inline">\(1\)</span> — that is consistency, made visible. Rescale by <span class="math inline">\(\sqrt{n}\)</span> and it stabilises into a normal curve — that is asymptotic normality.</p>
+<p>The simulation proves nothing. It shows what the theorem already established.</p>
+</div>
+</div>
+</section><section id="connection" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="connection">
+<span class="header-section-number">3.6</span> Connection</h2>
+<div class="econ-box econ-box-connection" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The within transformation is FWL again</span>
+</div>
+<div class="econ-box-body">
+<p>Demeaning <span class="math inline">\(y_{it}\)</span> and <span class="math inline">\(x_{it}\)</span> within each unit is exactly <span class="math inline">\(\bM_1\)</span> applied to <span class="math inline">\(\bY\)</span> and <span class="math inline">\(\bX\)</span>, where <span class="math inline">\(\bX_1\)</span> is the matrix of unit dummies. Fixed effects is not a new estimator — it is <a href="#thm-demo" class="quarto-xref">Theorem&nbsp;1.1</a> applied to a particular partition.</p>
+</div>
+</div>
+</section><section id="on-the-board" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="on-the-board">
+<span class="header-section-number">3.7</span> On the Board</h2>
+<p>Marks a derivation worked live on the blackboard. The written proof stays condensed — the structure and the pivotal step — because the steps are supplied in the lecture.</p>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
+<p>Worked on the board. The skeleton:</p>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Substitute <span class="math inline">\(\bb_1\)</span> from the first block into the second and collect terms; the projector assembles itself. A2 gives invertibility. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="in-the-literature" class="level2" data-number="3.8"><h2 data-number="3.8" class="anchored" data-anchor-id="in-the-literature">
+<span class="header-section-number">3.8</span> In the Literature</h2>
+<div class="econ-box econ-box-literature" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Angrist &amp; Krueger (1991)</span>
+</div>
+<div class="econ-box-body">
+<p>Quarter of birth as an instrument for schooling <span class="citation" data-cites="angrist1991does">(<a href="#ref-angrist1991does" role="doc-biblioref">Angrist and Krueger 1991</a>)</span>. Read it after Lecture 10 and return to it after Lecture 11 — it is also the canonical cautionary tale about weak instruments.</p>
+</div>
+</div>
+<hr></section></section><section id="standard-quarto-constructs" class="level1 page-columns page-full" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> 4. Standard Quarto constructs</h1>
+<p>The built-in callouts remain available and are used for mechanics rather than pedagogy.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Administrative information: deadlines, corrections, reading assignments.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A common error, or a result that does <em>not</em> hold under weaker assumptions.</p>
+</div>
+</div>
+<section id="margin-content" class="level2 page-columns page-full" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="margin-content">
+<span class="header-section-number">4.1</span> Margin content</h2>
+<p>Side remarks that would break the argument go in the margin.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Margin note: useful for pointing at the corresponding section of Hansen or Greene without interrupting the flow.</p>
+</div></div></section><section id="code" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="code">
+<span class="header-section-number">4.2</span> Code</h2>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20262</span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; (Intercept)           x </span></span>
+<span><span class="co">#&gt;   0.9500911   2.0813428</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="tabsets" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="tabsets">
+<span class="header-section-number">4.3</span> Tabsets</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Matrix algebra</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">By hand</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/qr.html">qr.solve</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><span class="math display">\[\bb = (\bX'\bX)^{-1}\bX'\bY\]</span></p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Form the normal equations <span class="math inline">\(\bX'\bX\mathbf{b} = \bX'\bY\)</span> and solve the linear system.</p>
+</div>
+</div>
+</div>
+<hr></section></section><section id="writing-one-source-for-two-outputs" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> 5. Writing one source for two outputs</h1>
+<p>Each lecture <code>.qmd</code> renders both as a chapter of the website and as a Reveal.js deck.</p>
+<section id="heading-levels-are-the-primary-control" class="level3"><h3 class="anchored" data-anchor-id="heading-levels-are-the-primary-control">Heading levels are the primary control</h3>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Level</th>
+<th>Website</th>
+<th>Deck</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>##</code></td>
+<td>Section</td>
+<td>Section divider slide</td>
+</tr>
+<tr class="even">
+<td><code>###</code></td>
+<td>Subsection</td>
+<td><strong>One slide</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Write <code>###</code> units that hold <em>one idea</em>. A <code>###</code> whose prose runs past roughly 80 words is a slide that will be unreadable from the back of the room — split it.</p>
+</section><section id="longform-and-.onslide" class="level3"><h3 class="anchored" data-anchor-id="longform-and-.onslide">
+<code>.longform</code> and <code>.onslide</code>
+</h3>
+<p>The real problem is not structure but register: prose that reads well in the notes is unreadable projected on a wall. Two wrappers keep one source serving both.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::: {.longform}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Expository prose — full argument, subordinate clauses, the "why".</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Appears in the notes; dropped from the deck.</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>::: {.onslide}</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Three bullets</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The same point, compressed</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>Appears in the deck; dropped from the notes.</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Content outside either wrapper appears in both — which is where definitions, theorems, boxes, figures and tables normally belong.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The density target
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aim for <strong>40–70 words per slide</strong>, and treat anything above 90 as a defect. To measure a deck after rendering:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-</span> <span class="op">&lt;&lt;'EOF'</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">import re</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">h = open('_slides/notas/01-map.html').read()</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">secs = re.findall(r'&lt;section[^&gt;]*&gt;(.*?)&lt;/section&gt;', h, re.S)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">w = [len(re.sub(r'&lt;[^&gt;]+&gt;', ' ', s).split()) for s in secs]</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">w = [x for x in w if x &gt; 3]</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="st">print(f'slides {len(w)}  mean {sum(w)//len(w)}  worst {max(w)}')</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="the-explicit-form" class="level3"><h3 class="anchored" data-anchor-id="the-explicit-form">The explicit form</h3>
+<p><code>.longform</code> and <code>.onslide</code> are shorthand. The underlying mechanism is Quarto’s conditional content, and when you need it directly, <strong>always key the condition on <code>revealjs</code></strong>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>::: {.content-hidden when-format="revealjs"}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Long-form derivation, shown only in the notes.</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>::: {.content-visible when-format="revealjs"}</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>Three bullet points, shown only in the lecture.</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Do not write <code>when-format="html"</code> to mean “the website”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Reveal.js <strong>is</strong> an HTML format, so <code>when-format="html"</code> matches the deck as well and the content leaks into the slides. Only <code>revealjs</code> distinguishes the two reliably:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th>Intent</th>
+<th>Correct</th>
+<th>Wrong</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Website only</td>
+<td><code>.content-hidden when-format="revealjs"</code></td>
+<td><code>.content-visible when-format="html"</code></td>
+</tr>
+<tr class="even">
+<td>Slides only</td>
+<td><code>.content-visible when-format="revealjs"</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are reading the <strong>website</strong> version — this paragraph is absent from the slides.</p>
+</div>
+</div>
+<p>Speaker notes:</p>
+<div class="notes">
+<p>Visible in the Reveal.js presenter view (press <code>S</code>), absent from the website.</p>
+</div>
+<hr></section></section><section id="cross-references" class="level1" data-number="6"><h1 data-number="6">
+<span class="header-section-number">6</span> 6. Cross-references</h1>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Target</th>
+<th>Syntax</th>
+<th>Renders</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Theorem</td>
+<td><code>@thm-demo</code></td>
+<td><a href="#thm-demo" class="quarto-xref">Theorem&nbsp;1.1</a></td>
+</tr>
+<tr class="even">
+<td>Definition</td>
+<td><code>@def-projection</code></td>
+<td><a href="#def-projection" class="quarto-xref">Definition&nbsp;1.1</a></td>
+</tr>
+<tr class="odd">
+<td>Corollary</td>
+<td><code>@cor-residual-maker</code></td>
+<td><a href="#cor-residual-maker" class="quarto-xref">Corollary&nbsp;1.1</a></td>
+</tr>
+<tr class="even">
+<td>Citation</td>
+<td><code>@hansen2022econometrics</code></td>
+<td><span class="citation" data-cites="hansen2022econometrics">Hansen (<a href="#ref-hansen2022econometrics" role="doc-biblioref">2022</a>)</span></td>
+</tr>
+<tr class="odd">
+<td>Section</td>
+<td><code>@sec-label</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<section id="references" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="references">
+<span class="header-section-number">6.1</span> References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-angrist1991does" class="csl-entry" role="listitem">
+Angrist, Joshua D., and Alan B. Krueger. 1991. <span>“Does Compulsory School Attendance Affect Schooling and Earnings?”</span> <em>Quarterly Journal of Economics</em> 106 (4): 979–1014.
+</div>
+<div id="ref-hansen2022econometrics" class="csl-entry" role="listitem">
+Hansen, Bruce E. 2022. <em>Econometrics</em>. Princeton, NJ: Princeton University Press.
+</div>
+</div>
+
+
+</section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<ol>
+<li id="fn1"><p>Footnotes work as usual and appear on hover.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></div></main><!-- /main --><!--
+  Annotated equations: link each \eqt{key}{...} term in the rendered math to its
+  explanation card, in both directions.
+
+  Injected via `include-after-body`, so the DOM exists when this runs. MathJax
+  typesets asynchronously, so we wait for the `econ:mathjax-done` event fired by
+  assets/mathjax.html (with a polling fallback in case MathJax is absent or the
+  event was missed).
+
+  Behaviour: hovering or focusing either a term or its card highlights both.
+  Clicking a term pins the pair, so it survives the pointer moving away — which
+  matters when the note is long enough to read.
+--><script>
+(function () {
+  'use strict';
+
+  var PINNED = 'eqt-pinned';
+  var ACTIVE = 'eqt-active';
+
+  // wire() can be reached from three paths (the MathJax event, DOMContentLoaded,
+  // and the polling fallback). Without this guard the later paths bind a second
+  // set of handlers and every click toggles the pin twice, i.e. never pins.
+  var wired = false;
+
+  function wire(root) {
+    if (wired) return true;
+
+    var terms = root.querySelectorAll('.eqt');
+    if (!terms.length) return false;
+
+    wired = true;
+
+    // MathJax emits \class{eqt eqt-a} on possibly several nested nodes; index by key.
+    var byKey = {};
+    terms.forEach(function (el) {
+      var key = null;
+      el.classList.forEach(function (c) {
+        if (c.indexOf('eqt-') === 0 && c !== 'eqt-active' && c !== 'eqt-pinned') {
+          key = c.slice(4);
+        }
+      });
+      if (!key) return;
+      (byKey[key] = byKey[key] || []).push(el);
+      el.setAttribute('data-eqt', key);
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Equation term ' + key);
+    });
+
+    var notes = root.querySelectorAll('.econ-eqnote-note');
+    var noteByKey = {};
+    notes.forEach(function (n) { noteByKey[n.getAttribute('data-eqt')] = n; });
+
+    function partners(key) {
+      var list = (byKey[key] || []).slice();
+      if (noteByKey[key]) list.push(noteByKey[key]);
+      return list;
+    }
+
+    function setActive(key, on) {
+      partners(key).forEach(function (el) { el.classList.toggle(ACTIVE, on); });
+    }
+
+    function clearPins(scope) {
+      scope.querySelectorAll('.' + PINNED).forEach(function (el) {
+        el.classList.remove(PINNED);
+        el.classList.remove(ACTIVE);
+      });
+    }
+
+    function togglePin(key, container) {
+      var already = (byKey[key] || []).some(function (el) {
+        return el.classList.contains(PINNED);
+      });
+      clearPins(container);
+      if (!already) {
+        partners(key).forEach(function (el) {
+          el.classList.add(PINNED);
+          el.classList.add(ACTIVE);
+        });
+      }
+    }
+
+    function bind(el) {
+      var key = el.getAttribute('data-eqt');
+      if (!key) return;
+      var container = el.closest('.econ-eqnote') || root;
+
+      el.addEventListener('mouseenter', function () { setActive(key, true); });
+      el.addEventListener('mouseleave', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('focus', function () { setActive(key, true); });
+      el.addEventListener('blur', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        togglePin(key, container);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          togglePin(key, container);
+        }
+      });
+    }
+
+    terms.forEach(bind);
+    notes.forEach(bind);
+
+    // Clicking outside any annotated equation releases the pin.
+    document.addEventListener('click', function (ev) {
+      if (!ev.target.closest('.econ-eqnote')) clearPins(root);
+    });
+
+    return true;
+  }
+
+  var timer = null;
+
+  function stopPolling() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    if (wire(document)) {
+      stopPolling();
+      return;
+    }
+    if (timer !== null) return;
+    // Fallback: MathJax may not have finished (or may not be present at all).
+    var tries = 0;
+    timer = setInterval(function () {
+      if (wire(document) || ++tries > 40) stopPolling();
+    }, 150);
+  }
+
+  document.addEventListener('econ:mathjax-done', start);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../slides/notas/03-algebra.html" class="pagination-link" aria-label="3 · Algebra and Geometry of Least Squares">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">3 · Algebra and Geometry of Least Squares</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Econometrics I — PIMES/UFPE</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

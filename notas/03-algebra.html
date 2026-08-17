@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Henrique Veras">
+<title>The Algebra and Geometry of Least Squares – Econometrics I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/02-projection.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f53dd81e4532dc1ad2d5a3da1ba84db5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-85294af6fad2849895ed9755e431b126.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<!--
+  MathJax configuration for Econometrics I.
+
+  Two jobs:
+   (1) load the [tex]/html package so \class{} works, which is what lets
+       \eqt{key}{body} tag a sub-expression for the annotated-equation widget;
+   (2) define the course-wide macro set, so notation is declared once here
+       instead of being re-typed in every lecture.
+
+  This block is injected into <head> via `include-in-header`, so it runs before
+  MathJax itself is loaded and the configuration is picked up.
+
+  Shared by the website AND the Reveal.js decks, so the macro set is declared
+  once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
+  _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
+  MathJax 2 and is neutralised by the Hub shim below.
+--><script>
+window.MathJax = {
+  loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
+  tex: {
+    packages: { '[+]': ['html', 'ams', 'boldsymbol'] },
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams',
+    macros: {
+      // --- annotated-equation term tag -------------------------------------
+      eqt: ['\\class{eqt eqt-#1}{#2}', 2],
+
+      // --- estimators and operators ----------------------------------------
+      plim:  ['\\operatorname*{plim}', 0],
+      argmin:['\\operatorname*{arg\\,min}', 0],
+      argmax:['\\operatorname*{arg\\,max}', 0],
+      tr:    ['\\operatorname{tr}', 0],
+      rank:  ['\\operatorname{rank}', 0],
+      diag:  ['\\operatorname{diag}', 0],
+      vect:  ['\\operatorname{vec}', 0],
+
+      // --- probability ------------------------------------------------------
+      E:     ['\\mathbb{E}', 0],
+      Var:   ['\\operatorname{Var}', 0],
+      Cov:   ['\\operatorname{Cov}', 0],
+      Prob:  ['\\mathbb{P}', 0],
+      indep: ['\\perp\\!\\!\\!\\perp', 0],
+      pto:   ['\\xrightarrow{\\;p\\;}', 0],
+      dto:   ['\\xrightarrow{\\;d\\;}', 0],
+      asto:  ['\\xrightarrow{\\;a.s.\\;}', 0],
+      Normal:['\\mathcal{N}', 0],
+
+      // --- vectors and matrices (bold upright) ------------------------------
+      mat:   ['\\mathbf{#1}', 1],
+      vecb:  ['\\mathbf{#1}', 1],
+      bbeta: ['\\boldsymbol{\\beta}', 0],
+      beps:  ['\\boldsymbol{\\varepsilon}', 0],
+      btheta:['\\boldsymbol{\\theta}', 0],
+      bX:    ['\\mathbf{X}', 0],
+      bY:    ['\\mathbf{y}', 0],
+      bZ:    ['\\mathbf{Z}', 0],
+      bb:    ['\\mathbf{b}', 0],
+      be:    ['\\mathbf{e}', 0],
+      bP:    ['\\mathbf{P}', 0],
+      bM:    ['\\mathbf{M}', 0],
+      bI:    ['\\mathbf{I}', 0],
+      bQ:    ['\\mathbf{Q}', 0],
+      bzero: ['\\mathbf{0}', 0]
+    }
+  },
+  options: {
+    enableMenu: true,
+    menuOptions: { settings: { zoom: 'DoubleClick' } }
+  },
+  chtml: { displayAlign: 'center', displayIndent: '0' },
+  startup: {
+    ready: function () {
+      // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
+      // plugin. Pointed at v3 it loads the library correctly and then throws
+      // once on `MathJax.Hub.Config`, because v3 has no Hub. The error is
+      // cosmetic -- Reveal has already initialised and MathJax 3 typesets on
+      // its own. A Hub shim does not help: the plugin's callback runs before
+      // this hook, so there is nothing to shim yet.
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(function () {
+        // Signal the annotated-equation script that \eqt terms are in the DOM.
+        document.dispatchEvent(new CustomEvent('econ:mathjax-done'));
+        // Reveal sizes slides before the maths exists, so re-measure once it
+        // does. No-op on the website, where Reveal is undefined.
+        if (typeof Reveal !== 'undefined' && Reveal.layout) { Reveal.layout(); }
+      });
+    }
+  }
+};
+
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../assets/components.css">
+</head>
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Econometrics I</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa/ementa-2026.html"> 
+<span class="menu-text">Ementa</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto"></ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/03-algebra.html">3 · Algebra and Geometry of Least Squares</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Map</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I — Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II — Linear Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">IV — Nonlinear Estimation</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">V — Panel Data</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Component Reference</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">0.1</span> Where we are</a>
+  <ul class="collapse">
+<li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
+  <li><a href="#from-population-to-sample" id="toc-from-population-to-sample" class="nav-link" data-scroll-target="#from-population-to-sample">From population to sample</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-least-squares-problem" id="toc-the-least-squares-problem" class="nav-link" data-scroll-target="#the-least-squares-problem"><span class="header-section-number">0.2</span> The least squares problem</a>
+  <ul class="collapse">
+<li><a href="#choosing-a-fitting-criterion" id="toc-choosing-a-fitting-criterion" class="nav-link" data-scroll-target="#choosing-a-fitting-criterion">Choosing a fitting criterion</a></li>
+  <li><a href="#deriving-the-estimator" id="toc-deriving-the-estimator" class="nav-link" data-scroll-target="#deriving-the-estimator">Deriving the estimator</a></li>
+  <li><a href="#reading-the-normal-equations" id="toc-reading-the-normal-equations" class="nav-link" data-scroll-target="#reading-the-normal-equations">Reading the normal equations</a></li>
+  <li><a href="#the-same-equation-one-lecture-earlier" id="toc-the-same-equation-one-lecture-earlier" class="nav-link" data-scroll-target="#the-same-equation-one-lecture-earlier">The same equation, one lecture earlier</a></li>
+  <li><a href="#two-consequences-that-come-for-free" id="toc-two-consequences-that-come-for-free" class="nav-link" data-scroll-target="#two-consequences-that-come-for-free">Two consequences that come for free</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#projection-and-the-residual-maker" id="toc-projection-and-the-residual-maker" class="nav-link" data-scroll-target="#projection-and-the-residual-maker"><span class="header-section-number">0.3</span> Projection and the residual maker</a>
+  <ul class="collapse">
+<li><a href="#two-matrices-worth-naming" id="toc-two-matrices-worth-naming" class="nav-link" data-scroll-target="#two-matrices-worth-naming">Two matrices worth naming</a></li>
+  <li><a href="#their-properties-and-why-they-matter" id="toc-their-properties-and-why-they-matter" class="nav-link" data-scroll-target="#their-properties-and-why-they-matter">Their properties, and why they matter</a></li>
+  <li><a href="#the-orthogonal-decomposition" id="toc-the-orthogonal-decomposition" class="nav-link" data-scroll-target="#the-orthogonal-decomposition">The orthogonal decomposition</a></li>
+  <li><a href="#the-picture" id="toc-the-picture" class="nav-link" data-scroll-target="#the-picture">The picture</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#partitioned-regression" id="toc-partitioned-regression" class="nav-link" data-scroll-target="#partitioned-regression"><span class="header-section-number">0.4</span> Partitioned regression</a>
+  <ul class="collapse">
+<li><a href="#the-question-controls-raise" id="toc-the-question-controls-raise" class="nav-link" data-scroll-target="#the-question-controls-raise">The question controls raise</a></li>
+  <li><a href="#the-easy-case-first" id="toc-the-easy-case-first" class="nav-link" data-scroll-target="#the-easy-case-first">The easy case first</a></li>
+  <li><a href="#frisch-waugh-lovell" id="toc-frisch-waugh-lovell" class="nav-link" data-scroll-target="#frisch-waugh-lovell">Frisch-Waugh-Lovell</a></li>
+  <li><a href="#what-the-theorem-says-in-words" id="toc-what-the-theorem-says-in-words" class="nav-link" data-scroll-target="#what-the-theorem-says-in-words">What the theorem says in words</a></li>
+  <li><a href="#the-three-step-recipe" id="toc-the-three-step-recipe" class="nav-link" data-scroll-target="#the-three-step-recipe">The three-step recipe</a></li>
+  <li><a href="#fwl-in-three-pictures" id="toc-fwl-in-three-pictures" class="nav-link" data-scroll-target="#fwl-in-three-pictures">FWL in three pictures</a></li>
+  <li><a href="#why-this-matters-computationally" id="toc-why-this-matters-computationally" class="nav-link" data-scroll-target="#why-this-matters-computationally">Why this matters computationally</a></li>
+  <li><a href="#two-corollaries-worth-having" id="toc-two-corollaries-worth-having" class="nav-link" data-scroll-target="#two-corollaries-worth-having">Two corollaries worth having</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit"><span class="header-section-number">0.5</span> Goodness of fit</a>
+  <ul class="collapse">
+<li><a href="#decomposing-the-variation" id="toc-decomposing-the-variation" class="nav-link" data-scroll-target="#decomposing-the-variation">Decomposing the variation</a></li>
+  <li><a href="#r2-and-why-it-cannot-select-models" id="toc-r2-and-why-it-cannot-select-models" class="nav-link" data-scroll-target="#r2-and-why-it-cannot-select-models"><span class="math inline">\(R^2\)</span>, and why it cannot select models</a></li>
+  <li><a href="#the-adjusted-version-and-its-limits" id="toc-the-adjusted-version-and-its-limits" class="nav-link" data-scroll-target="#the-adjusted-version-and-its-limits">The adjusted version, and its limits</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#transformed-regressors" id="toc-transformed-regressors" class="nav-link" data-scroll-target="#transformed-regressors"><span class="header-section-number">0.6</span> Transformed regressors</a>
+  <ul class="collapse">
+<li><a href="#does-reparameterising-change-anything" id="toc-does-reparameterising-change-anything" class="nav-link" data-scroll-target="#does-reparameterising-change-anything">Does reparameterising change anything?</a></li>
+  <li><a href="#two-parameterisations-of-the-same-model" id="toc-two-parameterisations-of-the-same-model" class="nav-link" data-scroll-target="#two-parameterisations-of-the-same-model">Two parameterisations of the same model</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#computation" id="toc-computation" class="nav-link" data-scroll-target="#computation"><span class="header-section-number">0.7</span> Computation</a>
+  <ul class="collapse">
+<li><a href="#nobody-inverts-bxbx" id="toc-nobody-inverts-bxbx" class="nav-link" data-scroll-target="#nobody-inverts-bxbx">Nobody inverts <span class="math inline">\(\bX'\bX\)</span></a></li>
+  <li><a href="#how-much-does-it-cost" id="toc-how-much-does-it-cost" class="nav-link" data-scroll-target="#how-much-does-it-cost">How much does it cost?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">0.8</span> Reading</a>
+  <ul class="collapse">
+<li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul>
+</li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">0.9</span> References</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/03-algebra.html">3 · Algebra and Geometry of Least Squares</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">The Algebra and Geometry of Least Squares</h1>
+<p class="subtitle lead">Lecture 3</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Henrique Veras </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            PIMES/UFPE
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header><section id="where-we-are" class="level2" data-number="0.1"><h2 data-number="0.1" class="anchored" data-anchor-id="where-we-are">
+<span class="header-section-number">0.1</span> Where we are</h2>
+<section id="where-this-lecture-sits" class="level3"><h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
+<p></p>
+<div class="econ-stage" role="note" aria-label="Position in the course architecture">
+<div class="econ-stage-row">
+<span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span>
+</div>
+<div class="econ-stage-band"><span class="econ-stage-comp is-active">Computation</span></div>
+</div>
+<p>Identification was settled last lecture: under A2 the parameter <span class="math inline">\(\bbeta\)</span> is determined by the population, and under A3 it is the conditional expectation we wanted. <strong>We now assume both and move to the second question — how to construct an estimate.</strong></p>
+<p>Inference is not touched here at all. Neither, in fact, is statistics.</p>
+</section><section id="from-population-to-sample" class="level3"><h3 class="anchored" data-anchor-id="from-population-to-sample">From population to sample</h3>
+<p>Lecture 2 ended with a population object: the projection coefficient <span class="math inline">\(\bbeta = \bQ_{xx}^{-1}\E[\mathbf{x}y]\)</span>, identified under two finite moments and no collinearity. We never observe it, because we never observe <span class="math inline">\(F\)</span>.</p>
+<p>This lecture is entirely about the sample, and it is worth saying plainly what that means: <strong>nothing here is statistical.</strong> No expectations, no distributions, no assumptions about how the data were generated. We ask a purely algebraic question — given a matrix <span class="math inline">\(\bX\)</span> and a vector <span class="math inline">\(\bY\)</span>, which <span class="math inline">\(\mathbf{b}\)</span> makes <span class="math inline">\(\bX\mathbf{b}\)</span> closest to <span class="math inline">\(\bY\)</span>? — and then follow the answer into geometry.</p>
+<p>Everything below holds for <em>any</em> data matrix of full column rank. Whether the resulting <span class="math inline">\(\mathbf{b}\)</span> tells us anything about <span class="math inline">\(\bbeta\)</span> is the question of Lecture 4.</p>
+</section></section><section id="the-least-squares-problem" class="level2" data-number="0.2"><h2 data-number="0.2" class="anchored" data-anchor-id="the-least-squares-problem">
+<span class="header-section-number">0.2</span> The least squares problem</h2>
+<section id="choosing-a-fitting-criterion" class="level3"><h3 class="anchored" data-anchor-id="choosing-a-fitting-criterion">Choosing a fitting criterion</h3>
+<p>To make “closest” precise we need a criterion. Least squares takes the sum of squared deviations, which has the twin merits of penalising large errors heavily and yielding a solution in closed form.</p>
+<p>Define the <strong>residuals</strong> <span class="math inline">\(e_i = y_i - \mathbf{x}_i'\mathbf{b}\)</span>, or in stacked form <span class="math inline">\(\be = \bY - \bX\mathbf{b}\)</span>. Before going further, one distinction must be firm:</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\be\)</span> is the <strong>residual</strong> — observable, and a function of whichever <span class="math inline">\(\mathbf{b}\)</span> we choose. <span class="math inline">\(\beps\)</span> is the <strong>disturbance</strong> — unobservable, a feature of the DGP.</p>
+<p>Both <span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> and <span class="math inline">\(y_i = \mathbf{x}_i'\mathbf{b} + e_i\)</span> are true, and they say entirely different things.</p>
+</div>
+</div>
+</section><section id="deriving-the-estimator" class="level3"><h3 class="anchored" data-anchor-id="deriving-the-estimator">Deriving the estimator</h3>
+<p>With the criterion fixed, the derivation is short. Minimise <span class="math display">\[S(\mathbf{b}) = \be'\be = \bY'\bY - 2\bY'\bX\mathbf{b} + \mathbf{b}'\bX'\bX\mathbf{b}.\]</span></p>
+<p>The first-order condition gives the <strong>normal equations</strong>, <span class="math display">\[\frac{\partial S}{\partial \mathbf{b}} = -2\bX'\bY + 2\bX'\bX\mathbf{b} = \bzero
+\quad\Longrightarrow\quad \bX'\bX\mathbf{b} = \bX'\bY,\]</span> and A2 makes <span class="math inline">\(\bX'\bX\)</span> invertible, so <span class="math display">\[\boxed{\;\bb = (\bX'\bX)^{-1}\bX'\bY\;}\]</span></p>
+<p>The Hessian <span class="math inline">\(2\bX'\bX\)</span> is positive definite, confirming a minimum rather than a maximum.</p>
+</section><section id="reading-the-normal-equations" class="level3"><h3 class="anchored" data-anchor-id="reading-the-normal-equations">Reading the normal equations</h3>
+<p>The formula for <span class="math inline">\(\bb\)</span> is what gets memorised, but the normal equations in their raw form say something more interesting. Rewrite them as <span class="math inline">\(\bX'(\bY - \bX\bb) = \bX'\be = \bzero\)</span> and read the pieces:</p>
+<div class="econ-eqnote">
+<div class="econ-eqnote-math">
+<p><span class="math display">\[\eqt{a}{\bX'}\eqt{b}{(\bY - \bX\bb)} = \eqt{c}{\bX'\be} = \bzero\]</span></p>
+</div>
+<div class="econ-eqnote-notes">
+<div class="econ-eqnote-note" data-eqt="a" tabindex="0">
+<span class="econ-eqnote-key">a</span><div class="econ-eqnote-text">
+Every column of <span class="math inline">\(\bX\)</span> in turn: the condition holds separately for each regressor, <span class="math inline">\(\mathbf{x}_k'\be = 0\)</span> for <span class="math inline">\(k = 1,\dots,K\)</span>.
+</div>
+</div>
+<div class="econ-eqnote-note" data-eqt="b" tabindex="0">
+<span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
+The residual vector — whatever the fit fails to explain.
+</div>
+</div>
+<div class="econ-eqnote-note" data-eqt="c" tabindex="0">
+<span class="econ-eqnote-key">c</span><div class="econ-eqnote-text">
+<strong>The residuals are orthogonal to every regressor.</strong> Not approximately, and not on average across samples: exactly, by construction, in the sample you have.
+</div>
+</div>
+</div>
+</div>
+</section><section id="the-same-equation-one-lecture-earlier" class="level3"><h3 class="anchored" data-anchor-id="the-same-equation-one-lecture-earlier">The same equation, one lecture earlier</h3>
+<p>Divide the normal equations by <span class="math inline">\(n\)</span> and they read <span class="math inline">\(n^{-1}\sum_i \mathbf{x}_i e_i = \bzero\)</span> — which is the sample counterpart of the population condition <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span> we met in Lecture 2.</p>
+<p>That correspondence is not a coincidence. Least squares is the <strong>method of moments</strong> applied to the projection condition: replace a population expectation by its sample average and solve. We will not need this reading until Lecture 12, but it is already true here, and it is why the same asymptotic argument will eventually serve OLS, IV and GMM alike.</p>
+</section><section id="two-consequences-that-come-for-free" class="level3"><h3 class="anchored" data-anchor-id="two-consequences-that-come-for-free">Two consequences that come for free</h3>
+<p>Write the first column of <span class="math inline">\(\bX\)</span> as <span class="math inline">\(\mathbf{x}_1 \equiv \mathbf{i}\)</span>, a vector of ones. Then <span class="math inline">\(\mathbf{i}'\be = 0\)</span>, which delivers two familiar facts at once: the residuals sum to zero, <span class="math inline">\(\sum_i e_i = 0\)</span>; and the regression hyperplane passes through the point of means, <span class="math inline">\(\bar{y} = \bar{\mathbf{x}}'\bb\)</span>.</p>
+<p>Both are consequences of the intercept, not of least squares as such — neither survives in a regression without a constant term, and much of what follows, including the usual <span class="math inline">\(R^2\)</span>, quietly assumes one is present.</p>
+</section></section><section id="projection-and-the-residual-maker" class="level2" data-number="0.3"><h2 data-number="0.3" class="anchored" data-anchor-id="projection-and-the-residual-maker">
+<span class="header-section-number">0.3</span> Projection and the residual maker</h2>
+<section id="two-matrices-worth-naming" class="level3"><h3 class="anchored" data-anchor-id="two-matrices-worth-naming">Two matrices worth naming</h3>
+<p>Substituting <span class="math inline">\(\bb\)</span> back into <span class="math inline">\(\be = \bY - \bX\bb\)</span> gives <span class="math display">\[\be = \big(\bI - \bX(\bX'\bX)^{-1}\bX'\big)\bY = \bM\bY,\]</span> so the residuals are a fixed linear transformation of <span class="math inline">\(\bY\)</span>. The same is true of the fitted values. Both transformations are used constantly enough to deserve names.</p>
+<div id="def-P" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Projection matrix and residual maker)</strong></span> <span class="math display">\[\bP = \bX(\bX'\bX)^{-1}\bX', \qquad \bM = \bI_n - \bP\]</span></p>
+<p><span class="math inline">\(\bP\bY = \hat{\bY}\)</span> returns the fitted values from a regression on <span class="math inline">\(\bX\)</span>; <span class="math inline">\(\bM\bY = \be\)</span> returns the residuals.</p>
+</div>
+</section><section id="their-properties-and-why-they-matter" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="their-properties-and-why-they-matter">Their properties, and why they matter</h3>
+<p>Almost everything in this lecture is a corollary of the following list. It is worth learning it as a list, because each item will be used without comment later.</p>
+<div id="thm-PM-properties" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Properties of <span class="math inline">\(\bP\)</span> and <span class="math inline">\(\bM\)</span>)</strong></span> &nbsp;</p>
+<ol type="1">
+<li>Both are <strong>symmetric</strong>: <span class="math inline">\(\bP' = \bP\)</span>, <span class="math inline">\(\bM' = \bM\)</span>
+</li>
+<li>Both are <strong>idempotent</strong>: <span class="math inline">\(\bP\bP = \bP\)</span>, <span class="math inline">\(\bM\bM = \bM\)</span>
+</li>
+<li>
+<span class="math inline">\(\bP\bX = \bX\)</span> and <span class="math inline">\(\bM\bX = \bzero\)</span>
+</li>
+<li>They are <strong>orthogonal</strong>: <span class="math inline">\(\bP\bM = \bM\bP = \bzero\)</span>
+</li>
+<li>
+<span class="math inline">\(\rank(\bP) = K\)</span> and <span class="math inline">\(\rank(\bM) = n - K\)</span>
+</li>
+</ol>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Symmetry is immediate. Idempotency follows from the inner <span class="math inline">\(\bX'\bX(\bX'\bX)^{-1}\)</span> collapsing to <span class="math inline">\(\bI\)</span>; (3) and (4) are then one line each. For the ranks, an idempotent matrix has rank equal to its trace, and <span class="math inline">\(\tr(\bP) = \tr(\bI_K) = K\)</span>. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="the-orthogonal-decomposition" class="level3"><h3 class="anchored" data-anchor-id="the-orthogonal-decomposition">The orthogonal decomposition</h3>
+<p>Property 4 has an immediate consequence that is really the whole lecture in one line: <span class="math display">\[\bY = \bP\bY + \bM\bY = \hat{\bY} + \be, \qquad \hat{\bY}'\be = \bY'\bP\bM\bY = 0.\]</span></p>
+<p>Least squares splits <span class="math inline">\(\bY\)</span> into two pieces that are orthogonal to each other — the part lying in the column space of <span class="math inline">\(\bX\)</span>, and the part lying at right angles to it.</p>
+<p>Said geometrically: the column space <span class="math inline">\(\mathcal{S}(\bX)\)</span>, the set of all vectors expressible as <span class="math inline">\(\bX\mathbf{b}\)</span>, is a <span class="math inline">\(K\)</span>-dimensional subspace of <span class="math inline">\(\mathbb{R}^n\)</span>. The vector <span class="math inline">\(\bY\)</span> generally does not lie in it. Least squares finds the point of <span class="math inline">\(\mathcal{S}(\bX)\)</span> nearest to <span class="math inline">\(\bY\)</span> in Euclidean distance, and that point is the orthogonal projection — the foot of the perpendicular dropped from <span class="math inline">\(\bY\)</span> onto the subspace.</p>
+<p>Every algebraic result in this lecture restates that picture.</p>
+</section><section id="the-picture" class="level3"><h3 class="anchored" data-anchor-id="the-picture">The picture</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-projection-geometry" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-projection-geometry-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-algebra_files/figure-html/fig-projection-geometry-1.svg" class="img-fluid figure-img" width="2400">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-projection-geometry-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Least squares with <span class="math inline">\(K = 2\)</span>. The plane is <span class="math inline">\(\mathcal{S}(\bX)\)</span>; <span class="math inline">\(\hat{\bY}\)</span> is the point of it closest to <span class="math inline">\(\bY\)</span>, and the residual meets the plane at a right angle.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="partitioned-regression" class="level2" data-number="0.4"><h2 data-number="0.4" class="anchored" data-anchor-id="partitioned-regression">
+<span class="header-section-number">0.4</span> Partitioned regression</h2>
+<section id="the-question-controls-raise" class="level3"><h3 class="anchored" data-anchor-id="the-question-controls-raise">The question controls raise</h3>
+<p>In most applications only some regressors are of interest and the rest are there to hold something constant — recall the returns-to-education example, where age and its square are present only so that the education coefficient means something.</p>
+<p>That raises a natural question: is there an expression for the coefficients of interest alone, one that shows explicitly what the controls are doing?</p>
+<p>Partition <span class="math inline">\(\bX = [\bX_1 \;\; \bX_2]\)</span>, so that <span class="math inline">\(\bY = \bX_1\bbeta_1 + \bX_2\bbeta_2 + \beps\)</span>, and write out the normal equations in blocks: <span class="math display">\[\begin{bmatrix} \bX_1'\bX_1 &amp; \bX_1'\bX_2 \\ \bX_2'\bX_1 &amp; \bX_2'\bX_2 \end{bmatrix}
+  \begin{bmatrix} \bb_1 \\ \bb_2 \end{bmatrix} =
+  \begin{bmatrix} \bX_1'\bY \\ \bX_2'\bY \end{bmatrix}.\]</span></p>
+</section><section id="the-easy-case-first" class="level3"><h3 class="anchored" data-anchor-id="the-easy-case-first">The easy case first</h3>
+<p>Solving the first block gives <span class="math inline">\(\bb_1 = (\bX_1'\bX_1)^{-1}\bX_1'(\bY - \bX_2\bb_2)\)</span>, which still involves <span class="math inline">\(\bb_2\)</span>. But suppose the two blocks happen to be orthogonal.</p>
+<div id="thm-orthogonal-partition" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Orthogonal partitioned regression)</strong></span> If <span class="math inline">\(\bX_1'\bX_2 = \bzero\)</span>, then <span class="math inline">\(\bb_1 = (\bX_1'\bX_1)^{-1}\bX_1'\bY\)</span> and <span class="math inline">\(\bb_2 = (\bX_2'\bX_2)^{-1}\bX_2'\bY\)</span>: each subvector is obtained by regressing <span class="math inline">\(\bY\)</span> on that block alone.</p>
+</div>
+<p>This is the case in which controls do not matter — if they are orthogonal to the variable of interest, including them changes nothing. It is also, in observational data, essentially never the case. The general result is the next theorem, and it is the most useful identity in the course.</p>
+</section><section id="frisch-waugh-lovell" class="level3"><h3 class="anchored" data-anchor-id="frisch-waugh-lovell">Frisch-Waugh-Lovell</h3>
+<div id="thm-fwl" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Frisch-Waugh-Lovell)</strong></span> Let <span class="math inline">\(\bM_1 = \bI - \bX_1(\bX_1'\bX_1)^{-1}\bX_1'\)</span>. Then <span class="math display">\[\bb_2 = (\bX_2'\bM_1\bX_2)^{-1}\bX_2'\bM_1\bY,\]</span> which, writing <span class="math inline">\(\bX_2^* = \bM_1\bX_2\)</span> and <span class="math inline">\(\bY^* = \bM_1\bY\)</span>, is just <span class="math inline">\(\bb_2 = (\bX_2^{*\prime}\bX_2^{*})^{-1}\bX_2^{*\prime}\bY^{*}\)</span>.</p>
+</div>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
+<p>Derived on the board. The skeleton:</p>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Substitute <span class="math inline">\(\bb_1\)</span> from the first block into the second and collect terms in <span class="math inline">\(\bb_2\)</span>; the projector <span class="math inline">\(\bP_1\)</span> assembles itself, giving <span class="math inline">\(\bX_2'(\bI - \bP_1)\bX_2\,\bb_2 = \bX_2'(\bI - \bP_1)\bY\)</span>. A2 gives invertibility, and idempotency of <span class="math inline">\(\bM_1\)</span> gives the second form. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="what-the-theorem-says-in-words" class="level3"><h3 class="anchored" data-anchor-id="what-the-theorem-says-in-words">What the theorem says in words</h3>
+<p>Two questions answer themselves once you look at the pieces. <span class="math inline">\(\bM_1\bX_2\)</span> is the residual from regressing <span class="math inline">\(\bX_2\)</span> on the controls — the part of <span class="math inline">\(\bX_2\)</span> the controls cannot explain. <span class="math inline">\(\bM_1\bY\)</span> is the same operation applied to <span class="math inline">\(\bY\)</span>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A multiple regression coefficient is a <strong>simple regression coefficient on partialled-out data</strong>.</p>
+<p><span class="math inline">\(\bb_2\)</span> uses only the variation in <span class="math inline">\(\bX_2\)</span> that is orthogonal to the controls. That is what “holding other things constant” means, operationally.</p>
+</div>
+</div>
+</section><section id="the-three-step-recipe" class="level3"><h3 class="anchored" data-anchor-id="the-three-step-recipe">The three-step recipe</h3>
+<div id="exm-fwl-recipe" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Returns to education)</strong></span> For <span class="math inline">\(\text{Income}_i = \beta_1 + \beta_2\,\text{educ}_i + \beta_3\,\text{age}_i + \beta_4\,\text{age}_i^2 + \varepsilon_i\)</span>:</p>
+<ol type="1">
+<li>Regress Income on <span class="math inline">\((1, \text{age}, \text{age}^2)\)</span> and keep the residuals <span class="math inline">\(\mathbf{r}_1\)</span>
+</li>
+<li>Regress educ on the same controls and keep the residuals <span class="math inline">\(\mathbf{r}_2\)</span>
+</li>
+<li>Regress <span class="math inline">\(\mathbf{r}_1\)</span> on <span class="math inline">\(\mathbf{r}_2\)</span> — the slope is exactly <span class="math inline">\(b_2\)</span>
+</li>
+</ol>
+</div>
+</section><section id="fwl-in-three-pictures" class="level3"><h3 class="anchored" data-anchor-id="fwl-in-three-pictures">FWL in three pictures</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-fwl-panels" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-fwl-panels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-algebra_files/figure-html/fig-fwl-panels-1.svg" class="img-fluid figure-img" width="2700">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fwl-panels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is the multiple-regression coefficient on education — identical to the number the four-variable regression returns.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The first two panels throw away everything age can explain. The third regresses what is left of income on what is left of education — and its slope is the multiple regression coefficient, exactly.</p>
+<p>Since this is an algebraic identity rather than an approximation, the two routes agree to machine precision:</p>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20262</span><span class="op">)</span></span>
+<span><span class="va">n</span>      <span class="op">&lt;-</span> <span class="fl">300</span></span>
+<span><span class="va">age</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">22</span>, <span class="fl">60</span><span class="op">)</span></span>
+<span><span class="va">educ</span>   <span class="op">&lt;-</span> <span class="fl">4</span> <span class="op">+</span> <span class="fl">0.12</span> <span class="op">*</span> <span class="va">age</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, sd <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
+<span><span class="va">income</span> <span class="op">&lt;-</span> <span class="fl">8</span> <span class="op">+</span> <span class="fl">0.09</span> <span class="op">*</span> <span class="va">educ</span> <span class="op">+</span> <span class="fl">0.03</span> <span class="op">*</span> <span class="va">age</span> <span class="op">-</span> <span class="fl">0.0002</span> <span class="op">*</span> <span class="va">age</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, sd <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">income</span> <span class="op">~</span> <span class="va">educ</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">age</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="st">"educ"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">r1</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">income</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">age</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">r2</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">educ</span>   <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">age</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fwl</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">r1</span> <span class="op">~</span> <span class="va">r2</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="st">"r2"</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="va">full</span>, fwl <span class="op">=</span> <span class="va">fwl</span>, difference <span class="op">=</span> <span class="va">full</span> <span class="op">-</span> <span class="va">fwl</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     multiple          fwl   difference </span></span>
+<span><span class="co">#&gt; 9.522945e-02 9.522945e-02 1.526557e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="why-this-matters-computationally" class="level3"><h3 class="anchored" data-anchor-id="why-this-matters-computationally">Why this matters computationally</h3>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">How software absorbs millions of fixed effects</span>
+</div>
+<div class="econ-box-body">
+<p><a href="#thm-fwl" class="quarto-xref">Theorem&nbsp;3</a> is what makes high-dimensional fixed effects tractable. Nobody builds a design matrix with a million dummy columns.</p>
+<p>Take <span class="math inline">\(\bX_1\)</span> to be the dummies: only <span class="math inline">\(\bM_1\bY\)</span> and <span class="math inline">\(\bM_1\bX_2\)</span> are ever needed, and for dummies that is just within-group demeaning.</p>
+</div>
+</div>
+<p>When the groups are not nested — worker and firm effects in the same wage regression — the demeaning is applied alternately until convergence. That is the idea behind <code>fixest</code> and <code>reghdfe</code>, and it is why they scale to administrative data a dense design matrix could not hold in memory. We return to it in Lecture 15, where the within transformation turns out to be <a href="#thm-fwl" class="quarto-xref">Theorem&nbsp;3</a> once again.</p>
+</section><section id="two-corollaries-worth-having" class="level3"><h3 class="anchored" data-anchor-id="two-corollaries-worth-having">Two corollaries worth having</h3>
+<div id="cor-fwl-single" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 1 (A single extra regressor)</strong></span> In the regression of <span class="math inline">\(\bY\)</span> on <span class="math inline">\(\bX\)</span> and one further variable <span class="math inline">\(\mathbf{z}\)</span>, the coefficient on <span class="math inline">\(\mathbf{z}\)</span> is <span class="math display">\[c = \frac{\mathbf{z}'\bM\bY}{\mathbf{z}'\bM\mathbf{z}},\]</span> with <span class="math inline">\(\bM\)</span> the residual maker for <span class="math inline">\(\bX\)</span>.</p>
+</div>
+<div id="cor-demeaning" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 2 (Partialling out a constant is demeaning)</strong></span> Taking <span class="math inline">\(\bX_1 = \mathbf{i}\)</span> and writing <span class="math inline">\(\bM^0\)</span> for the corresponding residual maker, <span class="math inline">\(\bM^0\mathbf{x} = \mathbf{x} - \mathbf{i}\bar{x}\)</span>. Slopes in a regression with an intercept can therefore be computed from data in deviations from means.</p>
+</div>
+<p><span class="math inline">\(\bM^0\)</span> is the one-group case of the within transformation, which is how Lecture 15 will begin.</p>
+</section></section><section id="goodness-of-fit" class="level2" data-number="0.5"><h2 data-number="0.5" class="anchored" data-anchor-id="goodness-of-fit">
+<span class="header-section-number">0.5</span> Goodness of fit</h2>
+<section id="decomposing-the-variation" class="level3"><h3 class="anchored" data-anchor-id="decomposing-the-variation">Decomposing the variation</h3>
+<p>Having split <span class="math inline">\(\bY\)</span> into fit and residual, it is natural to ask how much of the variation in <span class="math inline">\(\bY\)</span> the regression accounts for. Variation is measured as deviation from the mean, which is why <span class="math inline">\(\bM^0\)</span> reappears immediately.</p>
+<p>Applying <span class="math inline">\(\bM^0\)</span> to <span class="math inline">\(\bY = \bX\bb + \be\)</span> and using <span class="math inline">\(\bM^0\be = \be\)</span>: <span class="math display">\[\underbrace{\textstyle\sum_i (y_i - \bar y)^2}_{SST}
+= \underbrace{\textstyle\sum_i (\hat y_i - \bar y)^2}_{SSR}
++ \underbrace{\textstyle\sum_i e_i^2}_{SSE}\]</span></p>
+<p>This is the orthogonal decomposition once more, now measured in deviations from means.</p>
+</section><section id="r2-and-why-it-cannot-select-models" class="level3"><h3 class="anchored" data-anchor-id="r2-and-why-it-cannot-select-models">
+<span class="math inline">\(R^2\)</span>, and why it cannot select models</h3>
+<p>The coefficient of determination is the share of variation accounted for, <span class="math display">\[R^2 = \frac{SSR}{SST} = 1 - \frac{\be'\be}{\bY'\bM^0\bY},\]</span> which lies in <span class="math inline">\([0,1]\)</span> provided the regression has an intercept. Without one, <span class="math inline">\(SST \neq SSR+SSE\)</span> and the quantity can come out negative.</p>
+<div id="thm-r2-monotone" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Adding regressors cannot reduce <span class="math inline">\(R^2\)</span>)</strong></span> Adding any variable to <span class="math inline">\(\bX\)</span> leaves <span class="math inline">\(R^2\)</span> unchanged or larger, with equality only if the new coefficient is exactly zero.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The larger model minimises the same criterion over a superset of the parameter space, so its minimised <span class="math inline">\(SSE\)</span> cannot be larger; <span class="math inline">\(SST\)</span> is unchanged. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="the-adjusted-version-and-its-limits" class="level3"><h3 class="anchored" data-anchor-id="the-adjusted-version-and-its-limits">The adjusted version, and its limits</h3>
+<p>Because <span class="math inline">\(R^2\)</span> rewards adding regressors regardless of merit, it is useless for choosing between models. The standard patch imposes a penalty for lost degrees of freedom: <span class="math display">\[\bar{R}^2 = 1 - \frac{\be'\be/(n-K)}{\bY'\bM^0\bY/(n-1)} = 1 - \frac{n-1}{n-K}(1 - R^2).\]</span></p>
+<p>Unlike <span class="math inline">\(R^2\)</span>, this can fall when a variable is added — it rises or falls according to whether the gain in fit outweighs the degree of freedom surrendered.</p>
+<p><span class="math inline">\(\bar{R}^2\)</span> is a mild improvement rather than a solution. It is not a hypothesis test and has no particular decision-theoretic justification. Lecture 6 supplies the tests; Lecture 9 treats model selection properly.</p>
+</section></section><section id="transformed-regressors" class="level2" data-number="0.6"><h2 data-number="0.6" class="anchored" data-anchor-id="transformed-regressors">
+<span class="header-section-number">0.6</span> Transformed regressors</h2>
+<section id="does-reparameterising-change-anything" class="level3"><h3 class="anchored" data-anchor-id="does-reparameterising-change-anything">Does reparameterising change anything?</h3>
+<p>A practical question: if we change units, or rewrite the regressors as combinations of one another, does the regression change?</p>
+</section><section id="two-parameterisations-of-the-same-model" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="two-parameterisations-of-the-same-model">Two parameterisations of the same model</h3>
+<div id="exm-monet-two-models" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (Two models of Monet’s prices)</strong></span> <strong>Model 1:</strong> <span class="math inline">\(\ln P = \beta_1 + \beta_2 \ln W + \beta_3 \ln H + \varepsilon\)</span></p>
+<p><strong>Model 2:</strong> <span class="math inline">\(\ln P = \gamma_1 + \gamma_2 \ln(WH) + \gamma_3 \ln(W/H) + u\)</span></p>
+<p>With <span class="math inline">\(z_1 = x_1\)</span>, <span class="math inline">\(z_2 = x_2 + x_3\)</span>, <span class="math inline">\(z_3 = x_2 - x_3\)</span>, the two designs are related by <span class="math inline">\(\bZ = \bX\mathbf{P}\)</span> for a nonsingular <span class="math inline">\(\mathbf{P}\)</span>.</p>
+</div>
+<div id="thm-transformed" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (Invariance under nonsingular transformation)</strong></span> If <span class="math inline">\(\bZ = \bX\mathbf{P}\)</span> with <span class="math inline">\(\mathbf{P}\)</span> nonsingular, the regression of <span class="math inline">\(\bY\)</span> on <span class="math inline">\(\bZ\)</span> has coefficients <span class="math inline">\(\mathbf{d} = \mathbf{P}^{-1}\bb\)</span> and produces <strong>identical</strong> fitted values, residuals and <span class="math inline">\(R^2\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\mathbf{d} = (\mathbf{P}'\bX'\bX\mathbf{P})^{-1}\mathbf{P}'\bX'\bY = \mathbf{P}^{-1}\bb\)</span>, hence <span class="math inline">\(\bZ\mathbf{d} = \bX\bb\)</span>. <span class="math inline">\(\square\)</span></p>
+</div>
+<p>Reparameterisation changes what the coefficients <em>mean</em>, never what the regression <em>explains</em>.</p>
+</section></section><section id="computation" class="level2" data-number="0.7"><h2 data-number="0.7" class="anchored" data-anchor-id="computation">
+<span class="header-section-number">0.7</span> Computation</h2>
+<section id="nobody-inverts-bxbx" class="level3"><h3 class="anchored" data-anchor-id="nobody-inverts-bxbx">Nobody inverts <span class="math inline">\(\bX'\bX\)</span>
+</h3>
+<p>The formula <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> is a definition, not an algorithm — and it is a decidedly bad algorithm.</p>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">QR decomposition</span>
+</div>
+<div class="econ-box-body">
+<p>Forming <span class="math inline">\(\bX'\bX\)</span> <strong>squares the condition number</strong> of <span class="math inline">\(\bX\)</span>, so a design that is merely awkward becomes numerically singular.</p>
+<p>R factors <span class="math inline">\(\bX = \bQ\mathbf{R}\)</span> with <span class="math inline">\(\bQ\)</span> orthonormal and <span class="math inline">\(\mathbf{R}\)</span> upper triangular, so the normal equations become <span class="math inline">\(\mathbf{R}\mathbf{b} = \bQ'\bY\)</span> — a triangular system solved by back-substitution. No inverse is formed and the condition number is never squared.</p>
+</div>
+</div>
+</section><section id="how-much-does-it-cost" class="level3"><h3 class="anchored" data-anchor-id="how-much-does-it-cost">How much does it cost?</h3>
+<div class="cell">
+<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20262</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">^</span><span class="fl">2</span>, <span class="va">x</span><span class="op">^</span><span class="fl">3</span>, <span class="va">x</span><span class="op">^</span><span class="fl">4</span>, <span class="va">x</span><span class="op">^</span><span class="fl">5</span>, <span class="va">x</span><span class="op">^</span><span class="fl">6</span>, <span class="va">x</span><span class="op">^</span><span class="fl">7</span><span class="op">)</span>   <span class="co"># near-collinear by construction</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cond_X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/kappa.html">kappa</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, cond_XtX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/kappa.html">kappa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/crossprod.html">crossprod</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      cond_X    cond_XtX </span></span>
+<span><span class="co">#&gt;      175530 24731884164</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>A condition number of <span class="math inline">\(10^k\)</span> costs roughly <span class="math inline">\(k\)</span> of the sixteen digits double precision offers. Squaring it can therefore consume the entire budget on a design QR handles without difficulty.</p>
+<div class="econ-box econ-box-connection" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Where this returns</span>
+</div>
+<div class="econ-box-body">
+<p>Lecture 9 treats multicollinearity. Carry forward the point that collinearity is a <strong>numerical</strong> problem before it is a statistical one — and that large standard errors are revealed by the algorithm, not caused by it.</p>
+</div>
+</div>
+</section></section><section id="reading" class="level2" data-number="0.8"><h2 data-number="0.8" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">0.8</span> Reading</h2>
+<section id="sources" class="level3"><h3 class="anchored" data-anchor-id="sources">Sources</h3>
+<table class="caption-top table"><tbody>
+<tr class="odd">
+<td><strong>Hansen</strong></td>
+<td>Chapter 3 — the algebra of least squares</td>
+</tr>
+<tr class="even">
+<td><strong>Greene</strong></td>
+<td>Chapter 3 — projection, FWL, goodness of fit</td>
+</tr>
+<tr class="odd">
+<td><strong>Greene</strong></td>
+<td>Appendix E — computation and numerical stability</td>
+</tr>
+</tbody></table>
+<div class="econ-box econ-box-literature" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Frisch, Waugh and Lovell</span>
+</div>
+<div class="econ-box-body">
+<p><span class="citation" data-cites="frisch1933partial">Frisch and Waugh (<a href="#ref-frisch1933partial" role="doc-biblioref">1933</a>)</span> established the result for detrending and <span class="citation" data-cites="lovell1963seasonal">Lovell (<a href="#ref-lovell1963seasonal" role="doc-biblioref">1963</a>)</span> generalised it to seasonal adjustment. Both were after a practical answer — whether removing a trend before regressing gives the same result as including it — and produced one of the most useful identities in econometrics.</p>
+</div>
+</div>
+</section></section><section id="references" class="level2" data-number="0.9"><h2 data-number="0.9" class="anchored" data-anchor-id="references">
+<span class="header-section-number">0.9</span> References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-frisch1933partial" class="csl-entry" role="listitem">
+Frisch, Ragnar, and Frederick V. Waugh. 1933. <span>“Partial Time Regressions as Compared with Individual Trends.”</span> <em>Econometrica</em> 1 (4): 387–401.
+</div>
+<div id="ref-lovell1963seasonal" class="csl-entry" role="listitem">
+Lovell, Michael C. 1963. <span>“Seasonal Adjustment of Economic Time Series and Multiple Regression Analysis.”</span> <em>Journal of the American Statistical Association</em> 58 (304): 993–1010.
+</div>
+</div>
+
+
+</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><!--
+  Annotated equations: link each \eqt{key}{...} term in the rendered math to its
+  explanation card, in both directions.
+
+  Injected via `include-after-body`, so the DOM exists when this runs. MathJax
+  typesets asynchronously, so we wait for the `econ:mathjax-done` event fired by
+  assets/mathjax.html (with a polling fallback in case MathJax is absent or the
+  event was missed).
+
+  Behaviour: hovering or focusing either a term or its card highlights both.
+  Clicking a term pins the pair, so it survives the pointer moving away — which
+  matters when the note is long enough to read.
+--><script>
+(function () {
+  'use strict';
+
+  var PINNED = 'eqt-pinned';
+  var ACTIVE = 'eqt-active';
+
+  // wire() can be reached from three paths (the MathJax event, DOMContentLoaded,
+  // and the polling fallback). Without this guard the later paths bind a second
+  // set of handlers and every click toggles the pin twice, i.e. never pins.
+  var wired = false;
+
+  function wire(root) {
+    if (wired) return true;
+
+    var terms = root.querySelectorAll('.eqt');
+    if (!terms.length) return false;
+
+    wired = true;
+
+    // MathJax emits \class{eqt eqt-a} on possibly several nested nodes; index by key.
+    var byKey = {};
+    terms.forEach(function (el) {
+      var key = null;
+      el.classList.forEach(function (c) {
+        if (c.indexOf('eqt-') === 0 && c !== 'eqt-active' && c !== 'eqt-pinned') {
+          key = c.slice(4);
+        }
+      });
+      if (!key) return;
+      (byKey[key] = byKey[key] || []).push(el);
+      el.setAttribute('data-eqt', key);
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Equation term ' + key);
+    });
+
+    var notes = root.querySelectorAll('.econ-eqnote-note');
+    var noteByKey = {};
+    notes.forEach(function (n) { noteByKey[n.getAttribute('data-eqt')] = n; });
+
+    function partners(key) {
+      var list = (byKey[key] || []).slice();
+      if (noteByKey[key]) list.push(noteByKey[key]);
+      return list;
+    }
+
+    function setActive(key, on) {
+      partners(key).forEach(function (el) { el.classList.toggle(ACTIVE, on); });
+    }
+
+    function clearPins(scope) {
+      scope.querySelectorAll('.' + PINNED).forEach(function (el) {
+        el.classList.remove(PINNED);
+        el.classList.remove(ACTIVE);
+      });
+    }
+
+    function togglePin(key, container) {
+      var already = (byKey[key] || []).some(function (el) {
+        return el.classList.contains(PINNED);
+      });
+      clearPins(container);
+      if (!already) {
+        partners(key).forEach(function (el) {
+          el.classList.add(PINNED);
+          el.classList.add(ACTIVE);
+        });
+      }
+    }
+
+    function bind(el) {
+      var key = el.getAttribute('data-eqt');
+      if (!key) return;
+      var container = el.closest('.econ-eqnote') || root;
+
+      el.addEventListener('mouseenter', function () { setActive(key, true); });
+      el.addEventListener('mouseleave', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('focus', function () { setActive(key, true); });
+      el.addEventListener('blur', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        togglePin(key, container);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          togglePin(key, container);
+        }
+      });
+    }
+
+    terms.forEach(bind);
+    notes.forEach(bind);
+
+    // Clicking outside any annotated equation releases the pin.
+    document.addEventListener('click', function (ev) {
+      if (!ev.target.closest('.econ-eqnote')) clearPins(root);
+    });
+
+    return true;
+  }
+
+  var timer = null;
+
+  function stopPolling() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    if (wire(document)) {
+      stopPolling();
+      return;
+    }
+    if (timer !== null) return;
+    // Fallback: MathJax may not have finished (or may not be present at all).
+    var tries = 0;
+    timer = setInterval(function () {
+      if (wire(document) || ++tries > 40) stopPolling();
+    }, 150);
+  }
+
+  document.addEventListener('econ:mathjax-done', start);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../notas/02-projection.html" class="pagination-link" aria-label="2 · Conditional Expectation and Projection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">2 · Conditional Expectation and Projection</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../slides/notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
+        <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Econometrics I — PIMES/UFPE</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

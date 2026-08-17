@@ -1,0 +1,547 @@
+[
+  {
+    "objectID": "ementa/ementa-2026.html#descrição",
+    "href": "ementa/ementa-2026.html#descrição",
+    "title": "Econometria I",
+    "section": "1. Descrição",
+    "text": "1. Descrição\nA econometria é o estudo de como aprendemos sobre parâmetros desconhecidos a partir de dados gerados por um processo probabilístico. Esta disciplina apresenta os fundamentos teóricos desse problema e os métodos que dele decorrem.\nO curso é organizado em torno de três perguntas que se repetem em cada tópico:\nIdentificação — sob quais condições os dados e o modelo permitem aprender sobre o parâmetro de interesse?\nEstimação — como podemos estimar esse parâmetro?\nInferência — como quantificamos a incerteza associada à estimação?\nUma quarta dimensão atravessa todas as demais:\nComputação — como o estimador e os procedimentos de inferência são efetivamente implementados?\nO modelo de regressão linear é o primeiro ambiente em que esses problemas são estudados com rigor. A partir dele, o curso mostra que mínimos quadrados, variáveis instrumentais, máxima verossimilhança, GMM e modelos de painel não são uma coleção de técnicas independentes, mas manifestações distintas de princípios gerais de estimação e inferência: alguns estimadores nascem de problemas de otimização, outros de condições de momento.\nEsta é uma disciplina teórica. O rigor matemático — definições, teoremas e demonstrações — é característica central do curso e permanece inalterado. A diferença em relação a uma apresentação tradicional está na organização: cada resultado é precedido pelo problema econométrico que ele resolve, e seguido pela conexão com os demais resultados do semestre."
+  },
+  {
+    "objectID": "ementa/ementa-2026.html#objetivos-de-aprendizagem",
+    "href": "ementa/ementa-2026.html#objetivos-de-aprendizagem",
+    "title": "Econometria I",
+    "section": "2. Objetivos de aprendizagem",
+    "text": "2. Objetivos de aprendizagem\nAo final do curso, o aluno deverá ser capaz de:\n\nFormular um problema econométrico em termos de um processo gerador de dados, de um parâmetro de interesse e das condições sob as quais esse parâmetro está identificado.\nDerivar formalmente os estimadores de MQO, IV/2SLS, GMM, máxima verossimilhança e de painel, e demonstrar suas propriedades em amostras finitas e assintóticas.\nAplicar a teoria de grandes amostras — LGN, TLC, Continuous Mapping, Slutsky e o Delta Method — como uma linguagem única, e não como um conjunto de ferramentas isoladas.\nConstruir e interpretar procedimentos de inferência válidos, incluindo inferência robusta à heterocedasticidade, clusterizada e por bootstrap.\nReconhecer estimadores conhecidos como casos particulares de estruturas gerais: M-estimation (otimização) e Z-estimation / condições de momento.\nCompreender o que um software econométrico efetivamente computa ao produzir uma estimativa e um erro-padrão.\nLer a literatura econométrica contemporânea reconhecendo sua terminologia — moment conditions, extremum estimators, asymptotic normality, consistent variance estimation, identification, clustering.\n\nO resultado pretendido não é que o aluno saiba dizer “conheço MQO, IV, Logit e painel”, mas que consiga pensar: “tenho um DGP e um parâmetro de interesse; preciso verificar se ele está identificado, escolher uma estratégia de estimação, estudar suas propriedades e fazer inferência válida.”"
+  },
+  {
+    "objectID": "ementa/ementa-2026.html#bibliografia",
+    "href": "ementa/ementa-2026.html#bibliografia",
+    "title": "Econometria I",
+    "section": "3. Bibliografia",
+    "text": "3. Bibliografia"
+  },
+  {
+    "objectID": "ementa/ementa-2026.html#estrutura-do-curso",
+    "href": "ementa/ementa-2026.html#estrutura-do-curso",
+    "title": "Econometria I",
+    "section": "4. Estrutura do curso",
+    "text": "4. Estrutura do curso\nO curso é organizado em cinco partes:\n                    Data Generating Process\n                              ↓\n                       Identification\n                              ↓\n                         Estimation\n                    ↙                 ↘\n            Optimization          Moment Conditions\n                 ↓                        ↓\n            M-estimation          Z-estimation / GMM\n                    ↘                 ↙\n                     Asymptotic Theory\n            LLN → CLT → CMT → Slutsky → Delta Method\n                              ↓\n                          Inference\n                              ↓\n                         Computation\nCada método estudado ocupa uma posição definida nessa arquitetura:\n\n\n\n\n\n\n\nMétodo\nPosição na arquitetura\n\n\n\n\nMQO\nEstimação linear; problema de otimização; condições de momento\n\n\nIV / 2SLS\nEstimação sob condições de momento\n\n\nGMM\nGeneralização das condições de momento\n\n\nMLE\nExtremum estimation / M-estimation\n\n\nLogit e Probit\nAplicações de MLE\n\n\nEfeitos fixos\nEstimação linear com estrutura de painel\n\n\nEfeitos aleatórios\nModelo de painel com estrutura probabilística específica"
+  },
+  {
+    "objectID": "ementa/ementa-2026.html#programa",
+    "href": "ementa/ementa-2026.html#programa",
+    "title": "Econometria I",
+    "section": "5. Programa",
+    "text": "5. Programa"
+  },
+  {
+    "objectID": "ementa/ementa-2026.html#componente-computacional",
+    "href": "ementa/ementa-2026.html#componente-computacional",
+    "title": "Econometria I",
+    "section": "6. Componente computacional",
+    "text": "6. Componente computacional\nO curso incorpora a computação como parte da formação econométrica, sem se transformar em uma disciplina de programação. A pergunta que orienta esse componente é: o que o computador está fazendo quando calculamos um estimador?\nAo longo do semestre, o aluno verá:\n\nMQO — solução algébrica, decomposição QR, colinearidade e estabilidade numérica\nInferência robusta — o que os estimadores de variância HC e clusterizados computam\nBootstrap — geração de reamostras, distribuição empírica, construção de erros-padrão\nMonte Carlo — desenho de experimentos para tornar visíveis propriedades já demonstradas\nMLE — otimização numérica, Newton-Raphson, BFGS, convergência e máximos locais\nPainel — transformação within e implementação de efeitos fixos\n\nAs notas de aula incluem simulações interativas cuja função é tornar visível uma propriedade que já foi demonstrada matematicamente. A simulação não substitui a teoria.\nA linguagem de referência é o R. Não há pré-requisito de programação."
+  },
+  {
+    "objectID": "ementa/ementa-2026.html#avaliação",
+    "href": "ementa/ementa-2026.html#avaliação",
+    "title": "Econometria I",
+    "section": "7. Avaliação",
+    "text": "7. Avaliação\nA nota final é composta por três provas não-cumulativas de peso igual.\n\n\n\nProva\nConteúdo\nData\n\n\n\n\nProva 1\nAulas 1 a 6\n(a definir)\n\n\nProva 2\nAulas 7 a 12\n(a definir)\n\n\nProva 3\nAulas 13 a 16\n(a definir)\n\n\n\nSerão distribuídas cinco listas de exercícios, uma por bloco. As listas não compõem a nota, mas o conteúdo das provas é diretamente construído a partir delas. Cada lista tem uma parte conceitual e uma parte computacional.\nNas provas, é necessário justificar as respostas e apresentar o desenvolvimento para obter crédito integral; crédito parcial pode ser atribuído. Caso o tempo se esgote ou o aluno não consiga completar uma demonstração formal, crédito parcial poderá ser dado a uma resposta intuitiva. As suposições utilizadas em cada resolução devem ser explicitadas."
+  },
+  {
+    "objectID": "ementa/ementa-2026.html#políticas-do-curso",
+    "href": "ementa/ementa-2026.html#políticas-do-curso",
+    "title": "Econometria I",
+    "section": "8. Políticas do curso",
+    "text": "8. Políticas do curso\nPara criar um ambiente de aprendizado eficaz para todos, solicita-se pontualidade e que se evitem comportamentos que possam ser perturbadores aos colegas. As discussões em sala devem ser respeitosas tanto com os colegas quanto com pontos de vista divergentes.\nO material das aulas será disponibilizado na página do curso.\nA frequência às aulas é extremamente recomendada. Todos os alunos são considerados cientes de qualquer anúncio feito em sala, mesmo quando não estiverem presentes.\nProva de segunda chamada será realizada unicamente nos casos previstos no regimento da Universidade, e os alunos deverão seguir os procedimentos ali descritos para solicitá-la. A segunda chamada inclui todo o material do semestre.\nSolicitações de revisão de prova devem ser feitas por escrito, de acordo com o regimento do PIMES. Toda a prova será reavaliada, o que implica que a nota pode aumentar, cair ou permanecer a mesma."
+  },
+  {
+    "objectID": "notas/02-projection.html#before-any-model",
+    "href": "notas/02-projection.html#before-any-model",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "Before any model",
+    "text": "Before any model",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#the-conditional-expectation-function",
+    "href": "notas/02-projection.html#the-conditional-expectation-function",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "The conditional expectation function",
+    "text": "The conditional expectation function",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#linear-projection",
+    "href": "notas/02-projection.html#linear-projection",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "Linear projection",
+    "text": "Linear projection",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#the-linear-regression-model",
+    "href": "notas/02-projection.html#the-linear-regression-model",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "The linear regression model",
+    "text": "The linear regression model",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#identification-before-estimation",
+    "href": "notas/02-projection.html#identification-before-estimation",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "Identification, before estimation",
+    "text": "Identification, before estimation",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#reading",
+    "href": "notas/02-projection.html#reading",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "Reading",
+    "text": "Reading",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#references",
+    "href": "notas/02-projection.html#references",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "References",
+    "text": "References",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#what-is-the-dgp",
+    "href": "notas/00-components.html#what-is-the-dgp",
+    "title": "Component Reference",
+    "section": "What is the DGP?",
+    "text": "What is the DGP?\nOpens each major topic.\n::: {.dgp}\n$y_i = \\mathbf{x}_i'\\bbeta + \\varepsilon_i$, with $(y_i, \\mathbf{x}_i)$ i.i.d.\n:::\n◆What is the DGP?\n\\(y_i = \\mathbf{x}_i'\\bbeta + \\varepsilon_i\\) with \\((y_i,\\mathbf{x}_i)\\) i.i.d. across \\(i\\), \\(\\E[\\varepsilon_i \\mid \\mathbf{x}_i] = 0\\), and \\(\\E[\\mathbf{x}_i\\mathbf{x}_i']\\) finite and nonsingular.\nParameter of interest: \\(\\bbeta\\). Is it identified? Yes — full rank plus exogeneity.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#the-four-questions",
+    "href": "notas/00-components.html#the-four-questions",
+    "title": "Component Reference",
+    "section": "The Four Questions",
+    "text": "The Four Questions\nPrecedes each formal result.\n◇The Four Questions—Before Gauss-Markov\n\nWhat problem are we solving? Many estimators are unbiased. We need a reason to prefer one.\nWhy does it matter? Without an efficiency criterion, “use OLS” is a convention rather than a result.\nWhat is the idea? Restrict attention to linear unbiased estimators and minimise variance within that class.\nHow do we formalise it? Show any such estimator has variance exceeding that of OLS by a positive semi-definite matrix.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#researchers-toolbox",
+    "href": "notas/00-components.html#researchers-toolbox",
+    "title": "Component Reference",
+    "section": "Researcher’s Toolbox",
+    "text": "Researcher’s Toolbox\n🧰Researcher's Toolbox—OLS as an M-estimator\nWe derived \\(\\bb\\) by minimising \\(S(\\mathbf{b}) = (\\bY - \\bX\\mathbf{b})'(\\bY - \\bX\\mathbf{b})\\). That is an instance of \\[\\hat\\btheta = \\argmin_{\\btheta} Q_n(\\btheta).\\] Estimators of this form are M-estimators. Maximum likelihood is another. Keep the shape in mind — it returns in Lecture 13, where it becomes the organising idea rather than an observation.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#under-the-hood",
+    "href": "notas/00-components.html#under-the-hood",
+    "title": "Component Reference",
+    "section": "Under the Hood",
+    "text": "Under the Hood\n⚙️Under the Hood—No software inverts X'X\nThe textbook formula \\(\\bb = (\\bX'\\bX)^{-1}\\bX'\\bY\\) is not what lm() computes. Forming \\(\\bX'\\bX\\) squares the condition number, so a design that is merely awkward becomes numerically singular. R uses a QR decomposition instead:\nqr_fit &lt;- qr(X)\nb &lt;- qr.coef(qr_fit, y)     # no explicit inverse anywhere\nThis is why near-collinearity is a numerical problem before it is a statistical one — a point we return to in Lecture 9.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#monte-carlo",
+    "href": "notas/00-components.html#monte-carlo",
+    "title": "Component Reference",
+    "section": "Monte Carlo",
+    "text": "Monte Carlo\n🎲Monte Carlo—Seeing consistency\nFix \\(\\beta = 1\\). Draw samples of size \\(n\\), estimate \\(\\hat\\beta\\), repeat 10,000 times, and plot the distribution. As \\(n\\) grows the distribution concentrates on \\(1\\) — that is consistency, made visible. Rescale by \\(\\sqrt{n}\\) and it stabilises into a normal curve — that is asymptotic normality.\nThe simulation proves nothing. It shows what the theorem already established.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#connection",
+    "href": "notas/00-components.html#connection",
+    "title": "Component Reference",
+    "section": "Connection",
+    "text": "Connection\n🔗Connection—The within transformation is FWL again\nDemeaning \\(y_{it}\\) and \\(x_{it}\\) within each unit is exactly \\(\\bM_1\\) applied to \\(\\bY\\) and \\(\\bX\\), where \\(\\bX_1\\) is the matrix of unit dummies. Fixed effects is not a new estimator — it is Theorem 1.1 applied to a particular partition.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#on-the-board",
+    "href": "notas/00-components.html#on-the-board",
+    "title": "Component Reference",
+    "section": "On the Board",
+    "text": "On the Board\nMarks a derivation worked live on the blackboard. The written proof stays condensed — the structure and the pivotal step — because the steps are supplied in the lecture.\n📐On the Board\nWorked on the board. The skeleton:\n\n\nProof. Substitute \\(\\bb_1\\) from the first block into the second and collect terms; the projector assembles itself. A2 gives invertibility. \\(\\square\\)",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#in-the-literature",
+    "href": "notas/00-components.html#in-the-literature",
+    "title": "Component Reference",
+    "section": "In the Literature",
+    "text": "In the Literature\n📄In the Literature—Angrist & Krueger (1991)\nQuarter of birth as an instrument for schooling (Angrist and Krueger 1991). Read it after Lecture 10 and return to it after Lecture 11 — it is also the canonical cautionary tale about weak instruments.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#margin-content",
+    "href": "notas/00-components.html#margin-content",
+    "title": "Component Reference",
+    "section": "Margin content",
+    "text": "Margin content\nSide remarks that would break the argument go in the margin.1\n\nMargin note: useful for pointing at the corresponding section of Hansen or Greene without interrupting the flow.\n\nFootnotes work as usual and appear on hover.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#code",
+    "href": "notas/00-components.html#code",
+    "title": "Component Reference",
+    "section": "Code",
+    "text": "Code\n\nset.seed(20262)\nn &lt;- 200\nx &lt;- rnorm(n)\ny &lt;- 1 + 2 * x + rnorm(n)\ncoef(lm(y ~ x))\n#&gt; (Intercept)           x \n#&gt;   0.9500911   2.0813428",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#tabsets",
+    "href": "notas/00-components.html#tabsets",
+    "title": "Component Reference",
+    "section": "Tabsets",
+    "text": "Tabsets\n\nRMatrix algebraBy hand\n\n\nb &lt;- qr.solve(X, y)\n\n\n\\[\\bb = (\\bX'\\bX)^{-1}\\bX'\\bY\\]\n\n\nForm the normal equations \\(\\bX'\\bX\\mathbf{b} = \\bX'\\bY\\) and solve the linear system.",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "notas/00-components.html#references",
+    "href": "notas/00-components.html#references",
+    "title": "Component Reference",
+    "section": "References",
+    "text": "References",
+    "crumbs": [
+      "Home",
+      "Reference",
+      "Component Reference"
+    ]
+  },
+  {
+    "objectID": "index.html#structure",
+    "href": "index.html#structure",
+    "title": "Econometrics I",
+    "section": "Structure",
+    "text": "Structure\n\n\n\nPart\nLectures\nTopic\n\n\n\n\nI\n1–2\nThe econometric model and the foundations of inference\n\n\nII\n3–9\nLinear estimation\n\n\nIII\n10–12\nEndogeneity, instrumental variables, and GMM\n\n\nIV\n13–14\nNonlinear estimation\n\n\nV\n15–16\nPanel data\n\n\n\nThe full reading list, assessment structure and course policies are in the ementa.",
+    "crumbs": [
+      "Home",
+      "Course Map"
+    ]
+  },
+  {
+    "objectID": "index.html#texts",
+    "href": "index.html#texts",
+    "title": "Econometrics I",
+    "section": "Texts",
+    "text": "Texts\nHansen, Bruce E. (2022). Econometrics. Princeton University Press. — architecture and the unified view of estimation and inference.\nGreene, William H. (2018). Econometric Analysis, 8th ed. Pearson. — formal development, terminology, and the large-sample and computation appendices.\nComplementary: Davidson & MacKinnon (2004); Cameron & Trivedi (2005).",
+    "crumbs": [
+      "Home",
+      "Course Map"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-read-these-notes",
+    "href": "index.html#how-to-read-these-notes",
+    "title": "Econometrics I",
+    "section": "How to read these notes",
+    "text": "How to read these notes\nThe notes are formal: definitions, theorems and proofs. What surrounds them is meant to answer, before each result, what problem does this solve and why should we care.\nSeveral recurring boxes mark the connective tissue:\n🧰Researcher's Toolbox\nConcepts belonging to the modern applied economist’s toolkit — moment conditions, the bootstrap, clustering. These appear where they unify something already covered, never as standalone novelty.\n\n⚙️Under the Hood\nWhat the computer is actually doing: QR decomposition, Newton-Raphson, the within transformation, resampling.\n\n🎲Monte Carlo\nSimulations that make visible a property already proved. Simulation does not replace theory here; it illustrates it.\n\nEquations with highlighted terms are interactive — hover or click a term to see what it contributes to the result. The component reference demonstrates every construct used in these notes.",
+    "crumbs": [
+      "Home",
+      "Course Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#what-this-course-is-about",
+    "href": "notas/01-map.html#what-this-course-is-about",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "What this course is about",
+    "text": "What this course is about",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#three-questions-and-a-fourth",
+    "href": "notas/01-map.html#three-questions-and-a-fourth",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "Three questions and a fourth",
+    "text": "Three questions and a fourth",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#the-map",
+    "href": "notas/01-map.html#the-map",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "The map",
+    "text": "The map",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#the-data-generating-process",
+    "href": "notas/01-map.html#the-data-generating-process",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "The Data Generating Process",
+    "text": "The Data Generating Process",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#where-the-models-come-in",
+    "href": "notas/01-map.html#where-the-models-come-in",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "Where the models come in",
+    "text": "Where the models come in",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#the-two-families",
+    "href": "notas/01-map.html#the-two-families",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "The two families",
+    "text": "The two families",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#econometrics-as-practice",
+    "href": "notas/01-map.html#econometrics-as-practice",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "Econometrics as practice",
+    "text": "Econometrics as practice",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#computation-and-replication",
+    "href": "notas/01-map.html#computation-and-replication",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "Computation and replication",
+    "text": "Computation and replication",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#what-you-should-be-able-to-do",
+    "href": "notas/01-map.html#what-you-should-be-able-to-do",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "What you should be able to do",
+    "text": "What you should be able to do",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/01-map.html#references",
+    "href": "notas/01-map.html#references",
+    "title": "Econometrics, the DGP, and the Map of the Course",
+    "section": "References",
+    "text": "References",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "1 · Econometrics, the DGP, and the Map"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#where-we-are",
+    "href": "notas/03-algebra.html#where-we-are",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "Where we are",
+    "text": "Where we are",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#the-least-squares-problem",
+    "href": "notas/03-algebra.html#the-least-squares-problem",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "The least squares problem",
+    "text": "The least squares problem",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#projection-and-the-residual-maker",
+    "href": "notas/03-algebra.html#projection-and-the-residual-maker",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "Projection and the residual maker",
+    "text": "Projection and the residual maker",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#partitioned-regression",
+    "href": "notas/03-algebra.html#partitioned-regression",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "Partitioned regression",
+    "text": "Partitioned regression",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#goodness-of-fit",
+    "href": "notas/03-algebra.html#goodness-of-fit",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "Goodness of fit",
+    "text": "Goodness of fit",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#transformed-regressors",
+    "href": "notas/03-algebra.html#transformed-regressors",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "Transformed regressors",
+    "text": "Transformed regressors",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#computation",
+    "href": "notas/03-algebra.html#computation",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "Computation",
+    "text": "Computation",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#reading",
+    "href": "notas/03-algebra.html#reading",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "Reading",
+    "text": "Reading",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  },
+  {
+    "objectID": "notas/03-algebra.html#references",
+    "href": "notas/03-algebra.html#references",
+    "title": "The Algebra and Geometry of Least Squares",
+    "section": "References",
+    "text": "References",
+    "crumbs": [
+      "Home",
+      "II — Linear Estimation",
+      "3 · Algebra and Geometry of Least Squares"
+    ]
+  }
+]
