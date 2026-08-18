@@ -152,6 +152,9 @@ window.MathJax = {
       bM:    ['\\mathbf{M}', 0],
       bI:    ['\\mathbf{I}', 0],
       bQ:    ['\\mathbf{Q}', 0],
+      bA:    ['\\mathbf{A}', 0],
+      bD:    ['\\mathbf{D}', 0],
+      bOmega:['\\boldsymbol{\\Omega}', 0],
       bzero: ['\\mathbf{0}', 0]
     }
   },
@@ -467,6 +470,12 @@ window.Quarto = {
  <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -506,6 +515,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
   </div>
 </li>
       </ul>
@@ -837,7 +852,7 @@ Important
 <div class="cell-output-display">
 <div id="fig-sampling-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sampling-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-map_files/figure-html/fig-sampling-distribution-1.svg" class="img-fluid figure-img" width="2400">
+<img src="01-map_files/figure-revealjs/fig-sampling-distribution-1.svg" class="img-fluid figure-img" width="2400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sampling-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Each grey line is the fitted regression from a different sample of size <span class="math inline">\(n = 40\)</span> drawn from the same population; the dashed line is the population relationship.
@@ -852,7 +867,7 @@ Figure&nbsp;1: Each grey line is the fitted regression from a different sample o
 <div class="cell-output-display">
 <div id="fig-spread" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-spread-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-map_files/figure-html/fig-spread-1.svg" class="img-fluid figure-img" width="2400">
+<img src="01-map_files/figure-revealjs/fig-spread-1.svg" class="img-fluid figure-img" width="2400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spread-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: The sampling distribution of <span class="math inline">\(\hat\beta_1\)</span> from the simulation above, with the estimand marked.
@@ -1102,6 +1117,41 @@ Card, David, and Alan B. Krueger. 1994. <span>“Minimum Wages and Employment: A
     start();
   }
 })();
+</script><script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
 </script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

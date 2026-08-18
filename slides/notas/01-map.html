@@ -209,6 +209,9 @@
         bM:    ['\\mathbf{M}', 0],
         bI:    ['\\mathbf{I}', 0],
         bQ:    ['\\mathbf{Q}', 0],
+        bA:    ['\\mathbf{A}', 0],
+        bD:    ['\\mathbf{D}', 0],
+        bOmega:['\\boldsymbol{\\Omega}', 0],
         bzero: ['\\mathbf{0}', 0]
       }
     },
@@ -560,14 +563,14 @@ Henrique Veras
 <section id="one-dgp-many-samples" class="slide level3">
 <h3>One DGP, many samples</h3>
 
-<img data-src="01-map_files/figure-html/fig-sampling-distribution-1.svg" width="2400" class="r-stretch quarto-figure-center" id="fig-sampling-distribution"><p class="caption">
+<img data-src="01-map_files/figure-revealjs/fig-sampling-distribution-1.svg" width="2400" class="r-stretch quarto-figure-center" id="fig-sampling-distribution"><p class="caption">
 Figure&nbsp;1: Each grey line is the fitted regression from a different sample of size <span class="math inline">\(n = 40\)</span> drawn from the same population; the dashed line is the population relationship.
 </p></section>
 <section id="the-same-information-one-dimension-at-a-time" class="slide level3">
 <h3>The same information, one dimension at a time</h3>
 <p>Collapsing the bundle of lines to the slope alone gives the object we will spend Lectures 4 to 6 characterising: the sampling distribution of a single coefficient.</p>
 
-<img data-src="01-map_files/figure-html/fig-spread-1.svg" width="2400" class="r-stretch quarto-figure-center" id="fig-spread"><p class="caption">
+<img data-src="01-map_files/figure-revealjs/fig-spread-1.svg" width="2400" class="r-stretch quarto-figure-center" id="fig-spread"><p class="caption">
 Figure&nbsp;2: The sampling distribution of <span class="math inline">\(\hat\beta_1\)</span> from the simulation above, with the estimand marked.
 </p></section>
 <section id="three-questions-follow-immediately" class="slide level3">
@@ -1046,6 +1049,44 @@ Card, David, and Alan B. Krueger. 1994. <span>“Minimum Wages and Employment: A
       }
     })();
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

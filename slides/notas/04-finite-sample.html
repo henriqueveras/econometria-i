@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Henrique Veras">
-  <title>Econometrics I – Conditional Expectation, Linear Projection, and the Linear Regression Model</title>
+  <title>Econometrics I – Finite-Sample Properties and the Gauss-Markov Theorem</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -32,6 +32,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -246,8 +247,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Conditional Expectation, Linear Projection, and the Linear Regression Model</h1>
-  <p class="subtitle">Lecture 2</p>
+  <h1 class="title">Finite-Sample Properties and the Gauss-Markov Theorem</h1>
+  <p class="subtitle">Lecture 4</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -262,158 +263,80 @@ Henrique Veras
 
 </section>
 <section>
-<section id="before-any-model" class="title-slide slide level2 center">
-<h2>Before any model</h2>
+<section id="where-we-are" class="title-slide slide level2 center">
+<h2>Where we are</h2>
 
 </section>
 <section id="where-this-lecture-sits" class="slide level3">
 <h3>Where this lecture sits</h3>
-<p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp is-active">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification is-active">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
-<p>This lecture answers the <strong>first</strong> of the three questions, and only that one. By the end we will know under exactly what conditions the parameter of a linear model can be learned from data — and we will not have written down a single estimator. Estimation is Lecture 3; inference waits until Lecture 6.</p>
+<p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
+<p>Lecture 3 built <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> out of pure algebra: it exists for any design of full column rank, whether or not the model is true. <strong>We now ask what it is good for.</strong></p>
+<p>That question is statistical, so the DGP comes back. Everything below is a statement about the distribution <span class="math inline">\(\bb\)</span> inherits from the sampling process — never about the number you computed.</p>
+</section></section>
+<section>
+<section id="unbiasedness" class="title-slide slide level2 center">
+<h2>Unbiasedness</h2>
+
 </section>
-<section id="the-question-of-this-lecture" class="slide level3">
-<h3>The question of this lecture</h3>
-<p>We observe a sample and want to say something about the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(\mathbf{x}\)</span>. The instinct is to write down a model. Resist it for a moment, and ask instead: <strong>what can be said before assuming anything at all?</strong></p>
+<section id="what-we-are-entitled-to-assume" class="slide level3">
+<h3>What we are entitled to assume</h3>
 <div class="econ-box econ-box-dgp" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span></div><div class="econ-box-body">
-<p><span class="math inline">\(\{(y_i, \mathbf{x}_i)\}_{i=1}^n\)</span> are i.i.d. draws from a population distribution <span class="math inline">\(F\)</span>, with <span class="math inline">\(y_i\)</span> scalar and <span class="math inline">\(\mathbf{x}_i\)</span> a <span class="math inline">\(K \times 1\)</span> vector.</p>
-<p>That is the entire assumption. No linearity, no exogeneity, no functional form.</p>
+<p><span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> with <span class="math inline">\((y_i, \mathbf{x}_i)\)</span> i.i.d., <span class="math inline">\(\rank(\bX) = K\)</span> (A2) and <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span> (A3).</p>
+<p><strong>Nothing is assumed about <span class="math inline">\(\Var[\beps \mid \bX]\)</span>.</strong> That is deliberate, and it is where this lecture departs from the traditional treatment.</p>
 </div></div>
 </section>
-<section id="two-objects-and-why-the-order-matters" class="slide level3">
-<h3>Two objects, and why the order matters</h3>
-<p>It turns out that a joint distribution alone gives us <strong>two</strong> well-defined objects: the <em>conditional expectation function</em>, which describes the average of <span class="math inline">\(y\)</span> at each value of <span class="math inline">\(\mathbf{x}\)</span>, and the <em>linear projection</em>, which is the best straight-line summary of that relationship. Neither requires a model. Both exist as soon as a few moments are finite.</p>
-<p>Only afterwards do we impose the linear regression model — and the model turns out to be precisely the assumption that these two objects coincide.</p>
-</section></section>
-<section>
-<section id="the-conditional-expectation-function" class="title-slide slide level2 center">
-<h2>The conditional expectation function</h2>
-
-</section>
-<section id="what-we-actually-want-to-know" class="slide level3">
-<h3>What we actually want to know</h3>
-<p>A model builder is rarely interested in the joint distribution of <span class="math inline">\(y\)</span> and <span class="math inline">\(\mathbf{x}\)</span> as such. The interest is <em>conditional</em>: how does the distribution of earnings shift as schooling changes? And usually not the whole conditional distribution, but one feature of it — most often the mean, sometimes a quantile, occasionally the variance.</p>
-<p>Linear regression is about the conditional mean, so that is where we start.</p>
-
-<img data-src="02-projection_files/figure-html/fig-conditional-distributions-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-conditional-distributions"><p class="caption">
-Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</span> at three values of <span class="math inline">\(x\)</span>. The CEF records only the crosses.
-</p><p>The CEF is the line through the crosses. Everything else the conditional distributions contain is discarded by construction — including, here, a spread that widens with <span class="math inline">\(x\)</span>.</p>
-<p>That spread has a name and deserves it now rather than later.</p>
-<div id="def-heterosk" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Conditional variance, homoskedasticity, heteroskedasticity)</strong></span> The <strong>conditional variance</strong> is <span class="math inline">\(\sigma^2(\mathbf{x}) = \Var[y \mid \mathbf{x}]\)</span>. The error is <strong>homoskedastic</strong> if <span class="math inline">\(\sigma^2(\mathbf{x})\)</span> does not depend on <span class="math inline">\(\mathbf{x}\)</span>, and <strong>heteroskedastic</strong> otherwise.</p>
-<p>Like the CEF, this is a feature of the population, not an assumption.</p>
+<section id="the-sampling-error" class="slide level3">
+<h3>The sampling error</h3>
+<p>Everything in this lecture follows from one substitution. Writing <span class="math inline">\(\bY = \bX\bbeta + \beps\)</span>,</p>
+<div class="econ-eqnote">
+<div class="econ-eqnote-math">
+<p><span class="math display">\[\bb = \bbeta + \eqt{a}{(\bX'\bX)^{-1}\bX'}\eqt{b}{\beps}\]</span></p>
 </div>
-<div id="def-cef" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Conditional expectation function)</strong></span> The <strong>conditional expectation function</strong> (CEF) is <span class="math display">\[m(\mathbf{x}) = \E[y \mid \mathbf{x}],\]</span> the mean of <span class="math inline">\(y\)</span> in the subpopulation with covariates equal to <span class="math inline">\(\mathbf{x}\)</span>. It exists whenever <span class="math inline">\(\E|y| &lt; \infty\)</span>, and involves no modelling assumption whatever.</p>
-</div>
-</section>
-<section id="the-cef-error" class="slide level3">
-<h3>The CEF error</h3>
-<p>Define <span class="math inline">\(\varepsilon = y - m(\mathbf{x})\)</span>, so <span class="math inline">\(y = m(\mathbf{x}) + \varepsilon\)</span>.</p>
-<div id="thm-cef-error" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (Properties of the CEF error)</strong></span> &nbsp;</p>
-<ol type="1">
-<li><span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span></li>
-<li><span class="math inline">\(\E[\varepsilon] = 0\)</span></li>
-<li><span class="math inline">\(\E[h(\mathbf{x})\,\varepsilon] = 0\)</span> for any <span class="math inline">\(h\)</span> with <span class="math inline">\(\E|h(\mathbf{x})\varepsilon| &lt; \infty\)</span></li>
-</ol>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span></p>
-<ol type="1">
-<li>holds because <span class="math inline">\(m(\mathbf{x})\)</span> is a function of <span class="math inline">\(\mathbf{x}\)</span>, so it passes through the conditional expectation. (2) is (1) plus the law of iterated expectations. (3) follows by conditioning on <span class="math inline">\(\mathbf{x}\)</span> first, which reduces the expression to <span class="math inline">\(\E[h(\mathbf{x}) \cdot 0]\)</span>. <span class="math inline">\(\square\)</span></li>
-</ol>
-</div>
-</section>
-<section id="nothing-here-has-been-assumed" class="slide level3">
-<h3>Nothing here has been assumed</h3>
-<p>Read the theorem again and notice what it is not. The equation <span class="math inline">\(y = m(\mathbf{x}) + \varepsilon\)</span> with <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span> holds <strong>by construction</strong>, for any joint distribution with a finite mean. It has no empirical content: nothing has been assumed, and consequently nothing can be tested.</p>
-</section>
-<section id="why-the-mean-and-not-something-else" class="slide level3">
-<h3>Why the mean, and not something else?</h3>
-<p>Why the mean and not the median? Because under <strong>squared loss</strong> the CEF is the best possible predictor — of any form.</p>
-<div id="thm-cef-best-predictor" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2 (The CEF minimises mean squared error)</strong></span> Among all <span class="math inline">\(g\)</span> with <span class="math inline">\(\E[g(\mathbf{x})^2] &lt; \infty\)</span>, <span class="math display">\[m(\mathbf{x}) = \argmin_{g} \E\big[(y - g(\mathbf{x}))^2\big].\]</span></p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Add and subtract <span class="math inline">\(m(\mathbf{x})\)</span> inside the square. The cross term vanishes by <a href="#/thm-cef-error" class="quarto-xref">Theorem&nbsp;1</a>(3), since <span class="math inline">\(m - g\)</span> is a function of <span class="math inline">\(\mathbf{x}\)</span>, leaving <span class="math display">\[\E\big[(y - g(\mathbf{x}))^2\big] = \E[\varepsilon^2] + \E\big[(m(\mathbf{x}) - g(\mathbf{x}))^2\big] \ge \E[\varepsilon^2],\]</span> with equality iff <span class="math inline">\(g = m\)</span> almost surely. <span class="math inline">\(\square\)</span></p>
-</div>
-</section>
-<section id="a-pattern-to-notice" class="slide level3">
-<h3>A pattern to notice</h3>
-<p><a href="#/thm-cef-best-predictor" class="quarto-xref">Theorem&nbsp;2</a> defines the CEF as the solution to a minimisation problem — a minimisation over a <em>function</em>, which is more than we can do with a finite sample. Least squares, next lecture, solves the sample version of the same problem restricted to linear <span class="math inline">\(g\)</span>. That is the entire relationship between the population object and the estimator, and it is the first instance of a pattern that will organise the course.</p>
-</section></section>
-<section>
-<section id="linear-projection" class="title-slide slide level2 center">
-<h2>Linear projection</h2>
-
-</section>
-<section id="a-more-modest-target" class="slide level3">
-<h3>A more modest target</h3>
-<p>The CEF is unknown and nonlinear. Settle for the best <strong>linear</strong> approximation instead.</p>
-<div id="def-projection-coef" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3 (Linear projection coefficient)</strong></span> Suppose <span class="math inline">\(\E[y^2] &lt; \infty\)</span>, <span class="math inline">\(\E\|\mathbf{x}\|^2 &lt; \infty\)</span>, and <span class="math inline">\(\bQ_{xx} = \E[\mathbf{x}\mathbf{x}']\)</span> is nonsingular. The <strong>linear projection coefficient</strong> is <span class="math display">\[\bbeta = \argmin_{\mathbf{b}} \E\big[(y - \mathbf{x}'\mathbf{b})^2\big] = \bQ_{xx}^{-1}\,\E[\mathbf{x}y],\]</span> and the <strong>linear projection</strong> of <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(\mathbf{x}'\bbeta\)</span>.</p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>The criterion is a quadratic form in <span class="math inline">\(\mathbf{b}\)</span>; its first-order condition is <span class="math inline">\(-2\E[\mathbf{x}y] + 2\bQ_{xx}\mathbf{b} = \bzero\)</span>, which has a unique solution because <span class="math inline">\(\bQ_{xx}\)</span> is nonsingular, and is a minimum because <span class="math inline">\(2\bQ_{xx}\)</span> is positive definite. <span class="math inline">\(\square\)</span></p>
-</div>
-</section>
-<section id="you-can-always-project" class="slide level3">
-<h3>You can always project</h3>
-<p>Look at what <a href="#/def-projection-coef" class="quarto-xref">Definition&nbsp;3</a> requires: two finite moments and no exact collinearity. It does <strong>not</strong> require the CEF to be linear. It does not require the model to be “true”, or indeed for there to be a model at all. Given any joint distribution with enough moments, the projection exists and is unique.</p>
-</section>
-<section id="a-small-equation-with-a-long-future" class="slide level3">
-<h3>A small equation with a long future</h3>
-<p>Writing <span class="math inline">\(e = y - \mathbf{x}'\bbeta\)</span> for the projection error, the first-order condition says precisely that <span class="math display">\[\E[\mathbf{x}e] = \bzero.\]</span></p>
-<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first moment condition of the course</span></div><div class="econ-box-body">
-<p><span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span> is a <strong>moment condition</strong> — a statement that some function of the data and the parameter has mean zero. Follow it forward:</p>
-<ul>
-<li><strong>Lecture 3</strong> — its sample analogue <span class="math inline">\(\bX'\be = \bzero\)</span> drops out of least squares algebra</li>
-<li><strong>Lecture 10</strong> — the regressor is replaced by an instrument, giving <span class="math inline">\(\E[\mathbf{z}e] = \bzero\)</span></li>
-<li><strong>Lecture 12</strong> — it generalises to <span class="math inline">\(\E[g(W,\btheta)] = \bzero\)</span>, which is GMM</li>
-</ul>
+<div class="econ-eqnote-notes">
+<div class="econ-eqnote-note" data-eqt="a" tabindex="0"><span class="econ-eqnote-key">a</span><div class="econ-eqnote-text">
+A fixed matrix once <span class="math inline">\(\bX\)</span> is given — it carries no randomness of its own.
 </div></div>
+<div class="econ-eqnote-note" data-eqt="b" tabindex="0"><span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
+The disturbance. <strong>All</strong> of the sampling variability of <span class="math inline">\(\bb\)</span> enters here, and nowhere else.
+</div></div>
+</div></div>
+<p>The estimator equals the truth plus a term linear in <span class="math inline">\(\beps\)</span>. Unbiasedness, variance and efficiency are all read off that term.</p>
 </section>
-<section id="the-projection-error-is-not-the-cef-error" class="slide level3">
-<h3>The projection error is not the CEF error</h3>
-<p>Both <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(e\)</span> are “errors”, both have mean zero, and it is tempting to treat them as the same object. They are not, and the difference is the whole content of the linearity assumption.</p>
-<p>The projection error satisfies <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span>: it is <em>uncorrelated</em> with <span class="math inline">\(\mathbf{x}\)</span>, by construction. The CEF error satisfies the much stronger <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span>: it is <em>mean-independent</em> of <span class="math inline">\(\mathbf{x}\)</span>. Correlation zero does not imply conditional mean zero, so a projection error can be — and generally is — systematically related to <span class="math inline">\(\mathbf{x}\)</span> while remaining uncorrelated with it.</p>
+<section id="the-first-property" class="slide level3">
+<h3>The first property</h3>
+<div id="thm-unbiased" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Unbiasedness of least squares)</strong></span> Under A1–A3, <span class="math inline">\(\E[\bb \mid \bX] = \bbeta\)</span>, and therefore <span class="math inline">\(\E[\bb] = \bbeta\)</span>.</p>
+</div>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>Worked on the board. The skeleton:</p>
+</div></div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Take conditional expectations in the decomposition above. The matrix is fixed given <span class="math inline">\(\bX\)</span>, so it passes outside, leaving <span class="math inline">\((\bX'\bX)^{-1}\bX'\E[\beps \mid \bX] = \bzero\)</span> by A3. The unconditional statement follows by iterated expectations. <span class="math inline">\(\square\)</span></p>
+</div>
 </section>
-<section id="seeing-the-gap" class="slide level3">
-<h3>Seeing the gap</h3>
-<p>The figure below makes the distinction concrete. The true CEF is quadratic; the projection is the best line through it.</p>
-
-<img data-src="02-projection_files/figure-html/fig-cef-vs-projection-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-cef-vs-projection"><p class="caption">
-Figure&nbsp;2: A nonlinear CEF (solid) and its linear projection (dashed).
-</p><p>The projection error is uncorrelated with <span class="math inline">\(x\)</span> — that is what pins the dashed line down. Yet it is systematically negative in the middle of the range and positive at both ends, so <span class="math inline">\(\E[e \mid x] \neq 0\)</span>. Both statements hold at once. The projection is not <em>wrong</em>; it answers a different question from the one the CEF answers.</p>
-</section>
-<section id="the-two-statements-side-by-side" class="slide level3">
-<h3>The two statements, side by side</h3>
-
-<img data-src="02-projection_files/figure-html/fig-orthogonal-not-independent-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-orthogonal-not-independent"><p class="caption">
-Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\)</span> — the fitted line is exactly flat, so the correlation is zero. Right: the same errors averaged within bins of <span class="math inline">\(x\)</span> — clearly not zero.
-</p><p>Same errors, both panels. The left says the projection did its job; the right says the linear model is wrong. Neither contradicts the other.</p>
+<section id="read-the-proof-again" class="slide level3">
+<h3>Read the proof again</h3>
+<p>Notice which assumption did the work: <strong>A3 alone</strong>. Not homoskedasticity, not normality, not even large samples. Unbiasedness is exactly as strong as the exogeneity assumption behind it — no stronger, and no weaker.</p>
 </section></section>
 <section>
-<section id="the-linear-regression-model" class="title-slide slide level2 center">
-<h2>The linear regression model</h2>
+<section id="variance" class="title-slide slide level2 center">
+<h2>Variance</h2>
 
 </section>
-<section id="now-we-assume-something" class="slide level3">
-<h3>Now we assume something</h3>
-<p>Everything so far was definitional. The linear regression model is the substantive assumption that the CEF is linear — at which point the projection coefficient and the CEF coefficient coincide, and <span class="math inline">\(\bbeta\)</span> finally means what we want it to mean.</p>
-<p><strong>Assumption A1 (Linearity).</strong> <span class="math display">\[\bY = \bX_1\beta_1 + \bX_2\beta_2 + \cdots + \bX_K\beta_K + \beps\]</span></p>
-<p>Linearity here is in the <strong>parameters</strong> and the disturbance, not in the regressors. Including <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\log x\)</span> or an interaction <span class="math inline">\(x_1x_2\)</span> leaves the model perfectly linear — a point we exploit heavily in Lecture 9.</p>
+<section id="the-general-case-not-the-convenient-one" class="slide level3">
+<h3>The general case, not the convenient one</h3>
+<p>Unbiasedness says the estimates centre on the truth. It says nothing about how far they scatter — and scatter is what standard errors report.</p>
+<div id="thm-variance" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Variance of least squares)</strong></span> Let <span class="math inline">\(\bOmega = \E[\beps\beps' \mid \bX]\)</span>, with no restriction on its form. Then <span class="math display">\[\Var[\bb \mid \bX] = (\bX'\bX)^{-1}\,\bX'\bOmega\bX\,(\bX'\bX)^{-1}.\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\bb - \bbeta = (\bX'\bX)^{-1}\bX'\beps\)</span>, which is linear in <span class="math inline">\(\beps\)</span>; apply <span class="math inline">\(\Var[\bA\beps] = \bA\Var[\beps]\bA'\)</span> with <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX'\)</span>. <span class="math inline">\(\square\)</span></p>
+</div>
 </section>
-<section id="matrix-form-and-notation" class="slide level3">
-<h3>Matrix form and notation</h3>
-<p>Each observation reads <span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span>, and stacking the <span class="math inline">\(n\)</span> of them gives the form used for the rest of the course:</p>
-<p><span class="math display">\[\underset{n \times 1}{\bY} = \underset{n \times K}{\bX}\;\underset{K \times 1}{\bbeta} + \underset{n \times 1}{\beps}\]</span></p>
-<p>Throughout, boldface <span class="math inline">\(\mathbf{x}\)</span> denotes a column or a row of <span class="math inline">\(\bX\)</span>; subscript <span class="math inline">\(k\)</span> indexes columns, meaning variables, and <span class="math inline">\(i\)</span> indexes rows, meaning observations.</p>
-</section>
-<section id="a2-full-rank-and-why-it-is-about-identification" class="slide level3">
-<h3>A2 · Full rank, and why it is about identification</h3>
-<p><strong>Assumption A2.</strong> The columns of <span class="math inline">\(\bX\)</span> are linearly independent, and <span class="math inline">\(n \ge K\)</span>.</p>
-<p>Equivalently <span class="math inline">\(\rank(\bX) = K\)</span>, which guarantees <span class="math inline">\(\bX'\bX\)</span> is invertible; in the population, the counterpart is that <span class="math inline">\(\bQ_{xx}\)</span> is nonsingular. It is easy to read this as a technical convenience that makes a formula work. It is not.</p>
+<section id="the-sandwich-and-what-collapses-it" class="slide level3">
+<h3>The sandwich, and what collapses it</h3>
+<p>The expression has a bread-filling-bread shape and is universally called the <strong>sandwich</strong> formula. It holds under A1–A3 alone.</p>
+<p>Now impose A4, <span class="math inline">\(\bOmega = \sigma^2\bI_n\)</span>. The filling becomes <span class="math inline">\(\sigma^2\bX'\bX\)</span>, one factor cancels each side, and <span class="math display">\[\Var[\bb \mid \bX] = \sigma^2(\bX'\bX)^{-1}.\]</span></p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -423,133 +346,185 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p>If A2 fails, distinct values of <span class="math inline">\(\bbeta\)</span> produce <strong>identical distributions of the observables</strong>. No estimator can tell them apart, at any sample size. This is an identification failure, not a computational one.</p>
+<p>The familiar formula is not the general result. It is what the sandwich collapses to when the conditional variance happens to be constant.</p>
+<p>Teaching it first, and the sandwich later as a repair, gets the logic backwards.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="what-that-looks-like" class="slide level3">
-<h3>What that looks like</h3>
-<div id="exm-monet" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1 (An unestimable model)</strong></span> <span class="math display">\[\ln \text{Price} = \beta_1 \ln \text{Size} + \beta_2 \ln \text{AspectRatio} + \beta_3 \ln \text{Height} + \varepsilon\]</span></p>
-<p>with <span class="math inline">\(\text{Size} = W \times H\)</span> and <span class="math inline">\(\text{AspectRatio} = W/H\)</span>. Then <span class="math inline">\(\ln\text{Size} = \ln W + \ln H\)</span> and <span class="math inline">\(\ln\text{AspectRatio} = \ln W - \ln H\)</span>, so <span class="math display">\[\ln\text{Size} - \ln\text{AspectRatio} - 2\ln H = 0\]</span> exactly. The three regressors are collinear, each <span class="math inline">\(\beta_k\)</span> is meaningless on its own, and only certain linear combinations are identified.</p>
+<section id="estimating-the-variance" class="slide level3">
+<h3>Estimating the variance</h3>
+<p>Both forms need an estimate. Under A4 it suffices to estimate the scalar <span class="math inline">\(\sigma^2\)</span>:</p>
+<div id="thm-s2" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Unbiased estimation of <span class="math inline">\(\sigma^2\)</span>)</strong></span> Under A1–A4, <span class="math inline">\(s^2 = \be'\be/(n-K)\)</span> satisfies <span class="math inline">\(\E[s^2 \mid \bX] = \sigma^2\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\be = \bM\beps\)</span>, so <span class="math inline">\(\E[\be'\be \mid \bX] = \E[\beps'\bM\beps \mid \bX] = \sigma^2\tr(\bM) =
+\sigma^2(n-K)\)</span>, using <span class="math inline">\(\rank(\bM) = n-K\)</span> from <a href="../notas/03-algebra.html#thm-PM-properties">the properties of <span class="math inline">\(\bP\)</span> and <span class="math inline">\(\bM\)</span></a> in Lecture 3. <span class="math inline">\(\square\)</span></p>
+</div>
+<p>The divisor <span class="math inline">\(n-K\)</span> is not a convention: it is exactly what makes the expectation come out right, and it is the trace of the residual maker from Lecture 3.</p>
+</section>
+<section id="without-homoskedasticity" class="slide level3">
+<h3>Without homoskedasticity</h3>
+<p>When <span class="math inline">\(\bOmega\)</span> is unrestricted there is no single <span class="math inline">\(\sigma^2\)</span> to estimate — there are <span class="math inline">\(n\)</span> conditional variances and only <span class="math inline">\(n\)</span> observations. The way out is that the sandwich needs only the <span class="math inline">\(K \times K\)</span> filling <span class="math inline">\(\bX'\bOmega\bX\)</span>, not <span class="math inline">\(\bOmega\)</span> itself.</p>
+<div id="def-hc" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}\]</span></p>
+<p>Each observation contributes its own squared residual as an estimate of its own variance.</p>
 </div>
 </section>
-<section id="a3-exogeneity" class="slide level3">
-<h3>A3 · Exogeneity</h3>
-<p><strong>Assumption A3.</strong> <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span>.</p>
-<p>No value of <span class="math inline">\(\bX\)</span> carries information about the expected disturbance. Together with A1 this says <span class="math inline">\(\E[\bY \mid \bX] = \bX\bbeta\)</span> — the CEF is linear — which is exactly the condition that makes the projection coefficient the object we set out to learn about.</p>
-<p>Note that A3 is strictly stronger than absence of correlation: <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span> implies <span class="math inline">\(\Cov(\bX,\beps) = \bzero\)</span>, but the converse fails, and <span class="math inline">\(\E[\beps] = 0\)</span> on its own implies neither. This is the population counterpart of the CEF-versus-projection distinction from earlier in the lecture.</p>
-</section>
-<section id="where-exogeneity-fails" class="slide level3">
-<h3>Where exogeneity fails</h3>
-<div id="exm-omitted" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2 (Omitted variables)</strong></span> Suppose the DGP is <span class="math inline">\(\text{Income} = \gamma_1 + \gamma_2\,\text{educ} + \gamma_3\,\text{age} + u\)</span> but we estimate <span class="math inline">\(\text{Income} = \gamma_1 + \gamma_2\,\text{educ} + \varepsilon\)</span>.</p>
-<p>Then <span class="math inline">\(\varepsilon = \gamma_3\,\text{age} + u\)</span>, so <span class="math inline">\(\E[\varepsilon \mid \text{educ}] = \gamma_3\,\E[\text{age} \mid \text{educ}] \neq 0\)</span> whenever age and education are related.</p>
-</div>
-<p>A3 fails here, and the failure is not a technicality: it is omitted variable bias, which we derive properly in Lecture 4 and spend Lectures 10 and 11 learning to repair.</p>
-</section>
-<section id="a4-spherical-disturbances" class="slide level3">
-<h3>A4 · Spherical disturbances</h3>
-<p><strong>Assumption A4.</strong> <span class="math inline">\(\E[\beps\beps' \mid \bX] = \sigma^2\bI_n\)</span>, which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\Var[\varepsilon_i \mid \bX] = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no autocorrelation</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
-<p>A4 buys <strong>efficiency</strong> — it is what Gauss-Markov needs — and it simplifies the variance formula. It buys nothing at all for unbiasedness or consistency.</p>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>We will not treat A4 as the normal case. In Lecture 4 the variance of least squares is derived under <strong>general heteroskedasticity</strong>, and the homoskedastic formula appears as the special case it is. Robust standard errors are the default, not a repair.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="a5-and-a6" class="slide level3">
-<h3>A5 and A6</h3>
-<p><strong>Assumption A5.</strong> <span class="math inline">\(\bX\)</span> may be fixed or random. Fixed <span class="math inline">\(\bX\)</span> describes experimental designs where the researcher sets the covariates; random <span class="math inline">\(\bX\)</span> describes observational data, the usual case in economics. Some columns may be fixed while others are random — time trends and period indicators, for instance.</p>
-<p><strong>Assumption A6 (Normality).</strong> <span class="math inline">\(\beps \mid \bX \sim \Normal(\bzero, \sigma^2\bI_n)\)</span>. This delivers exact finite-sample distributions for test statistics, and it is the one assumption we will largely discard: the central limit theorem takes over in Lecture 5.</p>
-</section>
-<section id="what-each-assumption-buys" class="slide level3">
-<h3>What each assumption buys</h3>
+<section id="which-robust-estimator" class="slide level3 smaller">
+<h3>Which robust estimator?</h3>
+<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">HC0, HC1, HC2, HC3</span></div><div class="econ-box-body">
+<p>The estimator above is <strong>HC0</strong>. Because <span class="math inline">\(\E[e_i^2] &lt; \E[\varepsilon_i^2]\)</span> — residuals are shrunk by fitting — it is biased downward in small samples, and several corrections exist:</p>
 <table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
 <th></th>
-<th>Buys</th>
-<th>Relaxed in</th>
+<th>Correction</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>A1</strong> Linearity</td>
-<td>Makes the CEF the object OLS estimates</td>
-<td>Lecture 9</td>
+<td>HC0</td>
+<td><span class="math inline">\(e_i^2\)</span></td>
 </tr>
 <tr class="even">
-<td><strong>A2</strong> Full rank</td>
-<td><strong>Identification</strong>; <span class="math inline">\((\bX'\bX)^{-1}\)</span> exists</td>
-<td>Lecture 9</td>
+<td>HC1</td>
+<td><span class="math inline">\(\dfrac{n}{n-K}\,e_i^2\)</span></td>
 </tr>
 <tr class="odd">
-<td><strong>A3</strong> Exogeneity</td>
-<td>Unbiasedness, consistency</td>
-<td>Lectures 10–11</td>
+<td>HC2</td>
+<td><span class="math inline">\(\dfrac{e_i^2}{1-h_{ii}}\)</span></td>
 </tr>
 <tr class="even">
-<td><strong>A4</strong> Sphericality</td>
-<td>Efficiency, conventional standard errors</td>
-<td>Lectures 7, 16</td>
-</tr>
-<tr class="odd">
-<td><strong>A5</strong> Random <span class="math inline">\(\bX\)</span></td>
-<td>Generality</td>
-<td>—</td>
-</tr>
-<tr class="even">
-<td><strong>A6</strong> Normality</td>
-<td>Exact finite-sample inference</td>
-<td>Lecture 5</td>
+<td>HC3</td>
+<td><span class="math inline">\(\dfrac{e_i^2}{(1-h_{ii})^2}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>Read the right-hand column: it is the syllabus for the rest of the course, written as a list of assumptions to be removed one at a time.</p>
+<p>HC2 and HC3 use the leverage <span class="math inline">\(h_{ii}\)</span> from Lecture 3 — the observations the design leans on are the ones whose residuals are most shrunk. Stata’s <code>robust</code> is HC1; R’s <code>vcovHC</code> defaults to HC3. Reporting “robust standard errors” without saying which is reporting an ambiguous number.</p>
+</div></div>
 </section></section>
 <section>
-<section id="identification-before-estimation" class="title-slide slide level2 center">
-<h2>Identification, before estimation</h2>
+<section id="gauss-markov" class="title-slide slide level2 center">
+<h2>Gauss-Markov</h2>
 
 </section>
-<section id="putting-the-pieces-together" class="slide level3">
-<h3>Putting the pieces together</h3>
-<p>We now have everything needed to answer the first of the three questions from Lecture 1, and notice that we have not yet written down a single estimator.</p>
-<p>The parameter <span class="math inline">\(\bbeta\)</span> is a functional of the population moments, <span class="math inline">\(\bbeta = \bQ_{xx}^{-1}\E[\mathbf{x}y]\)</span>. It is therefore determined by <span class="math inline">\(F\)</span> alone — provided <span class="math inline">\(\bQ_{xx}\)</span> can be inverted. A2 delivers exactly that: given A2, no two values of <span class="math inline">\(\bbeta\)</span> generate the same joint distribution, and the parameter is identified.</p>
+<section id="why-prefer-least-squares-at-all" class="slide level3">
+<h3>Why prefer least squares at all?</h3>
+<div class="econ-box econ-box-questions" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">Before the theorem</span></div><div class="econ-box-body">
+<ol type="1">
+<li><strong>What problem are we solving?</strong> Many estimators are unbiased. Unbiasedness alone does not choose among them.</li>
+<li><strong>Why does it matter?</strong> Without a second criterion, “use OLS” is a convention rather than a result.</li>
+<li><strong>What is the idea?</strong> Restrict attention to a class — linear and unbiased — and ask which member has the smallest variance.</li>
+<li><strong>How do we formalise it?</strong> Show that any other member exceeds the variance of least squares by a positive semi-definite matrix.</li>
+</ol>
+</div></div>
 </section>
-<section id="two-assumptions-two-jobs" class="slide level3">
-<h3>Two assumptions, two jobs</h3>
-<p>A3 does a separate job. It makes that identified coefficient the conditional expectation function, rather than merely the best linear approximation to it.</p>
-<div class="callout callout-important callout-titled callout-style-default">
+<section id="the-theorem" class="slide level3">
+<h3>The theorem</h3>
+<div id="thm-gauss-markov" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Gauss-Markov)</strong></span> Under A1–A4, for any estimator <span class="math inline">\(\tilde{\bbeta} = \bA\bY\)</span> that is linear in <span class="math inline">\(\bY\)</span> and unbiased conditional on <span class="math inline">\(\bX\)</span>, <span class="math display">\[\Var[\tilde{\bbeta} \mid \bX] - \Var[\bb \mid \bX] \;\succeq\; \bzero,\]</span> that is, the difference is positive semi-definite. Least squares is <strong>BLUE</strong>.</p>
+</div>
+</section>
+<section id="proof" class="slide level3">
+<h3>Proof</h3>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>Derived on the board — the longest derivation of the course so far. The skeleton:</p>
+</div></div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Write <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX' + \bD\)</span>. Unbiasedness for all <span class="math inline">\(\bbeta\)</span> forces <span class="math inline">\(\bD\bX = \bzero\)</span>. Computing the variance under A4, the cross terms vanish precisely because of that restriction, leaving <span class="math inline">\(\sigma^2(\bX'\bX)^{-1} + \sigma^2\bD\bD'\)</span>. The second term is positive semi-definite. <span class="math inline">\(\square\)</span></p>
+</div>
+</section>
+<section id="what-the-theorem-does-and-does-not-say" class="slide level3">
+<h3>What the theorem does and does not say</h3>
+<p>The result is narrower than its reputation. Each qualifier is load-bearing:</p>
+<ul>
+<li><strong>Linear</strong> — in <span class="math inline">\(\bY\)</span>. Nonlinear estimators are not compared, and some beat OLS.</li>
+<li><strong>Unbiased</strong> — biased estimators are excluded, and some have lower mean squared error.</li>
+<li><strong>Under A4</strong> — homoskedasticity is essential here, unlike in <a href="#/thm-unbiased" class="quarto-xref">Theorem&nbsp;1</a>.</li>
+</ul>
+<div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>A2 identifies <span class="math inline">\(\bbeta\)</span>. A3 makes <span class="math inline">\(\bbeta\)</span> the thing we wanted.</strong></p>
-<p>Two different jobs, failing for two different reasons, repaired by two different techniques.</p>
+<p>Gauss-Markov is the one place in this lecture where A4 genuinely cannot be dropped. Under heteroskedasticity least squares remains unbiased but is <strong>no longer efficient</strong> — GLS is, and that is Lecture 7.</p>
 </div>
 </div>
 </div>
-<p>Estimation is next lecture — and, as we will see, it is by some distance the easier problem.</p>
+</section></section>
+<section>
+<section id="a-pattern-worth-naming" class="title-slide slide level2 center">
+<h2>A pattern worth naming</h2>
+
+</section>
+<section id="least-squares-as-the-first-of-a-family" class="slide level3">
+<h3>Least squares as the first of a family</h3>
+<div class="econ-box econ-box-toolbox" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">OLS as an M-estimator</span></div><div class="econ-box-body">
+<p>We obtained <span class="math inline">\(\bb\)</span> by minimising <span class="math inline">\(S(\mathbf{b}) = (\bY - \bX\mathbf{b})'(\bY - \bX\mathbf{b})\)</span> — an instance of <span class="math display">\[\hat\btheta = \argmin_{\btheta} Q_n(\btheta).\]</span></p>
+<p>Estimators defined this way are <strong>M-estimators</strong>. Maximum likelihood, in Lecture 13, is another: same shape, different criterion. Much of what we proved today will be proved once more, in that generality, for the whole family.</p>
+</div></div>
+</section>
+<section id="and-the-other-route" class="slide level3">
+<h3>And the other route</h3>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first-order condition is a condition on averages</span></div><div class="econ-box-body">
+<p>The first-order condition of that minimisation is <span class="math inline">\(\bX'\be = \bzero\)</span> — a condition on averages, which is the second family from Lecture 1. Least squares belongs to both, and that is not a coincidence: differentiating a criterion always produces such a condition.</p>
+</div></div>
+</section></section>
+<section>
+<section id="what-we-have-and-what-is-missing" class="title-slide slide level2 center">
+<h2>What we have, and what is missing</h2>
+
+</section>
+<section id="the-scoreboard" class="slide level3">
+<h3>The scoreboard</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Property</th>
+<th>Needs</th>
+<th>Holds under heteroskedasticity?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unbiasedness</td>
+<td>A1–A3</td>
+<td><strong>yes</strong></td>
+</tr>
+<tr class="even">
+<td>Sandwich variance</td>
+<td>A1–A3</td>
+<td><strong>yes</strong></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\sigma^2(\bX'\bX)^{-1}\)</span></td>
+<td>+ A4</td>
+<td>no</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(s^2\)</span> unbiased for <span class="math inline">\(\sigma^2\)</span></td>
+<td>+ A4</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>Efficiency (Gauss-Markov)</td>
+<td>+ A4</td>
+<td><strong>no</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-limits-of-finite-sample-theory" class="slide level3">
+<h3>The limits of finite-sample theory</h3>
+<p>Everything today was exact, conditional on <span class="math inline">\(\bX\)</span>, and required no approximation. That is unusual, and it does not survive contact with the rest of the course.</p>
+<p>To test a hypothesis we need the <em>distribution</em> of <span class="math inline">\(\bb\)</span>, not just its first two moments — and without assuming normal disturbances there is no exact distribution to be had. Worse, almost no estimator outside least squares is unbiased at all.</p>
+<p>Both problems have the same resolution, and it is the subject of Lecture 5: stop asking for exact results and ask what happens as <span class="math inline">\(n\)</span> grows.</p>
 </section></section>
 <section>
 <section id="reading" class="title-slide slide level2 center">
@@ -566,28 +541,32 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <tbody>
 <tr class="odd">
 <td><strong>Hansen</strong></td>
-<td>Chapter 2 — the CEF and projection treatment this lecture follows</td>
+<td>Chapter 4 — §4.2–4.5 (mean, variance, Gauss-Markov), §4.8–4.10 (covariance estimation, standard errors)</td>
 </tr>
 <tr class="even">
+<td><strong>Hansen</strong></td>
+<td>Chapter 5 — normal regression, for the exact distribution under A6</td>
+</tr>
+<tr class="odd">
 <td><strong>Greene</strong></td>
-<td>Chapter 2 — assumptions A1–A6 and the examples</td>
+<td>Chapter 4 — finite-sample properties</td>
 </tr>
 </tbody>
 </table>
+<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">White (1980)</span></div><div class="econ-box-body">
+<p>The paper that made heteroskedasticity-robust inference routine <span class="citation" data-cites="white1980heteroskedasticity">(<a href="#/references" role="doc-biblioref" onclick="">White 1980</a>)</span>. It is among the most cited articles in economics, and its argument is the one behind <a href="#/def-hc" class="quarto-xref">Definition&nbsp;1</a> — you need the middle of the sandwich, not the whole of <span class="math inline">\(\bOmega\)</span>.</p>
+</div></div>
 </section></section>
-<section>
-<section id="references" class="title-slide slide level2 center">
+<section id="references" class="title-slide slide level2 smaller scrollable">
 <h2>References</h2>
-
-</section>
-<section id="references-1" class="slide level3 smaller scrollable">
-<h3>References</h3>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-white1980heteroskedasticity" class="csl-entry" role="listitem">
+White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.”</span> <em>Econometrica</em> 48 (4): 817–38.
+</div>
 </div>
 
 
-</section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

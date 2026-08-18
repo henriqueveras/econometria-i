@@ -151,6 +151,9 @@ window.MathJax = {
       bM:    ['\\mathbf{M}', 0],
       bI:    ['\\mathbf{I}', 0],
       bQ:    ['\\mathbf{Q}', 0],
+      bA:    ['\\mathbf{A}', 0],
+      bD:    ['\\mathbf{D}', 0],
+      bOmega:['\\boldsymbol{\\Omega}', 0],
       bzero: ['\\mathbf{0}', 0]
     }
   },
@@ -466,6 +469,12 @@ window.Quarto = {
  <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -505,6 +514,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
   </div>
 </li>
       </ul>
@@ -672,9 +687,14 @@ Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</
 </div>
 </div>
 </div>
-<p>The CEF is the line through the crosses. Everything else the conditional distributions contain — here, a spread that widens with <span class="math inline">\(x\)</span> — is discarded by construction. That discarded part becomes heteroskedasticity in Lecture 7.</p>
+<p>The CEF is the line through the crosses. Everything else the conditional distributions contain is discarded by construction — including, here, a spread that widens with <span class="math inline">\(x\)</span>.</p>
+<p>That spread has a name and deserves it now rather than later.</p>
+<div id="def-heterosk" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Conditional variance, homoskedasticity, heteroskedasticity)</strong></span> The <strong>conditional variance</strong> is <span class="math inline">\(\sigma^2(\mathbf{x}) = \Var[y \mid \mathbf{x}]\)</span>. The error is <strong>homoskedastic</strong> if <span class="math inline">\(\sigma^2(\mathbf{x})\)</span> does not depend on <span class="math inline">\(\mathbf{x}\)</span>, and <strong>heteroskedastic</strong> otherwise.</p>
+<p>Like the CEF, this is a feature of the population, not an assumption.</p>
+</div>
 <div id="def-cef" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Conditional expectation function)</strong></span> The <strong>conditional expectation function</strong> (CEF) is <span class="math display">\[m(\mathbf{x}) = \E[y \mid \mathbf{x}],\]</span> the mean of <span class="math inline">\(y\)</span> in the subpopulation with covariates equal to <span class="math inline">\(\mathbf{x}\)</span>. It exists whenever <span class="math inline">\(\E|y| &lt; \infty\)</span>, and involves no modelling assumption whatever.</p>
+<p><span class="theorem-title"><strong>Definition 2 (Conditional expectation function)</strong></span> The <strong>conditional expectation function</strong> (CEF) is <span class="math display">\[m(\mathbf{x}) = \E[y \mid \mathbf{x}],\]</span> the mean of <span class="math inline">\(y\)</span> in the subpopulation with covariates equal to <span class="math inline">\(\mathbf{x}\)</span>. It exists whenever <span class="math inline">\(\E|y| &lt; \infty\)</span>, and involves no modelling assumption whatever.</p>
 </div>
 </section><section id="the-cef-error" class="level3"><h3 class="anchored" data-anchor-id="the-cef-error">The CEF error</h3>
 <p>Whatever <span class="math inline">\(m\)</span> happens to be, we can always define the deviation of <span class="math inline">\(y\)</span> from it. Write <span class="math inline">\(\varepsilon = y - m(\mathbf{x})\)</span>, so that <span class="math inline">\(y = m(\mathbf{x}) + \varepsilon\)</span>. This looks like a regression equation, and it is worth being clear immediately about how little it claims.</p>
@@ -714,13 +734,13 @@ Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</
 <section id="a-more-modest-target" class="level3"><h3 class="anchored" data-anchor-id="a-more-modest-target">A more modest target</h3>
 <p>The CEF is unknown and generally nonlinear, so estimating it directly is hard. A more modest goal is the best <em>linear</em> approximation to <span class="math inline">\(y\)</span> — and the striking thing is that this object exists under conditions barely stronger than those for the CEF itself.</p>
 <div id="def-projection-coef" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Linear projection coefficient)</strong></span> Suppose <span class="math inline">\(\E[y^2] &lt; \infty\)</span>, <span class="math inline">\(\E\|\mathbf{x}\|^2 &lt; \infty\)</span>, and <span class="math inline">\(\bQ_{xx} = \E[\mathbf{x}\mathbf{x}']\)</span> is nonsingular. The <strong>linear projection coefficient</strong> is <span class="math display">\[\bbeta = \argmin_{\mathbf{b}} \E\big[(y - \mathbf{x}'\mathbf{b})^2\big] = \bQ_{xx}^{-1}\,\E[\mathbf{x}y],\]</span> and the <strong>linear projection</strong> of <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(\mathbf{x}'\bbeta\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 3 (Linear projection coefficient)</strong></span> Suppose <span class="math inline">\(\E[y^2] &lt; \infty\)</span>, <span class="math inline">\(\E\|\mathbf{x}\|^2 &lt; \infty\)</span>, and <span class="math inline">\(\bQ_{xx} = \E[\mathbf{x}\mathbf{x}']\)</span> is nonsingular. The <strong>linear projection coefficient</strong> is <span class="math display">\[\bbeta = \argmin_{\mathbf{b}} \E\big[(y - \mathbf{x}'\mathbf{b})^2\big] = \bQ_{xx}^{-1}\,\E[\mathbf{x}y],\]</span> and the <strong>linear projection</strong> of <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(\mathbf{x}'\bbeta\)</span>.</p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>The criterion is a quadratic form in <span class="math inline">\(\mathbf{b}\)</span>; its first-order condition is <span class="math inline">\(-2\E[\mathbf{x}y] + 2\bQ_{xx}\mathbf{b} = \bzero\)</span>, which has a unique solution because <span class="math inline">\(\bQ_{xx}\)</span> is nonsingular, and is a minimum because <span class="math inline">\(2\bQ_{xx}\)</span> is positive definite. <span class="math inline">\(\square\)</span></p>
 </div>
 </section><section id="you-can-always-project" class="level3"><h3 class="anchored" data-anchor-id="you-can-always-project">You can always project</h3>
-<p>Look at what <a href="#def-projection-coef" class="quarto-xref">Definition&nbsp;2</a> requires: two finite moments and no exact collinearity. It does <strong>not</strong> require the CEF to be linear. It does not require the model to be “true”, or indeed for there to be a model at all. Given any joint distribution with enough moments, the projection exists and is unique.</p>
+<p>Look at what <a href="#def-projection-coef" class="quarto-xref">Definition&nbsp;3</a> requires: two finite moments and no exact collinearity. It does <strong>not</strong> require the CEF to be linear. It does not require the model to be “true”, or indeed for there to be a model at all. Given any joint distribution with enough moments, the projection exists and is unique.</p>
 </section><section id="a-small-equation-with-a-long-future" class="level3"><h3 class="anchored" data-anchor-id="a-small-equation-with-a-long-future">A small equation with a long future</h3>
 <p>Writing <span class="math inline">\(e = y - \mathbf{x}'\bbeta\)</span> for the projection error, the first-order condition says precisely that <span class="math display">\[\E[\mathbf{x}e] = \bzero.\]</span></p>
 <div class="econ-box econ-box-connection" role="note">
@@ -815,7 +835,20 @@ Important
 <p>A3 fails here, and the failure is not a technicality: it is omitted variable bias, which we derive properly in Lecture 4 and spend Lectures 10 and 11 learning to repair.</p>
 </section><section id="a4-spherical-disturbances" class="level3"><h3 class="anchored" data-anchor-id="a4-spherical-disturbances">A4 · Spherical disturbances</h3>
 <p><strong>Assumption A4.</strong> <span class="math inline">\(\E[\beps\beps' \mid \bX] = \sigma^2\bI_n\)</span>, which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\Var[\varepsilon_i \mid \bX] = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no autocorrelation</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
-<p>A4 buys efficiency (Lecture 4) and the conventional variance formula (Lecture 6). It buys nothing at all for unbiasedness or consistency — so when it fails in Lecture 7, the estimator survives intact and only the standard errors need repair.</p>
+<p>A4 buys <strong>efficiency</strong> — it is what Gauss-Markov needs — and it simplifies the variance formula. It buys nothing at all for unbiasedness or consistency.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We will not treat A4 as the normal case. In Lecture 4 the variance of least squares is derived under <strong>general heteroskedasticity</strong>, and the homoskedastic formula appears as the special case it is. Robust standard errors are the default, not a repair.</p>
+</div>
+</div>
 </section><section id="a5-and-a6" class="level3"><h3 class="anchored" data-anchor-id="a5-and-a6">A5 and A6</h3>
 <p><strong>Assumption A5.</strong> <span class="math inline">\(\bX\)</span> may be fixed or random. Fixed <span class="math inline">\(\bX\)</span> describes experimental designs where the researcher sets the covariates; random <span class="math inline">\(\bX\)</span> describes observational data, the usual case in economics. Some columns may be fixed while others are random — time trends and period indicators, for instance.</p>
 <p><strong>Assumption A6 (Normality).</strong> <span class="math inline">\(\beps \mid \bX \sim \Normal(\bzero, \sigma^2\bI_n)\)</span>. This delivers exact finite-sample distributions for test statistics, and it is the one assumption we will largely discard: the central limit theorem takes over in Lecture 5.</p>
