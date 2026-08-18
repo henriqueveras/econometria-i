@@ -512,3 +512,33 @@
 .reveal .econ-stage-item,
 .reveal .econ-stage-comp { font-size: 0.42em; }
 .reveal .econ-stage-arrow { font-size: 0.42em; }
+
+/* --------------------------------------------------------------------------
+   7. Annotated equations under MathJax's SVG output
+   With SVG output a tagged term is an <svg><g>, not a <span>. A <g> paints no
+   background and no box-shadow, so the rules in §2 leave it looking untouched.
+   Highlight by recolouring the glyphs instead — the ink goes from near-black to
+   the accent, which reads clearly on a projector.
+   -------------------------------------------------------------------------- */
+
+g.eqt { cursor: pointer; }
+
+g.eqt.eqt-active,
+g.eqt.eqt-active use,
+g.eqt.eqt-active path,
+g.eqt.eqt-active rect,
+g.eqt.eqt-pinned,
+g.eqt.eqt-pinned use,
+g.eqt.eqt-pinned path,
+g.eqt.eqt-pinned rect {
+  fill: var(--econ-eqt);
+  stroke: var(--econ-eqt);
+  stroke-width: 0;
+}
+
+/* Hovering the note card should light the term too, same as the reverse. */
+g.eqt { transition: fill 120ms ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  g.eqt { transition: none; }
+}

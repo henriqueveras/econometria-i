@@ -216,7 +216,7 @@
       enableMenu: true,
       menuOptions: { settings: { zoom: 'DoubleClick' } }
     },
-    chtml: { displayAlign: 'center', displayIndent: '0' },
+    svg: { displayAlign: 'center', displayIndent: '0', fontCache: 'global' },
     startup: {
       ready: function () {
         // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
@@ -978,7 +978,7 @@ Card, David, and Alan B. Krueger. 1994. <span>“Minimum Wages and Employment: A
         maxScale: 2,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
