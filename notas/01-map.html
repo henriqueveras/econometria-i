@@ -571,20 +571,7 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#where-the-models-come-in" id="toc-where-the-models-come-in" class="nav-link" data-scroll-target="#where-the-models-come-in"><span class="header-section-number">0.5</span> Where the models come in</a>
-  <ul class="collapse">
-<li><a href="#a-sequence-of-failures-and-repairs" id="toc-a-sequence-of-failures-and-repairs" class="nav-link" data-scroll-target="#a-sequence-of-failures-and-repairs">A sequence of failures and repairs</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#the-two-families" id="toc-the-two-families" class="nav-link" data-scroll-target="#the-two-families"><span class="header-section-number">0.6</span> The two families</a>
-  <ul class="collapse">
-<li><a href="#two-ways-to-build-an-estimator" id="toc-two-ways-to-build-an-estimator" class="nav-link" data-scroll-target="#two-ways-to-build-an-estimator">Two ways to build an estimator</a></li>
-  <li><a href="#the-two-are-closely-related" id="toc-the-two-are-closely-related" class="nav-link" data-scroll-target="#the-two-are-closely-related">The two are closely related</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#econometrics-as-practice" id="toc-econometrics-as-practice" class="nav-link" data-scroll-target="#econometrics-as-practice"><span class="header-section-number">0.7</span> Econometrics as practice</a>
+<a href="#econometrics-as-practice" id="toc-econometrics-as-practice" class="nav-link" data-scroll-target="#econometrics-as-practice"><span class="header-section-number">0.5</span> Econometrics as practice</a>
   <ul class="collapse">
 <li><a href="#card-krueger-1994" id="toc-card-krueger-1994" class="nav-link" data-scroll-target="#card-krueger-1994">Card &amp; Krueger (1994)</a></li>
   <li><a href="#angrist-krueger-1991" id="toc-angrist-krueger-1991" class="nav-link" data-scroll-target="#angrist-krueger-1991">Angrist &amp; Krueger (1991)</a></li>
@@ -592,21 +579,14 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#computation-and-replication" id="toc-computation-and-replication" class="nav-link" data-scroll-target="#computation-and-replication"><span class="header-section-number">0.8</span> Computation and replication</a>
-  <ul class="collapse">
-<li><a href="#three-facts-that-will-matter" id="toc-three-facts-that-will-matter" class="nav-link" data-scroll-target="#three-facts-that-will-matter">Three facts that will matter</a></li>
-  <li><a href="#two-practices-expected-in-this-course" id="toc-two-practices-expected-in-this-course" class="nav-link" data-scroll-target="#two-practices-expected-in-this-course">Two practices, expected in this course</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#what-you-should-be-able-to-do" id="toc-what-you-should-be-able-to-do" class="nav-link" data-scroll-target="#what-you-should-be-able-to-do"><span class="header-section-number">0.9</span> What you should be able to do</a>
+<a href="#what-you-should-be-able-to-do" id="toc-what-you-should-be-able-to-do" class="nav-link" data-scroll-target="#what-you-should-be-able-to-do"><span class="header-section-number">0.6</span> What you should be able to do</a>
   <ul class="collapse">
 <li><a href="#the-goal" id="toc-the-goal" class="nav-link" data-scroll-target="#the-goal">The goal</a></li>
   <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading">Reading</a></li>
   </ul>
 </li>
   <li>
-<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">0.10</span> References</a>
+<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">0.7</span> References</a>
   <ul class="collapse">
 <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
   </ul>
@@ -857,7 +837,7 @@ Important
 <div class="cell-output-display">
 <div id="fig-sampling-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sampling-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-map_files/figure-revealjs/fig-sampling-distribution-1.svg" class="img-fluid figure-img" width="2400">
+<img src="01-map_files/figure-html/fig-sampling-distribution-1.svg" class="img-fluid figure-img" width="2400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sampling-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Each grey line is the fitted regression from a different sample of size <span class="math inline">\(n = 40\)</span> drawn from the same population; the dashed line is the population relationship.
@@ -872,7 +852,7 @@ Figure&nbsp;1: Each grey line is the fitted regression from a different sample o
 <div class="cell-output-display">
 <div id="fig-spread" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-spread-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-map_files/figure-revealjs/fig-spread-1.svg" class="img-fluid figure-img" width="2400">
+<img src="01-map_files/figure-html/fig-spread-1.svg" class="img-fluid figure-img" width="2400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spread-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: The sampling distribution of <span class="math inline">\(\hat\beta_1\)</span> from the simulation above, with the estimand marked.
@@ -899,87 +879,8 @@ Figure&nbsp;2: The sampling distribution of <span class="math inline">\(\hat\bet
 </div>
 </div>
 </div>
-</section></section><section id="where-the-models-come-in" class="level2" data-number="0.5"><h2 data-number="0.5" class="anchored" data-anchor-id="where-the-models-come-in">
-<span class="header-section-number">0.5</span> Where the models come in</h2>
-<section id="a-sequence-of-failures-and-repairs" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="a-sequence-of-failures-and-repairs">A sequence of failures and repairs</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead><tr class="header">
-<th>Setting</th>
-<th>The problem it responds to</th>
-<th>Lectures</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Linear regression</td>
-<td>A baseline: what can be learned under exogeneity?</td>
-<td>2–6</td>
-</tr>
-<tr class="even">
-<td>Heteroskedasticity, clustering</td>
-<td>The variance assumption fails; inference breaks</td>
-<td>7, 16</td>
-</tr>
-<tr class="odd">
-<td>Bootstrap</td>
-<td>The asymptotic approximation may be poor</td>
-<td>8</td>
-</tr>
-<tr class="even">
-<td>Functional form, data problems</td>
-<td>The straight line is the wrong shape</td>
-<td>9</td>
-</tr>
-<tr class="odd">
-<td>Instrumental variables</td>
-<td>Exogeneity fails; identification is at risk</td>
-<td>10–11</td>
-</tr>
-<tr class="even">
-<td>GMM</td>
-<td>A general language for the second way of building estimators</td>
-<td>12</td>
-</tr>
-<tr class="odd">
-<td>Maximum likelihood</td>
-<td>The parameter is not a conditional mean</td>
-<td>13</td>
-</tr>
-<tr class="even">
-<td>Logit and probit</td>
-<td>The outcome is binary</td>
-<td>14</td>
-</tr>
-<tr class="odd">
-<td>Panel data</td>
-<td>Unobserved heterogeneity, and what variation survives it</td>
-<td>15–16</td>
-</tr>
-</tbody>
-</table>
-<p>Read down the middle column. It is not a list of techniques; it is a sequence of failures and the repairs they provoked.</p>
-</section></section><section id="the-two-families" class="level2" data-number="0.6"><h2 data-number="0.6" class="anchored" data-anchor-id="the-two-families">
-<span class="header-section-number">0.6</span> The two families</h2>
-<section id="two-ways-to-build-an-estimator" class="level3"><h3 class="anchored" data-anchor-id="two-ways-to-build-an-estimator">Two ways to build an estimator</h3>
-<p>Almost every estimator in this course is built in one of two ways, and it is worth seeing the shapes now — you will meet both in Lecture 3, before either has a name.</p>
-<div class="econ-box econ-box-toolbox" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">Optimisation, or a condition on averages</span>
-</div>
-<div class="econ-box-body">
-<p><strong>By optimisation.</strong> Write down a criterion that measures how badly a candidate value fits the data, then pick the value that does best. Least squares picks the coefficients that make the sum of squared errors as small as possible.</p>
-<p><strong>By a condition on averages.</strong> Write down a quantity that the model says should average to zero in the population, then pick the value that makes it average to zero in your sample.</p>
-</div>
-</div>
-</section><section id="the-two-are-closely-related" class="level3"><h3 class="anchored" data-anchor-id="the-two-are-closely-related">The two are closely related</h3>
-<p>The connection is simple once stated. To minimise a criterion you set its derivative to zero — and that derivative is itself a quantity that must average to zero. So an estimator built the first way automatically satisfies a condition of the second kind.</p>
-<p>Least squares is the example: we will derive it by minimising in Lecture 3, and discover in the same lecture that the answer satisfies a simple condition on averages.</p>
-</section></section><section id="econometrics-as-practice" class="level2" data-number="0.7"><h2 data-number="0.7" class="anchored" data-anchor-id="econometrics-as-practice">
-<span class="header-section-number">0.7</span> Econometrics as practice</h2>
+</section></section><section id="econometrics-as-practice" class="level2" data-number="0.5"><h2 data-number="0.5" class="anchored" data-anchor-id="econometrics-as-practice">
+<span class="header-section-number">0.5</span> Econometrics as practice</h2>
 <section id="card-krueger-1994" class="level3"><h3 class="anchored" data-anchor-id="card-krueger-1994">Card &amp; Krueger (1994)</h3>
 <div class="econ-box econ-box-literature" role="note">
 <div class="econ-box-head">
@@ -1013,31 +914,8 @@ Figure&nbsp;2: The sampling distribution of <span class="math inline">\(\hat\bet
 </div>
 </div>
 </div>
-</section></section><section id="computation-and-replication" class="level2" data-number="0.8"><h2 data-number="0.8" class="anchored" data-anchor-id="computation-and-replication">
-<span class="header-section-number">0.8</span> Computation and replication</h2>
-<section id="three-facts-that-will-matter" class="level3"><h3 class="anchored" data-anchor-id="three-facts-that-will-matter">Three facts that will matter</h3>
-<div class="econ-box econ-box-hood" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Why we open the hood</span>
-</div>
-<div class="econ-box-body">
-<ul>
-<li>No software computes <span class="math inline">\((\bX'\bX)^{-1}\bX'\bY\)</span> by inverting <span class="math inline">\(\bX'\bX\)</span>. Forming the cross-product squares the condition number of <span class="math inline">\(\bX\)</span>. R uses a QR decomposition. <em>(Lecture 3)</em>
-</li>
-<li>Maximum likelihood has no closed form for logit or probit. The estimate is the output of an iterative optimiser that can fail to converge. <em>(Lecture 14)</em>
-</li>
-<li>
-<code>vcovHC()</code> has at least four variants that differ in finite samples, and packages disagree about the default. <em>(Lecture 7)</em>
-</li>
-</ul>
-</div>
-</div>
-<p>None of these is a programming detail. Each is a place where the mathematics and the number on the screen can part company.</p>
-</section><section id="two-practices-expected-in-this-course" class="level3"><h3 class="anchored" data-anchor-id="two-practices-expected-in-this-course">Two practices, expected in this course</h3>
-<p><strong>Set a seed.</strong> Any result involving simulation must be reproducible. A Monte Carlo without a seed is not a result.</p>
-<p><strong>Keep the code with the paper.</strong> Replication is not a courtesy to referees; it is how you discover your own errors.</p>
-</section></section><section id="what-you-should-be-able-to-do" class="level2" data-number="0.9"><h2 data-number="0.9" class="anchored" data-anchor-id="what-you-should-be-able-to-do">
-<span class="header-section-number">0.9</span> What you should be able to do</h2>
+</section></section><section id="what-you-should-be-able-to-do" class="level2" data-number="0.6"><h2 data-number="0.6" class="anchored" data-anchor-id="what-you-should-be-able-to-do">
+<span class="header-section-number">0.6</span> What you should be able to do</h2>
 <section id="the-goal" class="level3"><h3 class="anchored" data-anchor-id="the-goal">The goal</h3>
 <p>Not that you can say <em>“I know OLS, IV, logit and panel data.”</em></p>
 <p>That, faced with an empirical question, you can think:</p>
@@ -1063,8 +941,8 @@ Figure&nbsp;2: The sampling distribution of <span class="math inline">\(\hat\bet
 </tr>
 </tbody></table>
 <p>Hansen’s first chapter is short and worth reading in full, particularly its remarks on econometric software and replication. Greene’s covers the same ground with more attention to the history of the field.</p>
-</section></section><section id="references" class="level2" data-number="0.10"><h2 data-number="0.10" class="anchored" data-anchor-id="references">
-<span class="header-section-number">0.10</span> References</h2>
+</section></section><section id="references" class="level2" data-number="0.7"><h2 data-number="0.7" class="anchored" data-anchor-id="references">
+<span class="header-section-number">0.7</span> References</h2>
 <section id="references-1" class="level3"><h3 class="anchored" data-anchor-id="references-1">References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-angrist1991does" class="csl-entry" role="listitem">
@@ -1224,41 +1102,6 @@ Card, David, and Alan B. Krueger. 1994. <span>“Minimum Wages and Employment: A
     start();
   }
 })();
-</script><script>
-  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-  // slide changes (different for each slide format).
-  (function () {
-    // dispatch for htmlwidgets
-    function fireSlideEnter() {
-      const event = window.document.createEvent("Event");
-      event.initEvent("slideenter", true, true);
-      window.document.dispatchEvent(event);
-    }
-
-    function fireSlideChanged(previousSlide, currentSlide) {
-      fireSlideEnter();
-
-      // dispatch for shiny
-      if (window.jQuery) {
-        if (previousSlide) {
-          window.jQuery(previousSlide).trigger("hidden");
-        }
-        if (currentSlide) {
-          window.jQuery(currentSlide).trigger("shown");
-        }
-      }
-    }
-
-    // hookup for slidy
-    if (window.w3c_slidy) {
-      window.w3c_slidy.add_observer(function (slide_num) {
-        // slide_num starts at position 1
-        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-      });
-    }
-
-  })();
 </script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

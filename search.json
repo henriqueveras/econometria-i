@@ -431,47 +431,11 @@
     ]
   },
   {
-    "objectID": "notas/01-map.html#where-the-models-come-in",
-    "href": "notas/01-map.html#where-the-models-come-in",
-    "title": "Econometrics, the DGP, and the Map of the Course",
-    "section": "\n0.5 Where the models come in",
-    "text": "0.5 Where the models come in\nA sequence of failures and repairs\n\n\n\n\n\n\n\nSetting\nThe problem it responds to\nLectures\n\n\n\nLinear regression\nA baseline: what can be learned under exogeneity?\n2–6\n\n\nHeteroskedasticity, clustering\nThe variance assumption fails; inference breaks\n7, 16\n\n\nBootstrap\nThe asymptotic approximation may be poor\n8\n\n\nFunctional form, data problems\nThe straight line is the wrong shape\n9\n\n\nInstrumental variables\nExogeneity fails; identification is at risk\n10–11\n\n\nGMM\nA general language for the second way of building estimators\n12\n\n\nMaximum likelihood\nThe parameter is not a conditional mean\n13\n\n\nLogit and probit\nThe outcome is binary\n14\n\n\nPanel data\nUnobserved heterogeneity, and what variation survives it\n15–16\n\n\n\nRead down the middle column. It is not a list of techniques; it is a sequence of failures and the repairs they provoked.",
-    "crumbs": [
-      "Home",
-      "I — Foundations",
-      "1 · Econometrics, the DGP, and the Map"
-    ]
-  },
-  {
-    "objectID": "notas/01-map.html#the-two-families",
-    "href": "notas/01-map.html#the-two-families",
-    "title": "Econometrics, the DGP, and the Map of the Course",
-    "section": "\n0.6 The two families",
-    "text": "0.6 The two families\nTwo ways to build an estimator\nAlmost every estimator in this course is built in one of two ways, and it is worth seeing the shapes now — you will meet both in Lecture 3, before either has a name.\n\n\n🧰Researcher's Toolbox—Optimisation, or a condition on averages\n\n\nBy optimisation. Write down a criterion that measures how badly a candidate value fits the data, then pick the value that does best. Least squares picks the coefficients that make the sum of squared errors as small as possible.\nBy a condition on averages. Write down a quantity that the model says should average to zero in the population, then pick the value that makes it average to zero in your sample.\n\n\nThe two are closely related\nThe connection is simple once stated. To minimise a criterion you set its derivative to zero — and that derivative is itself a quantity that must average to zero. So an estimator built the first way automatically satisfies a condition of the second kind.\nLeast squares is the example: we will derive it by minimising in Lecture 3, and discover in the same lecture that the answer satisfies a simple condition on averages.",
-    "crumbs": [
-      "Home",
-      "I — Foundations",
-      "1 · Econometrics, the DGP, and the Map"
-    ]
-  },
-  {
     "objectID": "notas/01-map.html#econometrics-as-practice",
     "href": "notas/01-map.html#econometrics-as-practice",
     "title": "Econometrics, the DGP, and the Map of the Course",
-    "section": "\n0.7 Econometrics as practice",
-    "text": "0.7 Econometrics as practice\nCard & Krueger (1994)\n\n\n📄In the Literature—The contribution is an identification argument\n\n\nNew Jersey raised its minimum wage in 1992; Pennsylvania did not. Comparing employment changes in fast-food restaurants across the border, Card and Krueger (1994) found no evidence of employment losses.\nThe paper is famous for its conclusion. It belongs in the first lecture for a different reason: the estimation is arithmetic. What made it publishable was the case that the comparison isolates the effect of the policy.\n\n\nThis is the shape of a great deal of modern empirical economics. The hard part is rarely the estimator.\nAngrist & Krueger (1991)\n\n\n📄In the Literature—Finding variation you can trust\n\n\nQuarter of birth affects how much schooling a person completes, through compulsory attendance laws — but there is no reason it should affect earnings in any other way (Angrist and Krueger 1991). That second claim is what makes the first one useful.\nLectures 10 and 11 are about turning arguments of this shape into estimators, and about how fragile they can be.\n\n\nTheoretical and applied econometrics\nTheoretical econometrics develops estimators and establishes their properties. Applied econometrics uses them to answer economic questions.\n\n\n\n\n\n\nThis course is aimed at the applied economist — and it is a theoretical course, because the applied economist who does not know why an estimator works cannot tell when it stops working.",
-    "crumbs": [
-      "Home",
-      "I — Foundations",
-      "1 · Econometrics, the DGP, and the Map"
-    ]
-  },
-  {
-    "objectID": "notas/01-map.html#computation-and-replication",
-    "href": "notas/01-map.html#computation-and-replication",
-    "title": "Econometrics, the DGP, and the Map of the Course",
-    "section": "\n0.8 Computation and replication",
-    "text": "0.8 Computation and replication\nThree facts that will matter\n\n\n⚙️Under the Hood—Why we open the hood\n\n\n\nNo software computes \\((\\bX'\\bX)^{-1}\\bX'\\bY\\) by inverting \\(\\bX'\\bX\\). Forming the cross-product squares the condition number of \\(\\bX\\). R uses a QR decomposition. (Lecture 3)\n\nMaximum likelihood has no closed form for logit or probit. The estimate is the output of an iterative optimiser that can fail to converge. (Lecture 14)\n\n\nvcovHC() has at least four variants that differ in finite samples, and packages disagree about the default. (Lecture 7)\n\n\n\n\nNone of these is a programming detail. Each is a place where the mathematics and the number on the screen can part company.\nTwo practices, expected in this course\nSet a seed. Any result involving simulation must be reproducible. A Monte Carlo without a seed is not a result.\nKeep the code with the paper. Replication is not a courtesy to referees; it is how you discover your own errors.",
+    "section": "\n0.5 Econometrics as practice",
+    "text": "0.5 Econometrics as practice\nCard & Krueger (1994)\n\n\n📄In the Literature—The contribution is an identification argument\n\n\nNew Jersey raised its minimum wage in 1992; Pennsylvania did not. Comparing employment changes in fast-food restaurants across the border, Card and Krueger (1994) found no evidence of employment losses.\nThe paper is famous for its conclusion. It belongs in the first lecture for a different reason: the estimation is arithmetic. What made it publishable was the case that the comparison isolates the effect of the policy.\n\n\nThis is the shape of a great deal of modern empirical economics. The hard part is rarely the estimator.\nAngrist & Krueger (1991)\n\n\n📄In the Literature—Finding variation you can trust\n\n\nQuarter of birth affects how much schooling a person completes, through compulsory attendance laws — but there is no reason it should affect earnings in any other way (Angrist and Krueger 1991). That second claim is what makes the first one useful.\nLectures 10 and 11 are about turning arguments of this shape into estimators, and about how fragile they can be.\n\n\nTheoretical and applied econometrics\nTheoretical econometrics develops estimators and establishes their properties. Applied econometrics uses them to answer economic questions.\n\n\n\n\n\n\nThis course is aimed at the applied economist — and it is a theoretical course, because the applied economist who does not know why an estimator works cannot tell when it stops working.",
     "crumbs": [
       "Home",
       "I — Foundations",
@@ -482,8 +446,8 @@
     "objectID": "notas/01-map.html#what-you-should-be-able-to-do",
     "href": "notas/01-map.html#what-you-should-be-able-to-do",
     "title": "Econometrics, the DGP, and the Map of the Course",
-    "section": "\n0.9 What you should be able to do",
-    "text": "0.9 What you should be able to do\nThe goal\nNot that you can say “I know OLS, IV, logit and panel data.”\nThat, faced with an empirical question, you can think:\n\n\n\n\n\n\nI have a DGP and a parameter of interest. I need to establish whether that parameter is identified, choose an estimation strategy suited to it, work out the properties of the resulting estimator, and construct inference valid under the assumptions I am actually willing to make.\n\n\n\nReading\n\n\nHansen\nChapter 1\n\n\nGreene\nChapter 1\n\n\nHansen’s first chapter is short and worth reading in full, particularly its remarks on econometric software and replication. Greene’s covers the same ground with more attention to the history of the field.",
+    "section": "\n0.6 What you should be able to do",
+    "text": "0.6 What you should be able to do\nThe goal\nNot that you can say “I know OLS, IV, logit and panel data.”\nThat, faced with an empirical question, you can think:\n\n\n\n\n\n\nI have a DGP and a parameter of interest. I need to establish whether that parameter is identified, choose an estimation strategy suited to it, work out the properties of the resulting estimator, and construct inference valid under the assumptions I am actually willing to make.\n\n\n\nReading\n\n\nHansen\nChapter 1\n\n\nGreene\nChapter 1\n\n\nHansen’s first chapter is short and worth reading in full, particularly its remarks on econometric software and replication. Greene’s covers the same ground with more attention to the history of the field.",
     "crumbs": [
       "Home",
       "I — Foundations",
@@ -494,8 +458,8 @@
     "objectID": "notas/01-map.html#references",
     "href": "notas/01-map.html#references",
     "title": "Econometrics, the DGP, and the Map of the Course",
-    "section": "\n0.10 References",
-    "text": "0.10 References\nReferences\n\n\nAngrist, Joshua D., and Alan B. Krueger. 1991. “Does Compulsory School Attendance Affect Schooling and Earnings?” Quarterly Journal of Economics 106 (4): 979–1014.\n\n\nCard, David, and Alan B. Krueger. 1994. “Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania.” American Economic Review 84 (4): 772–93.",
+    "section": "\n0.7 References",
+    "text": "0.7 References\nReferences\n\n\nAngrist, Joshua D., and Alan B. Krueger. 1991. “Does Compulsory School Attendance Affect Schooling and Earnings?” Quarterly Journal of Economics 106 (4): 979–1014.\n\n\nCard, David, and Alan B. Krueger. 1994. “Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania.” American Economic Review 84 (4): 772–93.",
     "crumbs": [
       "Home",
       "I — Foundations",
