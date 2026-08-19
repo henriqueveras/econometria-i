@@ -591,6 +591,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#the-general-case-not-the-convenient-one" id="toc-the-general-case-not-the-convenient-one" class="nav-link" data-scroll-target="#the-general-case-not-the-convenient-one">The general case, not the convenient one</a></li>
   <li><a href="#the-sandwich-and-what-collapses-it" id="toc-the-sandwich-and-what-collapses-it" class="nav-link" data-scroll-target="#the-sandwich-and-what-collapses-it">The sandwich, and what collapses it</a></li>
+  <li><a href="#adding-a-restriction-on-the-variance" id="toc-adding-a-restriction-on-the-variance" class="nav-link" data-scroll-target="#adding-a-restriction-on-the-variance">Adding a restriction on the variance</a></li>
+  <li><a href="#what-a4-collapses" id="toc-what-a4-collapses" class="nav-link" data-scroll-target="#what-a4-collapses">What A4 collapses</a></li>
   <li><a href="#estimating-the-variance" id="toc-estimating-the-variance" class="nav-link" data-scroll-target="#estimating-the-variance">Estimating the variance</a></li>
   <li><a href="#without-homoskedasticity" id="toc-without-homoskedasticity" class="nav-link" data-scroll-target="#without-homoskedasticity">Without homoskedasticity</a></li>
   <li><a href="#which-robust-estimator" id="toc-which-robust-estimator" class="nav-link" data-scroll-target="#which-robust-estimator">Which robust estimator?</a></li>
@@ -725,7 +727,18 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <section id="the-sandwich-and-what-collapses-it" class="level3">
 <h3 class="anchored" data-anchor-id="the-sandwich-and-what-collapses-it">The sandwich, and what collapses it</h3>
 <p>The expression has a bread-filling-bread shape and is universally called the <strong>sandwich</strong> formula. It holds under A1–A3 alone.</p>
-<p>Now impose A4, <span class="math inline">\(\bOmega = \sigma^2\bI_n\)</span>. The filling becomes <span class="math inline">\(\sigma^2\bX'\bX\)</span>, one factor cancels each side, and <span class="math display">\[\Var[\bb \mid \bX] = \sigma^2(\bX'\bX)^{-1}.\]</span></p>
+</section>
+<section id="adding-a-restriction-on-the-variance" class="level3">
+<h3 class="anchored" data-anchor-id="adding-a-restriction-on-the-variance">Adding a restriction on the variance</h3>
+<p>The model of Lecture 2 constrained the conditional <em>mean</em> and said nothing about the conditional variance. We now constrain the variance too — and give the restriction the name the rest of the course uses.</p>
+<div id="def-a4" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (A4 · Conditional homoskedasticity)</strong></span> <span class="math display">\[\E[\beps\beps' \mid \bX] = \sigma^2\bI_n,\]</span> which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\sigma^2(\mathbf{x}_i) = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no correlation across observations</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
+</div>
+<p>The first half is the case <a href="../notas/02-projection.html#def-heterosk">Lecture 2 argued is exceptional</a>, so A4 is imposed here for one reason only: to see what it buys.</p>
+</section>
+<section id="what-a4-collapses" class="level3">
+<h3 class="anchored" data-anchor-id="what-a4-collapses">What A4 collapses</h3>
+<p>Under A4 the filling of the sandwich becomes <span class="math inline">\(\sigma^2\bX'\bX\)</span>, one factor cancels on each side, and what is left is the formula every textbook opens with: <span class="math display">\[\Var[\bb \mid \bX] = \sigma^2(\bX'\bX)^{-1}.\]</span></p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -757,7 +770,7 @@ Important
 <h3 class="anchored" data-anchor-id="without-homoskedasticity">Without homoskedasticity</h3>
 <p>When <span class="math inline">\(\bOmega\)</span> is unrestricted there is no single <span class="math inline">\(\sigma^2\)</span> to estimate — there are <span class="math inline">\(n\)</span> conditional variances and only <span class="math inline">\(n\)</span> observations. The way out is that the sandwich needs only the <span class="math inline">\(K \times K\)</span> filling <span class="math inline">\(\bX'\bOmega\bX\)</span>, not <span class="math inline">\(\bOmega\)</span> itself.</p>
 <div id="def-hc" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}\]</span></p>
+<p><span class="theorem-title"><strong>Definition 2 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}\]</span></p>
 <p>Each observation contributes its own squared residual as an estimate of its own variance.</p>
 </div>
 <p>This is White’s estimator. Its justification is asymptotic and belongs to Lecture 5; what matters here is the shape — the middle is a weighted cross-product of the regressors, with the weights supplied by the residuals themselves. Nothing needs to be assumed about how the variances vary.</p>
@@ -928,7 +941,7 @@ Warning
 </tr>
 <tr class="even">
 <td><strong>Hansen</strong></td>
-<td>Chapter 5 — normal regression, for the exact distribution under A6</td>
+<td>Chapter 5 — normal regression, for the exact distribution under normality</td>
 </tr>
 <tr class="odd">
 <td><strong>Greene</strong></td>
@@ -937,7 +950,7 @@ Warning
 </tbody>
 </table>
 <div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">White (1980)</span></div><div class="econ-box-body">
-<p>The paper that made heteroskedasticity-robust inference routine <span class="citation" data-cites="white1980heteroskedasticity">(<a href="#ref-white1980heteroskedasticity" role="doc-biblioref">White 1980</a>)</span>. It is among the most cited articles in economics, and its argument is the one behind <a href="#def-hc" class="quarto-xref">Definition&nbsp;1</a> — you need the middle of the sandwich, not the whole of <span class="math inline">\(\bOmega\)</span>.</p>
+<p>The paper that made heteroskedasticity-robust inference routine <span class="citation" data-cites="white1980heteroskedasticity">(<a href="#ref-white1980heteroskedasticity" role="doc-biblioref">White 1980</a>)</span>. It is among the most cited articles in economics, and its argument is the one behind <a href="#def-hc" class="quarto-xref">Definition&nbsp;2</a> — you need the middle of the sandwich, not the whole of <span class="math inline">\(\bOmega\)</span>.</p>
 </div></div>
 </section>
 </section>
