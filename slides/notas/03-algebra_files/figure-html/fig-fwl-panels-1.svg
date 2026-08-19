@@ -366,7 +366,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHwyMTYuMDB8MC4wMHwyNDQuODA=)'>
-<text x='132.19' y='25.07' text-anchor='middle' style='font-size: 15.12px; font-weight: bold; font-family: "Arial";' textLength='184.80px' lengthAdjust='spacingAndGlyphs'>1. remove controls from y</text>
+<text x='132.19' y='25.07' text-anchor='middle' style='font-size: 15.12px; font-weight: bold; font-family: "Arial";' textLength='159.33px' lengthAdjust='spacingAndGlyphs'>1. y, controls removed</text>
 <text x='132.19' y='238.75' text-anchor='middle' style='font-size: 12.60px; font-family: "Arial";' textLength='21.00px' lengthAdjust='spacingAndGlyphs'>age</text>
 <text transform='translate(15.12,110.30) rotate(-90)' text-anchor='middle' style='font-size: 12.60px; font-family: "Arial";' textLength='40.58px' lengthAdjust='spacingAndGlyphs'>income</text>
 </g>
@@ -706,7 +706,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMjE2LjAwfDQzMi4wMHwwLjAwfDI0NC44MA==)'>
-<text x='348.19' y='25.07' text-anchor='middle' style='font-size: 15.12px; font-weight: bold; font-family: "Arial";' textLength='184.80px' lengthAdjust='spacingAndGlyphs'>2. remove controls from x</text>
+<text x='348.19' y='25.07' text-anchor='middle' style='font-size: 15.12px; font-weight: bold; font-family: "Arial";' textLength='160.45px' lengthAdjust='spacingAndGlyphs'>2. x, controls removed</text>
 <text x='348.19' y='238.75' text-anchor='middle' style='font-size: 12.60px; font-family: "Arial";' textLength='21.00px' lengthAdjust='spacingAndGlyphs'>age</text>
 <text transform='translate(231.12,110.30) rotate(-90)' text-anchor='middle' style='font-size: 12.60px; font-family: "Arial";' textLength='54.59px' lengthAdjust='spacingAndGlyphs'>education</text>
 </g>
