@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='612.00pt' height='252.00pt' viewBox='0 0 612.00 252.00'>
+<g class='svglite'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw2MTIuMDB8MC4wMHwyNTIuMDA='>
+    <rect x='0.00' y='0.00' width='612.00' height='252.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw2MTIuMDB8MC4wMHwyNTIuMDA=)'>
+<line x1='69.70' y1='145.22' x2='69.70' y2='49.79' style='stroke-width: 0.75;' />
+<line x1='69.70' y1='145.22' x2='61.78' y2='145.22' style='stroke-width: 0.75;' />
+<line x1='69.70' y1='113.41' x2='61.78' y2='113.41' style='stroke-width: 0.75;' />
+<line x1='69.70' y1='81.60' x2='61.78' y2='81.60' style='stroke-width: 0.75;' />
+<line x1='69.70' y1='49.79' x2='61.78' y2='49.79' style='stroke-width: 0.75;' />
+<text x='53.86' y='149.94' text-anchor='end' style='font-size: 13.20px; font-family: "Arial";' textLength='18.31px' lengthAdjust='spacingAndGlyphs'>2.6</text>
+<text x='53.86' y='118.13' text-anchor='end' style='font-size: 13.20px; font-family: "Arial";' textLength='18.31px' lengthAdjust='spacingAndGlyphs'>2.8</text>
+<text x='53.86' y='86.32' text-anchor='end' style='font-size: 13.20px; font-family: "Arial";' textLength='18.31px' lengthAdjust='spacingAndGlyphs'>3.0</text>
+<text x='53.86' y='54.51' text-anchor='end' style='font-size: 13.20px; font-family: "Arial";' textLength='18.31px' lengthAdjust='spacingAndGlyphs'>3.2</text>
+<text transform='translate(19.01,94.32) rotate(-90)' text-anchor='middle' style='font-size: 13.20px; font-family: "Arial";' textLength='89.39px' lengthAdjust='spacingAndGlyphs'>mean log wage</text>
+</g>
+<defs>
+  <clipPath id='cpNjkuNzB8NTk2LjE2fDIyLjE4fDE2Ni40Ng=='>
+    <rect x='69.70' y='22.18' width='526.46' height='144.29' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNjkuNzB8NTk2LjE2fDIyLjE4fDE2Ni40Ng==)'>
+<line x1='69.70' y1='89.82' x2='596.16' y2='89.82' style='stroke-width: 1.88; stroke: #B45309; stroke-dasharray: 10.00,10.00;' />
+<line x1='144.73' y1='161.12' x2='144.73' y2='52.97' style='stroke-width: 14.79; stroke: #2D3F6B; stroke-opacity: 0.40; stroke-linecap: butt;' />
+<line x1='268.14' y1='161.12' x2='268.14' y2='94.32' style='stroke-width: 13.48; stroke: #2D3F6B; stroke-opacity: 0.40; stroke-linecap: butt;' />
+<line x1='391.55' y1='161.12' x2='391.55' y2='103.86' style='stroke-width: 7.83; stroke: #2D3F6B; stroke-opacity: 0.40; stroke-linecap: butt;' />
+<line x1='514.96' y1='161.12' x2='514.96' y2='140.44' style='stroke-width: 7.40; stroke: #2D3F6B; stroke-opacity: 0.40; stroke-linecap: butt;' />
+<circle cx='144.73' cy='52.97' r='4.45' style='stroke-width: 0.75; stroke: #2D3F6B; fill: #2D3F6B;' />
+<circle cx='268.14' cy='94.32' r='4.45' style='stroke-width: 0.75; stroke: #2D3F6B; fill: #2D3F6B;' />
+<circle cx='391.55' cy='103.86' r='4.45' style='stroke-width: 0.75; stroke: #2D3F6B; fill: #2D3F6B;' />
+<circle cx='514.96' cy='140.44' r='4.45' style='stroke-width: 0.75; stroke: #2D3F6B; fill: #2D3F6B;' />
+<text x='162.01' y='57.40' style='font-size: 12.54px;fill: #1A1F2E; font-family: "Arial";' textLength='24.39px' lengthAdjust='spacingAndGlyphs'>3.18</text>
+<text x='285.42' y='98.75' style='font-size: 12.54px;fill: #1A1F2E; font-family: "Arial";' textLength='24.39px' lengthAdjust='spacingAndGlyphs'>2.92</text>
+<text x='408.82' y='108.29' style='font-size: 12.54px;fill: #1A1F2E; font-family: "Arial";' textLength='24.39px' lengthAdjust='spacingAndGlyphs'>2.86</text>
+<text x='532.23' y='144.87' style='font-size: 12.54px;fill: #1A1F2E; font-family: "Arial";' textLength='24.39px' lengthAdjust='spacingAndGlyphs'>2.63</text>
+</g>
+<g clip-path='url(#cpMC4wMHw2MTIuMDB8MC4wMHwyNTIuMDA=)'>
+<text x='144.73' y='186.26' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='29.25px' lengthAdjust='spacingAndGlyphs'>white</text>
+<text x='144.73' y='201.31' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='24.38px' lengthAdjust='spacingAndGlyphs'>men</text>
+<text x='268.14' y='186.26' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='29.25px' lengthAdjust='spacingAndGlyphs'>white</text>
+<text x='268.14' y='201.31' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='40.39px' lengthAdjust='spacingAndGlyphs'>women</text>
+<text x='391.55' y='186.26' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='29.25px' lengthAdjust='spacingAndGlyphs'>black</text>
+<text x='391.55' y='201.31' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='24.38px' lengthAdjust='spacingAndGlyphs'>men</text>
+<text x='514.96' y='186.26' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='29.25px' lengthAdjust='spacingAndGlyphs'>black</text>
+<text x='514.96' y='201.31' text-anchor='middle' style='font-size: 12.54px; font-family: "Arial";' textLength='40.39px' lengthAdjust='spacingAndGlyphs'>women</text>
+<text x='144.73' y='229.82' text-anchor='middle' style='font-size: 9.60px;fill: #5B6478; font-family: "Arial";' textLength='45.30px' lengthAdjust='spacingAndGlyphs'>share 0.34</text>
+<text x='268.14' y='229.82' text-anchor='middle' style='font-size: 9.60px;fill: #5B6478; font-family: "Arial";' textLength='45.30px' lengthAdjust='spacingAndGlyphs'>share 0.31</text>
+<text x='391.55' y='229.82' text-anchor='middle' style='font-size: 9.60px;fill: #5B6478; font-family: "Arial";' textLength='45.30px' lengthAdjust='spacingAndGlyphs'>share 0.18</text>
+<text x='514.96' y='229.82' text-anchor='middle' style='font-size: 9.60px;fill: #5B6478; font-family: "Arial";' textLength='45.30px' lengthAdjust='spacingAndGlyphs'>share 0.17</text>
+</g>
+<g clip-path='url(#cpNjkuNzB8NTk2LjE2fDIyLjE4fDE2Ni40Ng==)'>
+<text x='91.66' y='109.70' style='font-size: 12.54px;fill: #B45309; font-family: "Arial";' textLength='60.27px' lengthAdjust='spacingAndGlyphs'>E[y] = 2.95</text>
+</g>
+</g>
+</svg>

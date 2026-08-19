@@ -291,24 +291,33 @@ Henrique Veras
 </section>
 <section id="what-we-actually-want-to-know" class="slide level3">
 <h3>What we actually want to know</h3>
-<p>A model builder is rarely interested in the joint distribution of <span class="math inline">\(y\)</span> and <span class="math inline">\(\mathbf{x}\)</span> as such. The interest is <em>conditional</em>: how does the distribution of earnings shift as schooling changes? And usually not the whole conditional distribution, but one feature of it — most often the mean, sometimes a quantile, occasionally the variance.</p>
-<p>Linear regression is about the conditional mean, so that is where we start.</p>
+<p>The interest is always <em>conditional</em>. Start with a single binary indicator.</p>
 
-<img data-src="02-projection_files/figure-html/fig-conditional-distributions-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-conditional-distributions"><p class="caption">
-Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</span> at three values of <span class="math inline">\(x\)</span>. The CEF records only the crosses.
-</p><p>The CEF is the line through the crosses. Everything else the conditional distributions contain is discarded by construction — including, here, a spread that widens with <span class="math inline">\(x\)</span>.</p>
-<p>That spread has a name and deserves it now rather than later.</p>
-<div id="def-heterosk" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Conditional variance, homoskedasticity, heteroskedasticity)</strong></span> The <strong>conditional variance</strong> is <span class="math inline">\(\sigma^2(\mathbf{x}) = \Var[y \mid \mathbf{x}]\)</span>. The error is <strong>homoskedastic</strong> if <span class="math inline">\(\sigma^2(\mathbf{x})\)</span> does not depend on <span class="math inline">\(\mathbf{x}\)</span>, and <strong>heteroskedastic</strong> otherwise.</p>
-<p>Like the CEF, this is a feature of the population, not an assumption.</p>
-</div>
+<img data-src="02-projection_files/figure-html/fig-wage-by-sex-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-wage-by-sex"><p class="caption">
+Figure&nbsp;1: Log wages for two groups. The dashed segments mark the group means — and that pair of numbers <em>is</em> the conditional expectation function.
+</p></section>
+<section id="the-definition" class="slide level3">
+<h3>The definition</h3>
 <div id="def-cef" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Conditional expectation function)</strong></span> The <strong>conditional expectation function</strong> (CEF) is <span class="math display">\[m(\mathbf{x}) = \E[y \mid \mathbf{x}],\]</span> the mean of <span class="math inline">\(y\)</span> in the subpopulation with covariates equal to <span class="math inline">\(\mathbf{x}\)</span>. It exists whenever <span class="math inline">\(\E|y| &lt; \infty\)</span>, and involves no modelling assumption whatever.</p>
+<p><span class="theorem-title"><strong>Definition 1 (Conditional expectation function)</strong></span> The <strong>conditional expectation function</strong> (CEF) is <span class="math display">\[m(\mathbf{x}) = \E[y \mid \mathbf{x}],\]</span> the mean of <span class="math inline">\(y\)</span> in the subpopulation with covariates equal to <span class="math inline">\(\mathbf{x}\)</span>. It exists whenever <span class="math inline">\(\E|y| &lt; \infty\)</span>, and involves no modelling assumption whatever.</p>
 </div>
+<p>With one binary regressor, <span class="math inline">\(m\)</span> takes two values. With two binary regressors it takes four. As the conditioning becomes finer the CEF becomes a richer object — and with a continuous regressor it becomes a curve.</p>
 </section>
-<section id="the-cef-error" class="slide level3">
+<section id="more-groups-same-idea" class="slide level3">
+<h3>More groups, same idea</h3>
+
+<img data-src="02-projection_files/figure-html/fig-cef-groups-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-cef-groups"><p class="caption">
+Figure&nbsp;2: Mean log wage in four groups defined by sex and race; stem width is proportional to the group’s population share. The dashed line is the unconditional mean. Note the vertical axis does not start at zero.
+</p></section>
+<section id="the-law-of-iterated-expectations-read-off-the-figure" class="slide level3">
+<h3>The law of iterated expectations, read off the figure</h3>
+<p>The dashed line is the unconditional mean, and it is <strong>not</strong> the average of the four bars. It is their average <em>weighted by the group shares</em>:</p>
+<p><span class="math display">\[\E[y] \;=\; \sum_{g} \Prob(\text{group } g)\; \E[y \mid \text{group } g]\]</span></p>
+<p>which is exactly the law of iterated expectations, <span class="math inline">\(\E[y] = \E\big[\E[y \mid \mathbf{x}]\big]\)</span>. The outer expectation averages the group means over the distribution of the groups.</p>
+</section>
+<section id="the-cef-error" class="slide level3 smaller">
 <h3>The CEF error</h3>
-<p>Define <span class="math inline">\(\varepsilon = y - m(\mathbf{x})\)</span>, so <span class="math inline">\(y = m(\mathbf{x}) + \varepsilon\)</span>.</p>
+<p>Whatever <span class="math inline">\(m\)</span> is, we can define the deviation of <span class="math inline">\(y\)</span> from it: write <span class="math inline">\(\varepsilon = y - m(\mathbf{x})\)</span>, so that <span class="math inline">\(y = m(\mathbf{x}) + \varepsilon\)</span>.</p>
 <div id="thm-cef-error" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1 (Properties of the CEF error)</strong></span> &nbsp;</p>
 <ol type="1">
@@ -330,28 +339,105 @@ Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</
 </section>
 <section id="why-the-mean-and-not-something-else" class="slide level3">
 <h3>Why the mean, and not something else?</h3>
-<p>Why the mean and not the median? Because under <strong>squared loss</strong> the CEF is the best possible predictor — of any form.</p>
+<p>The choice of the conditional mean can look arbitrary. There is a precise answer: among <strong>all</strong> functions of <span class="math inline">\(\mathbf{x}\)</span>, the CEF predicts <span class="math inline">\(y\)</span> best under squared loss.</p>
 <div id="thm-cef-best-predictor" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 2 (The CEF minimises mean squared error)</strong></span> Among all <span class="math inline">\(g\)</span> with <span class="math inline">\(\E[g(\mathbf{x})^2] &lt; \infty\)</span>, <span class="math display">\[m(\mathbf{x}) = \argmin_{g} \E\big[(y - g(\mathbf{x}))^2\big].\]</span></p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Add and subtract <span class="math inline">\(m(\mathbf{x})\)</span> inside the square. The cross term vanishes by <a href="#/thm-cef-error" class="quarto-xref">Theorem&nbsp;1</a>(3), since <span class="math inline">\(m - g\)</span> is a function of <span class="math inline">\(\mathbf{x}\)</span>, leaving <span class="math display">\[\E\big[(y - g(\mathbf{x}))^2\big] = \E[\varepsilon^2] + \E\big[(m(\mathbf{x}) - g(\mathbf{x}))^2\big] \ge \E[\varepsilon^2],\]</span> with equality iff <span class="math inline">\(g = m\)</span> almost surely. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span>Add and subtract <span class="math inline">\(m(\mathbf{x})\)</span> inside the square. The cross term vanishes by <a href="#/thm-cef-error" class="quarto-xref">Theorem&nbsp;1</a>(3), since <span class="math inline">\(m - g\)</span> is a function of <span class="math inline">\(\mathbf{x}\)</span>, leaving <span class="math display">\[\E\big[(y - g(\mathbf{x}))^2\big] = \E[\varepsilon^2] + \E\big[(m(\mathbf{x}) - g(\mathbf{x}))^2\big] \ge \E[\varepsilon^2],\]</span> with equality only when <span class="math inline">\(g\)</span> and <span class="math inline">\(m\)</span> agree as functions of <span class="math inline">\(\mathbf{x}\)</span>.<sup>1</sup> <span class="math inline">\(\square\)</span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Strictly, they need only agree with probability one — they may differ on a set of <span class="math inline">\(\mathbf{x}\)</span> values that never occurs. Nothing in this course turns on the distinction.</p></li></ol></aside></section>
+<section id="what-separates-this-from-an-estimator" class="slide level3">
+<h3>What separates this from an estimator</h3>
+<p>The CEF minimises over an entire <strong>function</strong> — infinitely many unknowns, more than any sample can identify.</p>
+<p>Least squares makes two substitutions:</p>
+<ol type="1">
+<li>population expectation <span class="math inline">\(\to\)</span> sample average</li>
+<li>all functions <span class="math inline">\(\to\)</span> <strong>linear</strong> functions</li>
+</ol>
+<p>What remains is a problem in <span class="math inline">\(K\)</span> numbers.</p>
+<p>Those two substitutions are the whole distance between the population object and the estimator. Keep them in view: much of the course consists of asking what each one costs.</p>
+</section></section>
+<section>
+<section id="conditional-variance" class="title-slide slide level2 center">
+<h2>Conditional variance</h2>
+
+</section>
+<section id="the-mean-is-not-the-only-thing-that-moves" class="slide level3">
+<h3>The mean is not the only thing that moves</h3>
+<p>The CEF records the centre of each conditional distribution and discards everything else. Some of what it discards matters.</p>
+
+<img data-src="02-projection_files/figure-html/fig-cond-variance-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-cond-variance"><p class="caption">
+Figure&nbsp;3: Two groups with essentially the same conditional mean and very different conditional variance. The CEF cannot tell them apart.
+</p><div id="def-cond-variance" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (Conditional variance)</strong></span> The <strong>conditional variance</strong> of the error is <span class="math display">\[\sigma^2(\mathbf{x}) = \Var[\varepsilon \mid \mathbf{x}] = \E[\varepsilon^2 \mid \mathbf{x}],\]</span> the second equality holding because <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span> by construction.</p>
 </div>
 </section>
-<section id="a-pattern-to-notice" class="slide level3">
-<h3>A pattern to notice</h3>
-<p><a href="#/thm-cef-best-predictor" class="quarto-xref">Theorem&nbsp;2</a> defines the CEF as the solution to a minimisation problem — a minimisation over a <em>function</em>, which is more than we can do with a finite sample. Least squares, next lecture, solves the sample version of the same problem restricted to linear <span class="math inline">\(g\)</span>. That is the entire relationship between the population object and the estimator, and it is the first instance of a pattern that will organise the course.</p>
+<section id="conditional-and-unconditional-are-different-objects" class="slide level3">
+<h3>Conditional and unconditional are different objects</h3>
+<p>The <strong>unconditional</strong> variance <span class="math inline">\(\sigma^2 = \E[\varepsilon^2]\)</span> is a single number. The <strong>conditional</strong> variance <span class="math inline">\(\sigma^2(\mathbf{x})\)</span> is a function. They are linked, again, by iterated expectations:</p>
+<p><span class="math display">\[\sigma^2 \;=\; \E\big[\sigma^2(\mathbf{x})\big]\]</span></p>
+<p>so the unconditional variance is the average of the conditional ones. Knowing <span class="math inline">\(\sigma^2\)</span> tells you nothing about how the spread varies across groups — exactly as knowing <span class="math inline">\(\E[y]\)</span> told you nothing about the four group means.</p>
+<div id="def-heterosk" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Homoskedasticity and heteroskedasticity)</strong></span> The error is <strong>homoskedastic</strong> if <span class="math inline">\(\sigma^2(\mathbf{x}) = \sigma^2\)</span> does not depend on <span class="math inline">\(\mathbf{x}\)</span>, and <strong>heteroskedastic</strong> otherwise.</p>
+</div>
+</section>
+<section id="which-case-is-the-exception" class="slide level3">
+<h3>Which case is the exception?</h3>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Textbooks often present homoskedasticity as part of a correct specification and heteroskedasticity as a deviation from it. That is backwards.</p>
+<p><strong>Heteroskedasticity is the generic case; homoskedasticity is unusual and exceptional.</strong> The default in empirical work should be to assume the errors are heteroskedastic, not the converse.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="when-the-cef-is-linear" class="title-slide slide level2 center">
+<h2>When the CEF is linear</h2>
+
+</section>
+<section id="the-convenient-special-case" class="slide level3">
+<h3>The convenient special case</h3>
+<p>We have a target, <span class="math inline">\(m(\mathbf{x})\)</span>, and no way to estimate a whole function. The obvious question is when <span class="math inline">\(m\)</span> happens to be simple enough to estimate.</p>
+<div id="def-linear-cef" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4 (Linear CEF)</strong></span> The CEF is <strong>linear</strong> if <span class="math display">\[m(\mathbf{x}) = \E[y \mid \mathbf{x}] = \mathbf{x}'\bbeta\]</span> for some <span class="math inline">\(K\)</span>-vector <span class="math inline">\(\bbeta\)</span>, where <span class="math inline">\(\mathbf{x}\)</span> ordinarily includes a constant.</p>
+</div>
+<p>When this holds, the object we wanted is described by <span class="math inline">\(K\)</span> numbers, and estimating it becomes feasible. Everything the rest of the course does to the linear model rests on this being either true or a good enough approximation.</p>
+</section>
+<section id="linearity-is-less-restrictive-than-it-looks" class="slide level3">
+<h3>Linearity is less restrictive than it looks</h3>
+<p><strong>With discrete regressors it is not an assumption at all.</strong> Take the four groups of <a href="#/fig-cef-groups" class="quarto-xref">Figure&nbsp;2</a> and include a constant plus three dummies. Four parameters, four group means: the linear CEF fits them <strong>exactly</strong>, whatever the numbers happen to be. A saturated regression on dummies is always a linear CEF.</p>
+<p><strong>Linear in parameters, not in variables.</strong> <span class="math inline">\(\mathbf{x}\)</span> may contain <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\log x\)</span>, interactions or splines. Writing <span class="math inline">\(m(x) = \beta_1 + \beta_2 x + \beta_3 x^2\)</span> is a linear CEF in a nonlinear function of <span class="math inline">\(x\)</span> — and by adding terms one can approximate a curve as closely as desired.</p>
+</section>
+<section id="and-when-it-is-not-linear" class="slide level3">
+<h3>And when it is not linear?</h3>
+<p>Nothing guarantees the CEF is linear, and with continuous regressors it usually is not. The question becomes: if we insist on a linear function anyway, which one do we get, and does it mean anything?</p>
+<p>The answer is the object that occupies the rest of this lecture.</p>
 </section></section>
 <section>
 <section id="linear-projection" class="title-slide slide level2 center">
 <h2>Linear projection</h2>
 
 </section>
-<section id="a-more-modest-target" class="slide level3">
-<h3>A more modest target</h3>
-<p>The CEF is unknown and nonlinear. Settle for the best <strong>linear</strong> approximation instead.</p>
-<div id="def-projection-coef" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3 (Linear projection coefficient)</strong></span> Suppose <span class="math inline">\(\E[y^2] &lt; \infty\)</span>, <span class="math inline">\(\E\|\mathbf{x}\|^2 &lt; \infty\)</span>, and <span class="math inline">\(\bQ_{xx} = \E[\mathbf{x}\mathbf{x}']\)</span> is nonsingular. The <strong>linear projection coefficient</strong> is <span class="math display">\[\bbeta = \argmin_{\mathbf{b}} \E\big[(y - \mathbf{x}'\mathbf{b})^2\big] = \bQ_{xx}^{-1}\,\E[\mathbf{x}y],\]</span> and the <strong>linear projection</strong> of <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(\mathbf{x}'\bbeta\)</span>.</p>
+<section id="the-best-linear-approximation" class="slide level3">
+<h3>The best linear approximation</h3>
+<div id="def-projection" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5 (Linear projection)</strong></span> Suppose <span class="math inline">\(\E[y^2] &lt; \infty\)</span>, <span class="math inline">\(\E\|\mathbf{x}\|^2 &lt; \infty\)</span>, and <span class="math inline">\(\bQ_{xx} = \E[\mathbf{x}\mathbf{x}']\)</span> is nonsingular. The <strong>linear projection coefficient</strong> is <span class="math display">\[\bbeta = \argmin_{\mathbf{b}} \E\big[(y - \mathbf{x}'\mathbf{b})^2\big],\]</span> and the <strong>linear projection</strong> of <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(\mathbf{x}'\bbeta\)</span>.</p>
+</div>
+<p>Note what changed from <a href="#/thm-cef-best-predictor" class="quarto-xref">Theorem&nbsp;2</a>: the minimisation is no longer over all functions <span class="math inline">\(g\)</span>, but over the <span class="math inline">\(K\)</span>-vectors <span class="math inline">\(\mathbf{b}\)</span>. That is the second of the two substitutions from earlier — and it is what makes a closed form possible.</p>
+</section>
+<section id="the-closed-form" class="slide level3">
+<h3>The closed form</h3>
+<div id="thm-projection" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (The projection coefficient)</strong></span> Under the conditions of <a href="#/def-projection" class="quarto-xref">Definition&nbsp;5</a>, <span class="math display">\[\bbeta = \bQ_{xx}^{-1}\,\E[\mathbf{x}y].\]</span></p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>The criterion is a quadratic form in <span class="math inline">\(\mathbf{b}\)</span>; its first-order condition is <span class="math inline">\(-2\E[\mathbf{x}y] + 2\bQ_{xx}\mathbf{b} = \bzero\)</span>, which has a unique solution because <span class="math inline">\(\bQ_{xx}\)</span> is nonsingular, and is a minimum because <span class="math inline">\(2\bQ_{xx}\)</span> is positive definite. <span class="math inline">\(\square\)</span></p>
@@ -359,11 +445,11 @@ Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</
 </section>
 <section id="you-can-always-project" class="slide level3">
 <h3>You can always project</h3>
-<p>Look at what <a href="#/def-projection-coef" class="quarto-xref">Definition&nbsp;3</a> requires: two finite moments and no exact collinearity. It does <strong>not</strong> require the CEF to be linear. It does not require the model to be “true”, or indeed for there to be a model at all. Given any joint distribution with enough moments, the projection exists and is unique.</p>
+<p>Look at what <a href="#/def-projection" class="quarto-xref">Definition&nbsp;5</a> requires: two finite moments and no exact collinearity. It does <strong>not</strong> require the CEF to be linear. It does not require the model to be “true”, or indeed for there to be a model at all.</p>
+<p>Writing <span class="math inline">\(e = y - \mathbf{x}'\bbeta\)</span> for the projection error, the first-order condition says precisely that <span class="math display">\[\E[\mathbf{x}e] = \bzero.\]</span></p>
 </section>
 <section id="a-small-equation-with-a-long-future" class="slide level3">
 <h3>A small equation with a long future</h3>
-<p>Writing <span class="math inline">\(e = y - \mathbf{x}'\bbeta\)</span> for the projection error, the first-order condition says precisely that <span class="math display">\[\E[\mathbf{x}e] = \bzero.\]</span></p>
 <div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first moment condition of the course</span></div><div class="econ-box-body">
 <p><span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span> is a <strong>moment condition</strong> — a statement that some function of the data and the parameter has mean zero. Follow it forward:</p>
 <ul>
@@ -376,21 +462,21 @@ Figure&nbsp;1: The conditional distribution of <span class="math inline">\(y\)</
 <section id="the-projection-error-is-not-the-cef-error" class="slide level3">
 <h3>The projection error is not the CEF error</h3>
 <p>Both <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(e\)</span> are “errors”, both have mean zero, and it is tempting to treat them as the same object. They are not, and the difference is the whole content of the linearity assumption.</p>
-<p>The projection error satisfies <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span>: it is <em>uncorrelated</em> with <span class="math inline">\(\mathbf{x}\)</span>, by construction. The CEF error satisfies the much stronger <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span>: it is <em>mean-independent</em> of <span class="math inline">\(\mathbf{x}\)</span>. Correlation zero does not imply conditional mean zero, so a projection error can be — and generally is — systematically related to <span class="math inline">\(\mathbf{x}\)</span> while remaining uncorrelated with it.</p>
+<p>The projection error satisfies <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span>: it is <em>uncorrelated</em> with <span class="math inline">\(\mathbf{x}\)</span>, by construction. The CEF error satisfies the much stronger <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span>: it is <em>mean-independent</em> of <span class="math inline">\(\mathbf{x}\)</span>. Correlation zero does not imply conditional mean zero.</p>
+<p>When the CEF is linear the two coincide. When it is not, the projection is still perfectly well defined — it is simply the best linear approximation, and its error is correlated with nonlinear functions of <span class="math inline">\(\mathbf{x}\)</span> even though it is uncorrelated with <span class="math inline">\(\mathbf{x}\)</span> itself.</p>
 </section>
 <section id="seeing-the-gap" class="slide level3">
 <h3>Seeing the gap</h3>
 <p>The figure below makes the distinction concrete. The true CEF is quadratic; the projection is the best line through it.</p>
 
 <img data-src="02-projection_files/figure-html/fig-cef-vs-projection-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-cef-vs-projection"><p class="caption">
-Figure&nbsp;2: A nonlinear CEF (solid) and its linear projection (dashed).
-</p><p>The projection error is uncorrelated with <span class="math inline">\(x\)</span> — that is what pins the dashed line down. Yet it is systematically negative in the middle of the range and positive at both ends, so <span class="math inline">\(\E[e \mid x] \neq 0\)</span>. Both statements hold at once. The projection is not <em>wrong</em>; it answers a different question from the one the CEF answers.</p>
-</section>
+Figure&nbsp;4: A nonlinear CEF (solid) and its linear projection (dashed).
+</p></section>
 <section id="the-two-statements-side-by-side" class="slide level3">
 <h3>The two statements, side by side</h3>
 
 <img data-src="02-projection_files/figure-html/fig-orthogonal-not-independent-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-orthogonal-not-independent"><p class="caption">
-Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\)</span> — the fitted line is exactly flat, so the correlation is zero. Right: the same errors averaged within bins of <span class="math inline">\(x\)</span> — clearly not zero.
+Figure&nbsp;5: Left: the projection error against <span class="math inline">\(x\)</span> — the fitted line is exactly flat, so the correlation is zero. Right: the same errors averaged within bins of <span class="math inline">\(x\)</span> — clearly not zero.
 </p><p>Same errors, both panels. The left says the projection did its job; the right says the linear model is wrong. Neither contradicts the other.</p>
 </section></section>
 <section>
@@ -398,11 +484,47 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <h2>The linear regression model</h2>
 
 </section>
-<section id="now-we-assume-something" class="slide level3">
-<h3>Now we assume something</h3>
-<p>Everything so far was definitional. The linear regression model is the substantive assumption that the CEF is linear — at which point the projection coefficient and the CEF coefficient coincide, and <span class="math inline">\(\bbeta\)</span> finally means what we want it to mean.</p>
-<p><strong>Assumption A1 (Linearity).</strong> <span class="math display">\[\bY = \bX_1\beta_1 + \bX_2\beta_2 + \cdots + \bX_K\beta_K + \beps\]</span></p>
-<p>Linearity here is in the <strong>parameters</strong> and the disturbance, not in the regressors. Including <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\log x\)</span> or an interaction <span class="math inline">\(x_1x_2\)</span> leaves the model perfectly linear — a point we exploit heavily in Lecture 9.</p>
+<section id="where-the-assumptions-come-from" class="slide level3">
+<h3>Where the assumptions come from</h3>
+<p>Everything to this point has been definitional. The CEF exists whenever <span class="math inline">\(y\)</span> has a mean; the projection exists whenever two moments are finite; the decomposition <span class="math inline">\(y = m(\mathbf{x}) +
+\varepsilon\)</span> with <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span> holds by construction. No claim about the world has been made, and none could be refuted.</p>
+<p>The linear regression model is what we get by <strong>imposing restrictions on the objects already defined</strong>. Each of Greene’s numbered assumptions restricts one of them — which is why they can look like a list, and why they are not.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Assumption</th>
+<th>Restricts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A1</strong> Linearity</td>
+<td>the shape of <span class="math inline">\(m(\mathbf{x})\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>A2</strong> Full rank</td>
+<td><span class="math inline">\(\bQ_{xx}\)</span>, hence identification</td>
+</tr>
+<tr class="odd">
+<td><strong>A3</strong> Exogeneity</td>
+<td><span class="math inline">\(\varepsilon\)</span>, not just its correlation</td>
+</tr>
+<tr class="even">
+<td><strong>A4</strong> Sphericality</td>
+<td><span class="math inline">\(\sigma^2(\mathbf{x})\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>A6</strong> Normality</td>
+<td>the whole conditional distribution</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a1-linearity" class="slide level3">
+<h3>A1 · Linearity</h3>
+<p><strong>Assumption A1.</strong> <span class="math inline">\(m(\mathbf{x}) = \E[y \mid \mathbf{x}] = \mathbf{x}'\bbeta\)</span>, so that <span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> with <span class="math inline">\(\E[\varepsilon_i \mid \mathbf{x}_i] = 0\)</span>.</p>
+<p>This is <a href="#/def-linear-cef" class="quarto-xref">Definition&nbsp;4</a>, no more and no less. Under A1 the projection coefficient and the CEF coefficient are the same vector, and <span class="math inline">\(\bbeta\)</span> finally means what we want it to mean: a derivative of the conditional mean, not a slope of an approximating line.</p>
+<p>Linearity is in the <strong>parameters</strong>, as before: <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\log x\)</span> and interactions are all allowed.</p>
 </section>
 <section id="matrix-form-and-notation" class="slide level3">
 <h3>Matrix form and notation</h3>
@@ -413,7 +535,7 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <section id="a2-full-rank-and-why-it-is-about-identification" class="slide level3">
 <h3>A2 · Full rank, and why it is about identification</h3>
 <p><strong>Assumption A2.</strong> The columns of <span class="math inline">\(\bX\)</span> are linearly independent, and <span class="math inline">\(n \ge K\)</span>.</p>
-<p>Equivalently <span class="math inline">\(\rank(\bX) = K\)</span>, which guarantees <span class="math inline">\(\bX'\bX\)</span> is invertible; in the population, the counterpart is that <span class="math inline">\(\bQ_{xx}\)</span> is nonsingular. It is easy to read this as a technical convenience that makes a formula work. It is not.</p>
+<p>Equivalently <span class="math inline">\(\rank(\bX) = K\)</span>, which guarantees <span class="math inline">\(\bX'\bX\)</span> is invertible. This is the sample counterpart of the condition already required in <a href="#/def-projection" class="quarto-xref">Definition&nbsp;5</a>: <span class="math inline">\(\bQ_{xx}\)</span> nonsingular. It is easy to read it as a technical convenience that makes a formula work. It is not.</p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -438,8 +560,7 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <section id="a3-exogeneity" class="slide level3">
 <h3>A3 · Exogeneity</h3>
 <p><strong>Assumption A3.</strong> <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span>.</p>
-<p>No value of <span class="math inline">\(\bX\)</span> carries information about the expected disturbance. Together with A1 this says <span class="math inline">\(\E[\bY \mid \bX] = \bX\bbeta\)</span> — the CEF is linear — which is exactly the condition that makes the projection coefficient the object we set out to learn about.</p>
-<p>Note that A3 is strictly stronger than absence of correlation: <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span> implies <span class="math inline">\(\Cov(\bX,\beps) = \bzero\)</span>, but the converse fails, and <span class="math inline">\(\E[\beps] = 0\)</span> on its own implies neither. This is the population counterpart of the CEF-versus-projection distinction from earlier in the lecture.</p>
+<p>We have met this too. The projection error satisfies <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span> by construction; the CEF error satisfies the stronger <span class="math inline">\(\E[\varepsilon \mid \mathbf{x}] = 0\)</span> by construction. Assuming A3 for the <em>linear</em> model is assuming that the error of the <strong>linear</strong> specification behaves like a CEF error — which is exactly the same content as A1.</p>
 </section>
 <section id="where-exogeneity-fails" class="slide level3">
 <h3>Where exogeneity fails</h3>
@@ -449,10 +570,10 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 </div>
 <p>A3 fails here, and the failure is not a technicality: it is omitted variable bias, which we derive properly in Lecture 4 and spend Lectures 10 and 11 learning to repair.</p>
 </section>
-<section id="a4-spherical-disturbances" class="slide level3">
-<h3>A4 · Spherical disturbances</h3>
-<p><strong>Assumption A4.</strong> <span class="math inline">\(\E[\beps\beps' \mid \bX] = \sigma^2\bI_n\)</span>, which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\Var[\varepsilon_i \mid \bX] = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no autocorrelation</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
-<p>A4 buys <strong>efficiency</strong> — it is what Gauss-Markov needs — and it simplifies the variance formula. It buys nothing at all for unbiasedness or consistency.</p>
+<section id="a4-a-restriction-we-will-mostly-decline-to-impose" class="slide level3">
+<h3>A4 · A restriction we will mostly decline to impose</h3>
+<p><strong>Assumption A4.</strong> <span class="math inline">\(\E[\beps\beps' \mid \bX] = \sigma^2\bI_n\)</span>, which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\sigma^2(\mathbf{x}_i) = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no autocorrelation</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
+<p>The first half is <a href="#/def-heterosk" class="quarto-xref">Definition&nbsp;3</a>, and the argument made there applies here in full: constant conditional variance is the exceptional case, not the normal one. A4 is therefore listed for completeness and because the classical results are stated under it — not because we expect it to hold.</p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -462,7 +583,8 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p>We will not treat A4 as the normal case. In Lecture 4 the variance of least squares is derived under <strong>general heteroskedasticity</strong>, and the homoskedastic formula appears as the special case it is. Robust standard errors are the default, not a repair.</p>
+<p>A4 buys <strong>efficiency</strong> and a simpler variance formula. It buys nothing for unbiasedness or consistency.</p>
+<p>Accordingly, Lecture 4 derives the variance of least squares under <strong>general heteroskedasticity</strong> and obtains <span class="math inline">\(\sigma^2(\bX'\bX)^{-1}\)</span> as the special case A4 produces. Robust standard errors are the default, not a repair.</p>
 </div>
 </div>
 </div>
@@ -470,19 +592,21 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <section id="a5-and-a6" class="slide level3">
 <h3>A5 and A6</h3>
 <p><strong>Assumption A5.</strong> <span class="math inline">\(\bX\)</span> may be fixed or random. Fixed <span class="math inline">\(\bX\)</span> describes experimental designs where the researcher sets the covariates; random <span class="math inline">\(\bX\)</span> describes observational data, the usual case in economics. Some columns may be fixed while others are random — time trends and period indicators, for instance.</p>
-<p><strong>Assumption A6 (Normality).</strong> <span class="math inline">\(\beps \mid \bX \sim \Normal(\bzero, \sigma^2\bI_n)\)</span>. This delivers exact finite-sample distributions for test statistics, and it is the one assumption we will largely discard: the central limit theorem takes over in Lecture 5.</p>
+<p><strong>Assumption A6 (Normality).</strong> <span class="math inline">\(\beps \mid \bX \sim \Normal(\bzero, \sigma^2\bI_n)\)</span>. Note how far this goes: A1 restricted the conditional mean, A4 the conditional variance, and A6 restricts the entire conditional distribution. It delivers exact finite-sample distributions for test statistics, and it is the one assumption we will largely discard — the central limit theorem takes over in Lecture 5.</p>
 </section>
 <section id="what-each-assumption-buys" class="slide level3">
 <h3>What each assumption buys</h3>
 <table class="caption-top">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th></th>
+<th>Restricts</th>
 <th>Buys</th>
 <th>Relaxed in</th>
 </tr>
@@ -490,37 +614,43 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <tbody>
 <tr class="odd">
 <td><strong>A1</strong> Linearity</td>
-<td>Makes the CEF the object OLS estimates</td>
-<td>Lecture 9</td>
+<td>shape of <span class="math inline">\(m(\mathbf{x})\)</span></td>
+<td>Makes <span class="math inline">\(\bbeta\)</span> a CEF coefficient</td>
+<td>Lectures 13–14</td>
 </tr>
 <tr class="even">
 <td><strong>A2</strong> Full rank</td>
+<td><span class="math inline">\(\bQ_{xx}\)</span></td>
 <td><strong>Identification</strong>; <span class="math inline">\((\bX'\bX)^{-1}\)</span> exists</td>
-<td>Lecture 9</td>
+<td>Lecture 3</td>
 </tr>
 <tr class="odd">
 <td><strong>A3</strong> Exogeneity</td>
+<td><span class="math inline">\(\varepsilon\)</span> given <span class="math inline">\(\mathbf{x}\)</span></td>
 <td>Unbiasedness, consistency</td>
 <td>Lectures 10–11</td>
 </tr>
 <tr class="even">
 <td><strong>A4</strong> Sphericality</td>
-<td>Efficiency, conventional standard errors</td>
-<td>Lectures 7, 16</td>
+<td><span class="math inline">\(\sigma^2(\mathbf{x})\)</span></td>
+<td>Efficiency, conventional errors</td>
+<td>Lectures 4, 7, 16</td>
 </tr>
 <tr class="odd">
 <td><strong>A5</strong> Random <span class="math inline">\(\bX\)</span></td>
+<td>—</td>
 <td>Generality</td>
 <td>—</td>
 </tr>
 <tr class="even">
 <td><strong>A6</strong> Normality</td>
+<td>whole distribution</td>
 <td>Exact finite-sample inference</td>
 <td>Lecture 5</td>
 </tr>
 </tbody>
 </table>
-<p>Read the right-hand column: it is the syllabus for the rest of the course, written as a list of assumptions to be removed one at a time.</p>
+<p>Read the right-hand column: it is the syllabus for the rest of the course, written as a list of restrictions to be removed one at a time.</p>
 </section></section>
 <section>
 <section id="identification-before-estimation" class="title-slide slide level2 center">
@@ -566,7 +696,7 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 <tbody>
 <tr class="odd">
 <td><strong>Hansen</strong></td>
-<td>Chapter 2 — the CEF and projection treatment this lecture follows</td>
+<td>Chapter 2 — the CEF, conditional variance, linear CEF and projection, in this order</td>
 </tr>
 <tr class="even">
 <td><strong>Greene</strong></td>
@@ -588,6 +718,7 @@ Figure&nbsp;3: Left: the projection error against <span class="math inline">\(x\
 
 
 </section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

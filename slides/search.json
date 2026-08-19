@@ -357,7 +357,7 @@
     "href": "notas/00-components.html#connection",
     "title": "Component Reference",
     "section": "Connection",
-    "text": "Connection\n🔗Connection—The within transformation is FWL again\nDemeaning \\(y_{it}\\) and \\(x_{it}\\) within each unit is exactly \\(\\bM_1\\) applied to \\(\\bY\\) and \\(\\bX\\), where \\(\\bX_1\\) is the matrix of unit dummies. Fixed effects is not a new estimator — it is Theorem 1.1 applied to a particular partition.",
+    "text": "Connection\n🔗Connection—The within transformation is FWL again\nDemeaning \\(y_{it}\\) and \\(x_{it}\\) within each unit is exactly \\(\\bM_1\\) applied to \\(\\bY\\) and \\(\\bX\\), where \\(\\bX_1\\) is the matrix of unit dummies. Fixed effects is not a new estimator — it is Theorem 1 applied to a particular partition.",
     "crumbs": [
       "Home",
       "Reference",
@@ -454,6 +454,30 @@
     "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
     "section": "The conditional expectation function",
     "text": "The conditional expectation function",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#conditional-variance",
+    "href": "notas/02-projection.html#conditional-variance",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "Conditional variance",
+    "text": "Conditional variance",
+    "crumbs": [
+      "Home",
+      "I — Foundations",
+      "2 · Conditional Expectation and Projection"
+    ]
+  },
+  {
+    "objectID": "notas/02-projection.html#when-the-cef-is-linear",
+    "href": "notas/02-projection.html#when-the-cef-is-linear",
+    "title": "Conditional Expectation, Linear Projection, and the Linear Regression Model",
+    "section": "When the CEF is linear",
+    "text": "When the CEF is linear",
     "crumbs": [
       "Home",
       "I — Foundations",
