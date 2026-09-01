@@ -2,15 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Henrique Veras">
 <title>The Algebra and Geometry of Least Squares – Econometrics I</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -57,7 +63,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -82,7 +87,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../notas/04-finite-sample.html" rel="next">
+<link href="../notas/04-finite-sample.qmd" rel="next">
 <link href="../notas/02-projection.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -90,14 +95,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f53dd81e4532dc1ad2d5a3da1ba84db5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8d695445161a98bc055f58d1fd7d7c9d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-85294af6fad2849895ed9755e431b126.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-fcc37affdcc02d07d1652d59a83b2e19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-4b80b3b217dad5d8568d6f2b77002f80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-fcc37affdcc02d07d1652d59a83b2e19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -218,7 +223,7 @@ window.MathJax = {
   }
 };
 
-</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script><script type="text/javascript">
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -229,7 +234,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -507,7 +512,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+  <a href="../notas/04-finite-sample.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
   </div>
 </li>
@@ -621,8 +626,9 @@ window.Quarto = {
   <li><a href="#the-three-step-recipe" id="toc-the-three-step-recipe" class="nav-link" data-scroll-target="#the-three-step-recipe">The three-step recipe</a></li>
   <li><a href="#fwl-in-three-pictures" id="toc-fwl-in-three-pictures" class="nav-link" data-scroll-target="#fwl-in-three-pictures">FWL in three pictures</a></li>
   <li><a href="#the-two-routes-agree-exactly" id="toc-the-two-routes-agree-exactly" class="nav-link" data-scroll-target="#the-two-routes-agree-exactly">The two routes agree exactly</a></li>
-  <li><a href="#why-this-matters-computationally" id="toc-why-this-matters-computationally" class="nav-link" data-scroll-target="#why-this-matters-computationally">Why this matters computationally</a></li>
+  <li><a href="#partial-correlation" id="toc-partial-correlation" class="nav-link" data-scroll-target="#partial-correlation">Partial correlation</a></li>
   <li><a href="#two-corollaries-worth-having" id="toc-two-corollaries-worth-having" class="nav-link" data-scroll-target="#two-corollaries-worth-having">Two corollaries worth having</a></li>
+  <li><a href="#why-this-matters-computationally" id="toc-why-this-matters-computationally" class="nav-link" data-scroll-target="#why-this-matters-computationally">Why this matters computationally</a></li>
   </ul>
 </li>
   <li>
@@ -630,6 +636,8 @@ window.Quarto = {
   <ul class="collapse">
 <li><a href="#decomposing-the-variation" id="toc-decomposing-the-variation" class="nav-link" data-scroll-target="#decomposing-the-variation">Decomposing the variation</a></li>
   <li><a href="#r2-and-why-it-cannot-select-models" id="toc-r2-and-why-it-cannot-select-models" class="nav-link" data-scroll-target="#r2-and-why-it-cannot-select-models"><span class="math inline">\(R^2\)</span>, and why it cannot select models</a></li>
+  <li><a href="#the-residual-sum-can-only-shrink" id="toc-the-residual-sum-can-only-shrink" class="nav-link" data-scroll-target="#the-residual-sum-can-only-shrink">The residual sum can only shrink</a></li>
+  <li><a href="#so-r2-never-falls" id="toc-so-r2-never-falls" class="nav-link" data-scroll-target="#so-r2-never-falls">So <span class="math inline">\(R^2\)</span> never falls</a></li>
   <li><a href="#the-adjusted-version-and-its-limits" id="toc-the-adjusted-version-and-its-limits" class="nav-link" data-scroll-target="#the-adjusted-version-and-its-limits">The adjusted version, and its limits</a></li>
   </ul>
 </li>
@@ -641,27 +649,20 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#two-consequences-of-the-geometry" id="toc-two-consequences-of-the-geometry" class="nav-link" data-scroll-target="#two-consequences-of-the-geometry"><span class="header-section-number">7</span> Two consequences of the geometry</a>
-  <ul class="collapse">
-<li><a href="#when-the-columns-nearly-coincide" id="toc-when-the-columns-nearly-coincide" class="nav-link" data-scroll-target="#when-the-columns-nearly-coincide">When the columns nearly coincide</a></li>
-  <li><a href="#leverage-and-influence" id="toc-leverage-and-influence" class="nav-link" data-scroll-target="#leverage-and-influence">Leverage and influence</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#computation" id="toc-computation" class="nav-link" data-scroll-target="#computation"><span class="header-section-number">8</span> Computation</a>
+<a href="#computation" id="toc-computation" class="nav-link" data-scroll-target="#computation"><span class="header-section-number">7</span> Computation</a>
   <ul class="collapse">
 <li><a href="#nobody-inverts-bxbx" id="toc-nobody-inverts-bxbx" class="nav-link" data-scroll-target="#nobody-inverts-bxbx">Nobody inverts <span class="math inline">\(\bX'\bX\)</span></a></li>
-  <li><a href="#how-much-does-it-cost" id="toc-how-much-does-it-cost" class="nav-link" data-scroll-target="#how-much-does-it-cost">How much does it cost?</a></li>
+  <li><a href="#what-squaring-costs" id="toc-what-squaring-costs" class="nav-link" data-scroll-target="#what-squaring-costs">What squaring costs</a></li>
   </ul>
 </li>
   <li>
-<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">9</span> Reading</a>
+<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">8</span> Reading</a>
   <ul class="collapse">
 <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
   </ul>
 </li>
   <li>
-<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">10</span> References</a>
+<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">9</span> References</a>
   <ul class="collapse">
 <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
   </ul>
@@ -733,6 +734,7 @@ Warning
 <p>Both <span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> and <span class="math inline">\(y_i = \mathbf{x}_i'\mathbf{b} + e_i\)</span> are true, and they say entirely different things.</p>
 </div>
 </div>
+<p>A word on the letter <span class="math inline">\(e\)</span>, because it has just changed meaning. In Lecture 2 the projection error <span class="math inline">\(e = y - \mathbf{x}'\bbeta\)</span> was a <em>population</em> object, built with the true coefficient. Here <span class="math inline">\(e\)</span> is the <em>sample</em> residual, built with whichever <span class="math inline">\(\mathbf{b}\)</span> we compute — a different object, and an observable one where the other was not. The population quantity <span class="math inline">\(y - \mathbf{x}'\bbeta\)</span> that Lecture 2 called <span class="math inline">\(e\)</span> is, under the linear model assumed here, the disturbance <span class="math inline">\(\varepsilon\)</span>; residual and disturbance coincide only in the limit, as <span class="math inline">\(\mathbf{b} \to \bbeta\)</span>. Keeping the symbol is deliberate — the sample condition <span class="math inline">\(\bX'\be = \bzero\)</span> is built to mirror the population <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span> — but the two <span class="math inline">\(e\)</span>’s are not the same object.</p>
 </section><section id="deriving-the-estimator" class="level3"><h3 class="anchored" data-anchor-id="deriving-the-estimator">Deriving the estimator</h3>
 <p>With the criterion fixed, the derivation is short. Minimise <span class="math display">\[S(\mathbf{b}) = \be'\be = \bY'\bY - 2\bY'\bX\mathbf{b} + \mathbf{b}'\bX'\bX\mathbf{b}.\]</span></p>
 <p>The first-order condition gives the <strong>normal equations</strong>, <span class="math display">\[\frac{\partial S}{\partial \mathbf{b}} = -2\bX'\bY + 2\bX'\bX\mathbf{b} = \bzero
@@ -890,7 +892,7 @@ Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is th
 </section><section id="the-two-routes-agree-exactly" class="level3"><h3 class="anchored" data-anchor-id="the-two-routes-agree-exactly">The two routes agree exactly</h3>
 <p>Since this is an algebraic identity rather than an approximation, the two routes agree to machine precision:</p>
 <div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20262</span><span class="op">)</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20262</span><span class="op">)</span></span>
 <span><span class="va">n</span>      <span class="op">&lt;-</span> <span class="fl">300</span></span>
 <span><span class="va">age</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">22</span>, <span class="fl">60</span><span class="op">)</span></span>
 <span><span class="va">educ</span>   <span class="op">&lt;-</span> <span class="fl">4</span> <span class="op">+</span> <span class="fl">0.12</span> <span class="op">*</span> <span class="va">age</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, sd <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
@@ -903,9 +905,24 @@ Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is th
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>multiple <span class="op">=</span> <span class="va">full</span>, fwl <span class="op">=</span> <span class="va">fwl</span>, difference <span class="op">=</span> <span class="va">full</span> <span class="op">-</span> <span class="va">fwl</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     multiple          fwl   difference </span></span>
-<span><span class="co">#&gt; 9.522945e-02 9.522945e-02 1.526557e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 9.522945e-02 9.522945e-02 1.526557e-16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
+</section><section id="partial-correlation" class="level3"><h3 class="anchored" data-anchor-id="partial-correlation">Partial correlation</h3>
+<p>The same partialling-out defines a measure of association that nets the other regressors out.</p>
+<div id="def-partial-correlation" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (Partial correlation)</strong></span> Write <span class="math inline">\(y_*\)</span> for the residuals of <span class="math inline">\(y\)</span> regressed on the other regressors <span class="math inline">\(\bX\)</span>, and <span class="math inline">\(z_*\)</span> for the residuals of <span class="math inline">\(z\)</span> regressed on the same <span class="math inline">\(\bX\)</span> — the partialled-out variables, <span class="math inline">\(y_* = \bM\bY\)</span> and <span class="math inline">\(z_* = \bM\mathbf{z}\)</span>. The <strong>partial correlation coefficient</strong> between <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>, controlling for <span class="math inline">\(\bX\)</span>, is <span class="math display">\[r_{yz} = \frac{\big(z_*'y_*\big)^2}{\big(z_*'z_*\big)\big(y_*'y_*\big)}.\]</span></p>
+</div>
+<p>For the residuals computed just above, <span class="math inline">\(y_*\)</span> is <code>r1</code> and <span class="math inline">\(z_*\)</span> is <code>r2</code>, so <span class="math inline">\(r_{yz}\)</span> is <code>cor(r1, r2)^2</code>: the third FWL panel plots <span class="math inline">\(z_*\)</span> against <span class="math inline">\(y_*\)</span>, so <span class="math inline">\(r_{yz}\)</span> measures the <em>tightness</em> of that scatter, as the slope measures its <em>tilt</em>. We keep the <span class="math inline">\(y_*,\,z_*\)</span> notation for partialled-out residuals from here on.</p>
+<p>This is not a detour. The precision of <span class="math inline">\(\hat\beta_k\)</span> is governed by how much of <span class="math inline">\(x_k\)</span> survives the partialling out. The more of <span class="math inline">\(x_k\)</span> the other regressors already explain — the higher the partial correlation <em>among the regressors</em> — the less independent variation is left to identify <span class="math inline">\(\beta_k\)</span>, and the larger its standard error. That is the variance-inflation story, and it is where this quantity returns in Lectures 4 and 6.</p>
+</section><section id="two-corollaries-worth-having" class="level3"><h3 class="anchored" data-anchor-id="two-corollaries-worth-having">Two corollaries worth having</h3>
+<div id="cor-fwl-single" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 1 (A single extra regressor)</strong></span> In the regression of <span class="math inline">\(\bY\)</span> on <span class="math inline">\(\bX\)</span> and one further variable <span class="math inline">\(\mathbf{z}\)</span>, the coefficient on <span class="math inline">\(\mathbf{z}\)</span> is <span class="math display">\[c = \frac{\mathbf{z}'\bM\bY}{\mathbf{z}'\bM\mathbf{z}},\]</span> with <span class="math inline">\(\bM\)</span> the residual maker for <span class="math inline">\(\bX\)</span>.</p>
+</div>
+<div id="cor-demeaning" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 2 (Partialling out a constant is demeaning)</strong></span> Taking <span class="math inline">\(\bX_1 = \mathbf{i}\)</span> and writing <span class="math inline">\(\bM^0\)</span> for the corresponding residual maker, <span class="math inline">\(\bM^0\mathbf{x} = \mathbf{x} - \mathbf{i}\bar{x}\)</span>. Slopes in a regression with an intercept can therefore be computed from data in deviations from means.</p>
+</div>
+<p><span class="math inline">\(\bM^0\)</span> is the one-group case of the within transformation, which is how Lecture 15 will begin.</p>
 </section><section id="why-this-matters-computationally" class="level3"><h3 class="anchored" data-anchor-id="why-this-matters-computationally">Why this matters computationally</h3>
 <div class="econ-box econ-box-hood" role="note">
 <div class="econ-box-head">
@@ -917,14 +934,6 @@ Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is th
 </div>
 </div>
 <p>When the groups are not nested — worker and firm effects in the same wage regression — the demeaning is applied alternately until convergence. That is the idea behind <code>fixest</code> and <code>reghdfe</code>, and it is why they scale to administrative data a dense design matrix could not hold in memory. We return to it in Lecture 15, where the within transformation turns out to be <a href="#thm-fwl" class="quarto-xref">Theorem&nbsp;3</a> once again.</p>
-</section><section id="two-corollaries-worth-having" class="level3"><h3 class="anchored" data-anchor-id="two-corollaries-worth-having">Two corollaries worth having</h3>
-<div id="cor-fwl-single" class="theorem corollary">
-<p><span class="theorem-title"><strong>Corollary 1 (A single extra regressor)</strong></span> In the regression of <span class="math inline">\(\bY\)</span> on <span class="math inline">\(\bX\)</span> and one further variable <span class="math inline">\(\mathbf{z}\)</span>, the coefficient on <span class="math inline">\(\mathbf{z}\)</span> is <span class="math display">\[c = \frac{\mathbf{z}'\bM\bY}{\mathbf{z}'\bM\mathbf{z}},\]</span> with <span class="math inline">\(\bM\)</span> the residual maker for <span class="math inline">\(\bX\)</span>.</p>
-</div>
-<div id="cor-demeaning" class="theorem corollary">
-<p><span class="theorem-title"><strong>Corollary 2 (Partialling out a constant is demeaning)</strong></span> Taking <span class="math inline">\(\bX_1 = \mathbf{i}\)</span> and writing <span class="math inline">\(\bM^0\)</span> for the corresponding residual maker, <span class="math inline">\(\bM^0\mathbf{x} = \mathbf{x} - \mathbf{i}\bar{x}\)</span>. Slopes in a regression with an intercept can therefore be computed from data in deviations from means.</p>
-</div>
-<p><span class="math inline">\(\bM^0\)</span> is the one-group case of the within transformation, which is how Lecture 15 will begin.</p>
 </section></section><section id="goodness-of-fit" class="level2" data-number="5"><h2 data-number="5" class="anchored" data-anchor-id="goodness-of-fit">
 <span class="header-section-number">5</span> Goodness of fit</h2>
 <section id="decomposing-the-variation" class="level3"><h3 class="anchored" data-anchor-id="decomposing-the-variation">Decomposing the variation</h3>
@@ -936,11 +945,19 @@ Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is th
 </section><section id="r2-and-why-it-cannot-select-models" class="level3"><h3 class="anchored" data-anchor-id="r2-and-why-it-cannot-select-models">
 <span class="math inline">\(R^2\)</span>, and why it cannot select models</h3>
 <p>The coefficient of determination is the share of variation accounted for, <span class="math display">\[R^2 = \frac{SSR}{SST} = 1 - \frac{\be'\be}{\bY'\bM^0\bY},\]</span> which lies in <span class="math inline">\([0,1]\)</span> provided the regression has an intercept. Without one, <span class="math inline">\(SST \neq SSR+SSE\)</span> and the quantity can come out negative.</p>
+</section><section id="the-residual-sum-can-only-shrink" class="level3"><h3 class="anchored" data-anchor-id="the-residual-sum-can-only-shrink">The residual sum can only shrink</h3>
+<div id="lem-sse-monotone" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1 (Adding a regressor cannot increase the residual sum of squares)</strong></span> Let <span class="math inline">\(SSE_K = \be'\be\)</span> be the minimised residual sum of squares from regressing <span class="math inline">\(\bY\)</span> on <span class="math inline">\(K\)</span> regressors, and <span class="math inline">\(SSE_{K+1}\)</span> the value after appending one further column. Then <span class="math display">\[SSE_{K+1} \le SSE_K,\]</span> with equality if and only if the coefficient on the new column is exactly zero.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The <span class="math inline">\((K+1)\)</span>-regressor fit minimises <span class="math inline">\(S(\mathbf{b})\)</span> over a parameter space that <strong>contains</strong> the <span class="math inline">\(K\)</span>-regressor space as the subset where the new coefficient is zero. Minimising over a superset cannot raise the minimum, so <span class="math inline">\(SSE_{K+1} \le SSE_K\)</span>; equality holds only when the extra column buys no reduction — that is, when its coefficient is zero. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="so-r2-never-falls" class="level3"><h3 class="anchored" data-anchor-id="so-r2-never-falls">So <span class="math inline">\(R^2\)</span> never falls</h3>
 <div id="thm-r2-monotone" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 4 (Adding regressors cannot reduce <span class="math inline">\(R^2\)</span>)</strong></span> Adding any variable to <span class="math inline">\(\bX\)</span> leaves <span class="math inline">\(R^2\)</span> unchanged or larger, with equality only if the new coefficient is exactly zero.</p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>The larger model minimises the same criterion over a superset of the parameter space, so its minimised <span class="math inline">\(SSE\)</span> cannot be larger; <span class="math inline">\(SST\)</span> is unchanged. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span>By <a href="#lem-sse-monotone" class="quarto-xref">Lemma&nbsp;1</a> the minimised <span class="math inline">\(SSE\)</span> cannot rise when a regressor is added, while <span class="math inline">\(SST\)</span> is unchanged. Since <span class="math inline">\(R^2 = 1 - SSE/SST\)</span>, it cannot fall — with equality exactly when the new coefficient is zero. <span class="math inline">\(\square\)</span></p>
 </div>
 </section><section id="the-adjusted-version-and-its-limits" class="level3"><h3 class="anchored" data-anchor-id="the-adjusted-version-and-its-limits">The adjusted version, and its limits</h3>
 <p>Because <span class="math inline">\(R^2\)</span> rewards adding regressors regardless of merit, it is useless for choosing between models. The standard patch imposes a penalty for lost degrees of freedom: <span class="math display">\[\bar{R}^2 = 1 - \frac{\be'\be/(n-K)}{\bY'\bM^0\bY/(n-1)} = 1 - \frac{n-1}{n-K}(1 - R^2).\]</span></p>
@@ -963,36 +980,8 @@ Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is th
 <p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\mathbf{d} = (\mathbf{P}'\bX'\bX\mathbf{P})^{-1}\mathbf{P}'\bX'\bY = \mathbf{P}^{-1}\bb\)</span>, hence <span class="math inline">\(\bZ\mathbf{d} = \bX\bb\)</span>. <span class="math inline">\(\square\)</span></p>
 </div>
 <p>Reparameterisation changes what the coefficients <em>mean</em>, never what the regression <em>explains</em>.</p>
-</section></section><section id="two-consequences-of-the-geometry" class="level2" data-number="7"><h2 data-number="7" class="anchored" data-anchor-id="two-consequences-of-the-geometry">
-<span class="header-section-number">7</span> Two consequences of the geometry</h2>
-<section id="when-the-columns-nearly-coincide" class="level3"><h3 class="anchored" data-anchor-id="when-the-columns-nearly-coincide">When the columns nearly coincide</h3>
-<p>Collinearity is usually filed under “data problems”, as though it were something wrong with the sample. It is better understood here, as a property of the design matrix, because that is what it is — and because <a href="#thm-fwl" class="quarto-xref">Theorem&nbsp;3</a> already tells us exactly what goes wrong.</p>
-<p>Recall FWL: <span class="math inline">\(\bb_2\)</span> is estimated from <span class="math inline">\(\bM_1\bX_2\)</span>, the part of <span class="math inline">\(\bX_2\)</span> the other regressors cannot explain. If <span class="math inline">\(\bX_1\)</span> explains almost all of <span class="math inline">\(\bX_2\)</span>, then <span class="math inline">\(\bM_1\bX_2\)</span> is almost the zero vector — and there is almost nothing left to estimate <span class="math inline">\(\bb_2\)</span> from.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Collinearity does not bias anything. It starves the coefficient of variation, which shows up as a large standard error. Perfect collinearity is the extreme case, and there A2 fails outright: the parameter is not identified.</p>
-</div>
-</div>
-</section><section id="leverage-and-influence" class="level3"><h3 class="anchored" data-anchor-id="leverage-and-influence">Leverage and influence</h3>
-<p>Some observations pull the fitted line harder than others, and the projection matrix says exactly how hard. The diagonal element <span class="math inline">\(h_{ii} = \bP_{ii}\)</span> is the <strong>leverage</strong> of observation <span class="math inline">\(i\)</span>: how much its own <span class="math inline">\(y_i\)</span> contributes to its own fitted value.</p>
-<div id="thm-leverage" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 6 (Properties of leverage)</strong></span> <span class="math inline">\(0 \le h_{ii} \le 1\)</span>, and <span class="math inline">\(\sum_{i=1}^n h_{ii} = \tr(\bP) = K\)</span>.</p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Both follow from <span class="math inline">\(\bP\)</span> being a symmetric idempotent projection: <span class="math inline">\(h_{ii} = \sum_j \bP_{ij}^2 \ge
-\bP_{ii}^2\)</span>, which forces <span class="math inline">\(h_{ii} \le 1\)</span>; the sum is the trace, computed in <a href="#thm-PM-properties" class="quarto-xref">Theorem&nbsp;1</a>. <span class="math inline">\(\square\)</span></p>
-</div>
-<p>The average leverage is therefore <span class="math inline">\(K/n\)</span>. An observation with <span class="math inline">\(h_{ii}\)</span> far above that is one the design leans on heavily — and if it is also far from the fitted line, it moves the estimate on its own.</p>
-</section></section><section id="computation" class="level2" data-number="8"><h2 data-number="8" class="anchored" data-anchor-id="computation">
-<span class="header-section-number">8</span> Computation</h2>
+</section></section><section id="computation" class="level2" data-number="7"><h2 data-number="7" class="anchored" data-anchor-id="computation">
+<span class="header-section-number">7</span> Computation</h2>
 <section id="nobody-inverts-bxbx" class="level3"><h3 class="anchored" data-anchor-id="nobody-inverts-bxbx">Nobody inverts <span class="math inline">\(\bX'\bX\)</span>
 </h3>
 <p>The formula <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> is a definition, not an algorithm — and it is a decidedly bad algorithm.</p>
@@ -1005,17 +994,7 @@ Important
 <p>R factors <span class="math inline">\(\bX = \bQ\mathbf{R}\)</span> with <span class="math inline">\(\bQ\)</span> orthonormal and <span class="math inline">\(\mathbf{R}\)</span> upper triangular, so the normal equations become <span class="math inline">\(\mathbf{R}\mathbf{b} = \bQ'\bY\)</span> — a triangular system solved by back-substitution. No inverse is formed and the condition number is never squared.</p>
 </div>
 </div>
-</section><section id="how-much-does-it-cost" class="level3"><h3 class="anchored" data-anchor-id="how-much-does-it-cost">How much does it cost?</h3>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20262</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
-<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">x</span>, <span class="va">x</span><span class="op">^</span><span class="fl">2</span>, <span class="va">x</span><span class="op">^</span><span class="fl">3</span>, <span class="va">x</span><span class="op">^</span><span class="fl">4</span>, <span class="va">x</span><span class="op">^</span><span class="fl">5</span>, <span class="va">x</span><span class="op">^</span><span class="fl">6</span>, <span class="va">x</span><span class="op">^</span><span class="fl">7</span><span class="op">)</span>   <span class="co"># near-collinear by construction</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cond_X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/kappa.html">kappa</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, cond_XtX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/kappa.html">kappa</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/crossprod.html">crossprod</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      cond_X    cond_XtX </span></span>
-<span><span class="co">#&gt;      175530 24731884164</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+</section><section id="what-squaring-costs" class="level3"><h3 class="anchored" data-anchor-id="what-squaring-costs">What squaring costs</h3>
 <p>A condition number of <span class="math inline">\(10^k\)</span> costs roughly <span class="math inline">\(k\)</span> of the sixteen digits double precision offers. Squaring it can therefore consume the entire budget on a design QR handles without difficulty.</p>
 <div class="econ-box econ-box-connection" role="note">
 <div class="econ-box-head">
@@ -1025,8 +1004,8 @@ Important
 <p>Lecture 9 treats multicollinearity. Carry forward the point that collinearity is a <strong>numerical</strong> problem before it is a statistical one — and that large standard errors are revealed by the algorithm, not caused by it.</p>
 </div>
 </div>
-</section></section><section id="reading" class="level2" data-number="9"><h2 data-number="9" class="anchored" data-anchor-id="reading">
-<span class="header-section-number">9</span> Reading</h2>
+</section></section><section id="reading" class="level2" data-number="8"><h2 data-number="8" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">8</span> Reading</h2>
 <section id="sources" class="level3"><h3 class="anchored" data-anchor-id="sources">Sources</h3>
 <table class="caption-top table"><tbody>
 <tr class="odd">
@@ -1038,10 +1017,6 @@ Important
 <td>Chapter 3 — projection, FWL, goodness of fit</td>
 </tr>
 <tr class="odd">
-<td><strong>Hansen</strong></td>
-<td>§3.9, §4.11 — influential observations and collinearity</td>
-</tr>
-<tr class="even">
 <td><strong>Greene</strong></td>
 <td>Appendix E — computation and numerical stability</td>
 </tr>
@@ -1054,10 +1029,10 @@ Important
 <p><span class="citation" data-cites="frisch1933partial">Frisch and Waugh (<a href="#ref-frisch1933partial" role="doc-biblioref">1933</a>)</span> established the result for detrending and <span class="citation" data-cites="lovell1963seasonal">Lovell (<a href="#ref-lovell1963seasonal" role="doc-biblioref">1963</a>)</span> generalised it to seasonal adjustment. Both were after a practical answer — whether removing a trend before regressing gives the same result as including it — and produced one of the most useful identities in econometrics.</p>
 </div>
 </div>
-</section></section><section id="references" class="level2" data-number="10"><h2 data-number="10" class="anchored" data-anchor-id="references">
-<span class="header-section-number">10</span> References</h2>
+</section></section><section id="references" class="level2" data-number="9"><h2 data-number="9" class="anchored" data-anchor-id="references">
+<span class="header-section-number">9</span> References</h2>
 <section id="references-1" class="level3"><h3 class="anchored" data-anchor-id="references-1">References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-frisch1933partial" class="csl-entry" role="listitem">
 Frisch, Ragnar, and Frederick V. Waugh. 1933. <span>“Partial Time Regressions as Compared with Individual Trends.”</span> <em>Econometrica</em> 1 (4): 387–401.
 </div>
@@ -1279,13 +1254,14 @@ Lovell, Michael C. 1963. <span>“Seasonal Adjustment of Economic Time Series an
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1637,7 +1613,7 @@ Lovell, Michael C. 1963. <span>“Seasonal Adjustment of Economic Time Series an
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../notas/04-finite-sample.html" class="pagination-link" aria-label="4 · Finite-Sample Properties and Gauss-Markov">
+      <a href="../notas/04-finite-sample.qmd" class="pagination-link" aria-label="4 · Finite-Sample Properties and Gauss-Markov">
         <span class="nav-page-text">4 · Finite-Sample Properties and Gauss-Markov</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
