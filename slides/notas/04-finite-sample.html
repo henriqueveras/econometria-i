@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Henrique Veras">
   <title>Econometrics I – Finite-Sample Properties and the Gauss-Markov Theorem</title>
@@ -17,10 +17,16 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -32,7 +38,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -49,7 +54,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2f87f0359e62d3d5932043dd3f39d4d7.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-236c1b7bd49c4d3db1ffb693765db2fa.css">
   <link rel="stylesheet" href="../assets/components.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -253,7 +258,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Henrique Veras 
+Henrique Veras
 </div>
         <p class="quarto-title-affiliation">
             PIMES/UFPE
@@ -270,20 +275,57 @@ Henrique Veras
 <section id="where-this-lecture-sits" class="slide level3">
 <h3>Where this lecture sits</h3>
 <p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
-<p>Lecture 3 built <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> out of pure algebra: it exists for any design of full column rank, whether or not the model is true. <strong>We now ask what it is good for.</strong></p>
-<p>That question is statistical, so the DGP comes back. Everything below is a statement about the distribution <span class="math inline">\(\bb\)</span> inherits from the sampling process — never about the number you computed.</p>
+<p>Lecture 3 built <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> out of pure algebra: it exists for any design of full column rank, whether or not the model is true. We now ask what it is <em>good for</em>.</p>
 </section></section>
 <section>
-<section id="unbiasedness" class="title-slide slide level2 center">
-<h2>Unbiasedness</h2>
+<section id="the-sampling-distribution" class="title-slide slide level2 center">
+<h2>The sampling distribution</h2>
+
+</section>
+<section id="the-estimator-is-a-random-variable" class="slide level3">
+<h3>The estimator is a random variable</h3>
+<p>The estimate you compute is one number. The estimator is a <strong>function of the sample</strong>, and the sample is random — so a different draw gives a different <span class="math inline">\(\bb\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\bb\)</span> is a function of a random sample <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\bb\)</span> is itself <strong>random</strong>.</li>
+<li>Its distribution over repeated draws from the DGP is the <strong>sampling distribution</strong>.</li>
+<li>We see one draw; the DGP fixes the distribution, and we never observe it directly.</li>
+</ul>
+</section>
+<section id="which-moments-do-we-need" class="slide level3">
+<h3>Which moments do we need?</h3>
+<p>We cannot write the whole sampling distribution without extra assumptions — that waits for normality in Lecture 5. But we can compute its <strong>moments</strong>, and the first two already answer the questions that matter.</p>
+<ul>
+<li><strong>Mean</strong> <span class="math inline">\(\E[\bb \mid \bX]\)</span> — is it centred on the truth? A gap is <strong>bias</strong>.</li>
+<li><strong>Variance</strong> <span class="math inline">\(\Var[\bb \mid \bX]\)</span> — how tightly does it concentrate? This is <strong>precision</strong>.</li>
+<li>Together: <span class="math inline">\(\text{MSE}(\bb) = \text{bias}^2 + \text{variance}\)</span>.</li>
+<li>The <strong>whole distribution</strong> needs normality (A6) or large <span class="math inline">\(n\)</span> — Lecture 5.</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The lecture, read as a distribution assembled one moment at a time: <strong><a href="#/thm-unbiased" class="quarto-xref">Theorem&nbsp;1</a> gives the mean, <a href="#/thm-variance" class="quarto-xref">Theorem&nbsp;3</a> the variance</strong> — and the full distribution is deferred to Lecture 5.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="the-first-moment-the-mean" class="title-slide slide level2 center">
+<h2>The first moment: the mean</h2>
 
 </section>
 <section id="what-we-are-entitled-to-assume" class="slide level3">
 <h3>What we are entitled to assume</h3>
 <div class="econ-box econ-box-dgp" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span></div><div class="econ-box-body">
 <p><span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> with <span class="math inline">\((y_i, \mathbf{x}_i)\)</span> i.i.d., <span class="math inline">\(\rank(\bX) = K\)</span> (A2) and <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span> (A3).</p>
-<p><strong>Nothing is assumed about <span class="math inline">\(\Var[\beps \mid \bX]\)</span>.</strong> That is deliberate, and it is where this lecture departs from the traditional treatment.</p>
+<p><strong>Nothing is assumed about <span class="math inline">\(\Var[\beps \mid \bX]\)</span>.</strong></p>
 </div></div>
+<p>That silence is deliberate, and it is where this lecture departs from the traditional treatment.</p>
 </section>
 <section id="the-sampling-error" class="slide level3">
 <h3>The sampling error</h3>
@@ -297,10 +339,10 @@ Henrique Veras
 A fixed matrix once <span class="math inline">\(\bX\)</span> is given — it carries no randomness of its own.
 </div></div>
 <div class="econ-eqnote-note" data-eqt="b" tabindex="0"><span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
-The disturbance. <strong>All</strong> of the sampling variability of <span class="math inline">\(\bb\)</span> enters here, and nowhere else.
+The disturbance. All of the sampling variability of <span class="math inline">\(\bb\)</span> enters here, and nowhere else.
 </div></div>
 </div></div>
-<p>The estimator equals the truth plus a term linear in <span class="math inline">\(\beps\)</span>. Unbiasedness, variance and efficiency are all read off that term.</p>
+<p>The estimator equals the truth plus a term linear in <span class="math inline">\(\beps\)</span>. Unbiasedness, variance and efficiency are all read off that single term.</p>
 </section>
 <section id="the-first-property" class="slide level3">
 <h3>The first property</h3>
@@ -311,39 +353,81 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <p>Worked on the board. The skeleton:</p>
 </div></div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Take conditional expectations in the decomposition above. The matrix is fixed given <span class="math inline">\(\bX\)</span>, so it passes outside, leaving <span class="math inline">\((\bX'\bX)^{-1}\bX'\E[\beps \mid \bX] = \bzero\)</span> by A3. The unconditional statement follows by iterated expectations. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span>Take conditional expectations in the decomposition above. The matrix <span class="math inline">\((\bX'\bX)^{-1}\bX'\)</span> is fixed given <span class="math inline">\(\bX\)</span>, so it passes outside, leaving <span class="math inline">\((\bX'\bX)^{-1}\bX'\E[\beps \mid \bX] = \bzero\)</span> by A3. The unconditional statement follows by iterated expectations. <span class="math inline">\(\square\)</span></p>
 </div>
 </section>
 <section id="read-the-proof-again" class="slide level3">
 <h3>Read the proof again</h3>
-<p>Notice which assumption did the work: <strong>A3 alone</strong>. Not homoskedasticity, not normality, not even large samples. Unbiasedness is exactly as strong as the exogeneity assumption behind it — no stronger, and no weaker.</p>
+<p>Notice which assumption did the work: <strong>A3 alone.</strong> Not homoskedasticity, not normality, not even large samples. Unbiasedness is exactly as strong as the exogeneity assumption behind it — no stronger, and no weaker.</p>
+</section>
+<section id="seeing-unbiasedness" class="slide level3">
+<h3>Seeing unbiasedness</h3>
+<p>Unbiasedness is a statement about the <strong>distribution</strong>, not any one estimate. Draw 5,000 samples from a DGP with a known slope <span class="math inline">\(\beta = 1\)</span> and recompute <span class="math inline">\(\bb\)</span> in each:</p>
+
+<img data-src="04-finite-sample_files/figure-revealjs/fig-unbiasedness-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-unbiasedness"><p class="caption">
+Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correctly specified OLS estimator (teal) piles up on the true value (dashed): its average across samples <em>is</em> the truth. An estimator that omits a relevant regressor (amber) is centred elsewhere — same data, but biased.
+</p></section></section>
+<section>
+<section id="omitted-variables" class="title-slide slide level2 center">
+<h2>Omitted variables</h2>
+
+</section>
+<section id="when-a-regressor-is-left-out" class="slide level3">
+<h3>When a regressor is left out</h3>
+<p>Unbiasedness needed only A3. The most common way A3 fails in practice is not exotic: a variable that belongs in the model is left out. Lecture 2 flagged this as the leading example of an exogeneity failure and promised the derivation here.</p>
+<div class="econ-box econ-box-dgp" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span></div><div class="econ-box-body">
+<p>The true model is <span class="math inline">\(\bY = \bX\bbeta + \mathbf{z}\gamma + \beps\)</span> with <span class="math inline">\(\E[\beps \mid \bX, \mathbf{z}] = \bzero\)</span>, but we regress <span class="math inline">\(\bY\)</span> on <span class="math inline">\(\bX\)</span> <strong>only</strong>, leaving out the relevant <span class="math inline">\(\mathbf{z}\)</span>.</p>
+</div></div>
+</section>
+<section id="the-bias-derived" class="slide level3">
+<h3>The bias, derived</h3>
+<p>Substituting the true model into <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span>,</p>
+<p><span class="math display">\[\bb = \bbeta + \underbrace{(\bX'\bX)^{-1}\bX'\mathbf{z}}_{\mathbf{p}_{X\cdot z}}\gamma + (\bX'\bX)^{-1}\bX'\beps,\]</span></p>
+<p>so taking expectations conditional on <span class="math inline">\(\bX\)</span> and <span class="math inline">\(\mathbf{z}\)</span>,</p>
+<div id="thm-ovb" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Omitted-variable bias)</strong></span> <span class="math display">\[\E[\bb \mid \bX, \mathbf{z}] = \bbeta + \mathbf{p}_{X\cdot z}\,\gamma,
+\qquad \mathbf{p}_{X\cdot z} = (\bX'\bX)^{-1}\bX'\mathbf{z}.\]</span></p>
+<p>The bias is the regression of the omitted variable on the included ones, scaled by the omitted variable’s own coefficient <span class="math inline">\(\gamma\)</span>. It vanishes iff <span class="math inline">\(\gamma = 0\)</span> (the variable was irrelevant) or <span class="math inline">\(\bX'\mathbf{z} = \bzero\)</span> (it is orthogonal to every included regressor).</p>
+</div>
+</section>
+<section id="reading-the-bias-one-coefficient-at-a-time" class="slide level3">
+<h3>Reading the bias one coefficient at a time</h3>
+<p><span class="math inline">\(\mathbf{p}_{X\cdot z}\)</span> is itself a vector of regression coefficients — exactly the object Frisch–Waugh–Lovell describes. By the single-extra-regressor corollary of Lecture 3, the bias in a single coefficient <span class="math inline">\(b_k\)</span> is</p>
+<p><span class="math display">\[\E[b_k \mid \bX, \mathbf{z}] = \beta_k + \gamma\,\frac{\Cov(\mathbf{z}, x_k \mid \text{other }x)}{\Var(x_k \mid \text{other }x)}.\]</span></p>
+</section>
+<section id="the-sign-of-the-bias" class="slide level3">
+<h3>The sign of the bias</h3>
+<div id="exm-ability" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Ability bias in the returns to education)</strong></span> <span class="math display">\[\text{Income} = \beta_0 + \beta_1\,\text{Educ} + \beta_2\,\text{age} + \beta_3\,\text{age}^2 + \beta_4\,\text{Ability} + \varepsilon.\]</span></p>
+<p>Ability is unobserved, so we omit it. Then <span class="math display">\[\E[b_1 \mid \bX, \text{Ability}] = \beta_1 + \beta_4\,\frac{\Cov(\text{Ability}, \text{Educ} \mid \text{age}, \text{age}^2)}{\Var(\text{Educ} \mid \text{age}, \text{age}^2)}.\]</span> If more able people earn more (<span class="math inline">\(\beta_4 &gt; 0\)</span>) and also study more (positive partial covariance), <span class="math inline">\(b_1\)</span> is biased <strong>upward</strong>: the return to schooling is overstated because it absorbs the return to ability.</p>
+</div>
 </section></section>
 <section>
-<section id="variance" class="title-slide slide level2 center">
-<h2>Variance</h2>
+<section id="the-second-moment-the-variance" class="title-slide slide level2 center">
+<h2>The second moment: the variance</h2>
 
 </section>
 <section id="the-general-case-not-the-convenient-one" class="slide level3">
 <h3>The general case, not the convenient one</h3>
 <p>Unbiasedness says the estimates centre on the truth. It says nothing about how far they scatter — and scatter is what standard errors report.</p>
 <div id="thm-variance" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2 (Variance of least squares)</strong></span> Let <span class="math inline">\(\bOmega = \E[\beps\beps' \mid \bX]\)</span>, with no restriction on its form. Then <span class="math display">\[\Var[\bb \mid \bX] = (\bX'\bX)^{-1}\,\bX'\bOmega\bX\,(\bX'\bX)^{-1}.\]</span></p>
+<p><span class="theorem-title"><strong>Theorem 3 (Variance of least squares)</strong></span> Let <span class="math inline">\(\bOmega = \E[\beps\beps' \mid \bX]\)</span>, with no restriction on its form. Then <span class="math display">\[\Var[\bb \mid \bX] = (\bX'\bX)^{-1}\,\bX'\bOmega\bX\,(\bX'\bX)^{-1}.\]</span></p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\bb - \bbeta = (\bX'\bX)^{-1}\bX'\beps\)</span>, which is linear in <span class="math inline">\(\beps\)</span>; apply <span class="math inline">\(\Var[\bA\beps] = \bA\Var[\beps]\bA'\)</span> with <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX'\)</span>. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\bb - \bbeta = (\bX'\bX)^{-1}\bX'\beps\)</span> is linear in <span class="math inline">\(\beps\)</span>; apply <span class="math inline">\(\Var[\bA\beps] = \bA\Var[\beps]\bA'\)</span> with <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX'\)</span>. <span class="math inline">\(\square\)</span></p>
 </div>
+<p>The expression has a bread–filling–bread shape and is universally called the <strong>sandwich formula</strong>. It holds under A1–A3 alone — the same assumptions as unbiasedness, and no more.</p>
 </section>
-<section id="the-sandwich-and-what-collapses-it" class="slide level3">
-<h3>The sandwich, and what collapses it</h3>
-<p>The expression has a bread-filling-bread shape and is universally called the <strong>sandwich</strong> formula. It holds under A1–A3 alone.</p>
+<section id="conditional-and-unconditional" class="slide level3">
+<h3>Conditional, and unconditional</h3>
+<p>Everything here conditions on <span class="math inline">\(\bX\)</span>. Averaging over the design gives the unconditional variance, and the law of total variance is unusually clean, because the first moment is constant: <span class="math display">\[\Var[\bb] = \E\big[\Var[\bb \mid \bX]\big] + \underbrace{\Var\big[\E[\bb \mid \bX]\big]}_{=\ \bzero} = \E\big[\Var[\bb \mid \bX]\big].\]</span></p>
 </section>
 <section id="adding-a-restriction-on-the-variance" class="slide level3">
 <h3>Adding a restriction on the variance</h3>
-<p>The model of Lecture 2 constrained the conditional <em>mean</em> and said nothing about the conditional variance. We now constrain the variance too — and give the restriction the name the rest of the course uses.</p>
+<p>The model of Lecture 2 constrained the conditional mean and said nothing about the conditional variance. We now constrain the variance too — and give the restriction the name the rest of the course uses.</p>
 <div id="def-a4" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 1 (A4 · Conditional homoskedasticity)</strong></span> <span class="math display">\[\E[\beps\beps' \mid \bX] = \sigma^2\bI_n,\]</span> which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\sigma^2(\mathbf{x}_i) = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no correlation across observations</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
 </div>
-<p>The first half is the case <a href="../notas/02-projection.html#def-heterosk">Lecture 2 argued is exceptional</a>, so A4 is imposed here for one reason only: to see what it buys.</p>
 </section>
 <section id="what-a4-collapses" class="slide level3">
 <h3>What A4 collapses</h3>
@@ -357,21 +441,19 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p>The familiar formula is not the general result. It is what the sandwich collapses to when the conditional variance happens to be constant.</p>
-<p>Teaching it first, and the sandwich later as a repair, gets the logic backwards.</p>
+<p>The familiar formula is <strong>not</strong> the general result. It is what the sandwich collapses to when the conditional variance happens to be constant. Teaching it first, and the sandwich later as a repair, gets the logic backwards.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="estimating-the-variance" class="slide level3">
 <h3>Estimating the variance</h3>
-<p>Both forms need an estimate. Under A4 it suffices to estimate the scalar <span class="math inline">\(\sigma^2\)</span>:</p>
+<p>Both forms need an estimate. Under A4 it suffices to estimate the scalar <span class="math inline">\(\sigma^2\)</span>.</p>
 <div id="thm-s2" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3 (Unbiased estimation of <span class="math inline">\(\sigma^2\)</span>)</strong></span> Under A1–A4, <span class="math inline">\(s^2 = \be'\be/(n-K)\)</span> satisfies <span class="math inline">\(\E[s^2 \mid \bX] = \sigma^2\)</span>.</p>
+<p><span class="theorem-title"><strong>Theorem 4 (Unbiased estimation of <span class="math inline">\(\sigma^2\)</span>)</strong></span> Under A1–A4, <span class="math inline">\(s^2 = \be'\be/(n-K)\)</span> satisfies <span class="math inline">\(\E[s^2 \mid \bX] = \sigma^2\)</span>.</p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\be = \bM\beps\)</span>, so <span class="math inline">\(\E[\be'\be \mid \bX] = \E[\beps'\bM\beps \mid \bX] = \sigma^2\tr(\bM) =
-\sigma^2(n-K)\)</span>, using <span class="math inline">\(\rank(\bM) = n-K\)</span> from <a href="../notas/03-algebra.html#thm-PM-properties">the properties of <span class="math inline">\(\bP\)</span> and <span class="math inline">\(\bM\)</span></a> in Lecture 3. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\be = \bM\beps\)</span>, so <span class="math inline">\(\E[\be'\be \mid \bX] = \E[\beps'\bM\beps \mid \bX] = \sigma^2\tr(\bM) = \sigma^2(n-K)\)</span>, using <span class="math inline">\(\rank(\bM) = n-K\)</span> from the properties of <span class="math inline">\(\bP\)</span> and <span class="math inline">\(\bM\)</span> in Lecture 3. <span class="math inline">\(\square\)</span></p>
 </div>
 <p>The divisor <span class="math inline">\(n-K\)</span> is not a convention: it is exactly what makes the expectation come out right, and it is the trace of the residual maker from Lecture 3.</p>
 </section>
@@ -379,8 +461,7 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <h3>Without homoskedasticity</h3>
 <p>When <span class="math inline">\(\bOmega\)</span> is unrestricted there is no single <span class="math inline">\(\sigma^2\)</span> to estimate — there are <span class="math inline">\(n\)</span> conditional variances and only <span class="math inline">\(n\)</span> observations. The way out is that the sandwich needs only the <span class="math inline">\(K \times K\)</span> filling <span class="math inline">\(\bX'\bOmega\bX\)</span>, not <span class="math inline">\(\bOmega\)</span> itself.</p>
 <div id="def-hc" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}\]</span></p>
-<p>Each observation contributes its own squared residual as an estimate of its own variance.</p>
+<p><span class="theorem-title"><strong>Definition 2 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}.\]</span> Each observation contributes its own squared residual as an estimate of its own variance.</p>
 </div>
 </section>
 <section id="which-robust-estimator" class="slide level3 smaller">
@@ -396,19 +477,19 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 </thead>
 <tbody>
 <tr class="odd">
-<td>HC0</td>
+<td><strong>HC0</strong></td>
 <td><span class="math inline">\(e_i^2\)</span></td>
 </tr>
 <tr class="even">
-<td>HC1</td>
+<td><strong>HC1</strong></td>
 <td><span class="math inline">\(\dfrac{n}{n-K}\,e_i^2\)</span></td>
 </tr>
 <tr class="odd">
-<td>HC2</td>
+<td><strong>HC2</strong></td>
 <td><span class="math inline">\(\dfrac{e_i^2}{1-h_{ii}}\)</span></td>
 </tr>
 <tr class="even">
-<td>HC3</td>
+<td><strong>HC3</strong></td>
 <td><span class="math inline">\(\dfrac{e_i^2}{(1-h_{ii})^2}\)</span></td>
 </tr>
 </tbody>
@@ -435,7 +516,7 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <section id="the-theorem" class="slide level3">
 <h3>The theorem</h3>
 <div id="thm-gauss-markov" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 4 (Gauss-Markov)</strong></span> Under A1–A4, for any estimator <span class="math inline">\(\tilde{\bbeta} = \bA\bY\)</span> that is linear in <span class="math inline">\(\bY\)</span> and unbiased conditional on <span class="math inline">\(\bX\)</span>, <span class="math display">\[\Var[\tilde{\bbeta} \mid \bX] - \Var[\bb \mid \bX] \;\succeq\; \bzero,\]</span> that is, the difference is positive semi-definite. Least squares is <strong>BLUE</strong>.</p>
+<p><span class="theorem-title"><strong>Theorem 5 (Gauss-Markov)</strong></span> Under A1–A4, for any estimator <span class="math inline">\(\tilde{\bbeta} = \bA\bY\)</span> that is linear in <span class="math inline">\(\bY\)</span> and unbiased conditional on <span class="math inline">\(\bX\)</span>, <span class="math display">\[\Var[\tilde{\bbeta} \mid \bX] - \Var[\bb \mid \bX] \;\succeq\; \bzero,\]</span> that is, the difference is positive semi-definite. Least squares is <strong>BLUE</strong> — the best linear unbiased estimator.</p>
 </div>
 </section>
 <section id="proof" class="slide level3">
@@ -464,7 +545,7 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>Gauss-Markov is the one place in this lecture where A4 genuinely cannot be dropped. Under heteroskedasticity least squares remains unbiased but is <strong>no longer efficient</strong> — GLS is, and that is Lecture 7.</p>
+<p>Gauss-Markov is the one place in this lecture where A4 genuinely <strong>cannot</strong> be dropped. Under heteroskedasticity least squares remains unbiased but is no longer efficient — GLS is, and that is Lecture 7.</p>
 </div>
 </div>
 </div>
@@ -477,14 +558,13 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <section id="least-squares-as-the-first-of-a-family" class="slide level3">
 <h3>Least squares as the first of a family</h3>
 <div class="econ-box econ-box-toolbox" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">OLS as an M-estimator</span></div><div class="econ-box-body">
-<p>We obtained <span class="math inline">\(\bb\)</span> by minimising <span class="math inline">\(S(\mathbf{b}) = (\bY - \bX\mathbf{b})'(\bY - \bX\mathbf{b})\)</span> — an instance of <span class="math display">\[\hat\btheta = \argmin_{\btheta} Q_n(\btheta).\]</span></p>
-<p>Estimators defined this way are <strong>M-estimators</strong>. Maximum likelihood, in Lecture 13, is another: same shape, different criterion. Much of what we proved today will be proved once more, in that generality, for the whole family.</p>
+<p>We obtained <span class="math inline">\(\bb\)</span> by minimising <span class="math inline">\(S(\mathbf{b}) = (\bY - \bX\mathbf{b})'(\bY - \bX\mathbf{b})\)</span> — an instance of <span class="math display">\[\hat\btheta = \argmin_{\btheta} Q_n(\btheta).\]</span> Estimators defined this way are <strong>M-estimators</strong>. Maximum likelihood, in Lecture 13, is another: same shape, different criterion. Much of what we proved today will be proved once more, in that generality, for the whole family.</p>
 </div></div>
 </section>
 <section id="and-the-other-route" class="slide level3">
 <h3>And the other route</h3>
 <div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first-order condition is a condition on averages</span></div><div class="econ-box-body">
-<p>The first-order condition of that minimisation is <span class="math inline">\(\bX'\be = \bzero\)</span> — a condition on averages, which is the second family from Lecture 1. Least squares belongs to both, and that is not a coincidence: differentiating a criterion always produces such a condition.</p>
+<p>The first-order condition of that minimisation is <span class="math inline">\(\bX'\be = \bzero\)</span> — a condition on averages, which is the second family of estimators from Lecture 1. Least squares belongs to both, and that is not a coincidence: differentiating a criterion always produces such a condition. This is the thread that reaches GMM in Lecture 12.</p>
 </div></div>
 </section></section>
 <section>
@@ -506,12 +586,12 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <tr class="odd">
 <td>Unbiasedness</td>
 <td>A1–A3</td>
-<td><strong>yes</strong></td>
+<td>yes</td>
 </tr>
 <tr class="even">
 <td>Sandwich variance</td>
 <td>A1–A3</td>
-<td><strong>yes</strong></td>
+<td>yes</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\sigma^2(\bX'\bX)^{-1}\)</span></td>
@@ -526,16 +606,15 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <tr class="odd">
 <td>Efficiency (Gauss-Markov)</td>
 <td>+ A4</td>
-<td><strong>no</strong></td>
+<td>no</td>
 </tr>
 </tbody>
 </table>
+<p>Read the last column. Only efficiency and the simplified formulas depend on A4; the estimator itself and its variance do not. That is the whole case for treating robust inference as the default rather than the exception.</p>
 </section>
 <section id="the-limits-of-finite-sample-theory" class="slide level3">
 <h3>The limits of finite-sample theory</h3>
 <p>Everything today was exact, conditional on <span class="math inline">\(\bX\)</span>, and required no approximation. That is unusual, and it does not survive contact with the rest of the course.</p>
-<p>To test a hypothesis we need the <em>distribution</em> of <span class="math inline">\(\bb\)</span>, not just its first two moments — and without assuming normal disturbances there is no exact distribution to be had. Worse, almost no estimator outside least squares is unbiased at all.</p>
-<p>Both problems have the same resolution, and it is the subject of Lecture 5: stop asking for exact results and ask what happens as <span class="math inline">\(n\)</span> grows.</p>
 </section></section>
 <section>
 <section id="reading" class="title-slide slide level2 center">
@@ -555,29 +634,25 @@ The disturbance. <strong>All</strong> of the sampling variability of <span class
 <td>Chapter 4 — §4.2–4.5 (mean, variance, Gauss-Markov), §4.8–4.10 (covariance estimation, standard errors)</td>
 </tr>
 <tr class="even">
-<td><strong>Hansen</strong></td>
-<td>Chapter 5 — normal regression, for the exact distribution under normality</td>
-</tr>
-<tr class="odd">
 <td><strong>Greene</strong></td>
-<td>Chapter 4 — finite-sample properties</td>
+<td>Chapter 4 — the assumptions, omitted-variable bias, and the Gauss-Markov theorem</td>
 </tr>
 </tbody>
 </table>
-<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">White (1980)</span></div><div class="econ-box-body">
-<p>The paper that made heteroskedasticity-robust inference routine <span class="citation" data-cites="white1980heteroskedasticity">(<a href="#/references" role="doc-biblioref" onclick="">White 1980</a>)</span>. It is among the most cited articles in economics, and its argument is the one behind <a href="#/def-hc" class="quarto-xref">Definition&nbsp;2</a> — you need the middle of the sandwich, not the whole of <span class="math inline">\(\bOmega\)</span>.</p>
-</div></div>
 </section></section>
-<section id="references" class="title-slide slide level2 smaller scrollable">
+<section>
+<section id="references" class="title-slide slide level2 center">
 <h2>References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-white1980heteroskedasticity" class="csl-entry" role="listitem">
-White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.”</span> <em>Econometrica</em> 48 (4): 817–38.
-</div>
-</div>
-
 
 </section>
+<section id="references-1" class="slide level3 smaller scrollable">
+<h3>References</h3>
+<div id="refs" role="list">
+
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -950,6 +1025,82 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
       }
     })();
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
@@ -998,13 +1149,14 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

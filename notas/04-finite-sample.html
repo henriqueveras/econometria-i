@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
-
+<meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Henrique Veras">
-
 <title>Finite-Sample Properties and the Gauss-Markov Theorem – Econometrics I</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -25,7 +28,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -43,7 +45,6 @@ div.csl-indent {
   margin-left: 2em;
 }</style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
@@ -59,15 +60,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f53dd81e4532dc1ad2d5a3da1ba84db5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8d695445161a98bc055f58d1fd7d7c9d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-85294af6fad2849895ed9755e431b126.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-fcc37affdcc02d07d1652d59a83b2e19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-4b80b3b217dad5d8568d6f2b77002f80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-fcc37affdcc02d07d1652d59a83b2e19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -92,8 +92,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <!--
   MathJax configuration for Econometrics I.
 
@@ -110,8 +109,7 @@ div.csl-indent {
   once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
   _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
   MathJax 2 and is neutralised by the Hub shim below.
--->
-<script>
+--><script>
 window.MathJax = {
   loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
   tex: {
@@ -190,12 +188,7 @@ window.MathJax = {
   }
 };
 
-</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -206,7 +199,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -220,11 +213,8 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script>
-
-<link rel="stylesheet" href="../assets/components.css">
+</script><link rel="stylesheet" href="../assets/components.css">
 </head>
-
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -390,9 +380,7 @@ window.Quarto = {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Econometrics I</span>
@@ -403,7 +391,7 @@ window.Quarto = {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
@@ -412,9 +400,8 @@ window.Quarto = {
 <span class="menu-text">Syllabus</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-</ul>
-          </div> <!-- /navcollapse -->
+<ul class="navbar-nav navbar-nav-scroll ms-auto"></ul>
+</div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -424,9 +411,7 @@ window.Quarto = {
 </a>
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -437,20 +422,16 @@ window.Quarto = {
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-        <div class="mt-2 flex-shrink-0 align-items-center">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Map</span></a>
@@ -464,8 +445,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
@@ -478,7 +459,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -487,8 +468,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
@@ -501,7 +482,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
  <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
@@ -522,8 +503,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
@@ -548,7 +529,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
@@ -557,77 +538,106 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Component Reference</span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">1</span> Where we are</a>
+<li>
+<a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">1</span> Where we are</a>
   <ul class="collapse">
-  <li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
-  </ul></li>
-  <li><a href="#unbiasedness" id="toc-unbiasedness" class="nav-link" data-scroll-target="#unbiasedness"><span class="header-section-number">2</span> Unbiasedness</a>
+<li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-sampling-distribution" id="toc-the-sampling-distribution" class="nav-link" data-scroll-target="#the-sampling-distribution"><span class="header-section-number">2</span> The sampling distribution</a>
   <ul class="collapse">
-  <li><a href="#what-we-are-entitled-to-assume" id="toc-what-we-are-entitled-to-assume" class="nav-link" data-scroll-target="#what-we-are-entitled-to-assume">What we are entitled to assume</a></li>
+<li><a href="#the-estimator-is-a-random-variable" id="toc-the-estimator-is-a-random-variable" class="nav-link" data-scroll-target="#the-estimator-is-a-random-variable">The estimator is a random variable</a></li>
+  <li><a href="#which-moments-do-we-need" id="toc-which-moments-do-we-need" class="nav-link" data-scroll-target="#which-moments-do-we-need">Which moments do we need?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-first-moment-the-mean" id="toc-the-first-moment-the-mean" class="nav-link" data-scroll-target="#the-first-moment-the-mean"><span class="header-section-number">3</span> The first moment: the mean</a>
+  <ul class="collapse">
+<li><a href="#what-we-are-entitled-to-assume" id="toc-what-we-are-entitled-to-assume" class="nav-link" data-scroll-target="#what-we-are-entitled-to-assume">What we are entitled to assume</a></li>
   <li><a href="#the-sampling-error" id="toc-the-sampling-error" class="nav-link" data-scroll-target="#the-sampling-error">The sampling error</a></li>
   <li><a href="#the-first-property" id="toc-the-first-property" class="nav-link" data-scroll-target="#the-first-property">The first property</a></li>
   <li><a href="#read-the-proof-again" id="toc-read-the-proof-again" class="nav-link" data-scroll-target="#read-the-proof-again">Read the proof again</a></li>
-  </ul></li>
-  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance"><span class="header-section-number">3</span> Variance</a>
+  <li><a href="#seeing-unbiasedness" id="toc-seeing-unbiasedness" class="nav-link" data-scroll-target="#seeing-unbiasedness">Seeing unbiasedness</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#omitted-variables" id="toc-omitted-variables" class="nav-link" data-scroll-target="#omitted-variables"><span class="header-section-number">4</span> Omitted variables</a>
   <ul class="collapse">
-  <li><a href="#the-general-case-not-the-convenient-one" id="toc-the-general-case-not-the-convenient-one" class="nav-link" data-scroll-target="#the-general-case-not-the-convenient-one">The general case, not the convenient one</a></li>
-  <li><a href="#the-sandwich-and-what-collapses-it" id="toc-the-sandwich-and-what-collapses-it" class="nav-link" data-scroll-target="#the-sandwich-and-what-collapses-it">The sandwich, and what collapses it</a></li>
+<li><a href="#when-a-regressor-is-left-out" id="toc-when-a-regressor-is-left-out" class="nav-link" data-scroll-target="#when-a-regressor-is-left-out">When a regressor is left out</a></li>
+  <li><a href="#the-bias-derived" id="toc-the-bias-derived" class="nav-link" data-scroll-target="#the-bias-derived">The bias, derived</a></li>
+  <li><a href="#reading-the-bias-one-coefficient-at-a-time" id="toc-reading-the-bias-one-coefficient-at-a-time" class="nav-link" data-scroll-target="#reading-the-bias-one-coefficient-at-a-time">Reading the bias one coefficient at a time</a></li>
+  <li><a href="#the-sign-of-the-bias" id="toc-the-sign-of-the-bias" class="nav-link" data-scroll-target="#the-sign-of-the-bias">The sign of the bias</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-second-moment-the-variance" id="toc-the-second-moment-the-variance" class="nav-link" data-scroll-target="#the-second-moment-the-variance"><span class="header-section-number">5</span> The second moment: the variance</a>
+  <ul class="collapse">
+<li><a href="#the-general-case-not-the-convenient-one" id="toc-the-general-case-not-the-convenient-one" class="nav-link" data-scroll-target="#the-general-case-not-the-convenient-one">The general case, not the convenient one</a></li>
+  <li><a href="#conditional-and-unconditional" id="toc-conditional-and-unconditional" class="nav-link" data-scroll-target="#conditional-and-unconditional">Conditional, and unconditional</a></li>
   <li><a href="#adding-a-restriction-on-the-variance" id="toc-adding-a-restriction-on-the-variance" class="nav-link" data-scroll-target="#adding-a-restriction-on-the-variance">Adding a restriction on the variance</a></li>
   <li><a href="#what-a4-collapses" id="toc-what-a4-collapses" class="nav-link" data-scroll-target="#what-a4-collapses">What A4 collapses</a></li>
   <li><a href="#estimating-the-variance" id="toc-estimating-the-variance" class="nav-link" data-scroll-target="#estimating-the-variance">Estimating the variance</a></li>
   <li><a href="#without-homoskedasticity" id="toc-without-homoskedasticity" class="nav-link" data-scroll-target="#without-homoskedasticity">Without homoskedasticity</a></li>
   <li><a href="#which-robust-estimator" id="toc-which-robust-estimator" class="nav-link" data-scroll-target="#which-robust-estimator">Which robust estimator?</a></li>
-  </ul></li>
-  <li><a href="#gauss-markov" id="toc-gauss-markov" class="nav-link" data-scroll-target="#gauss-markov"><span class="header-section-number">4</span> Gauss-Markov</a>
+  </ul>
+</li>
+  <li>
+<a href="#gauss-markov" id="toc-gauss-markov" class="nav-link" data-scroll-target="#gauss-markov"><span class="header-section-number">6</span> Gauss-Markov</a>
   <ul class="collapse">
-  <li><a href="#why-prefer-least-squares-at-all" id="toc-why-prefer-least-squares-at-all" class="nav-link" data-scroll-target="#why-prefer-least-squares-at-all">Why prefer least squares at all?</a></li>
+<li><a href="#why-prefer-least-squares-at-all" id="toc-why-prefer-least-squares-at-all" class="nav-link" data-scroll-target="#why-prefer-least-squares-at-all">Why prefer least squares at all?</a></li>
   <li><a href="#the-theorem" id="toc-the-theorem" class="nav-link" data-scroll-target="#the-theorem">The theorem</a></li>
   <li><a href="#proof" id="toc-proof" class="nav-link" data-scroll-target="#proof">Proof</a></li>
   <li><a href="#what-the-theorem-does-and-does-not-say" id="toc-what-the-theorem-does-and-does-not-say" class="nav-link" data-scroll-target="#what-the-theorem-does-and-does-not-say">What the theorem does and does not say</a></li>
-  </ul></li>
-  <li><a href="#a-pattern-worth-naming" id="toc-a-pattern-worth-naming" class="nav-link" data-scroll-target="#a-pattern-worth-naming"><span class="header-section-number">5</span> A pattern worth naming</a>
-  <ul class="collapse">
-  <li><a href="#least-squares-as-the-first-of-a-family" id="toc-least-squares-as-the-first-of-a-family" class="nav-link" data-scroll-target="#least-squares-as-the-first-of-a-family">Least squares as the first of a family</a></li>
-  <li><a href="#and-the-other-route" id="toc-and-the-other-route" class="nav-link" data-scroll-target="#and-the-other-route">And the other route</a></li>
-  </ul></li>
-  <li><a href="#what-we-have-and-what-is-missing" id="toc-what-we-have-and-what-is-missing" class="nav-link" data-scroll-target="#what-we-have-and-what-is-missing"><span class="header-section-number">6</span> What we have, and what is missing</a>
-  <ul class="collapse">
-  <li><a href="#the-scoreboard" id="toc-the-scoreboard" class="nav-link" data-scroll-target="#the-scoreboard">The scoreboard</a></li>
-  <li><a href="#the-limits-of-finite-sample-theory" id="toc-the-limits-of-finite-sample-theory" class="nav-link" data-scroll-target="#the-limits-of-finite-sample-theory">The limits of finite-sample theory</a></li>
-  </ul></li>
-  <li><a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">7</span> Reading</a>
-  <ul class="collapse">
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">8</span> References</a></li>
   </ul>
-</nav>
+</li>
+  <li>
+<a href="#a-pattern-worth-naming" id="toc-a-pattern-worth-naming" class="nav-link" data-scroll-target="#a-pattern-worth-naming"><span class="header-section-number">7</span> A pattern worth naming</a>
+  <ul class="collapse">
+<li><a href="#least-squares-as-the-first-of-a-family" id="toc-least-squares-as-the-first-of-a-family" class="nav-link" data-scroll-target="#least-squares-as-the-first-of-a-family">Least squares as the first of a family</a></li>
+  <li><a href="#and-the-other-route" id="toc-and-the-other-route" class="nav-link" data-scroll-target="#and-the-other-route">And the other route</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#what-we-have-and-what-is-missing" id="toc-what-we-have-and-what-is-missing" class="nav-link" data-scroll-target="#what-we-have-and-what-is-missing"><span class="header-section-number">8</span> What we have, and what is missing</a>
+  <ul class="collapse">
+<li><a href="#the-scoreboard" id="toc-the-scoreboard" class="nav-link" data-scroll-target="#the-scoreboard">The scoreboard</a></li>
+  <li><a href="#the-limits-of-finite-sample-theory" id="toc-the-limits-of-finite-sample-theory" class="nav-link" data-scroll-target="#the-limits-of-finite-sample-theory">The limits of finite-sample theory</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">9</span> Reading</a>
+  <ul class="collapse">
+<li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">10</span> References</a>
+  <ul class="collapse">
+<li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
+  </ul>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/04-finite-sample.html">4 · Finite-Sample Properties and Gauss-Markov</a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/04-finite-sample.html">4 · Finite-Sample Properties and Gauss-Markov</a></li></ol></nav><div class="quarto-title">
 <h1 class="title">Finite-Sample Properties and the Gauss-Markov Theorem</h1>
 <p class="subtitle lead">Lecture 4</p>
 </div>
@@ -656,88 +666,155 @@ window.Quarto = {
   
 
 
-</header>
-
-
-<section id="where-we-are" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="where-we-are"><span class="header-section-number">1</span> Where we are</h2>
-<section id="where-this-lecture-sits" class="level3">
-<h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
-<p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
-<p>Lecture 3 built <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> out of pure algebra: it exists for any design of full column rank, whether or not the model is true. <strong>We now ask what it is good for.</strong></p>
-<p>That question is statistical, so the DGP comes back. Everything below is a statement about the distribution <span class="math inline">\(\bb\)</span> inherits from the sampling process — never about the number you computed.</p>
-</section>
-</section>
-<section id="unbiasedness" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="unbiasedness"><span class="header-section-number">2</span> Unbiasedness</h2>
-<section id="what-we-are-entitled-to-assume" class="level3">
-<h3 class="anchored" data-anchor-id="what-we-are-entitled-to-assume">What we are entitled to assume</h3>
-<div class="econ-box econ-box-dgp" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span></div><div class="econ-box-body">
+</header><section id="where-we-are" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="where-we-are">
+<span class="header-section-number">1</span> Where we are</h2>
+<section id="where-this-lecture-sits" class="level3"><h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
+<p></p>
+<div class="econ-stage" role="note" aria-label="Position in the course architecture">
+<div class="econ-stage-row">
+<span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span>
+</div>
+<div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div>
+</div>
+<p>Lecture 3 built <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> out of pure algebra: it exists for any design of full column rank, whether or not the model is true. We now ask what it is <em>good for</em>.</p>
+<p>That question is statistical, so the DGP comes back. Everything below is a statement about the distribution <span class="math inline">\(\bb\)</span> inherits from the sampling process — never about the number you computed from the one sample in front of you. Lecture 3 lived entirely in the algebra; this lecture is the first in which probability re-enters.</p>
+</section></section><section id="the-sampling-distribution" class="level2" data-number="2"><h2 data-number="2" class="anchored" data-anchor-id="the-sampling-distribution">
+<span class="header-section-number">2</span> The sampling distribution</h2>
+<section id="the-estimator-is-a-random-variable" class="level3"><h3 class="anchored" data-anchor-id="the-estimator-is-a-random-variable">The estimator is a random variable</h3>
+<p>The estimate you compute is one number. The estimator is a <strong>function of the sample</strong>, and the sample is random — so a different draw gives a different <span class="math inline">\(\bb\)</span>.</p>
+<p>Imagine drawing many independent samples from the same DGP and recomputing <span class="math inline">\(\bb\)</span> in each. The spread of values you would get is the <em>sampling distribution</em> of <span class="math inline">\(\bb\)</span>. Every claim this lecture makes — unbiased, efficient, precise — is a statement about that distribution, not about the one number in front of you. This is the central abstraction of estimation theory, and the reason the DGP, absent from Lecture 3, is back.</p>
+</section><section id="which-moments-do-we-need" class="level3"><h3 class="anchored" data-anchor-id="which-moments-do-we-need">Which moments do we need?</h3>
+<p>We cannot write the whole sampling distribution without extra assumptions — that waits for normality in Lecture 5. But we can compute its <strong>moments</strong>, and the first two already answer the questions that matter.</p>
+<p>A distribution is summarised, in increasing detail, by its moments. The first — the mean — tells us whether the estimator is centred on the parameter it targets; any gap is <em>bias</em>. The second — the variance — tells us how far a typical estimate falls from that centre, and is what standard errors report. The two combine into mean squared error, <span class="math inline">\(\text{MSE}(\bb) = \text{bias}^2 + \Var[\bb]\)</span>, the standard scalar verdict on an estimator. Higher moments and the full shape would let us test hypotheses, but they demand normal disturbances or a large sample. So the plan is simple: compute the first moment, then the second, and see how far that gets us.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The lecture, read as a distribution assembled one moment at a time: <strong><a href="#thm-unbiased" class="quarto-xref">Theorem&nbsp;1</a> gives the mean, <a href="#thm-variance" class="quarto-xref">Theorem&nbsp;3</a> the variance</strong> — and the full distribution is deferred to Lecture 5.</p>
+</div>
+</div>
+</section></section><section id="the-first-moment-the-mean" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="the-first-moment-the-mean">
+<span class="header-section-number">3</span> The first moment: the mean</h2>
+<section id="what-we-are-entitled-to-assume" class="level3"><h3 class="anchored" data-anchor-id="what-we-are-entitled-to-assume">What we are entitled to assume</h3>
+<div class="econ-box econ-box-dgp" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span>
+</div>
+<div class="econ-box-body">
 <p><span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> with <span class="math inline">\((y_i, \mathbf{x}_i)\)</span> i.i.d., <span class="math inline">\(\rank(\bX) = K\)</span> (A2) and <span class="math inline">\(\E[\beps \mid \bX] = \bzero\)</span> (A3).</p>
-<p><strong>Nothing is assumed about <span class="math inline">\(\Var[\beps \mid \bX]\)</span>.</strong> That is deliberate, and it is where this lecture departs from the traditional treatment.</p>
-</div></div>
-<p>Most presentations assume <span class="math inline">\(\Var[\beps \mid \bX] = \sigma^2\bI\)</span> from the outset and relax it much later, as though heteroskedasticity were a defect to be repaired. We follow Hansen: the general case first, the constant-variance case as the special one. The pay-off arrives in a few slides, when the variance formula turns out to need no such assumption.</p>
-</section>
-<section id="the-sampling-error" class="level3">
-<h3 class="anchored" data-anchor-id="the-sampling-error">The sampling error</h3>
+<p><strong>Nothing is assumed about <span class="math inline">\(\Var[\beps \mid \bX]\)</span>.</strong></p>
+</div>
+</div>
+<p>That silence is deliberate, and it is where this lecture departs from the traditional treatment.</p>
+<p>Most presentations assume <span class="math inline">\(\Var[\beps \mid \bX] = \sigma^2\bI\)</span> from the outset and relax it much later, as though heteroskedasticity were a defect to be repaired. We follow Hansen: the general case first, the constant-variance case as the special one. The pay-off arrives a few slides from now, when the variance formula turns out to need no such assumption.</p>
+</section><section id="the-sampling-error" class="level3"><h3 class="anchored" data-anchor-id="the-sampling-error">The sampling error</h3>
 <p>Everything in this lecture follows from one substitution. Writing <span class="math inline">\(\bY = \bX\bbeta + \beps\)</span>,</p>
 <div class="econ-eqnote">
 <div class="econ-eqnote-math">
 <p><span class="math display">\[\bb = \bbeta + \eqt{a}{(\bX'\bX)^{-1}\bX'}\eqt{b}{\beps}\]</span></p>
 </div>
 <div class="econ-eqnote-notes">
-<div class="econ-eqnote-note" data-eqt="a" tabindex="0"><span class="econ-eqnote-key">a</span><div class="econ-eqnote-text">
+<div class="econ-eqnote-note" data-eqt="a" tabindex="0">
+<span class="econ-eqnote-key">a</span><div class="econ-eqnote-text">
 A fixed matrix once <span class="math inline">\(\bX\)</span> is given — it carries no randomness of its own.
-</div></div>
-<div class="econ-eqnote-note" data-eqt="b" tabindex="0"><span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
-The disturbance. <strong>All</strong> of the sampling variability of <span class="math inline">\(\bb\)</span> enters here, and nowhere else.
-</div></div>
-</div></div>
-<p>The estimator equals the truth plus a term linear in <span class="math inline">\(\beps\)</span>. Unbiasedness, variance and efficiency are all read off that term.</p>
-</section>
-<section id="the-first-property" class="level3">
-<h3 class="anchored" data-anchor-id="the-first-property">The first property</h3>
+</div>
+</div>
+<div class="econ-eqnote-note" data-eqt="b" tabindex="0">
+<span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
+The disturbance. All of the sampling variability of <span class="math inline">\(\bb\)</span> enters here, and nowhere else.
+</div>
+</div>
+</div>
+</div>
+<p>The estimator equals the truth plus a term linear in <span class="math inline">\(\beps\)</span>. Unbiasedness, variance and efficiency are all read off that single term.</p>
+</section><section id="the-first-property" class="level3"><h3 class="anchored" data-anchor-id="the-first-property">The first property</h3>
 <div id="thm-unbiased" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1 (Unbiasedness of least squares)</strong></span> Under A1–A3, <span class="math inline">\(\E[\bb \mid \bX] = \bbeta\)</span>, and therefore <span class="math inline">\(\E[\bb] = \bbeta\)</span>.</p>
 </div>
-<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
-<p>Worked on the board. The skeleton:</p>
-</div></div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Take conditional expectations in the decomposition above. The matrix is fixed given <span class="math inline">\(\bX\)</span>, so it passes outside, leaving <span class="math inline">\((\bX'\bX)^{-1}\bX'\E[\beps \mid \bX] = \bzero\)</span> by A3. The unconditional statement follows by iterated expectations. <span class="math inline">\(\square\)</span></p>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
 </div>
-</section>
-<section id="read-the-proof-again" class="level3">
-<h3 class="anchored" data-anchor-id="read-the-proof-again">Read the proof again</h3>
-<p>Notice which assumption did the work: <strong>A3 alone</strong>. Not homoskedasticity, not normality, not even large samples. Unbiasedness is exactly as strong as the exogeneity assumption behind it — no stronger, and no weaker.</p>
-</section>
-</section>
-<section id="variance" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="variance"><span class="header-section-number">3</span> Variance</h2>
-<section id="the-general-case-not-the-convenient-one" class="level3">
-<h3 class="anchored" data-anchor-id="the-general-case-not-the-convenient-one">The general case, not the convenient one</h3>
+<div class="econ-box-body">
+<p>Worked on the board. The skeleton:</p>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Take conditional expectations in the decomposition above. The matrix <span class="math inline">\((\bX'\bX)^{-1}\bX'\)</span> is fixed given <span class="math inline">\(\bX\)</span>, so it passes outside, leaving <span class="math inline">\((\bX'\bX)^{-1}\bX'\E[\beps \mid \bX] = \bzero\)</span> by A3. The unconditional statement follows by iterated expectations. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="read-the-proof-again" class="level3"><h3 class="anchored" data-anchor-id="read-the-proof-again">Read the proof again</h3>
+<p>Notice which assumption did the work: <strong>A3 alone.</strong> Not homoskedasticity, not normality, not even large samples. Unbiasedness is exactly as strong as the exogeneity assumption behind it — no stronger, and no weaker.</p>
+</section><section id="seeing-unbiasedness" class="level3"><h3 class="anchored" data-anchor-id="seeing-unbiasedness">Seeing unbiasedness</h3>
+<p>Unbiasedness is a statement about the <strong>distribution</strong>, not any one estimate. Draw 5,000 samples from a DGP with a known slope <span class="math inline">\(\beta = 1\)</span> and recompute <span class="math inline">\(\bb\)</span> in each:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-unbiasedness" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-unbiasedness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-finite-sample_files/figure-html/fig-unbiasedness-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-unbiasedness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correctly specified OLS estimator (teal) piles up on the true value (dashed): its average across samples <em>is</em> the truth. An estimator that omits a relevant regressor (amber) is centred elsewhere — same data, but biased.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>No single run reveals bias: any one estimate can land anywhere under either curve. Only the distribution shows it — the teal mean sits on <span class="math inline">\(\beta\)</span>, the amber mean does not. This is exactly why unbiasedness had to be defined as a property of <span class="math inline">\(\E[\bb \mid \bX]\)</span>, and it is the picture to carry into the omitted-variable algebra that follows: the amber shift is <span class="math inline">\(\mathbf{p}_{X\cdot z}\gamma\)</span>.</p>
+</section></section><section id="omitted-variables" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="omitted-variables">
+<span class="header-section-number">4</span> Omitted variables</h2>
+<section id="when-a-regressor-is-left-out" class="level3"><h3 class="anchored" data-anchor-id="when-a-regressor-is-left-out">When a regressor is left out</h3>
+<p>Unbiasedness needed only A3. The most common way A3 fails in practice is not exotic: a variable that belongs in the model is left out. Lecture 2 flagged this as the leading example of an exogeneity failure and promised the derivation here.</p>
+<div class="econ-box econ-box-dgp" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span>
+</div>
+<div class="econ-box-body">
+<p>The true model is <span class="math inline">\(\bY = \bX\bbeta + \mathbf{z}\gamma + \beps\)</span> with <span class="math inline">\(\E[\beps \mid \bX, \mathbf{z}] = \bzero\)</span>, but we regress <span class="math inline">\(\bY\)</span> on <span class="math inline">\(\bX\)</span> <strong>only</strong>, leaving out the relevant <span class="math inline">\(\mathbf{z}\)</span>.</p>
+</div>
+</div>
+</section><section id="the-bias-derived" class="level3"><h3 class="anchored" data-anchor-id="the-bias-derived">The bias, derived</h3>
+<p>Substituting the true model into <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span>,</p>
+<p><span class="math display">\[\bb = \bbeta + \underbrace{(\bX'\bX)^{-1}\bX'\mathbf{z}}_{\mathbf{p}_{X\cdot z}}\gamma + (\bX'\bX)^{-1}\bX'\beps,\]</span></p>
+<p>so taking expectations conditional on <span class="math inline">\(\bX\)</span> and <span class="math inline">\(\mathbf{z}\)</span>,</p>
+<div id="thm-ovb" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Omitted-variable bias)</strong></span> <span class="math display">\[\E[\bb \mid \bX, \mathbf{z}] = \bbeta + \mathbf{p}_{X\cdot z}\,\gamma,
+\qquad \mathbf{p}_{X\cdot z} = (\bX'\bX)^{-1}\bX'\mathbf{z}.\]</span></p>
+<p>The bias is the regression of the omitted variable on the included ones, scaled by the omitted variable’s own coefficient <span class="math inline">\(\gamma\)</span>. It vanishes iff <span class="math inline">\(\gamma = 0\)</span> (the variable was irrelevant) or <span class="math inline">\(\bX'\mathbf{z} = \bzero\)</span> (it is orthogonal to every included regressor).</p>
+</div>
+</section><section id="reading-the-bias-one-coefficient-at-a-time" class="level3"><h3 class="anchored" data-anchor-id="reading-the-bias-one-coefficient-at-a-time">Reading the bias one coefficient at a time</h3>
+<p><span class="math inline">\(\mathbf{p}_{X\cdot z}\)</span> is itself a vector of regression coefficients — exactly the object Frisch–Waugh–Lovell describes. By the single-extra-regressor corollary of Lecture 3, the bias in a single coefficient <span class="math inline">\(b_k\)</span> is</p>
+<p><span class="math display">\[\E[b_k \mid \bX, \mathbf{z}] = \beta_k + \gamma\,\frac{\Cov(\mathbf{z}, x_k \mid \text{other }x)}{\Var(x_k \mid \text{other }x)}.\]</span></p>
+<p>The fraction is the coefficient from regressing the omitted variable on <span class="math inline">\(x_k\)</span> after partialling out the other regressors — the partialled-out covariance over the partialled-out variance, in the <span class="math inline">\(z_*, x_{k*}\)</span> notation of Lecture 3. The direction of the bias is therefore the sign of <span class="math inline">\(\gamma\)</span> times the sign of that partial covariance, and its size grows with both.</p>
+</section><section id="the-sign-of-the-bias" class="level3"><h3 class="anchored" data-anchor-id="the-sign-of-the-bias">The sign of the bias</h3>
+<div id="exm-ability" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Ability bias in the returns to education)</strong></span> <span class="math display">\[\text{Income} = \beta_0 + \beta_1\,\text{Educ} + \beta_2\,\text{age} + \beta_3\,\text{age}^2 + \beta_4\,\text{Ability} + \varepsilon.\]</span></p>
+<p>Ability is unobserved, so we omit it. Then <span class="math display">\[\E[b_1 \mid \bX, \text{Ability}] = \beta_1 + \beta_4\,\frac{\Cov(\text{Ability}, \text{Educ} \mid \text{age}, \text{age}^2)}{\Var(\text{Educ} \mid \text{age}, \text{age}^2)}.\]</span> If more able people earn more (<span class="math inline">\(\beta_4 &gt; 0\)</span>) and also study more (positive partial covariance), <span class="math inline">\(b_1\)</span> is biased <strong>upward</strong>: the return to schooling is overstated because it absorbs the return to ability.</p>
+</div>
+</section></section><section id="the-second-moment-the-variance" class="level2" data-number="5"><h2 data-number="5" class="anchored" data-anchor-id="the-second-moment-the-variance">
+<span class="header-section-number">5</span> The second moment: the variance</h2>
+<section id="the-general-case-not-the-convenient-one" class="level3"><h3 class="anchored" data-anchor-id="the-general-case-not-the-convenient-one">The general case, not the convenient one</h3>
 <p>Unbiasedness says the estimates centre on the truth. It says nothing about how far they scatter — and scatter is what standard errors report.</p>
 <div id="thm-variance" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2 (Variance of least squares)</strong></span> Let <span class="math inline">\(\bOmega = \E[\beps\beps' \mid \bX]\)</span>, with no restriction on its form. Then <span class="math display">\[\Var[\bb \mid \bX] = (\bX'\bX)^{-1}\,\bX'\bOmega\bX\,(\bX'\bX)^{-1}.\]</span></p>
+<p><span class="theorem-title"><strong>Theorem 3 (Variance of least squares)</strong></span> Let <span class="math inline">\(\bOmega = \E[\beps\beps' \mid \bX]\)</span>, with no restriction on its form. Then <span class="math display">\[\Var[\bb \mid \bX] = (\bX'\bX)^{-1}\,\bX'\bOmega\bX\,(\bX'\bX)^{-1}.\]</span></p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\bb - \bbeta = (\bX'\bX)^{-1}\bX'\beps\)</span>, which is linear in <span class="math inline">\(\beps\)</span>; apply <span class="math inline">\(\Var[\bA\beps] = \bA\Var[\beps]\bA'\)</span> with <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX'\)</span>. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\bb - \bbeta = (\bX'\bX)^{-1}\bX'\beps\)</span> is linear in <span class="math inline">\(\beps\)</span>; apply <span class="math inline">\(\Var[\bA\beps] = \bA\Var[\beps]\bA'\)</span> with <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX'\)</span>. <span class="math inline">\(\square\)</span></p>
 </div>
-</section>
-<section id="the-sandwich-and-what-collapses-it" class="level3">
-<h3 class="anchored" data-anchor-id="the-sandwich-and-what-collapses-it">The sandwich, and what collapses it</h3>
-<p>The expression has a bread-filling-bread shape and is universally called the <strong>sandwich</strong> formula. It holds under A1–A3 alone.</p>
-</section>
-<section id="adding-a-restriction-on-the-variance" class="level3">
-<h3 class="anchored" data-anchor-id="adding-a-restriction-on-the-variance">Adding a restriction on the variance</h3>
-<p>The model of Lecture 2 constrained the conditional <em>mean</em> and said nothing about the conditional variance. We now constrain the variance too — and give the restriction the name the rest of the course uses.</p>
+<p>The expression has a bread–filling–bread shape and is universally called the <strong>sandwich formula</strong>. It holds under A1–A3 alone — the same assumptions as unbiasedness, and no more.</p>
+</section><section id="conditional-and-unconditional" class="level3"><h3 class="anchored" data-anchor-id="conditional-and-unconditional">Conditional, and unconditional</h3>
+<p>Everything here conditions on <span class="math inline">\(\bX\)</span>. Averaging over the design gives the unconditional variance, and the law of total variance is unusually clean, because the first moment is constant: <span class="math display">\[\Var[\bb] = \E\big[\Var[\bb \mid \bX]\big] + \underbrace{\Var\big[\E[\bb \mid \bX]\big]}_{=\ \bzero} = \E\big[\Var[\bb \mid \bX]\big].\]</span></p>
+<p>The second term vanishes <em>because</em> least squares is unbiased: <span class="math inline">\(\E[\bb \mid \bX] = \bbeta\)</span> does not vary with <span class="math inline">\(\bX\)</span>, so it contributes no variance. The unconditional variance is then just the average of the conditional one. We nonetheless report <strong>conditional</strong> standard errors, because <span class="math inline">\(\bX\)</span> is what we observe — the relevant uncertainty is over the disturbances, with the design held at its realised value.</p>
+</section><section id="adding-a-restriction-on-the-variance" class="level3"><h3 class="anchored" data-anchor-id="adding-a-restriction-on-the-variance">Adding a restriction on the variance</h3>
+<p>The model of Lecture 2 constrained the conditional mean and said nothing about the conditional variance. We now constrain the variance too — and give the restriction the name the rest of the course uses.</p>
 <div id="def-a4" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 1 (A4 · Conditional homoskedasticity)</strong></span> <span class="math display">\[\E[\beps\beps' \mid \bX] = \sigma^2\bI_n,\]</span> which packs two claims together: <strong>homoskedasticity</strong>, <span class="math inline">\(\sigma^2(\mathbf{x}_i) = \sigma^2\)</span> for every <span class="math inline">\(i\)</span>, and <strong>no correlation across observations</strong>, <span class="math inline">\(\Cov[\varepsilon_i,\varepsilon_j \mid \bX] = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.</p>
 </div>
-<p>The first half is the case <a href="../notas/02-projection.html#def-heterosk">Lecture 2 argued is exceptional</a>, so A4 is imposed here for one reason only: to see what it buys.</p>
-</section>
-<section id="what-a4-collapses" class="level3">
-<h3 class="anchored" data-anchor-id="what-a4-collapses">What A4 collapses</h3>
+</section><section id="what-a4-collapses" class="level3"><h3 class="anchored" data-anchor-id="what-a4-collapses">What A4 collapses</h3>
 <p>Under A4 the filling of the sandwich becomes <span class="math inline">\(\sigma^2\bX'\bX\)</span>, one factor cancels on each side, and what is left is the formula every textbook opens with: <span class="math display">\[\Var[\bb \mid \bX] = \sigma^2(\bX'\bX)^{-1}.\]</span></p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -749,101 +826,103 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The familiar formula is not the general result. It is what the sandwich collapses to when the conditional variance happens to be constant.</p>
-<p>Teaching it first, and the sandwich later as a repair, gets the logic backwards.</p>
+<p>The familiar formula is <strong>not</strong> the general result. It is what the sandwich collapses to when the conditional variance happens to be constant. Teaching it first, and the sandwich later as a repair, gets the logic backwards.</p>
 </div>
 </div>
-</section>
-<section id="estimating-the-variance" class="level3">
-<h3 class="anchored" data-anchor-id="estimating-the-variance">Estimating the variance</h3>
-<p>Both forms need an estimate. Under A4 it suffices to estimate the scalar <span class="math inline">\(\sigma^2\)</span>:</p>
+</section><section id="estimating-the-variance" class="level3"><h3 class="anchored" data-anchor-id="estimating-the-variance">Estimating the variance</h3>
+<p>Both forms need an estimate. Under A4 it suffices to estimate the scalar <span class="math inline">\(\sigma^2\)</span>.</p>
 <div id="thm-s2" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3 (Unbiased estimation of <span class="math inline">\(\sigma^2\)</span>)</strong></span> Under A1–A4, <span class="math inline">\(s^2 = \be'\be/(n-K)\)</span> satisfies <span class="math inline">\(\E[s^2 \mid \bX] = \sigma^2\)</span>.</p>
+<p><span class="theorem-title"><strong>Theorem 4 (Unbiased estimation of <span class="math inline">\(\sigma^2\)</span>)</strong></span> Under A1–A4, <span class="math inline">\(s^2 = \be'\be/(n-K)\)</span> satisfies <span class="math inline">\(\E[s^2 \mid \bX] = \sigma^2\)</span>.</p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\be = \bM\beps\)</span>, so <span class="math inline">\(\E[\be'\be \mid \bX] = \E[\beps'\bM\beps \mid \bX] = \sigma^2\tr(\bM) =
-\sigma^2(n-K)\)</span>, using <span class="math inline">\(\rank(\bM) = n-K\)</span> from <a href="../notas/03-algebra.html#thm-PM-properties">the properties of <span class="math inline">\(\bP\)</span> and <span class="math inline">\(\bM\)</span></a> in Lecture 3. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\be = \bM\beps\)</span>, so <span class="math inline">\(\E[\be'\be \mid \bX] = \E[\beps'\bM\beps \mid \bX] = \sigma^2\tr(\bM) = \sigma^2(n-K)\)</span>, using <span class="math inline">\(\rank(\bM) = n-K\)</span> from the properties of <span class="math inline">\(\bP\)</span> and <span class="math inline">\(\bM\)</span> in Lecture 3. <span class="math inline">\(\square\)</span></p>
 </div>
 <p>The divisor <span class="math inline">\(n-K\)</span> is not a convention: it is exactly what makes the expectation come out right, and it is the trace of the residual maker from Lecture 3.</p>
-</section>
-<section id="without-homoskedasticity" class="level3">
-<h3 class="anchored" data-anchor-id="without-homoskedasticity">Without homoskedasticity</h3>
+</section><section id="without-homoskedasticity" class="level3"><h3 class="anchored" data-anchor-id="without-homoskedasticity">Without homoskedasticity</h3>
 <p>When <span class="math inline">\(\bOmega\)</span> is unrestricted there is no single <span class="math inline">\(\sigma^2\)</span> to estimate — there are <span class="math inline">\(n\)</span> conditional variances and only <span class="math inline">\(n\)</span> observations. The way out is that the sandwich needs only the <span class="math inline">\(K \times K\)</span> filling <span class="math inline">\(\bX'\bOmega\bX\)</span>, not <span class="math inline">\(\bOmega\)</span> itself.</p>
 <div id="def-hc" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}\]</span></p>
-<p>Each observation contributes its own squared residual as an estimate of its own variance.</p>
+<p><span class="theorem-title"><strong>Definition 2 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}.\]</span> Each observation contributes its own squared residual as an estimate of its own variance.</p>
 </div>
 <p>This is White’s estimator. Its justification is asymptotic and belongs to Lecture 5; what matters here is the shape — the middle is a weighted cross-product of the regressors, with the weights supplied by the residuals themselves. Nothing needs to be assumed about how the variances vary.</p>
-</section>
-<section id="which-robust-estimator" class="level3 smaller">
-<h3 class="smaller anchored" data-anchor-id="which-robust-estimator">Which robust estimator?</h3>
-<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">HC0, HC1, HC2, HC3</span></div><div class="econ-box-body">
+</section><section id="which-robust-estimator" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="which-robust-estimator">Which robust estimator?</h3>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">HC0, HC1, HC2, HC3</span>
+</div>
+<div class="econ-box-body">
 <p>The estimator above is <strong>HC0</strong>. Because <span class="math inline">\(\E[e_i^2] &lt; \E[\varepsilon_i^2]\)</span> — residuals are shrunk by fitting — it is biased downward in small samples, and several corrections exist:</p>
 <table class="caption-top table">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th></th>
 <th>Correction</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
-<td>HC0</td>
+<td><strong>HC0</strong></td>
 <td><span class="math inline">\(e_i^2\)</span></td>
 </tr>
 <tr class="even">
-<td>HC1</td>
+<td><strong>HC1</strong></td>
 <td><span class="math inline">\(\dfrac{n}{n-K}\,e_i^2\)</span></td>
 </tr>
 <tr class="odd">
-<td>HC2</td>
+<td><strong>HC2</strong></td>
 <td><span class="math inline">\(\dfrac{e_i^2}{1-h_{ii}}\)</span></td>
 </tr>
 <tr class="even">
-<td>HC3</td>
+<td><strong>HC3</strong></td>
 <td><span class="math inline">\(\dfrac{e_i^2}{(1-h_{ii})^2}\)</span></td>
 </tr>
 </tbody>
 </table>
 <p>HC2 and HC3 use the leverage <span class="math inline">\(h_{ii}\)</span> from Lecture 3 — the observations the design leans on are the ones whose residuals are most shrunk. Stata’s <code>robust</code> is HC1; R’s <code>vcovHC</code> defaults to HC3. Reporting “robust standard errors” without saying which is reporting an ambiguous number.</p>
-</div></div>
-</section>
-</section>
-<section id="gauss-markov" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="gauss-markov"><span class="header-section-number">4</span> Gauss-Markov</h2>
-<section id="why-prefer-least-squares-at-all" class="level3">
-<h3 class="anchored" data-anchor-id="why-prefer-least-squares-at-all">Why prefer least squares at all?</h3>
-<div class="econ-box econ-box-questions" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">Before the theorem</span></div><div class="econ-box-body">
-<ol type="1">
-<li><strong>What problem are we solving?</strong> Many estimators are unbiased. Unbiasedness alone does not choose among them.</li>
-<li><strong>Why does it matter?</strong> Without a second criterion, “use OLS” is a convention rather than a result.</li>
-<li><strong>What is the idea?</strong> Restrict attention to a class — linear and unbiased — and ask which member has the smallest variance.</li>
-<li><strong>How do we formalise it?</strong> Show that any other member exceeds the variance of least squares by a positive semi-definite matrix.</li>
-</ol>
-</div></div>
-</section>
-<section id="the-theorem" class="level3">
-<h3 class="anchored" data-anchor-id="the-theorem">The theorem</h3>
-<div id="thm-gauss-markov" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 4 (Gauss-Markov)</strong></span> Under A1–A4, for any estimator <span class="math inline">\(\tilde{\bbeta} = \bA\bY\)</span> that is linear in <span class="math inline">\(\bY\)</span> and unbiased conditional on <span class="math inline">\(\bX\)</span>, <span class="math display">\[\Var[\tilde{\bbeta} \mid \bX] - \Var[\bb \mid \bX] \;\succeq\; \bzero,\]</span> that is, the difference is positive semi-definite. Least squares is <strong>BLUE</strong>.</p>
 </div>
-</section>
-<section id="proof" class="level3">
-<h3 class="anchored" data-anchor-id="proof">Proof</h3>
-<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+</div>
+</section></section><section id="gauss-markov" class="level2" data-number="6"><h2 data-number="6" class="anchored" data-anchor-id="gauss-markov">
+<span class="header-section-number">6</span> Gauss-Markov</h2>
+<section id="why-prefer-least-squares-at-all" class="level3"><h3 class="anchored" data-anchor-id="why-prefer-least-squares-at-all">Why prefer least squares at all?</h3>
+<div class="econ-box econ-box-questions" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">Before the theorem</span>
+</div>
+<div class="econ-box-body">
+<ol type="1">
+<li>
+<strong>What problem are we solving?</strong> Many estimators are unbiased. Unbiasedness alone does not choose among them.</li>
+<li>
+<strong>Why does it matter?</strong> Without a second criterion, “use OLS” is a convention rather than a result.</li>
+<li>
+<strong>What is the idea?</strong> Restrict attention to a class — linear and unbiased — and ask which member has the smallest variance.</li>
+<li>
+<strong>How do we formalise it?</strong> Show that any other member exceeds the variance of least squares by a positive semi-definite matrix.</li>
+</ol>
+</div>
+</div>
+</section><section id="the-theorem" class="level3"><h3 class="anchored" data-anchor-id="the-theorem">The theorem</h3>
+<div id="thm-gauss-markov" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (Gauss-Markov)</strong></span> Under A1–A4, for any estimator <span class="math inline">\(\tilde{\bbeta} = \bA\bY\)</span> that is linear in <span class="math inline">\(\bY\)</span> and unbiased conditional on <span class="math inline">\(\bX\)</span>, <span class="math display">\[\Var[\tilde{\bbeta} \mid \bX] - \Var[\bb \mid \bX] \;\succeq\; \bzero,\]</span> that is, the difference is positive semi-definite. Least squares is <strong>BLUE</strong> — the best linear unbiased estimator.</p>
+</div>
+</section><section id="proof" class="level3"><h3 class="anchored" data-anchor-id="proof">Proof</h3>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
 <p>Derived on the board — the longest derivation of the course so far. The skeleton:</p>
-</div></div>
+</div>
+</div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Write <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX' + \bD\)</span>. Unbiasedness for all <span class="math inline">\(\bbeta\)</span> forces <span class="math inline">\(\bD\bX = \bzero\)</span>. Computing the variance under A4, the cross terms vanish precisely because of that restriction, leaving <span class="math inline">\(\sigma^2(\bX'\bX)^{-1} + \sigma^2\bD\bD'\)</span>. The second term is positive semi-definite. <span class="math inline">\(\square\)</span></p>
 </div>
-</section>
-<section id="what-the-theorem-does-and-does-not-say" class="level3">
-<h3 class="anchored" data-anchor-id="what-the-theorem-does-and-does-not-say">What the theorem does and does not say</h3>
+</section><section id="what-the-theorem-does-and-does-not-say" class="level3"><h3 class="anchored" data-anchor-id="what-the-theorem-does-and-does-not-say">What the theorem does and does not say</h3>
 <p>The result is narrower than its reputation. Each qualifier is load-bearing:</p>
 <ul>
-<li><strong>Linear</strong> — in <span class="math inline">\(\bY\)</span>. Nonlinear estimators are not compared, and some beat OLS.</li>
-<li><strong>Unbiased</strong> — biased estimators are excluded, and some have lower mean squared error.</li>
-<li><strong>Under A4</strong> — homoskedasticity is essential here, unlike in <a href="#thm-unbiased" class="quarto-xref">Theorem&nbsp;1</a>.</li>
+<li>
+<strong>Linear</strong> — in <span class="math inline">\(\bY\)</span>. Nonlinear estimators are not compared, and some beat OLS.</li>
+<li>
+<strong>Unbiased</strong> — biased estimators are excluded, and some have lower mean squared error.</li>
+<li>
+<strong>Under A4</strong> — homoskedasticity is essential here, unlike in <a href="#thm-unbiased" class="quarto-xref">Theorem&nbsp;1</a>.</li>
 </ul>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -855,49 +934,48 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Gauss-Markov is the one place in this lecture where A4 genuinely cannot be dropped. Under heteroskedasticity least squares remains unbiased but is <strong>no longer efficient</strong> — GLS is, and that is Lecture 7.</p>
+<p>Gauss-Markov is the one place in this lecture where A4 genuinely <strong>cannot</strong> be dropped. Under heteroskedasticity least squares remains unbiased but is no longer efficient — GLS is, and that is Lecture 7.</p>
 </div>
 </div>
-</section>
-</section>
-<section id="a-pattern-worth-naming" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="a-pattern-worth-naming"><span class="header-section-number">5</span> A pattern worth naming</h2>
-<section id="least-squares-as-the-first-of-a-family" class="level3">
-<h3 class="anchored" data-anchor-id="least-squares-as-the-first-of-a-family">Least squares as the first of a family</h3>
-<div class="econ-box econ-box-toolbox" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">OLS as an M-estimator</span></div><div class="econ-box-body">
-<p>We obtained <span class="math inline">\(\bb\)</span> by minimising <span class="math inline">\(S(\mathbf{b}) = (\bY - \bX\mathbf{b})'(\bY - \bX\mathbf{b})\)</span> — an instance of <span class="math display">\[\hat\btheta = \argmin_{\btheta} Q_n(\btheta).\]</span></p>
-<p>Estimators defined this way are <strong>M-estimators</strong>. Maximum likelihood, in Lecture 13, is another: same shape, different criterion. Much of what we proved today will be proved once more, in that generality, for the whole family.</p>
-</div></div>
-</section>
-<section id="and-the-other-route" class="level3">
-<h3 class="anchored" data-anchor-id="and-the-other-route">And the other route</h3>
-<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first-order condition is a condition on averages</span></div><div class="econ-box-body">
-<p>The first-order condition of that minimisation is <span class="math inline">\(\bX'\be = \bzero\)</span> — a condition on averages, which is the second family from Lecture 1. Least squares belongs to both, and that is not a coincidence: differentiating a criterion always produces such a condition.</p>
-</div></div>
-</section>
-</section>
-<section id="what-we-have-and-what-is-missing" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="what-we-have-and-what-is-missing"><span class="header-section-number">6</span> What we have, and what is missing</h2>
-<section id="the-scoreboard" class="level3">
-<h3 class="anchored" data-anchor-id="the-scoreboard">The scoreboard</h3>
+</section></section><section id="a-pattern-worth-naming" class="level2" data-number="7"><h2 data-number="7" class="anchored" data-anchor-id="a-pattern-worth-naming">
+<span class="header-section-number">7</span> A pattern worth naming</h2>
+<section id="least-squares-as-the-first-of-a-family" class="level3"><h3 class="anchored" data-anchor-id="least-squares-as-the-first-of-a-family">Least squares as the first of a family</h3>
+<div class="econ-box econ-box-toolbox" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">OLS as an M-estimator</span>
+</div>
+<div class="econ-box-body">
+<p>We obtained <span class="math inline">\(\bb\)</span> by minimising <span class="math inline">\(S(\mathbf{b}) = (\bY - \bX\mathbf{b})'(\bY - \bX\mathbf{b})\)</span> — an instance of <span class="math display">\[\hat\btheta = \argmin_{\btheta} Q_n(\btheta).\]</span> Estimators defined this way are <strong>M-estimators</strong>. Maximum likelihood, in Lecture 13, is another: same shape, different criterion. Much of what we proved today will be proved once more, in that generality, for the whole family.</p>
+</div>
+</div>
+</section><section id="and-the-other-route" class="level3"><h3 class="anchored" data-anchor-id="and-the-other-route">And the other route</h3>
+<div class="econ-box econ-box-connection" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first-order condition is a condition on averages</span>
+</div>
+<div class="econ-box-body">
+<p>The first-order condition of that minimisation is <span class="math inline">\(\bX'\be = \bzero\)</span> — a condition on averages, which is the second family of estimators from Lecture 1. Least squares belongs to both, and that is not a coincidence: differentiating a criterion always produces such a condition. This is the thread that reaches GMM in Lecture 12.</p>
+</div>
+</div>
+</section></section><section id="what-we-have-and-what-is-missing" class="level2" data-number="8"><h2 data-number="8" class="anchored" data-anchor-id="what-we-have-and-what-is-missing">
+<span class="header-section-number">8</span> What we have, and what is missing</h2>
+<section id="the-scoreboard" class="level3"><h3 class="anchored" data-anchor-id="the-scoreboard">The scoreboard</h3>
 <table class="caption-top table">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Property</th>
 <th>Needs</th>
 <th>Holds under heteroskedasticity?</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>Unbiasedness</td>
 <td>A1–A3</td>
-<td><strong>yes</strong></td>
+<td>yes</td>
 </tr>
 <tr class="even">
 <td>Sandwich variance</td>
 <td>A1–A3</td>
-<td><strong>yes</strong></td>
+<td>yes</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(\sigma^2(\bX'\bX)^{-1}\)</span></td>
@@ -905,30 +983,26 @@ Warning
 <td>no</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(s^2\)</span> unbiased for <span class="math inline">\(\sigma^2\)</span></td>
+<td>
+<span class="math inline">\(s^2\)</span> unbiased for <span class="math inline">\(\sigma^2\)</span>
+</td>
 <td>+ A4</td>
 <td>no</td>
 </tr>
 <tr class="odd">
 <td>Efficiency (Gauss-Markov)</td>
 <td>+ A4</td>
-<td><strong>no</strong></td>
+<td>no</td>
 </tr>
 </tbody>
 </table>
 <p>Read the last column. Only efficiency and the simplified formulas depend on A4; the estimator itself and its variance do not. That is the whole case for treating robust inference as the default rather than the exception.</p>
-</section>
-<section id="the-limits-of-finite-sample-theory" class="level3">
-<h3 class="anchored" data-anchor-id="the-limits-of-finite-sample-theory">The limits of finite-sample theory</h3>
+</section><section id="the-limits-of-finite-sample-theory" class="level3"><h3 class="anchored" data-anchor-id="the-limits-of-finite-sample-theory">The limits of finite-sample theory</h3>
 <p>Everything today was exact, conditional on <span class="math inline">\(\bX\)</span>, and required no approximation. That is unusual, and it does not survive contact with the rest of the course.</p>
-<p>To test a hypothesis we need the <em>distribution</em> of <span class="math inline">\(\bb\)</span>, not just its first two moments — and without assuming normal disturbances there is no exact distribution to be had. Worse, almost no estimator outside least squares is unbiased at all.</p>
-<p>Both problems have the same resolution, and it is the subject of Lecture 5: stop asking for exact results and ask what happens as <span class="math inline">\(n\)</span> grows.</p>
-</section>
-</section>
-<section id="reading" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="reading"><span class="header-section-number">7</span> Reading</h2>
-<section id="sources" class="level3">
-<h3 class="anchored" data-anchor-id="sources">Sources</h3>
+<p>To test a hypothesis we need the <em>distribution</em> of <span class="math inline">\(\bb\)</span>, not just its first two moments — and without assuming normal disturbances (A6) there is no exact distribution to be had. Worse, almost no estimator outside least squares is unbiased at all. Both problems have the same resolution, and it is the subject of Lecture 5: stop asking for exact results and ask what happens as <span class="math inline">\(n\)</span> grows.</p>
+</section></section><section id="reading" class="level2" data-number="9"><h2 data-number="9" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">9</span> Reading</h2>
+<section id="sources" class="level3"><h3 class="anchored" data-anchor-id="sources">Sources</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -940,33 +1014,21 @@ Warning
 <td>Chapter 4 — §4.2–4.5 (mean, variance, Gauss-Markov), §4.8–4.10 (covariance estimation, standard errors)</td>
 </tr>
 <tr class="even">
-<td><strong>Hansen</strong></td>
-<td>Chapter 5 — normal regression, for the exact distribution under normality</td>
-</tr>
-<tr class="odd">
 <td><strong>Greene</strong></td>
-<td>Chapter 4 — finite-sample properties</td>
+<td>Chapter 4 — the assumptions, omitted-variable bias, and the Gauss-Markov theorem</td>
 </tr>
 </tbody>
 </table>
-<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">White (1980)</span></div><div class="econ-box-body">
-<p>The paper that made heteroskedasticity-robust inference routine <span class="citation" data-cites="white1980heteroskedasticity">(<a href="#ref-white1980heteroskedasticity" role="doc-biblioref">White 1980</a>)</span>. It is among the most cited articles in economics, and its argument is the one behind <a href="#def-hc" class="quarto-xref">Definition&nbsp;2</a> — you need the middle of the sandwich, not the whole of <span class="math inline">\(\bOmega\)</span>.</p>
-</div></div>
-</section>
-</section>
-<section id="references" class="level2" data-number="8">
-<h2 data-number="8" class="anchored" data-anchor-id="references"><span class="header-section-number">8</span> References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-white1980heteroskedasticity" class="csl-entry" role="listitem">
-White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity.”</span> <em>Econometrica</em> 48 (4): 817–38.
-</div>
+<p>Hansen’s Chapter 4 supplies the ordering used here — the general variance first, homoskedasticity as the special case. Greene’s Chapter 4 is the source for the omitted-variable-bias derivation and the classical statement of Gauss-Markov.</p>
+</section></section><section id="references" class="level2" data-number="10"><h2 data-number="10" class="anchored" data-anchor-id="references">
+<span class="header-section-number">10</span> References</h2>
+<section id="references-1" class="level3"><h3 class="anchored" data-anchor-id="references-1">References</h3>
+<div id="refs" role="list">
+
 </div>
 
 
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<!--
+</section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><!--
   Annotated equations: link each \eqt{key}{...} term in the rendered math to its
   explanation card, in both directions.
 
@@ -978,8 +1040,7 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
   Behaviour: hovering or focusing either a term or its card highlights both.
   Clicking a term pins the pair, so it survives the pointer moving away — which
   matters when the note is long enough to read.
--->
-<script>
+--><script>
 (function () {
   'use strict';
 
@@ -1115,8 +1176,7 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
     start();
   }
 })();
-</script>
-<script id="quarto-html-after-body" type="application/javascript">
+</script><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1180,13 +1240,14 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1532,9 +1593,7 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
       }
     }
   });
-  </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../notas/03-algebra.html" class="pagination-link" aria-label="3 · Algebra and Geometry of Least Squares">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">3 · Algebra and Geometry of Least Squares</span>
       </a>          
@@ -1546,8 +1605,7 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>Econometrics I — PIMES/UFPE</p>
 </div>   
@@ -1559,8 +1617,6 @@ White, Halbert. 1980. <span>“A Heteroskedasticity-Consistent Covariance Matrix
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>
