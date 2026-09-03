@@ -464,6 +464,15 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 <p><span class="theorem-title"><strong>Definition 2 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}.\]</span> Each observation contributes its own squared residual as an estimate of its own variance.</p>
 </div>
 </section>
+<section id="what-leverage-is" class="slide level3">
+<h3>What leverage is</h3>
+<p>The corrections about to appear depend on <strong>leverage</strong> — the <span class="math inline">\(i\)</span>-th diagonal of the projection (hat) matrix <span class="math inline">\(\bP = \bX(\bX'\bX)^{-1}\bX'\)</span> built in Lecture 3.</p>
+<div id="def-leverage" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Leverage)</strong></span> <span class="math display">\[h_{ii} = [\bP]_{ii} = \mathbf{x}_i'(\bX'\bX)^{-1}\mathbf{x}_i \in [0,1], \qquad \sum_{i=1}^n h_{ii} = K.\]</span></p>
+<p>Leverage measures how much observation <span class="math inline">\(i\)</span> pulls its own fitted value, <span class="math inline">\(\partial \hat y_i/\partial y_i = h_{ii}\)</span>; a high value flags an <span class="math inline">\(\mathbf{x}_i\)</span> far from the centre of the design.</p>
+</div>
+<p>Key fact: under homoskedasticity <span class="math inline">\(\E[e_i^2 \mid \bX] = \sigma^2(1-h_{ii})\)</span> — a raw <span class="math inline">\(e_i^2\)</span> <strong>understates</strong> <span class="math inline">\(\sigma^2\)</span>, most at high-leverage points.</p>
+</section>
 <section id="which-robust-estimator" class="slide level3 smaller">
 <h3>Which robust estimator?</h3>
 <div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">HC0, HC1, HC2, HC3</span></div><div class="econ-box-body">
@@ -494,7 +503,7 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 </tr>
 </tbody>
 </table>
-<p>HC2 and HC3 use the leverage <span class="math inline">\(h_{ii}\)</span> from Lecture 3 — the observations the design leans on are the ones whose residuals are most shrunk. Stata’s <code>robust</code> is HC1; R’s <code>vcovHC</code> defaults to HC3. Reporting “robust standard errors” without saying which is reporting an ambiguous number.</p>
+<p>HC2 and HC3 divide <span class="math inline">\(e_i^2\)</span> by <span class="math inline">\((1-h_{ii})\)</span> and by its square — the biggest corrections fall on the high-leverage points, whose residuals shrink most. The exponent on <span class="math inline">\((1-h_{ii})\)</span> runs <span class="math inline">\(0, 1, 2\)</span> across HC0, HC2, HC3; <strong>HC4</strong> (Cribari-Neto, 2004) makes it adaptive. Stata’s <code>robust</code> is HC1 and R’s <code>vcovHC</code> defaults to HC3, so “robust standard errors” without a label is ambiguous.</p>
 </div></div>
 </section></section>
 <section>
@@ -563,8 +572,8 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 </section>
 <section id="and-the-other-route" class="slide level3">
 <h3>And the other route</h3>
-<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The first-order condition is a condition on averages</span></div><div class="econ-box-body">
-<p>The first-order condition of that minimisation is <span class="math inline">\(\bX'\be = \bzero\)</span> — a condition on averages, which is the second family of estimators from Lecture 1. Least squares belongs to both, and that is not a coincidence: differentiating a criterion always produces such a condition. This is the thread that reaches GMM in Lecture 12.</p>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The other route: a moment condition</span></div><div class="econ-box-body">
+<p>Setting the derivative of <span class="math inline">\(S(\mathbf{b})\)</span> to zero gives <span class="math inline">\(\bX'\be = \bzero\)</span> — a <strong>moment condition</strong>, and exactly the sample analogue of the population <span class="math inline">\(\E[\mathbf{x}e] = \bzero\)</span> derived in Lecture 2. It pins <span class="math inline">\(\bb\)</span> down <em>without minimising anything</em>: least squares is equally the estimator that forces the sample orthogonality to hold. Estimators defined by such an estimating equation, <span class="math inline">\(\tfrac1n\sum_i \boldsymbol{\psi}(W_i,\btheta) = \bzero\)</span>, are <strong>Z-estimators</strong> (the method of moments). OLS is both at once — an M-estimator that minimises a criterion and a Z-estimator that solves a moment condition — because differentiating the criterion <em>is</em> what produces the condition. This is the thread to IV (Lecture 10) and GMM (Lecture 12).</p>
 </div></div>
 </section></section>
 <section>
