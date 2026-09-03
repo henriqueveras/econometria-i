@@ -641,13 +641,6 @@ Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is th
 <p>Forming <span class="math inline">\(\bX'\bX\)</span> <strong>squares the condition number</strong> of <span class="math inline">\(\bX\)</span>, so a design that is merely awkward becomes numerically singular.</p>
 <p>R factors <span class="math inline">\(\bX = \bQ\mathbf{R}\)</span> with <span class="math inline">\(\bQ\)</span> orthonormal and <span class="math inline">\(\mathbf{R}\)</span> upper triangular, so the normal equations become <span class="math inline">\(\mathbf{R}\mathbf{b} = \bQ'\bY\)</span> — a triangular system solved by back-substitution. No inverse is formed and the condition number is never squared.</p>
 </div></div>
-</section>
-<section id="what-squaring-costs" class="slide level3">
-<h3>What squaring costs</h3>
-<p>A condition number of <span class="math inline">\(10^k\)</span> costs roughly <span class="math inline">\(k\)</span> of the sixteen digits double precision offers. Squaring it can therefore consume the entire budget on a design QR handles without difficulty.</p>
-<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Where this returns</span></div><div class="econ-box-body">
-<p>Lecture 9 treats multicollinearity. Carry forward the point that collinearity is a <strong>numerical</strong> problem before it is a statistical one — and that large standard errors are revealed by the algorithm, not caused by it.</p>
-</div></div>
 </section></section>
 <section>
 <section id="reading" class="title-slide slide level2 center">

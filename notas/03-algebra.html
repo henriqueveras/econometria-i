@@ -652,7 +652,6 @@ window.Quarto = {
 <a href="#computation" id="toc-computation" class="nav-link" data-scroll-target="#computation"><span class="header-section-number">7</span> Computation</a>
   <ul class="collapse">
 <li><a href="#nobody-inverts-bxbx" id="toc-nobody-inverts-bxbx" class="nav-link" data-scroll-target="#nobody-inverts-bxbx">Nobody inverts <span class="math inline">\(\bX'\bX\)</span></a></li>
-  <li><a href="#what-squaring-costs" id="toc-what-squaring-costs" class="nav-link" data-scroll-target="#what-squaring-costs">What squaring costs</a></li>
   </ul>
 </li>
   <li>
@@ -994,16 +993,7 @@ Figure&nbsp;2: Partialling out, step by step. The slope in the third panel is th
 <p>R factors <span class="math inline">\(\bX = \bQ\mathbf{R}\)</span> with <span class="math inline">\(\bQ\)</span> orthonormal and <span class="math inline">\(\mathbf{R}\)</span> upper triangular, so the normal equations become <span class="math inline">\(\mathbf{R}\mathbf{b} = \bQ'\bY\)</span> — a triangular system solved by back-substitution. No inverse is formed and the condition number is never squared.</p>
 </div>
 </div>
-</section><section id="what-squaring-costs" class="level3"><h3 class="anchored" data-anchor-id="what-squaring-costs">What squaring costs</h3>
-<p>A condition number of <span class="math inline">\(10^k\)</span> costs roughly <span class="math inline">\(k\)</span> of the sixteen digits double precision offers. Squaring it can therefore consume the entire budget on a design QR handles without difficulty.</p>
-<div class="econ-box econ-box-connection" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Where this returns</span>
-</div>
-<div class="econ-box-body">
-<p>Lecture 9 treats multicollinearity. Carry forward the point that collinearity is a <strong>numerical</strong> problem before it is a statistical one — and that large standard errors are revealed by the algorithm, not caused by it.</p>
-</div>
-</div>
+<p>This connects forward: Lecture 9 treats multicollinearity, and the point to carry there is that collinearity is a <strong>numerical</strong> problem before it is a statistical one — large standard errors are revealed by the algorithm, not caused by it.</p>
 </section></section><section id="reading" class="level2" data-number="8"><h2 data-number="8" class="anchored" data-anchor-id="reading">
 <span class="header-section-number">8</span> Reading</h2>
 <section id="sources" class="level3"><h3 class="anchored" data-anchor-id="sources">Sources</h3>
