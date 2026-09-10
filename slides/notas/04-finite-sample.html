@@ -217,6 +217,9 @@
         bA:    ['\\mathbf{A}', 0],
         bD:    ['\\mathbf{D}', 0],
         bOmega:['\\boldsymbol{\\Omega}', 0],
+        bV:    ['\\mathbf{V}', 0],
+        bGamma:['\\boldsymbol{\\Gamma}', 0],
+        Asyvar:['\\operatorname{Asy.Var}', 0],
         bzero: ['\\mathbf{0}', 0]
       }
     },
@@ -298,7 +301,7 @@ Henrique Veras
 <li><strong>Mean</strong> <span class="math inline">\(\E[\bb \mid \bX]\)</span> — is it centred on the truth? A gap is <strong>bias</strong>.</li>
 <li><strong>Variance</strong> <span class="math inline">\(\Var[\bb \mid \bX]\)</span> — how tightly does it concentrate? This is <strong>precision</strong>.</li>
 <li>Together: <span class="math inline">\(\text{MSE}(\bb) = \text{bias}^2 + \text{variance}\)</span>.</li>
-<li>The <strong>whole distribution</strong> needs normality (A6) or large <span class="math inline">\(n\)</span> — Lecture 5.</li>
+<li>The <strong>whole distribution</strong> needs one more assumption — normality (A6), at the end of this lecture — or large <span class="math inline">\(n\)</span> (Lecture 5).</li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -309,7 +312,7 @@ Henrique Veras
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>The lecture, read as a distribution assembled one moment at a time: <strong><a href="#/thm-unbiased" class="quarto-xref">Theorem&nbsp;1</a> gives the mean, <a href="#/thm-variance" class="quarto-xref">Theorem&nbsp;3</a> the variance</strong> — and the full distribution is deferred to Lecture 5.</p>
+<p>The lecture, read as a distribution assembled one moment at a time: <strong><a href="#/thm-unbiased" class="quarto-xref">Theorem&nbsp;1</a> gives the mean, <a href="#/thm-variance" class="quarto-xref">Theorem&nbsp;3</a> the variance</strong>, and — under normality — <strong><a href="#/thm-normal-regression" class="quarto-xref">Theorem&nbsp;6</a> the whole shape</strong>.</p>
 </div>
 </div>
 </div>
@@ -411,7 +414,7 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 <h3>The general case, not the convenient one</h3>
 <p>Unbiasedness says the estimates centre on the truth. It says nothing about how far they scatter — and scatter is what standard errors report.</p>
 <div id="thm-variance" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3 (Variance of least squares)</strong></span> Let <span class="math inline">\(\bOmega = \E[\beps\beps' \mid \bX]\)</span>, with no restriction on its form. Then <span class="math display">\[\Var[\bb \mid \bX] = (\bX'\bX)^{-1}\,\bX'\bOmega\bX\,(\bX'\bX)^{-1}.\]</span></p>
+<p><span class="theorem-title"><strong>Theorem 3 (Variance of least squares)</strong></span> Let <span class="math inline">\(\bD = \E[\beps\beps' \mid \bX]\)</span>, the <span class="math inline">\(n\times n\)</span> conditional covariance matrix of the disturbance vector, with no restriction on its form. Then <span class="math display">\[\Var[\bb \mid \bX] = (\bX'\bX)^{-1}\,\bX'\bD\bX\,(\bX'\bX)^{-1}.\]</span></p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\bb - \bbeta = (\bX'\bX)^{-1}\bX'\beps\)</span> is linear in <span class="math inline">\(\beps\)</span>; apply <span class="math inline">\(\Var[\bA\beps] = \bA\Var[\beps]\bA'\)</span> with <span class="math inline">\(\bA = (\bX'\bX)^{-1}\bX'\)</span>. <span class="math inline">\(\square\)</span></p>
@@ -459,7 +462,7 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 </section>
 <section id="without-homoskedasticity" class="slide level3">
 <h3>Without homoskedasticity</h3>
-<p>When <span class="math inline">\(\bOmega\)</span> is unrestricted there is no single <span class="math inline">\(\sigma^2\)</span> to estimate — there are <span class="math inline">\(n\)</span> conditional variances and only <span class="math inline">\(n\)</span> observations. The way out is that the sandwich needs only the <span class="math inline">\(K \times K\)</span> filling <span class="math inline">\(\bX'\bOmega\bX\)</span>, not <span class="math inline">\(\bOmega\)</span> itself.</p>
+<p>When <span class="math inline">\(\bD\)</span> is unrestricted there is no single <span class="math inline">\(\sigma^2\)</span> to estimate — there are <span class="math inline">\(n\)</span> conditional variances and only <span class="math inline">\(n\)</span> observations. The way out is that the sandwich needs only the <span class="math inline">\(K \times K\)</span> filling <span class="math inline">\(\bX'\bD\bX\)</span>, not <span class="math inline">\(\bD\)</span> itself.</p>
 <div id="def-hc" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 2 (Heteroskedasticity-robust covariance estimator)</strong></span> <span class="math display">\[\widehat{\Var}[\bb \mid \bX] = (\bX'\bX)^{-1}\left(\sum_{i=1}^n e_i^2\,\mathbf{x}_i\mathbf{x}_i'\right)(\bX'\bX)^{-1}.\]</span> Each observation contributes its own squared residual as an estimate of its own variance.</p>
 </div>
@@ -577,6 +580,43 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 </div></div>
 </section></section>
 <section>
+<section id="the-whole-distribution" class="title-slide slide level2 center">
+<h2>The whole distribution</h2>
+
+</section>
+<section id="one-more-assumption-buys-the-entire-shape" class="slide level3">
+<h3>One more assumption buys the entire shape</h3>
+<p>The mean and the variance are all A1–A4 will give. To pin down the <em>whole</em> sampling distribution — every quantile, not just centre and spread — we must say something about the <strong>shape</strong> of the disturbances. One assumption does it.</p>
+<div id="def-a6" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4 (A6 · Conditional normality)</strong></span> <span class="math display">\[\beps \mid \bX \;\sim\; \Normal(\bzero,\ \sigma^2\bI_n).\]</span> The disturbances are jointly normal, homoskedastic, and uncorrelated across observations, given the design. This is A4 <strong>plus</strong> a full distributional shape — strictly stronger than anything assumed so far.</p>
+</div>
+<p><strong>What A6 implies:</strong> the <em>entire</em> sampling distribution of <span class="math inline">\(\bb\)</span> becomes known — exact and for every <span class="math inline">\(n\)</span>, not merely its first two moments (<a href="#/thm-normal-regression" class="quarto-xref">Theorem&nbsp;6</a>). It is exactly this that Lecture 5 will drop.</p>
+</section>
+<section id="the-exact-finite-sample-distribution" class="slide level3">
+<h3>The exact finite-sample distribution</h3>
+<p>Since <span class="math inline">\(\bb - \bbeta = (\bX'\bX)^{-1}\bX'\beps\)</span> is a <strong>linear</strong> function of a normal vector, it is normal too — exactly, for every <span class="math inline">\(n\)</span>, not just in the limit.</p>
+<div id="thm-normal-regression" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6 (Normal regression)</strong></span> Under A1–A4 and A6, conditional on <span class="math inline">\(\bX\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(\displaystyle \bb \;\sim\; \Normal\!\big(\bbeta,\ \sigma^2(\bX'\bX)^{-1}\big)\)</span>;</li>
+<li><span class="math inline">\(\displaystyle \frac{(n-K)\,s^2}{\sigma^2} \;\sim\; \chi^2_{\,n-K}\)</span>, and is independent of <span class="math inline">\(\bb\)</span>;</li>
+<li><span class="math inline">\(\displaystyle \frac{b_k - \beta_k}{\operatorname{se}(b_k)} \;\sim\; t_{\,n-K}\)</span>, where <span class="math inline">\(\operatorname{se}(b_k) = s\,\sqrt{[(\bX'\bX)^{-1}]_{kk}}\)</span>.</li>
+</ol>
+</div>
+</section>
+<section id="how-the-three-parts-arise" class="slide level3">
+<h3>How the three parts arise</h3>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>The three parts in one breath: <strong>(1)</strong> a linear map of a normal is normal; <strong>(2)</strong> <span class="math inline">\(s^2\)</span> is the quadratic form <span class="math inline">\(\beps'\bM\beps/(n-K)\)</span> in that same normal, and the idempotency of <span class="math inline">\(\bM\)</span> (rank <span class="math inline">\(n-K\)</span>, Lecture 3) turns it into a <span class="math inline">\(\chi^2_{n-K}\)</span>; <strong>(3)</strong> the <span class="math inline">\(t\)</span>-ratio is the normal of (1) over the square root of the independent <span class="math inline">\(\chi^2\)</span> of (2) — the unknown <span class="math inline">\(\sigma\)</span> cancels, leaving <span class="math inline">\(s\)</span>.</p>
+</div></div>
+</section>
+<section id="why-a-t-and-not-a-normal" class="slide level3">
+<h3>Why a t, and not a normal</h3>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Where the t-table comes from</span></div><div class="econ-box-body">
+<p>Part 3 is the exact reason coefficients are read against a <strong><span class="math inline">\(t_{n-K}\)</span></strong> table rather than a normal one: replacing the unknown <span class="math inline">\(\sigma\)</span> by its estimate <span class="math inline">\(s\)</span> injects extra uncertainty, and the price is exactly the heavier tails of the <span class="math inline">\(t\)</span> with <span class="math inline">\(n-K\)</span> degrees of freedom — one lost per estimated coefficient. As <span class="math inline">\(n\)</span> grows the <span class="math inline">\(t_{n-K}\)</span> converges to the standard normal, which is why the large-sample inference of Lecture 5 will quote normal critical values. The exact <span class="math inline">\(t\)</span> here and the asymptotic normal there are the two ends of the same object.</p>
+</div></div>
+</section></section>
+<section>
 <section id="what-we-have-and-what-is-missing" class="title-slide slide level2 center">
 <h2>What we have, and what is missing</h2>
 
@@ -617,13 +657,18 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 <td>+ A4</td>
 <td>no</td>
 </tr>
+<tr class="even">
+<td>Exact distribution (<span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>)</td>
+<td>+ A6</td>
+<td>no</td>
+</tr>
 </tbody>
 </table>
-<p>Read the last column. Only efficiency and the simplified formulas depend on A4; the estimator itself and its variance do not. That is the whole case for treating robust inference as the default rather than the exception.</p>
+<p>Read the last column. Only efficiency and the simplified formulas depend on A4, and the exact distribution on the stronger A6; the estimator itself and its variance do not. That is the whole case for treating robust inference as the default rather than the exception.</p>
 </section>
 <section id="the-limits-of-finite-sample-theory" class="slide level3">
 <h3>The limits of finite-sample theory</h3>
-<p>Everything today was exact, conditional on <span class="math inline">\(\bX\)</span>, and required no approximation. That is unusual, and it does not survive contact with the rest of the course.</p>
+<p>Everything today was exact and conditional on <span class="math inline">\(\bX\)</span> — but the <em>distribution</em>, unlike the two moments, came at a price: assumption A6. That price is steep, and it is where the finite-sample story runs out.</p>
 </section></section>
 <section>
 <section id="reading" class="title-slide slide level2 center">
@@ -640,7 +685,7 @@ Figure&nbsp;1: Sampling distribution of the slope over 5,000 samples. The correc
 <tbody>
 <tr class="odd">
 <td><strong>Hansen</strong></td>
-<td>Chapter 4 — §4.2–4.5 (mean, variance, Gauss-Markov), §4.8–4.10 (covariance estimation, standard errors)</td>
+<td>Chapter 4 — §4.2–4.5 (mean, variance, Gauss-Markov), §4.8–4.10 (covariance estimation, standard errors), §4.17 (normal regression — the exact distributions)</td>
 </tr>
 <tr class="even">
 <td><strong>Greene</strong></td>

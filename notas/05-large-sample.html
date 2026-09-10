@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Henrique Veras">
+<title>Large Sample Theory: Consistency, Asymptotic Normality, and the Delta Method – Econometrics I</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/04-finite-sample.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8d695445161a98bc055f58d1fd7d7c9d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-fcc37affdcc02d07d1652d59a83b2e19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-4b80b3b217dad5d8568d6f2b77002f80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-fcc37affdcc02d07d1652d59a83b2e19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<!--
+  MathJax configuration for Econometrics I.
+
+  Two jobs:
+   (1) load the [tex]/html package so \class{} works, which is what lets
+       \eqt{key}{body} tag a sub-expression for the annotated-equation widget;
+   (2) define the course-wide macro set, so notation is declared once here
+       instead of being re-typed in every lecture.
+
+  This block is injected into <head> via `include-in-header`, so it runs before
+  MathJax itself is loaded and the configuration is picked up.
+
+  Shared by the website AND the Reveal.js decks, so the macro set is declared
+  once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
+  _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
+  MathJax 2 and is neutralised by the Hub shim below.
+--><script>
+window.MathJax = {
+  loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
+  tex: {
+    packages: { '[+]': ['html', 'ams', 'boldsymbol'] },
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams',
+    macros: {
+      // --- annotated-equation term tag -------------------------------------
+      eqt: ['\\class{eqt eqt-#1}{#2}', 2],
+
+      // --- estimators and operators ----------------------------------------
+      plim:  ['\\operatorname*{plim}', 0],
+      argmin:['\\operatorname*{arg\\,min}', 0],
+      argmax:['\\operatorname*{arg\\,max}', 0],
+      tr:    ['\\operatorname{tr}', 0],
+      rank:  ['\\operatorname{rank}', 0],
+      diag:  ['\\operatorname{diag}', 0],
+      vect:  ['\\operatorname{vec}', 0],
+
+      // --- probability ------------------------------------------------------
+      E:     ['\\mathbb{E}', 0],
+      Var:   ['\\operatorname{Var}', 0],
+      Cov:   ['\\operatorname{Cov}', 0],
+      Prob:  ['\\mathbb{P}', 0],
+      indep: ['\\perp\\!\\!\\!\\perp', 0],
+      pto:   ['\\xrightarrow{\\;p\\;}', 0],
+      dto:   ['\\xrightarrow{\\;d\\;}', 0],
+      asto:  ['\\xrightarrow{\\;a.s.\\;}', 0],
+      Normal:['\\mathcal{N}', 0],
+
+      // --- vectors and matrices (bold upright) ------------------------------
+      mat:   ['\\mathbf{#1}', 1],
+      vecb:  ['\\mathbf{#1}', 1],
+      bbeta: ['\\boldsymbol{\\beta}', 0],
+      beps:  ['\\boldsymbol{\\varepsilon}', 0],
+      btheta:['\\boldsymbol{\\theta}', 0],
+      bX:    ['\\mathbf{X}', 0],
+      bY:    ['\\mathbf{y}', 0],
+      bZ:    ['\\mathbf{Z}', 0],
+      bb:    ['\\mathbf{b}', 0],
+      be:    ['\\mathbf{e}', 0],
+      bP:    ['\\mathbf{P}', 0],
+      bM:    ['\\mathbf{M}', 0],
+      bI:    ['\\mathbf{I}', 0],
+      bQ:    ['\\mathbf{Q}', 0],
+      bA:    ['\\mathbf{A}', 0],
+      bD:    ['\\mathbf{D}', 0],
+      bOmega:['\\boldsymbol{\\Omega}', 0],
+      bV:    ['\\mathbf{V}', 0],
+      bGamma:['\\boldsymbol{\\Gamma}', 0],
+      Asyvar:['\\operatorname{Asy.Var}', 0],
+      bzero: ['\\mathbf{0}', 0]
+    }
+  },
+  options: {
+    enableMenu: true,
+    menuOptions: { settings: { zoom: 'DoubleClick' } }
+  },
+  svg: { displayAlign: 'center', displayIndent: '0', fontCache: 'global' },
+  startup: {
+    ready: function () {
+      // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
+      // plugin. Pointed at v3 it loads the library correctly and then throws
+      // once on `MathJax.Hub.Config`, because v3 has no Hub. The error is
+      // cosmetic -- Reveal has already initialised and MathJax 3 typesets on
+      // its own. A Hub shim does not help: the plugin's callback runs before
+      // this hook, so there is nothing to shim yet.
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(function () {
+        // Signal the annotated-equation script that \eqt terms are in the DOM.
+        document.dispatchEvent(new CustomEvent('econ:mathjax-done'));
+        // Reveal sizes slides before the maths exists, so re-measure once it
+        // does. No-op on the website, where Reveal is undefined.
+        if (typeof Reveal !== 'undefined' && Reveal.layout) { Reveal.layout(); }
+      });
+    }
+  }
+};
+
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../assets/components.css">
+</head>
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Econometrics I</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa/ementa-2026.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto"></ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/05-large-sample.html">5 · Large Sample Theory</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Map</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I — Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II — Linear Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/05-large-sample.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">5 · Large Sample Theory</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">IV — Nonlinear Estimation</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">V — Panel Data</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/05-large-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · Large Sample Theory</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Component Reference</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">0.1</span> Where we are</a>
+  <ul class="collapse">
+<li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
+  <li><a href="#two-limits-of-finite-sample-theory" id="toc-two-limits-of-finite-sample-theory" class="nav-link" data-scroll-target="#two-limits-of-finite-sample-theory">Two limits of finite-sample theory</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#part-i-the-toolkit" id="toc-part-i-the-toolkit" class="nav-link" data-scroll-target="#part-i-the-toolkit"><span class="header-section-number">1</span> Part I · The toolkit</a>
+  <ul class="collapse">
+<li>
+<a href="#convergence" id="toc-convergence" class="nav-link" data-scroll-target="#convergence"><span class="header-section-number">1.1</span> Convergence</a>
+  <ul class="collapse">
+<li><a href="#two-ways-a-sequence-of-estimators-can-settle-down" id="toc-two-ways-a-sequence-of-estimators-can-settle-down" class="nav-link" data-scroll-target="#two-ways-a-sequence-of-estimators-can-settle-down">Two ways a sequence of estimators can settle down</a></li>
+  <li><a href="#seeing-the-two-modes-of-convergence" id="toc-seeing-the-two-modes-of-convergence" class="nav-link" data-scroll-target="#seeing-the-two-modes-of-convergence">Seeing the two modes of convergence</a></li>
+  <li><a href="#consistency-named" id="toc-consistency-named" class="nav-link" data-scroll-target="#consistency-named">Consistency, named</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-law-of-large-numbers" id="toc-the-law-of-large-numbers" class="nav-link" data-scroll-target="#the-law-of-large-numbers"><span class="header-section-number">1.2</span> The law of large numbers</a>
+  <ul class="collapse">
+<li><a href="#the-sample-mean-finds-the-truth" id="toc-the-sample-mean-finds-the-truth" class="nav-link" data-scroll-target="#the-sample-mean-finds-the-truth">The sample mean finds the truth</a></li>
+  <li><a href="#seeing-the-law-of-large-numbers" id="toc-seeing-the-law-of-large-numbers" class="nav-link" data-scroll-target="#seeing-the-law-of-large-numbers">Seeing the law of large numbers</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem"><span class="header-section-number">1.3</span> The central limit theorem</a>
+  <ul class="collapse">
+<li><a href="#after-rescaling-everything-is-normal" id="toc-after-rescaling-everything-is-normal" class="nav-link" data-scroll-target="#after-rescaling-everything-is-normal">After rescaling, everything is normal</a></li>
+  <li><a href="#asymptotic-normality-named" id="toc-asymptotic-normality-named" class="nav-link" data-scroll-target="#asymptotic-normality-named">Asymptotic normality, named</a></li>
+  <li><a href="#collapse-and-normality-are-not-in-conflict" id="toc-collapse-and-normality-are-not-in-conflict" class="nav-link" data-scroll-target="#collapse-and-normality-are-not-in-conflict">Collapse and normality are not in conflict</a></li>
+  <li><a href="#seeing-the-central-limit-theorem" id="toc-seeing-the-central-limit-theorem" class="nav-link" data-scroll-target="#seeing-the-central-limit-theorem">Seeing the central limit theorem</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#combining-limits" id="toc-combining-limits" class="nav-link" data-scroll-target="#combining-limits"><span class="header-section-number">1.4</span> Combining limits</a>
+  <ul class="collapse">
+<li><a href="#the-continuous-mapping-theorem-and-the-algebra-of-plims" id="toc-the-continuous-mapping-theorem-and-the-algebra-of-plims" class="nav-link" data-scroll-target="#the-continuous-mapping-theorem-and-the-algebra-of-plims">The continuous mapping theorem, and the algebra of plims</a></li>
+  <li><a href="#slutsky-mixing-the-two-modes" id="toc-slutsky-mixing-the-two-modes" class="nav-link" data-scroll-target="#slutsky-mixing-the-two-modes">Slutsky: mixing the two modes</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-delta-method" id="toc-the-delta-method" class="nav-link" data-scroll-target="#the-delta-method"><span class="header-section-number">1.5</span> The Delta Method</a>
+  <ul class="collapse">
+<li><a href="#the-asymptotic-distribution-of-a-function-of-an-estimator" id="toc-the-asymptotic-distribution-of-a-function-of-an-estimator" class="nav-link" data-scroll-target="#the-asymptotic-distribution-of-a-function-of-an-estimator">The asymptotic distribution of a function of an estimator</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#part-ii-least-squares-in-large-samples" id="toc-part-ii-least-squares-in-large-samples" class="nav-link" data-scroll-target="#part-ii-least-squares-in-large-samples"><span class="header-section-number">2</span> Part II · Least squares in large samples</a>
+  <ul class="collapse">
+<li>
+<a href="#the-asymptotic-assumptions" id="toc-the-asymptotic-assumptions" class="nav-link" data-scroll-target="#the-asymptotic-assumptions"><span class="header-section-number">2.1</span> The asymptotic assumptions</a>
+  <ul class="collapse">
+<li><a href="#what-replaces-normality" id="toc-what-replaces-normality" class="nav-link" data-scroll-target="#what-replaces-normality">What replaces normality</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#consistency-of-least-squares" id="toc-consistency-of-least-squares" class="nav-link" data-scroll-target="#consistency-of-least-squares"><span class="header-section-number">2.2</span> Consistency of least squares</a>
+  <ul class="collapse">
+<li><a href="#the-one-decomposition-again" id="toc-the-one-decomposition-again" class="nav-link" data-scroll-target="#the-one-decomposition-again">The one decomposition, again</a></li>
+  <li><a href="#consistency-1" id="toc-consistency-1" class="nav-link" data-scroll-target="#consistency-1">Consistency</a></li>
+  <li><a href="#what-consistency-buys-that-unbiasedness-did-not" id="toc-what-consistency-buys-that-unbiasedness-did-not" class="nav-link" data-scroll-target="#what-consistency-buys-that-unbiasedness-did-not">What consistency buys that unbiasedness did not</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#asymptotic-normality-1" id="toc-asymptotic-normality-1" class="nav-link" data-scroll-target="#asymptotic-normality-1"><span class="header-section-number">2.3</span> Asymptotic normality</a>
+  <ul class="collapse">
+<li><a href="#magnify-by-n" id="toc-magnify-by-n" class="nav-link" data-scroll-target="#magnify-by-n">Magnify by √n</a></li>
+  <li><a href="#the-variance-of-the-score" id="toc-the-variance-of-the-score" class="nav-link" data-scroll-target="#the-variance-of-the-score">The variance of the score</a></li>
+  <li><a href="#the-limiting-distribution-in-general" id="toc-the-limiting-distribution-in-general" class="nav-link" data-scroll-target="#the-limiting-distribution-in-general">The limiting distribution, in general</a></li>
+  <li><a href="#the-homoskedastic-special-case" id="toc-the-homoskedastic-special-case" class="nav-link" data-scroll-target="#the-homoskedastic-special-case">The homoskedastic special case</a></li>
+  <li><a href="#seeing-asymptotic-normality" id="toc-seeing-asymptotic-normality" class="nav-link" data-scroll-target="#seeing-asymptotic-normality">Seeing asymptotic normality</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#estimating-the-asymptotic-variance" id="toc-estimating-the-asymptotic-variance" class="nav-link" data-scroll-target="#estimating-the-asymptotic-variance"><span class="header-section-number">2.4</span> Estimating the asymptotic variance</a>
+  <ul class="collapse">
+<li><a href="#from-the-limit-to-a-standard-error" id="toc-from-the-limit-to-a-standard-error" class="nav-link" data-scroll-target="#from-the-limit-to-a-standard-error">From the limit to a standard error</a></li>
+  <li><a href="#the-homoskedastic-short-cut" id="toc-the-homoskedastic-short-cut" class="nav-link" data-scroll-target="#the-homoskedastic-short-cut">The homoskedastic short-cut</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#beyond-gauss-markov" id="toc-beyond-gauss-markov" class="nav-link" data-scroll-target="#beyond-gauss-markov"><span class="header-section-number">2.5</span> Beyond Gauss-Markov</a>
+  <ul class="collapse">
+<li><a href="#asymptotic-efficiency" id="toc-asymptotic-efficiency" class="nav-link" data-scroll-target="#asymptotic-efficiency">Asymptotic efficiency</a></li>
+  <li><a href="#the-delta-method-applied" id="toc-the-delta-method-applied" class="nav-link" data-scroll-target="#the-delta-method-applied">The Delta Method, applied</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#what-we-have-and-where-it-goes" id="toc-what-we-have-and-where-it-goes" class="nav-link" data-scroll-target="#what-we-have-and-where-it-goes"><span class="header-section-number">2.6</span> What we have, and where it goes</a>
+  <ul class="collapse">
+<li><a href="#the-scoreboard" id="toc-the-scoreboard" class="nav-link" data-scroll-target="#the-scoreboard">The scoreboard</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">2.7</span> Reading</a>
+  <ul class="collapse">
+<li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">2.8</span> References</a>
+  <ul class="collapse">
+<li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/05-large-sample.html">5 · Large Sample Theory</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Large Sample Theory: Consistency, Asymptotic Normality, and the Delta Method</h1>
+<p class="subtitle lead">Lecture 5</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Henrique Veras </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            PIMES/UFPE
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header><section id="where-we-are" class="level2" data-number="0.1"><h2 data-number="0.1" class="anchored" data-anchor-id="where-we-are">
+<span class="header-section-number">0.1</span> Where we are</h2>
+<section id="where-this-lecture-sits" class="level3"><h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
+<p></p>
+<div class="econ-stage" role="note" aria-label="Position in the course architecture">
+<div class="econ-stage-row">
+<span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics is-active">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span>
+</div>
+<div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div>
+</div>
+<p>Lecture 4 gave exact, finite-sample results — but at a price: the sampling distribution needed normal disturbances (A6, the normal regression model of Lecture 4), and even unbiasedness is rare outside least squares. This lecture drops both crutches and asks a different question: <strong>not what <span class="math inline">\(\bb\)</span> is for a fixed <span class="math inline">\(n\)</span>, but what happens to it as <span class="math inline">\(n \to \infty\)</span>.</strong></p>
+<p>The trade is deliberate. We give up exactness and gain generality: consistency will hold where unbiasedness fails, and a normal <em>limiting</em> distribution will emerge with no assumption that the errors are normal. The whole apparatus rests on a small toolkit of limit theorems, which we build first — in complete generality, on a sample mean — and only then turn on least squares.</p>
+</section><section id="two-limits-of-finite-sample-theory" class="level3"><h3 class="anchored" data-anchor-id="two-limits-of-finite-sample-theory">Two limits of finite-sample theory</h3>
+<p>Both problems have one resolution: stop demanding results that hold for every <span class="math inline">\(n\)</span>, and ask instead what holds <em>approximately</em>, with the approximation improving as the sample grows. That is asymptotic theory. It is the language the rest of the course speaks.</p>
+</section></section><section id="part-i-the-toolkit" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Part I · The toolkit</h1>
+<section id="convergence" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="convergence">
+<span class="header-section-number">1.1</span> Convergence</h2>
+<section id="two-ways-a-sequence-of-estimators-can-settle-down" class="level3"><h3 class="anchored" data-anchor-id="two-ways-a-sequence-of-estimators-can-settle-down">Two ways a sequence of estimators can settle down</h3>
+<p>An estimator is a random variable for each <span class="math inline">\(n\)</span>, so a sequence of them, <span class="math inline">\(\{\theta_n\}\)</span>, is a sequence of random variables. There are two senses in which it can “converge”.</p>
+<div id="def-convergence" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Convergence in probability and in distribution)</strong></span> <span class="math inline">\(\theta_n\)</span> <strong>converges in probability</strong> to <span class="math inline">\(c\)</span>, written <span class="math inline">\(\theta_n \pto c\)</span> or <span class="math inline">\(\plim\,\theta_n = c\)</span>, if for every <span class="math inline">\(\delta &gt; 0\)</span>, <span class="math inline">\(\;\Prob(|\theta_n - c| &gt; \delta) \to 0\)</span>.</p>
+<p><span class="math inline">\(\theta_n\)</span> <strong>converges in distribution</strong> to a random variable <span class="math inline">\(Z\)</span>, written <span class="math inline">\(\theta_n \dto Z\)</span>, if the cdf of <span class="math inline">\(\theta_n\)</span> converges to that of <span class="math inline">\(Z\)</span> at every continuity point.</p>
+</div>
+<p>Convergence in probability pins the sequence onto a <em>number</em> — the sampling distribution collapses to a spike. Convergence in distribution pins its <em>shape</em> onto that of a fixed random variable, after any needed rescaling. Every asymptotic claim in this lecture is one of these two modes applied to a particular sequence; when the sequence is an <em>estimator</em>, the two modes acquire the names <strong>consistency</strong> and <strong>asymptotic normality</strong> — each defined precisely below, before it is used.</p>
+</section><section id="seeing-the-two-modes-of-convergence" class="level3"><h3 class="anchored" data-anchor-id="seeing-the-two-modes-of-convergence">Seeing the two modes of convergence</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-convergence" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-convergence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-large-sample_files/figure-html/fig-convergence-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-convergence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Two ways a sequence can settle. <strong>Left — in probability:</strong> the whole distribution of <span class="math inline">\(\theta_n\)</span> collapses onto a single number <span class="math inline">\(c\)</span> (this is <span class="math inline">\(\theta_n\pto c\)</span>). <strong>Right — in distribution:</strong> the spread does <em>not</em> vanish; instead the <em>shape</em> freezes onto a fixed law (here <span class="math inline">\(t_\nu\dto\Normal(0,1)\)</span> as <span class="math inline">\(\nu\)</span> grows). The left panel is convergence in probability; the right, convergence in distribution.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="consistency-named" class="level3"><h3 class="anchored" data-anchor-id="consistency-named">Consistency, named</h3>
+<p>Applied to an <em>estimator</em>, convergence in probability has a name.</p>
+<div id="def-consistency" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (Consistency)</strong></span> An estimator <span class="math inline">\(\hat\theta_n\)</span> of a parameter <span class="math inline">\(\theta\)</span> is <strong>consistent</strong> if <span class="math inline">\(\hat\theta_n \pto \theta\)</span> — equivalently, <span class="math inline">\(\plim\,\hat\theta_n = \theta\)</span>. Its sampling distribution collapses onto the true value as <span class="math inline">\(n \to \infty\)</span>.</p>
+</div>
+<p>Consistency is the large-sample counterpart of unbiasedness, and a weaker demand: not “right on average for every <span class="math inline">\(n\)</span>”, but “arbitrarily close to the truth, with probability approaching one, as <span class="math inline">\(n\)</span> grows”. An estimator can be biased at every finite <span class="math inline">\(n\)</span> and still be consistent.</p>
+</section></section><section id="the-law-of-large-numbers" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="the-law-of-large-numbers">
+<span class="header-section-number">1.2</span> The law of large numbers</h2>
+<section id="the-sample-mean-finds-the-truth" class="level3"><h3 class="anchored" data-anchor-id="the-sample-mean-finds-the-truth">The sample mean finds the truth</h3>
+<div id="thm-wlln" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Weak Law of Large Numbers)</strong></span> If <span class="math inline">\(x_1, \dots, x_n\)</span> are i.i.d. with <span class="math inline">\(\E|x| &lt; \infty\)</span> and mean <span class="math inline">\(\mu\)</span>, then the sample mean <strong>converges in probability</strong> to <span class="math inline">\(\mu\)</span>: <span class="math display">\[\bar{x}_n = \frac1n\sum_{i=1}^n x_i \;\pto\; \mu.\]</span></p>
+</div>
+<p>In the vocabulary just defined, the sample mean is a <strong>consistent</strong> estimator of <span class="math inline">\(\mu\)</span>.</p>
+<p>The only requirement is a finite mean. No normality, no bounded support — an average of enough independent draws lands on the population mean.</p>
+<div class="econ-box econ-box-montecarlo" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🎲</span><span class="econ-box-label">Monte Carlo</span><span class="econ-box-sep">—</span><span class="econ-box-title">What a Monte Carlo simulation is</span>
+</div>
+<div class="econ-box-body">
+<p>A <strong>Monte Carlo simulation</strong> approximates a quantity that is hard to derive in closed form by generating many random draws from a <em>known</em> model and computing the quantity on each. Here the target is the <strong>sampling distribution</strong> of an estimator:</p>
+<ol type="1">
+<li>Fix a DGP whose truth is known — for the right panel below, <span class="math inline">\(x \sim \text{Exp}(1)\)</span>, so <span class="math inline">\(\mu = 1\)</span>.</li>
+<li>Draw one sample of size <span class="math inline">\(n\)</span>; compute the estimator <span class="math inline">\(\bar{x}\)</span> — <strong>one</strong> realization.</li>
+<li>Repeat step 2 many times (<span class="math inline">\(R = 4{,}000\)</span> here), collecting <span class="math inline">\(R\)</span> values of <span class="math inline">\(\bar{x}\)</span>.</li>
+<li>The histogram of those <span class="math inline">\(R\)</span> values <strong>is</strong> the (approximate) sampling distribution at that <span class="math inline">\(n\)</span>.</li>
+</ol>
+<p>Redo for growing <span class="math inline">\(n\)</span> and watch it concentrate on <span class="math inline">\(\mu\)</span>: the LLN, made visible. The simulation <em>illustrates</em> the theorem — it does not prove it.</p>
+</div>
+</div>
+</section><section id="seeing-the-law-of-large-numbers" class="level3"><h3 class="anchored" data-anchor-id="seeing-the-law-of-large-numbers">Seeing the law of large numbers</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-lln" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lln-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-large-sample_files/figure-html/fig-lln-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lln-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The law of large numbers, two views. <strong>Left:</strong> five running averages <span class="math inline">\(\bar{x}_n\)</span>, one per sample, as <span class="math inline">\(n\)</span> grows — each jagged path settles onto <span class="math inline">\(\mu\)</span> and stops moving. <strong>Right:</strong> the sampling distribution of <span class="math inline">\(\bar{x}_n\)</span> over 4,000 samples, staying centred on <span class="math inline">\(\mu\)</span> and concentrating as <span class="math inline">\(n\)</span> grows. The same fact, as a path and as a distribution.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The two panels are <strong>different</strong> simulations. The <strong>right</strong> panel is the Monte Carlo just described: for each <span class="math inline">\(n \in \{10, 50, 500\}\)</span> it draws <span class="math inline">\(R = 4{,}000\)</span> independent samples, computes <span class="math inline">\(\bar{x}\)</span> in each, and plots the density of the 4,000 values — an estimate of the sampling distribution of <span class="math inline">\(\bar{x}\)</span>. As <span class="math inline">\(n\)</span> grows the density narrows onto <span class="math inline">\(\mu = 1\)</span>: consistency. The <strong>left</strong> panel is <em>not</em> a Monte Carlo over many samples — it takes a <strong>single</strong> growing sample and plots the running average <span class="math inline">\(\bar{x}_n\)</span> against <span class="math inline">\(n\)</span>; each coloured line is one such path, and all settle onto <span class="math inline">\(\mu\)</span>. Why does the Monte Carlo faithfully recover the true sampling distribution? Because averaging over the <span class="math inline">\(R\)</span> replications is <em>itself</em> a law of large numbers — the empirical distribution of the draws converges to the true one as <span class="math inline">\(R \to \infty\)</span>. Monte Carlo is the LLN turned into a computational tool.</p>
+</section></section><section id="the-central-limit-theorem" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="the-central-limit-theorem">
+<span class="header-section-number">1.3</span> The central limit theorem</h2>
+<section id="after-rescaling-everything-is-normal" class="level3"><h3 class="anchored" data-anchor-id="after-rescaling-everything-is-normal">After rescaling, everything is normal</h3>
+<p>Consistency says <span class="math inline">\(\bar{x}_n \pto \mu\)</span>, so <span class="math inline">\(\bar{x}_n - \mu \pto 0\)</span> — the distribution collapses and, on its own, tells us nothing about <em>shape</em>. The trick is to magnify it by exactly the rate at which it shrinks, <span class="math inline">\(\sqrt{n}\)</span>.</p>
+<div id="thm-clt" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Central Limit Theorem (Lindeberg–Lévy))</strong></span> If <span class="math inline">\(x_1, \dots, x_n\)</span> are i.i.d. with mean <span class="math inline">\(\mu\)</span> and finite variance <span class="math inline">\(\sigma^2\)</span>, then <span class="math display">\[\sqrt{n}\,(\bar{x}_n - \mu) \;\dto\; \Normal(0, \sigma^2).\]</span></p>
+</div>
+<p>The limiting law is normal <strong>whatever the distribution of <span class="math inline">\(x\)</span></strong> — the single most useful fact in econometrics, and the reason A6 can be discarded.</p>
+</section><section id="asymptotic-normality-named" class="level3"><h3 class="anchored" data-anchor-id="asymptotic-normality-named">Asymptotic normality, named</h3>
+<p>The CLT is exactly the statement that the sample mean is <em>asymptotically normal</em>.</p>
+<div id="def-asymp-normality" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Asymptotic normality)</strong></span> An estimator <span class="math inline">\(\hat\theta_n\)</span> is <strong>asymptotically normal</strong> if, after centring and <span class="math inline">\(\sqrt{n}\)</span>-scaling, it converges in distribution to a normal: <span class="math display">\[\sqrt{n}\,(\hat\theta_n - \theta) \;\dto\; \Normal(\bzero, \bV).\]</span> The matrix <span class="math inline">\(\bV\)</span> is its <strong>asymptotic variance</strong>, written <span class="math inline">\(\Asyvar[\hat\theta_n] = \bV\)</span>.</p>
+</div>
+</section><section id="collapse-and-normality-are-not-in-conflict" class="level3"><h3 class="anchored" data-anchor-id="collapse-and-normality-are-not-in-conflict">Collapse and normality are not in conflict</h3>
+<div class="econ-box econ-box-connection" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Reconciling the spike and the bell</span>
+</div>
+<div class="econ-box-body">
+<p>A natural worry: if <span class="math inline">\(\bar{x}_n \pto \mu\)</span> makes the distribution <strong>collapse</strong> to a point, how can it also converge to a <strong>normal</strong>? Because the two statements are about <strong>different objects</strong>. The raw mean does collapse. Asymptotic normality is about the <em>rescaled</em> deviation <span class="math inline">\(\sqrt{n}(\bar{x}_n-\mu)\)</span>, and the <span class="math inline">\(\sqrt{n}\)</span> magnification exactly cancels the shrinkage. Read backwards, <span class="math display">\[\bar{x}_n \;\approx\; \mu + \tfrac{1}{\sqrt{n}}\,\Normal(0,\sigma^2) \;=\; \Normal\!\big(\mu,\ \tfrac{\sigma^2}{n}\big):\]</span> for every finite <span class="math inline">\(n\)</span> the mean is approximately normal with width <span class="math inline">\(\sigma/\sqrt{n}\)</span>; as <span class="math inline">\(n\to\infty\)</span> that width <span class="math inline">\(\to 0\)</span> (the collapse) while the <strong>shape</strong> stays normal (the CLT). The CLT is a microscope that magnifies the shrinking bell by exactly <span class="math inline">\(\sqrt{n}\)</span>, so its shape becomes visible.</p>
+</div>
+</div>
+</section><section id="seeing-the-central-limit-theorem" class="level3"><h3 class="anchored" data-anchor-id="seeing-the-central-limit-theorem">Seeing the central limit theorem</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-clt" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-clt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-large-sample_files/figure-html/fig-clt-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-clt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: <span class="math inline">\(\sqrt{n}(\bar{x}_n-\mu)\)</span> for a strongly skewed variable (exponential). For small <span class="math inline">\(n\)</span> it inherits the skew; by <span class="math inline">\(n=200\)</span> it is indistinguishable from the normal curve (dashed) — regardless of the underlying shape.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="combining-limits" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="combining-limits">
+<span class="header-section-number">1.4</span> Combining limits</h2>
+<section id="the-continuous-mapping-theorem-and-the-algebra-of-plims" class="level3"><h3 class="anchored" data-anchor-id="the-continuous-mapping-theorem-and-the-algebra-of-plims">The continuous mapping theorem, and the algebra of plims</h3>
+<p>Raw limits are rarely the end — we want limits of <strong>functions</strong>, <strong>sums</strong> and <strong>products</strong> of estimators. The continuous mapping theorem delivers them, and its most-used corollary is a simple algebra.</p>
+<div id="thm-cmt" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Continuous Mapping Theorem)</strong></span> Let <span class="math inline">\(g\)</span> be continuous at <span class="math inline">\(c\)</span>. If <span class="math inline">\(\theta_n \pto c\)</span> then <span class="math inline">\(g(\theta_n) \pto g(c)\)</span>; and if <span class="math inline">\(\theta_n \dto Z\)</span> then <span class="math inline">\(g(\theta_n) \dto g(Z)\)</span>.</p>
+</div>
+<p>Taking <span class="math inline">\(g\)</span> to be addition, multiplication or division gives the rule behind every consistency argument in the course:</p>
+<div id="cor-plim-algebra" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 1 (Algebra of probability limits)</strong></span> If <span class="math inline">\(\theta_n \pto c\)</span> and <span class="math inline">\(\gamma_n \pto d\)</span>, then <span class="math display">\[\theta_n + \gamma_n \pto c + d, \qquad \theta_n\gamma_n \pto cd, \qquad
+\frac{\theta_n}{\gamma_n} \pto \frac{c}{d}\ (d \neq 0).\]</span></p>
+</div>
+<p>This is the everyday tool: <strong>plim passes through sums, products and ratios</strong>. It is a corollary of the continuous mapping theorem, because those operations are continuous. Whenever we show an estimator is consistent, we are chaining these rules — the plim of a product is the product of the plims, and so on.</p>
+</section><section id="slutsky-mixing-the-two-modes" class="level3"><h3 class="anchored" data-anchor-id="slutsky-mixing-the-two-modes">Slutsky: mixing the two modes</h3>
+<p>The plim algebra combines terms that all converge to <em>numbers</em>. Asymptotic normality needs to combine a term that converges to a <em>normal</em> with one that converges to a <em>constant</em> — a different theorem.</p>
+<div id="thm-slutsky" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Slutsky’s Theorem)</strong></span> If <span class="math inline">\(\theta_n \dto Z\)</span> and <span class="math inline">\(\gamma_n \pto c\)</span> (a <strong>constant</strong>), then <span class="math display">\[\theta_n + \gamma_n \dto Z + c, \qquad \gamma_n\theta_n \dto cZ.\]</span></p>
+</div>
+<p>Slutsky is the mixed-mode result: a term that converges in distribution (a normal) times a term that converges in probability (a constant matrix) stays normal. That is exactly the shape of the least-squares argument in Part II — a normal <span class="math inline">\(\tfrac1{\sqrt n}\bX'\beps\)</span> multiplied by a constant <span class="math inline">\(\bQ^{-1}\)</span>. <strong>The plim algebra proves consistency; Slutsky proves asymptotic normality.</strong></p>
+</section></section><section id="the-delta-method" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="the-delta-method">
+<span class="header-section-number">1.5</span> The Delta Method</h2>
+<section id="the-asymptotic-distribution-of-a-function-of-an-estimator" class="level3"><h3 class="anchored" data-anchor-id="the-asymptotic-distribution-of-a-function-of-an-estimator">The asymptotic distribution of a function of an estimator</h3>
+<p>We often care not about <span class="math inline">\(\btheta\)</span> but about a function of it — a ratio, an elasticity, a marginal effect. The Delta Method turns the asymptotic normality of <span class="math inline">\(\btheta\)</span> into that of <span class="math inline">\(f(\btheta)\)</span>.</p>
+<div id="thm-delta" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (Delta Method)</strong></span> If <span class="math inline">\(\sqrt{n}(\btheta_n - \btheta) \dto \Normal(\bzero, \bV)\)</span> and <span class="math inline">\(f\)</span> is continuously differentiable with Jacobian <span class="math inline">\(\bGamma = \partial f(\btheta)/\partial\btheta'\)</span>, then <span class="math display">\[\sqrt{n}\big(f(\btheta_n) - f(\btheta)\big) \;\dto\; \Normal\!\big(\bzero,\ \bGamma\bV\bGamma'\big).\]</span></p>
+</div>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
+<p>On the board: a first-order Taylor expansion <span class="math inline">\(f(\btheta_n) = f(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>, the higher-order terms vanish in probability, and the linear term carries the normal through.</p>
+</div>
+</div>
+</section></section></section><section id="part-ii-least-squares-in-large-samples" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Part II · Least squares in large samples</h1>
+<section id="the-asymptotic-assumptions" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="the-asymptotic-assumptions">
+<span class="header-section-number">2.1</span> The asymptotic assumptions</h2>
+<section id="what-replaces-normality" class="level3"><h3 class="anchored" data-anchor-id="what-replaces-normality">What replaces normality</h3>
+<p>We keep A1–A3 and lean on two assumptions tailored to limits, in place of A4/A6.</p>
+<div id="def-asymp-assumptions" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4 (A5a and A2<span class="math inline">\('\)</span>)</strong></span> <strong>A5a (i.i.d. sampling).</strong> <span class="math inline">\(\{(y_i, \mathbf{x}_i)\}_{i=1}^n\)</span> are independent and identically distributed.</p>
+<p><strong>A2<span class="math inline">\('\)</span>.</strong> <span class="math inline">\(\;\plim \dfrac{\bX'\bX}{n} = \bQ = \E[\mathbf{x}\mathbf{x}']\)</span>, a finite positive-definite matrix.</p>
+</div>
+<p><strong>Is A5a new?</strong> Not as an assumption — the DGP already drew <span class="math inline">\((y_i, \mathbf{x}_i)\)</span> i.i.d. What is new is its <strong>role</strong>. The finite-sample results of Lecture 4 conditioned on <span class="math inline">\(\bX\)</span> and never used independence or identical distribution: unbiasedness and the sandwich variance hold for an <em>arbitrary fixed</em> design. Here the i.i.d. structure does real work for the first time — it is exactly the hypothesis the LLN and CLT need in order to act on the sample averages <span class="math inline">\(\bX'\bX/n\)</span> and <span class="math inline">\(\bX'\beps/n\)</span>. A5a simply <strong>promotes</strong> the DGP’s i.i.d. sampling to a load-bearing assumption. And <span class="math inline">\(\bQ\)</span> is no longer a fixed matrix but a population moment, <span class="math inline">\(\E[\mathbf{x}\mathbf{x}']\)</span>: A2<span class="math inline">\('\)</span> says this moment exists and is invertible, so that <span class="math inline">\(\bX'\bX/n \pto \bQ\)</span> by the LLN.</p>
+</section></section><section id="consistency-of-least-squares" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="consistency-of-least-squares">
+<span class="header-section-number">2.2</span> Consistency of least squares</h2>
+<section id="the-one-decomposition-again" class="level3"><h3 class="anchored" data-anchor-id="the-one-decomposition-again">The one decomposition, again</h3>
+<p>Everything follows from the sampling-error decomposition of Lecture 4, now divided through by <span class="math inline">\(n\)</span>:</p>
+<div class="econ-eqnote">
+<div class="econ-eqnote-math">
+<p><span class="math display">\[\bb = \bbeta + \eqt{a}{\left(\frac{\bX'\bX}{n}\right)^{-1}}\eqt{b}{\left(\frac{\bX'\beps}{n}\right)}\]</span></p>
+</div>
+<div class="econ-eqnote-notes">
+<div class="econ-eqnote-note" data-eqt="a" tabindex="0">
+<span class="econ-eqnote-key">a</span><div class="econ-eqnote-text">
+By A2<span class="math inline">\('\)</span>, <span class="math inline">\(\bX'\bX/n \pto \bQ\)</span>; the Continuous Mapping Theorem gives <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span>, a <strong>finite</strong> limit.
+</div>
+</div>
+<div class="econ-eqnote-note" data-eqt="b" tabindex="0">
+<span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
+By the WLLN, <span class="math inline">\(\bX'\beps/n = \tfrac1n\sum_i \mathbf{x}_i\varepsilon_i \pto \E[\mathbf{x}\varepsilon] = \bzero\)</span> under A3. <strong>This is the term that carries exogeneity</strong> — the single point where consistency can fail.
+</div>
+</div>
+</div>
+</div>
+</section><section id="consistency-1" class="level3"><h3 class="anchored" data-anchor-id="consistency-1">Consistency</h3>
+<div id="thm-consistency" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6 (Consistency of least squares)</strong></span> Under A1–A3, A5a and A2<span class="math inline">\('\)</span>, <span class="math inline">\(\;\plim\,\bb = \bbeta\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Take probability limits in the decomposition. Both factors converge in probability, so by the <strong>algebra of plims</strong> (<a href="#cor-plim-algebra" class="quarto-xref">Corollary&nbsp;1</a>) the product converges to the product of the limits, <span class="math inline">\(\bQ^{-1}\cdot\bzero = \bzero\)</span>. Hence <span class="math inline">\(\plim\,\bb = \bbeta + \bzero = \bbeta\)</span>. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="what-consistency-buys-that-unbiasedness-did-not" class="level3"><h3 class="anchored" data-anchor-id="what-consistency-buys-that-unbiasedness-did-not">What consistency buys that unbiasedness did not</h3>
+<p>Unbiasedness needed A3 and gave an exact centring for every <span class="math inline">\(n\)</span>; consistency needs A3 and gives convergence to the truth as <span class="math inline">\(n\)</span> grows. The gain is that consistency travels: it survives in settings — instrumental variables, GMM, maximum likelihood — where no unbiased estimator exists. It is the property the rest of the course actually uses.</p>
+</section></section><section id="asymptotic-normality-1" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="asymptotic-normality-1">
+<span class="header-section-number">2.3</span> Asymptotic normality</h2>
+<section id="magnify-by-n" class="level3"><h3 class="anchored" data-anchor-id="magnify-by-n">Magnify by √n</h3>
+<p>The raw estimator collapses onto <span class="math inline">\(\bbeta\)</span>; to recover the <em>shape</em> of its fluctuations we rescale the sampling error by <span class="math inline">\(\sqrt{n}\)</span>:</p>
+<p><span class="math display">\[\sqrt{n}\,(\bb - \bbeta) = \left(\frac{\bX'\bX}{n}\right)^{-1}\underbrace{\frac{1}{\sqrt{n}}\bX'\beps}_{\text{a CLT term}}.\]</span></p>
+<p>The left factor <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span> and the plim algebra. Everything then hinges on the second factor — so, <strong>before naming any distribution, we find its variance.</strong></p>
+</section><section id="the-variance-of-the-score" class="level3"><h3 class="anchored" data-anchor-id="the-variance-of-the-score">The variance of the score</h3>
+<p>The CLT term is <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps = \sqrt{n}\,\bar{\mathbf{w}}\)</span>, an average of the i.i.d. vectors <span class="math inline">\(\mathbf{w}_i = \mathbf{x}_i\varepsilon_i\)</span>. By A3 each has mean <span class="math inline">\(\bzero\)</span>, so its variance is just the second moment — and <strong>we impose nothing on <span class="math inline">\(\Var[\varepsilon \mid \bX]\)</span></strong>:</p>
+<p><span class="math display">\[\bOmega \;\equiv\; \Var[\mathbf{w}_i] \;=\; \E[\mathbf{w}_i\mathbf{w}_i'] \;=\; \E[\varepsilon^2\,\mathbf{x}\mathbf{x}'].\]</span></p>
+<p>This <span class="math inline">\(\bOmega\)</span> is the <strong>general</strong> score variance — the same object whether or not the errors are homoskedastic. By the CLT, <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span>.</p>
+</section><section id="the-limiting-distribution-in-general" class="level3"><h3 class="anchored" data-anchor-id="the-limiting-distribution-in-general">The limiting distribution, in general</h3>
+<p>Slutsky combines the two factors — a normal times a constant matrix stays normal:</p>
+<div id="thm-asymp-normal" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7 (Asymptotic normality of least squares)</strong></span> Under A1–A3, A5a and A2<span class="math inline">\('\)</span> (<strong>no homoskedasticity assumed</strong>), <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) \;\dto\; \Normal\!\big(\bzero,\ \bQ^{-1}\bOmega\,\bQ^{-1}\big),
+\qquad \bOmega = \E[\varepsilon^2\mathbf{x}\mathbf{x}'].\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\tfrac1{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span> by the CLT and <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span>. By <strong>Slutsky</strong> the product converges to <span class="math inline">\(\bQ^{-1}\Normal(\bzero,\bOmega) = \Normal(\bzero, \bQ^{-1}\bOmega\bQ^{-1})\)</span>. <span class="math inline">\(\square\)</span></p>
+</div>
+</section><section id="the-homoskedastic-special-case" class="level3"><h3 class="anchored" data-anchor-id="the-homoskedastic-special-case">The homoskedastic special case</h3>
+<p>Exactly as in Lecture 4, homoskedasticity is a <strong>special case</strong>, not the starting point. Under A4, <span class="math inline">\(\E[\varepsilon^2\mathbf{x}\mathbf{x}'] = \sigma^2\E[\mathbf{x}\mathbf{x}'] = \sigma^2\bQ\)</span>, and the sandwich collapses:</p>
+<div id="cor-asymp-homosk" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 2 (Homoskedastic limiting distribution)</strong></span> Adding A4, <span class="math inline">\(\bOmega = \sigma^2\bQ\)</span>, so <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) \;\dto\; \Normal\!\big(\bzero,\ \sigma^2\bQ^{-1}\big).\]</span></p>
+</div>
+</section><section id="seeing-asymptotic-normality" class="level3"><h3 class="anchored" data-anchor-id="seeing-asymptotic-normality">Seeing asymptotic normality</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-asymp-normal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-asymp-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-large-sample_files/figure-html/fig-asymp-normal-1.svg" class="img-fluid figure-img" width="2550">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-asymp-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the slope of a regression with strongly non-normal (exponential) errors, over 5,000 samples. Even though the disturbances are not normal, the rescaled estimator converges to the normal curve (dashed) as <span class="math inline">\(n\)</span> grows — assumption A6 is not needed.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="estimating-the-asymptotic-variance" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="estimating-the-asymptotic-variance">
+<span class="header-section-number">2.4</span> Estimating the asymptotic variance</h2>
+<section id="from-the-limit-to-a-standard-error" class="level3"><h3 class="anchored" data-anchor-id="from-the-limit-to-a-standard-error">From the limit to a standard error</h3>
+<p>In large samples <span class="math inline">\(\bb \approx \Normal\!\big(\bbeta,\ \tfrac1n\bQ^{-1}\bOmega\bQ^{-1}\big)\)</span>. To use it we plug in consistent estimates. The bread <span class="math inline">\(\bQ\)</span> is estimated by <span class="math inline">\(\bX'\bX/n\)</span>; the filling <span class="math inline">\(\bOmega = \E[\varepsilon^2\mathbf{x}\mathbf{x}']\)</span> by its sample analogue, residuals in place of errors, <span class="math inline">\(\tfrac1n\sum_i e_i^2\,\mathbf{x}_i\mathbf{x}_i'\)</span>. This is the <strong>robust</strong> (sandwich) estimator:</p>
+<p><span class="math display">\[\widehat{\Asyvar}[\bb] = (\bX'\bX)^{-1}\Big(\textstyle\sum_i e_i^2\,\mathbf{x}_i\mathbf{x}_i'\Big)(\bX'\bX)^{-1}.\]</span></p>
+</section><section id="the-homoskedastic-short-cut" class="level3"><h3 class="anchored" data-anchor-id="the-homoskedastic-short-cut">The homoskedastic short-cut</h3>
+<p>Under A4 there is a single scalar to estimate: <span class="math inline">\(\bOmega = \sigma^2\bQ\)</span> needs only <span class="math inline">\(s^2 = \be'\be/(n-K)\)</span>, and the sandwich collapses to <span class="math display">\[\widehat{\Asyvar}[\bb] = s^2(\bX'\bX)^{-1}.\]</span></p>
+<div class="econ-box econ-box-connection" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">This is exactly Lecture 4's sandwich</span>
+</div>
+<div class="econ-box-body">
+<p>The robust estimator above <strong>is</strong> the heteroskedasticity-consistent covariance matrix asserted in Lecture 4 — now derived. HC0–HC4 are the competing estimators of the filling <span class="math inline">\(\bOmega\)</span> (they differ only in the leverage correction on <span class="math inline">\(e_i^2\)</span>); the bread <span class="math inline">\((\bX'\bX)^{-1}\)</span> is common to all. The asymptotic argument Lecture 4 deferred is this whole section.</p>
+</div>
+</div>
+</section></section><section id="beyond-gauss-markov" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="beyond-gauss-markov">
+<span class="header-section-number">2.5</span> Beyond Gauss-Markov</h2>
+<section id="asymptotic-efficiency" class="level3"><h3 class="anchored" data-anchor-id="asymptotic-efficiency">Asymptotic efficiency</h3>
+<p>Gauss-Markov ranked estimators that are linear and unbiased. Asymptotics lets us widen the field to <em>consistent</em> estimators — possibly biased, possibly nonlinear — and rank them by asymptotic variance. Least squares is asymptotically efficient within a broad class under A1–A4; when A4 fails, it is consistent but no longer efficient, and generalized least squares (Lecture 7) does better.</p>
+</section><section id="the-delta-method-applied" class="level3"><h3 class="anchored" data-anchor-id="the-delta-method-applied">The Delta Method, applied</h3>
+<p>For a smooth function of the coefficients, the Delta Method converts <a href="#thm-asymp-normal" class="quarto-xref">Theorem&nbsp;7</a> into <span class="math display">\[\sqrt{n}\big(f(\bb) - f(\bbeta)\big) \dto \Normal\!\big(\bzero,\ \bGamma\,\bV\,\bGamma'\big),
+\qquad \bV = \bQ^{-1}\bOmega\bQ^{-1}, \quad \bGamma = \frac{\partial f(\bbeta)}{\partial\bbeta'},\]</span> which is how standard errors are attached to ratios, elasticities and marginal effects throughout the course.</p>
+</section></section><section id="what-we-have-and-where-it-goes" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="what-we-have-and-where-it-goes">
+<span class="header-section-number">2.6</span> What we have, and where it goes</h2>
+<section id="the-scoreboard" class="level3"><h3 class="anchored" data-anchor-id="the-scoreboard">The scoreboard</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead><tr class="header">
+<th>Finite sample (Lecture 4)</th>
+<th>Large sample (Lecture 5)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Unbiased: <span class="math inline">\(\E[\bb\mid\bX] = \bbeta\)</span>
+</td>
+<td>Consistent: <span class="math inline">\(\plim\,\bb = \bbeta\)</span>
+</td>
+</tr>
+<tr class="even">
+<td>Exact normal <strong>only under A6</strong>
+</td>
+<td>Asymptotically normal <strong>without A6</strong>
+</td>
+</tr>
+<tr class="odd">
+<td>Sandwich variance (asserted)</td>
+<td>Sandwich variance (<strong>derived</strong> here)</td>
+</tr>
+<tr class="even">
+<td>Rare outside OLS</td>
+<td>Travels to IV, GMM, MLE</td>
+</tr>
+</tbody>
+</table>
+<p>The asymptotic normal distribution is the raw material of inference: a normal centred on <span class="math inline">\(\bbeta\)</span> with a variance we can estimate is exactly what a <span class="math inline">\(t\)</span>-statistic and a confidence interval are built from. That construction is Lecture 6.</p>
+</section></section><section id="reading" class="level2" data-number="2.7"><h2 data-number="2.7" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">2.7</span> Reading</h2>
+<section id="sources" class="level3"><h3 class="anchored" data-anchor-id="sources">Sources</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Hansen</strong></td>
+<td>Chapter 5 (the toolkit: convergence, WLLN, CLT, Delta Method) and Chapter 6 (asymptotic theory for least squares)</td>
+</tr>
+<tr class="even">
+<td><strong>Greene</strong></td>
+<td>Chapter 4 (asymptotic properties) and Appendix D (large-sample distribution theory)</td>
+</tr>
+</tbody>
+</table>
+<p>Hansen’s Chapters 5 and 6 supply the structure used here — the general limit theorems first, the least-squares application second. Greene’s Appendix D is the reference for the theorem statements, and Chapter 4 for the least-squares results.</p>
+</section></section><section id="references" class="level2" data-number="2.8"><h2 data-number="2.8" class="anchored" data-anchor-id="references">
+<span class="header-section-number">2.8</span> References</h2>
+<section id="references-1" class="level3"><h3 class="anchored" data-anchor-id="references-1">References</h3>
+<div id="refs" role="list">
+
+</div>
+
+
+</section></section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><!--
+  Annotated equations: link each \eqt{key}{...} term in the rendered math to its
+  explanation card, in both directions.
+
+  Injected via `include-after-body`, so the DOM exists when this runs. MathJax
+  typesets asynchronously, so we wait for the `econ:mathjax-done` event fired by
+  assets/mathjax.html (with a polling fallback in case MathJax is absent or the
+  event was missed).
+
+  Behaviour: hovering or focusing either a term or its card highlights both.
+  Clicking a term pins the pair, so it survives the pointer moving away — which
+  matters when the note is long enough to read.
+--><script>
+(function () {
+  'use strict';
+
+  var PINNED = 'eqt-pinned';
+  var ACTIVE = 'eqt-active';
+
+  // wire() can be reached from three paths (the MathJax event, DOMContentLoaded,
+  // and the polling fallback). Without this guard the later paths bind a second
+  // set of handlers and every click toggles the pin twice, i.e. never pins.
+  var wired = false;
+
+  function wire(root) {
+    if (wired) return true;
+
+    var terms = root.querySelectorAll('.eqt');
+    if (!terms.length) return false;
+
+    wired = true;
+
+    // MathJax emits \class{eqt eqt-a} on possibly several nested nodes; index by key.
+    var byKey = {};
+    terms.forEach(function (el) {
+      var key = null;
+      el.classList.forEach(function (c) {
+        if (c.indexOf('eqt-') === 0 && c !== 'eqt-active' && c !== 'eqt-pinned') {
+          key = c.slice(4);
+        }
+      });
+      if (!key) return;
+      (byKey[key] = byKey[key] || []).push(el);
+      el.setAttribute('data-eqt', key);
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Equation term ' + key);
+    });
+
+    var notes = root.querySelectorAll('.econ-eqnote-note');
+    var noteByKey = {};
+    notes.forEach(function (n) { noteByKey[n.getAttribute('data-eqt')] = n; });
+
+    function partners(key) {
+      var list = (byKey[key] || []).slice();
+      if (noteByKey[key]) list.push(noteByKey[key]);
+      return list;
+    }
+
+    function setActive(key, on) {
+      partners(key).forEach(function (el) { el.classList.toggle(ACTIVE, on); });
+    }
+
+    function clearPins(scope) {
+      scope.querySelectorAll('.' + PINNED).forEach(function (el) {
+        el.classList.remove(PINNED);
+        el.classList.remove(ACTIVE);
+      });
+    }
+
+    function togglePin(key, container) {
+      var already = (byKey[key] || []).some(function (el) {
+        return el.classList.contains(PINNED);
+      });
+      clearPins(container);
+      if (!already) {
+        partners(key).forEach(function (el) {
+          el.classList.add(PINNED);
+          el.classList.add(ACTIVE);
+        });
+      }
+    }
+
+    function bind(el) {
+      var key = el.getAttribute('data-eqt');
+      if (!key) return;
+      var container = el.closest('.econ-eqnote') || root;
+
+      el.addEventListener('mouseenter', function () { setActive(key, true); });
+      el.addEventListener('mouseleave', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('focus', function () { setActive(key, true); });
+      el.addEventListener('blur', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        togglePin(key, container);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          togglePin(key, container);
+        }
+      });
+    }
+
+    terms.forEach(bind);
+    notes.forEach(bind);
+
+    // Clicking outside any annotated equation releases the pin.
+    document.addEventListener('click', function (ev) {
+      if (!ev.target.closest('.econ-eqnote')) clearPins(root);
+    });
+
+    return true;
+  }
+
+  var timer = null;
+
+  function stopPolling() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    if (wire(document)) {
+      stopPolling();
+      return;
+    }
+    if (timer !== null) return;
+    // Fallback: MathJax may not have finished (or may not be present at all).
+    var tries = 0;
+    timer = setInterval(function () {
+      if (wire(document) || ++tries > 40) stopPolling();
+    }, 150);
+  }
+
+  document.addEventListener('econ:mathjax-done', start);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../notas/04-finite-sample.html" class="pagination-link" aria-label="4 · Finite-Sample Properties and Gauss-Markov">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">4 · Finite-Sample Properties and Gauss-Markov</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../slides/notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
+        <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Econometrics I — PIMES/UFPE</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
