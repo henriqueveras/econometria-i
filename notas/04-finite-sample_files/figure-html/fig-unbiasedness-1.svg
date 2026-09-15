@@ -48,9 +48,9 @@
 <text x='47.52' y='91.17' text-anchor='end' style='font-size: 13.20px; font-family: "Arial";' textLength='18.31px' lengthAdjust='spacingAndGlyphs'>1.5</text>
 <text x='47.52' y='59.24' text-anchor='end' style='font-size: 13.20px; font-family: "Arial";' textLength='18.31px' lengthAdjust='spacingAndGlyphs'>2.0</text>
 <text x='47.52' y='27.31' text-anchor='end' style='font-size: 13.20px; font-family: "Arial";' textLength='18.31px' lengthAdjust='spacingAndGlyphs'>2.5</text>
-<text x='323.65' y='245.74' style='font-size: 13.20px; font-family: "Arial";' textLength='7.58px' lengthAdjust='spacingAndGlyphs'>β</text>
-<text x='324.35' y='239.63' style='font-size: 13.20px; font-family: "Arial";' textLength='6.19px' lengthAdjust='spacingAndGlyphs'>^</text>
-<text x='331.24' y='248.83' style='font-size: 9.24px; font-family: "Arial";' textLength='4.62px' lengthAdjust='spacingAndGlyphs'>x</text>
+<text x='323.83' y='245.57' style='font-size: 13.20px; font-family: "Symbol";' textLength='7.23px' lengthAdjust='spacingAndGlyphs'>β</text>
+<text x='324.35' y='239.98' style='font-size: 13.20px; font-family: "Arial";' textLength='6.19px' lengthAdjust='spacingAndGlyphs'>^</text>
+<text x='331.07' y='248.83' style='font-size: 9.24px; font-family: "Arial";' textLength='4.62px' lengthAdjust='spacingAndGlyphs'>x</text>
 <text transform='translate(12.67,102.24) rotate(-90)' text-anchor='middle' style='font-size: 13.20px; font-family: "Arial";' textLength='41.77px' lengthAdjust='spacingAndGlyphs'>density</text>
 </g>
 <defs>

@@ -34,14 +34,14 @@
 </defs>
 <g clip-path='url(#cpMC4wMHwyMDQuMDB8MC4wMHwyMzcuNjA=)'>
 <text x='119.63' y='22.89' text-anchor='middle' style='font-size: 14.69px; font-weight: bold; font-family: "Arial";' textLength='33.88px' lengthAdjust='spacingAndGlyphs'>n = 5</text>
-<polyline points='94.88,228.84 96.46,228.19 98.03,231.44 100.13,222.41 108.77,222.41 ' style='stroke-width: 0.75;' />
-<text x='101.40' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='6.80px' lengthAdjust='spacingAndGlyphs'>n</text>
-<text x='109.34' y='231.44' style='font-size: 15.30px; font-family: "Arial";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>(</text>
-<text x='114.43' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>x</text>
-<polyline points='114.43,223.34 120.55,223.34 ' style='stroke-width: 0.75;' />
-<text x='122.82' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='7.14px' lengthAdjust='spacingAndGlyphs'>−</text>
-<text x='132.23' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='7.05px' lengthAdjust='spacingAndGlyphs'>μ</text>
-<text x='139.27' y='231.44' style='font-size: 15.30px; font-family: "Arial";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>)</text>
+<polyline points='95.09,229.06 96.67,228.41 98.24,231.65 100.35,222.63 108.98,222.63 ' style='stroke-width: 0.75;' />
+<text x='101.61' y='231.65' style='font-size: 12.24px; font-family: "Arial";' textLength='6.80px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='109.55' y='231.65' style='font-size: 15.30px; font-family: "Symbol";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>(</text>
+<text x='114.65' y='231.65' style='font-size: 12.24px; font-family: "Arial";' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>x</text>
+<polyline points='114.65,223.56 120.77,223.56 ' style='stroke-width: 0.75;' />
+<text x='123.03' y='231.65' style='font-size: 12.24px; font-family: "Symbol";' textLength='6.72px' lengthAdjust='spacingAndGlyphs'>−</text>
+<text x='132.01' y='231.65' style='font-size: 12.24px; font-family: "Symbol";' textLength='7.05px' lengthAdjust='spacingAndGlyphs'>μ</text>
+<text x='139.06' y='231.65' style='font-size: 15.30px; font-family: "Symbol";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>)</text>
 <text transform='translate(2.94,107.05) rotate(-90)' text-anchor='middle' style='font-size: 12.24px; font-family: "Arial";' textLength='40.80px' lengthAdjust='spacingAndGlyphs'>Density</text>
 </g>
 <g clip-path='url(#cpMC4wMHw2MTIuMDB8MC4wMHwyMzcuNjA=)'>
@@ -132,14 +132,14 @@
 </defs>
 <g clip-path='url(#cpMjA0LjAwfDQwOC4wMHwwLjAwfDIzNy42MA==)'>
 <text x='323.63' y='22.89' text-anchor='middle' style='font-size: 14.69px; font-weight: bold; font-family: "Arial";' textLength='42.05px' lengthAdjust='spacingAndGlyphs'>n = 30</text>
-<polyline points='298.88,228.84 300.46,228.19 302.03,231.44 304.13,222.41 312.77,222.41 ' style='stroke-width: 0.75;' />
-<text x='305.40' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='6.80px' lengthAdjust='spacingAndGlyphs'>n</text>
-<text x='313.34' y='231.44' style='font-size: 15.30px; font-family: "Arial";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>(</text>
-<text x='318.43' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>x</text>
-<polyline points='318.43,223.34 324.55,223.34 ' style='stroke-width: 0.75;' />
-<text x='326.82' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='7.14px' lengthAdjust='spacingAndGlyphs'>−</text>
-<text x='336.23' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='7.05px' lengthAdjust='spacingAndGlyphs'>μ</text>
-<text x='343.27' y='231.44' style='font-size: 15.30px; font-family: "Arial";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>)</text>
+<polyline points='299.09,229.06 300.67,228.41 302.24,231.65 304.35,222.63 312.98,222.63 ' style='stroke-width: 0.75;' />
+<text x='305.61' y='231.65' style='font-size: 12.24px; font-family: "Arial";' textLength='6.80px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='313.55' y='231.65' style='font-size: 15.30px; font-family: "Symbol";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>(</text>
+<text x='318.65' y='231.65' style='font-size: 12.24px; font-family: "Arial";' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>x</text>
+<polyline points='318.65,223.56 324.77,223.56 ' style='stroke-width: 0.75;' />
+<text x='327.03' y='231.65' style='font-size: 12.24px; font-family: "Symbol";' textLength='6.72px' lengthAdjust='spacingAndGlyphs'>−</text>
+<text x='336.01' y='231.65' style='font-size: 12.24px; font-family: "Symbol";' textLength='7.05px' lengthAdjust='spacingAndGlyphs'>μ</text>
+<text x='343.06' y='231.65' style='font-size: 15.30px; font-family: "Symbol";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>)</text>
 <text transform='translate(206.94,107.05) rotate(-90)' text-anchor='middle' style='font-size: 12.24px; font-family: "Arial";' textLength='40.80px' lengthAdjust='spacingAndGlyphs'>Density</text>
 </g>
 <g clip-path='url(#cpMC4wMHw2MTIuMDB8MC4wMHwyMzcuNjA=)'>
@@ -223,14 +223,14 @@
 </defs>
 <g clip-path='url(#cpNDA4LjAwfDYxMi4wMHwwLjAwfDIzNy42MA==)'>
 <text x='527.63' y='22.89' text-anchor='middle' style='font-size: 14.69px; font-weight: bold; font-family: "Arial";' textLength='50.22px' lengthAdjust='spacingAndGlyphs'>n = 200</text>
-<polyline points='502.88,228.84 504.46,228.19 506.03,231.44 508.13,222.41 516.77,222.41 ' style='stroke-width: 0.75;' />
-<text x='509.40' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='6.80px' lengthAdjust='spacingAndGlyphs'>n</text>
-<text x='517.34' y='231.44' style='font-size: 15.30px; font-family: "Arial";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>(</text>
-<text x='522.43' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>x</text>
-<polyline points='522.43,223.34 528.55,223.34 ' style='stroke-width: 0.75;' />
-<text x='530.82' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='7.14px' lengthAdjust='spacingAndGlyphs'>−</text>
-<text x='540.23' y='231.44' style='font-size: 12.24px; font-family: "Arial";' textLength='7.05px' lengthAdjust='spacingAndGlyphs'>μ</text>
-<text x='547.27' y='231.44' style='font-size: 15.30px; font-family: "Arial";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>)</text>
+<polyline points='503.09,229.06 504.67,228.41 506.24,231.65 508.35,222.63 516.98,222.63 ' style='stroke-width: 0.75;' />
+<text x='509.61' y='231.65' style='font-size: 12.24px; font-family: "Arial";' textLength='6.80px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='517.55' y='231.65' style='font-size: 15.30px; font-family: "Symbol";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>(</text>
+<text x='522.65' y='231.65' style='font-size: 12.24px; font-family: "Arial";' textLength='6.12px' lengthAdjust='spacingAndGlyphs'>x</text>
+<polyline points='522.65,223.56 528.77,223.56 ' style='stroke-width: 0.75;' />
+<text x='531.03' y='231.65' style='font-size: 12.24px; font-family: "Symbol";' textLength='6.72px' lengthAdjust='spacingAndGlyphs'>−</text>
+<text x='540.01' y='231.65' style='font-size: 12.24px; font-family: "Symbol";' textLength='7.05px' lengthAdjust='spacingAndGlyphs'>μ</text>
+<text x='547.06' y='231.65' style='font-size: 15.30px; font-family: "Symbol";' textLength='5.09px' lengthAdjust='spacingAndGlyphs'>)</text>
 <text transform='translate(410.94,107.05) rotate(-90)' text-anchor='middle' style='font-size: 12.24px; font-family: "Arial";' textLength='40.80px' lengthAdjust='spacingAndGlyphs'>Density</text>
 </g>
 <g clip-path='url(#cpMC4wMHw2MTIuMDB8MC4wMHwyMzcuNjA=)'>

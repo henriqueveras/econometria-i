@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Henrique Veras">
-  <title>Econometrics I – Large Sample Theory: Consistency, Asymptotic Normality, and the Delta Method</title>
+  <title>Econometrics I – Large Sample Theory: Consistency and Asymptotic Normality</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -255,7 +255,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Large Sample Theory: Consistency, Asymptotic Normality, and the Delta Method</h1>
+  <h1 class="title">Large Sample Theory: Consistency and Asymptotic Normality</h1>
   <p class="subtitle">Lecture 5</p>
 
 <div class="quarto-title-authors">
@@ -278,7 +278,7 @@ Henrique Veras
 <section id="where-this-lecture-sits" class="slide level3">
 <h3>Where this lecture sits</h3>
 <p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics is-active">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
-<p>Lecture 4 gave exact, finite-sample results — but at a price: the sampling distribution needed normal disturbances (A6, the normal regression model of Lecture 4), and even unbiasedness is rare outside least squares. This lecture drops both crutches and asks a different question: <strong>not what <span class="math inline">\(\bb\)</span> is for a fixed <span class="math inline">\(n\)</span>, but what happens to it as <span class="math inline">\(n \to \infty\)</span>.</strong></p>
+<p>Lecture 4 gave exact, finite-sample results — but at a price: the sampling distribution needed normal disturbances (A6), and even unbiasedness is rare outside least squares. This lecture drops both crutches and asks a different question: <strong>not what <span class="math inline">\(\bb\)</span> is for a fixed <span class="math inline">\(n\)</span>, but what happens to it as <span class="math inline">\(n \to \infty\)</span>.</strong></p>
 </section>
 <section id="two-limits-of-finite-sample-theory" class="slide level3">
 <h3>Two limits of finite-sample theory</h3>
@@ -308,12 +308,12 @@ Henrique Veras
 <section id="seeing-the-two-modes-of-convergence" class="slide level3">
 <h3>Seeing the two modes of convergence</h3>
 
-<img data-src="05-large-sample_files/figure-revealjs/fig-convergence-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-convergence"><p class="caption">
-Figure&nbsp;1: Two ways a sequence can settle. <strong>Left — in probability:</strong> the whole distribution of <span class="math inline">\(\theta_n\)</span> collapses onto a single number <span class="math inline">\(c\)</span> (this is <span class="math inline">\(\theta_n\pto c\)</span>). <strong>Right — in distribution:</strong> the spread does <em>not</em> vanish; instead the <em>shape</em> freezes onto a fixed law (here <span class="math inline">\(t_\nu\dto\Normal(0,1)\)</span> as <span class="math inline">\(\nu\)</span> grows). The left panel is convergence in probability; the right, convergence in distribution.
+<img data-src="05-large-sample_files/figure-revealjs/fig-two-modes-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-two-modes"><p class="caption">
+Figure&nbsp;1: Two ways a sequence can settle. <strong>Left — in probability:</strong> the whole distribution of <span class="math inline">\(\theta_n\)</span> collapses onto a single number <span class="math inline">\(c\)</span> (this is <span class="math inline">\(\theta_n \pto c\)</span>). <strong>Right — in distribution:</strong> the spread does not vanish; instead the shape freezes onto a fixed law (here <span class="math inline">\(t_\nu \dto \Normal(0,1)\)</span> as <span class="math inline">\(\nu\)</span> grows).
 </p></section>
 <section id="consistency-named" class="slide level3">
 <h3>Consistency, named</h3>
-<p>Applied to an <em>estimator</em>, convergence in probability has a name.</p>
+<p>Applied to an <strong>estimator</strong>, convergence in probability has a name.</p>
 <div id="def-consistency" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 2 (Consistency)</strong></span> An estimator <span class="math inline">\(\hat\theta_n\)</span> of a parameter <span class="math inline">\(\theta\)</span> is <strong>consistent</strong> if <span class="math inline">\(\hat\theta_n \pto \theta\)</span> — equivalently, <span class="math inline">\(\plim\,\hat\theta_n = \theta\)</span>. Its sampling distribution collapses onto the true value as <span class="math inline">\(n \to \infty\)</span>.</p>
 </div>
@@ -326,28 +326,26 @@ Figure&nbsp;1: Two ways a sequence can settle. <strong>Left — in probability:<
 <section id="the-sample-mean-finds-the-truth" class="slide level3">
 <h3>The sample mean finds the truth</h3>
 <div id="thm-wlln" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (Weak Law of Large Numbers)</strong></span> If <span class="math inline">\(x_1, \dots, x_n\)</span> are i.i.d. with <span class="math inline">\(\E|x| &lt; \infty\)</span> and mean <span class="math inline">\(\mu\)</span>, then the sample mean <strong>converges in probability</strong> to <span class="math inline">\(\mu\)</span>: <span class="math display">\[\bar{x}_n = \frac1n\sum_{i=1}^n x_i \;\pto\; \mu.\]</span></p>
+<p><span class="theorem-title"><strong>Theorem 1 (Weak Law of Large Numbers)</strong></span> If <span class="math inline">\(x_1, \dots, x_n\)</span> are i.i.d. with <span class="math inline">\(\E|x| &lt; \infty\)</span> and mean <span class="math inline">\(\mu\)</span>, then the sample mean is consistent for <span class="math inline">\(\mu\)</span>: <span class="math display">\[\bar{x}_n = \frac1n\sum_{i=1}^n x_i \;\pto\; \mu.\]</span></p>
 </div>
-<p>In the vocabulary just defined, the sample mean is a <strong>consistent</strong> estimator of <span class="math inline">\(\mu\)</span>.</p>
 </section>
-<section id="what-a-monte-carlo-simulation-is" class="slide level3">
+<section id="what-a-monte-carlo-simulation-is" class="slide level3 smaller">
 <h3>What a Monte Carlo simulation is</h3>
 <div class="econ-box econ-box-montecarlo" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🎲</span><span class="econ-box-label">Monte Carlo</span><span class="econ-box-sep">—</span><span class="econ-box-title">The recipe, in four steps</span></div><div class="econ-box-body">
-<p>A <strong>Monte Carlo simulation</strong> approximates a quantity that is hard to derive in closed form by generating many random draws from a <em>known</em> model and computing the quantity on each. Here the target is the <strong>sampling distribution</strong> of an estimator:</p>
+<p>A <strong>Monte Carlo</strong> approximates something hard to derive in closed form by drawing many samples from a known model and computing the quantity on each — here, an estimator’s <strong>sampling distribution</strong>:</p>
 <ol type="1">
-<li>Fix a DGP whose truth is known — for the right panel below, <span class="math inline">\(x \sim \text{Exp}(1)\)</span>, so <span class="math inline">\(\mu = 1\)</span>.</li>
-<li>Draw one sample of size <span class="math inline">\(n\)</span>; compute the estimator <span class="math inline">\(\bar{x}\)</span> — <strong>one</strong> realization.</li>
-<li>Repeat step 2 many times (<span class="math inline">\(R = 4{,}000\)</span> here), collecting <span class="math inline">\(R\)</span> values of <span class="math inline">\(\bar{x}\)</span>.</li>
-<li>The histogram of those <span class="math inline">\(R\)</span> values <strong>is</strong> the (approximate) sampling distribution at that <span class="math inline">\(n\)</span>.</li>
+<li><strong>Fix a DGP</strong> with known truth (right panel: <span class="math inline">\(x \sim \text{Exp}(1)\)</span>, so <span class="math inline">\(\mu = 1\)</span>).</li>
+<li><strong>Draw</strong> one sample of size <span class="math inline">\(n\)</span>; compute <span class="math inline">\(\bar{x}\)</span> — one realization.</li>
+<li><strong>Repeat</strong> <span class="math inline">\(R = 4{,}000\)</span> times, collecting <span class="math inline">\(R\)</span> values of <span class="math inline">\(\bar{x}\)</span>.</li>
+<li>Their <strong>histogram</strong> is the sampling distribution at that <span class="math inline">\(n\)</span>; grow <span class="math inline">\(n\)</span> and it concentrates on <span class="math inline">\(\mu\)</span>.</li>
 </ol>
-<p>Redo for growing <span class="math inline">\(n\)</span> and watch it concentrate on <span class="math inline">\(\mu\)</span>: the LLN, made visible. The simulation <em>illustrates</em> the theorem — it does not prove it.</p>
 </div></div>
 </section>
 <section id="seeing-the-law-of-large-numbers" class="slide level3">
 <h3>Seeing the law of large numbers</h3>
 
 <img data-src="05-large-sample_files/figure-revealjs/fig-lln-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-lln"><p class="caption">
-Figure&nbsp;2: The law of large numbers, two views. <strong>Left:</strong> five running averages <span class="math inline">\(\bar{x}_n\)</span>, one per sample, as <span class="math inline">\(n\)</span> grows — each jagged path settles onto <span class="math inline">\(\mu\)</span> and stops moving. <strong>Right:</strong> the sampling distribution of <span class="math inline">\(\bar{x}_n\)</span> over 4,000 samples, staying centred on <span class="math inline">\(\mu\)</span> and concentrating as <span class="math inline">\(n\)</span> grows. The same fact, as a path and as a distribution.
+Figure&nbsp;2: The law of large numbers, two views. <strong>Left:</strong> five running averages <span class="math inline">\(\bar{x}_n\)</span>, <strong>one per independent sample</strong>, as the sample size <span class="math inline">\(n\)</span> grows — each path settles onto <span class="math inline">\(\mu\)</span> and stops moving (colour = sample, not <span class="math inline">\(n\)</span>). <strong>Right:</strong> the sampling distribution of <span class="math inline">\(\bar{x}_n\)</span> over 4,000 samples, for three fixed <span class="math inline">\(n\)</span>; it stays centred on <span class="math inline">\(\mu\)</span> and concentrates. The same fact, as a path and as a distribution.
 </p></section>
 
 <section id="the-central-limit-theorem" class="title-slide slide level2 center">
@@ -364,16 +362,10 @@ Figure&nbsp;2: The law of large numbers, two views. <strong>Left:</strong> five 
 </section>
 <section id="asymptotic-normality-named" class="slide level3">
 <h3>Asymptotic normality, named</h3>
-<p>The CLT is exactly the statement that the sample mean is <em>asymptotically normal</em>.</p>
-<div id="def-asymp-normality" class="theorem definition">
+<p>The CLT is exactly the statement that the sample mean is <strong>asymptotically normal</strong>.</p>
+<div id="def-asymnormal" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3 (Asymptotic normality)</strong></span> An estimator <span class="math inline">\(\hat\theta_n\)</span> is <strong>asymptotically normal</strong> if, after centring and <span class="math inline">\(\sqrt{n}\)</span>-scaling, it converges in distribution to a normal: <span class="math display">\[\sqrt{n}\,(\hat\theta_n - \theta) \;\dto\; \Normal(\bzero, \bV).\]</span> The matrix <span class="math inline">\(\bV\)</span> is its <strong>asymptotic variance</strong>, written <span class="math inline">\(\Asyvar[\hat\theta_n] = \bV\)</span>.</p>
 </div>
-</section>
-<section id="collapse-and-normality-are-not-in-conflict" class="slide level3">
-<h3>Collapse and normality are not in conflict</h3>
-<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Reconciling the spike and the bell</span></div><div class="econ-box-body">
-<p>A natural worry: if <span class="math inline">\(\bar{x}_n \pto \mu\)</span> makes the distribution <strong>collapse</strong> to a point, how can it also converge to a <strong>normal</strong>? Because the two statements are about <strong>different objects</strong>. The raw mean does collapse. Asymptotic normality is about the <em>rescaled</em> deviation <span class="math inline">\(\sqrt{n}(\bar{x}_n-\mu)\)</span>, and the <span class="math inline">\(\sqrt{n}\)</span> magnification exactly cancels the shrinkage. Read backwards, <span class="math display">\[\bar{x}_n \;\approx\; \mu + \tfrac{1}{\sqrt{n}}\,\Normal(0,\sigma^2) \;=\; \Normal\!\big(\mu,\ \tfrac{\sigma^2}{n}\big):\]</span> for every finite <span class="math inline">\(n\)</span> the mean is approximately normal with width <span class="math inline">\(\sigma/\sqrt{n}\)</span>; as <span class="math inline">\(n\to\infty\)</span> that width <span class="math inline">\(\to 0\)</span> (the collapse) while the <strong>shape</strong> stays normal (the CLT). The CLT is a microscope that magnifies the shrinking bell by exactly <span class="math inline">\(\sqrt{n}\)</span>, so its shape becomes visible.</p>
-</div></div>
 </section>
 <section id="seeing-the-central-limit-theorem" class="slide level3">
 <h3>Seeing the central limit theorem</h3>
@@ -388,11 +380,10 @@ Figure&nbsp;3: <span class="math inline">\(\sqrt{n}(\bar{x}_n-\mu)\)</span> for 
 </section>
 <section id="the-continuous-mapping-theorem-and-the-algebra-of-plims" class="slide level3">
 <h3>The continuous mapping theorem, and the algebra of plims</h3>
-<p>Raw limits are rarely the end — we want limits of <strong>functions</strong>, <strong>sums</strong> and <strong>products</strong> of estimators. The continuous mapping theorem delivers them, and its most-used corollary is a simple algebra.</p>
+<p>Raw limits are rarely the end — we want limits of <strong>functions</strong>, sums and products of estimators. The continuous mapping theorem delivers them, and its most-used corollary is a simple algebra.</p>
 <div id="thm-cmt" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 3 (Continuous Mapping Theorem)</strong></span> Let <span class="math inline">\(g\)</span> be continuous at <span class="math inline">\(c\)</span>. If <span class="math inline">\(\theta_n \pto c\)</span> then <span class="math inline">\(g(\theta_n) \pto g(c)\)</span>; and if <span class="math inline">\(\theta_n \dto Z\)</span> then <span class="math inline">\(g(\theta_n) \dto g(Z)\)</span>.</p>
 </div>
-<p>Taking <span class="math inline">\(g\)</span> to be addition, multiplication or division gives the rule behind every consistency argument in the course:</p>
 <div id="cor-plim-algebra" class="theorem corollary">
 <p><span class="theorem-title"><strong>Corollary 1 (Algebra of probability limits)</strong></span> If <span class="math inline">\(\theta_n \pto c\)</span> and <span class="math inline">\(\gamma_n \pto d\)</span>, then <span class="math display">\[\theta_n + \gamma_n \pto c + d, \qquad \theta_n\gamma_n \pto cd, \qquad
 \frac{\theta_n}{\gamma_n} \pto \frac{c}{d}\ (d \neq 0).\]</span></p>
@@ -400,24 +391,10 @@ Figure&nbsp;3: <span class="math inline">\(\sqrt{n}(\bar{x}_n-\mu)\)</span> for 
 </section>
 <section id="slutsky-mixing-the-two-modes" class="slide level3">
 <h3>Slutsky: mixing the two modes</h3>
-<p>The plim algebra combines terms that all converge to <em>numbers</em>. Asymptotic normality needs to combine a term that converges to a <em>normal</em> with one that converges to a <em>constant</em> — a different theorem.</p>
+<p>The plim algebra combines terms that all converge to <strong>numbers</strong>. Asymptotic normality needs to combine a term that converges to a <strong>normal</strong> with one that converges to a <strong>constant</strong> — a different theorem.</p>
 <div id="thm-slutsky" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 4 (Slutsky’s Theorem)</strong></span> If <span class="math inline">\(\theta_n \dto Z\)</span> and <span class="math inline">\(\gamma_n \pto c\)</span> (a <strong>constant</strong>), then <span class="math display">\[\theta_n + \gamma_n \dto Z + c, \qquad \gamma_n\theta_n \dto cZ.\]</span></p>
+<p><span class="theorem-title"><strong>Theorem 4 (Slutsky’s Theorem)</strong></span> If <span class="math inline">\(\theta_n \dto Z\)</span> and <span class="math inline">\(\gamma_n \pto c\)</span> (a constant), then <span class="math display">\[\theta_n + \gamma_n \dto Z + c, \qquad \gamma_n\theta_n \dto cZ.\]</span></p>
 </div>
-</section>
-
-<section id="the-delta-method" class="title-slide slide level2 center">
-<h2>The Delta Method</h2>
-
-</section>
-<section id="the-asymptotic-distribution-of-a-function-of-an-estimator" class="slide level3">
-<h3>The asymptotic distribution of a function of an estimator</h3>
-<div id="thm-delta" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 5 (Delta Method)</strong></span> If <span class="math inline">\(\sqrt{n}(\btheta_n - \btheta) \dto \Normal(\bzero, \bV)\)</span> and <span class="math inline">\(f\)</span> is continuously differentiable with Jacobian <span class="math inline">\(\bGamma = \partial f(\btheta)/\partial\btheta'\)</span>, then <span class="math display">\[\sqrt{n}\big(f(\btheta_n) - f(\btheta)\big) \;\dto\; \Normal\!\big(\bzero,\ \bGamma\bV\bGamma'\big).\]</span></p>
-</div>
-<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
-<p>On the board: a first-order Taylor expansion <span class="math inline">\(f(\btheta_n) = f(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>, the higher-order terms vanish in probability, and the linear term carries the normal through.</p>
-</div></div>
 </section>
 </section>
 <section>
@@ -431,11 +408,12 @@ Figure&nbsp;3: <span class="math inline">\(\sqrt{n}(\bar{x}_n-\mu)\)</span> for 
 </section>
 <section id="what-replaces-normality" class="slide level3">
 <h3>What replaces normality</h3>
-<p>We keep A1–A3 and lean on two assumptions tailored to limits, in place of A4/A6.</p>
+<p>We keep A1–A3 and add two assumptions tailored to limits, replacing A4/A6.</p>
 <div id="def-asymp-assumptions" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 4 (A5a and A2<span class="math inline">\('\)</span>)</strong></span> <strong>A5a (i.i.d. sampling).</strong> <span class="math inline">\(\{(y_i, \mathbf{x}_i)\}_{i=1}^n\)</span> are independent and identically distributed.</p>
 <p><strong>A2<span class="math inline">\('\)</span>.</strong> <span class="math inline">\(\;\plim \dfrac{\bX'\bX}{n} = \bQ = \E[\mathbf{x}\mathbf{x}']\)</span>, a finite positive-definite matrix.</p>
 </div>
+<p>A2<span class="math inline">\('\)</span> is the sample analogue of A2 that survives into the limit: the design keeps enough variation as <span class="math inline">\(n\)</span> grows that <span class="math inline">\(\bQ\)</span> is invertible.</p>
 </section>
 
 <section id="consistency-of-least-squares" class="title-slide slide level2 center">
@@ -461,20 +439,14 @@ By the WLLN, <span class="math inline">\(\bX'\beps/n = \tfrac1n\sum_i \mathbf{x}
 <section id="consistency-1" class="slide level3">
 <h3>Consistency</h3>
 <div id="thm-consistency" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 6 (Consistency of least squares)</strong></span> Under A1–A3, A5a and A2<span class="math inline">\('\)</span>, <span class="math inline">\(\;\plim\,\bb = \bbeta\)</span>.</p>
+<p><span class="theorem-title"><strong>Theorem 5 (Consistency of least squares)</strong></span> Under A1–A3, A5a and A2<span class="math inline">\('\)</span>, <span class="math inline">\(\;\plim\,\bb = \bbeta\)</span>.</p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Take probability limits in the decomposition. Both factors converge in probability, so by the <strong>algebra of plims</strong> (<a href="#/cor-plim-algebra" class="quarto-xref">Corollary&nbsp;1</a>) the product converges to the product of the limits, <span class="math inline">\(\bQ^{-1}\cdot\bzero = \bzero\)</span>. Hence <span class="math inline">\(\plim\,\bb = \bbeta + \bzero = \bbeta\)</span>. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span>Take probability limits in the decomposition. By Slutsky the product converges to the product of the limits, <span class="math inline">\(\bQ^{-1}\cdot\bzero = \bzero\)</span>, so <span class="math inline">\(\plim\,\bb = \bbeta + \bzero = \bbeta\)</span>. <span class="math inline">\(\square\)</span></p>
 </div>
 </section>
 <section id="what-consistency-buys-that-unbiasedness-did-not" class="slide level3">
 <h3>What consistency buys that unbiasedness did not</h3>
-<ul>
-<li><strong>Unbiased:</strong> exact centring for every <span class="math inline">\(n\)</span> — but rare (essentially only OLS).</li>
-<li><strong>Consistent:</strong> converges to the truth as <span class="math inline">\(n \to \infty\)</span> — and it <strong>travels</strong>.</li>
-<li>Holds where <em>no</em> unbiased estimator exists: <strong>IV, GMM, MLE</strong>.</li>
-<li>The property the rest of the course actually relies on.</li>
-</ul>
 </section>
 
 <section id="asymptotic-normality-1" class="title-slide slide level2 center">
@@ -483,31 +455,27 @@ By the WLLN, <span class="math inline">\(\bX'\beps/n = \tfrac1n\sum_i \mathbf{x}
 </section>
 <section id="magnify-by-n" class="slide level3">
 <h3>Magnify by √n</h3>
-<p>The raw estimator collapses onto <span class="math inline">\(\bbeta\)</span>; to recover the <em>shape</em> of its fluctuations we rescale the sampling error by <span class="math inline">\(\sqrt{n}\)</span>:</p>
-<p><span class="math display">\[\sqrt{n}\,(\bb - \bbeta) = \left(\frac{\bX'\bX}{n}\right)^{-1}\underbrace{\frac{1}{\sqrt{n}}\bX'\beps}_{\text{a CLT term}}.\]</span></p>
-<p>The left factor <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span> and the plim algebra. Everything then hinges on the second factor — so, <strong>before naming any distribution, we find its variance.</strong></p>
+<p>The raw estimator collapses onto <span class="math inline">\(\bbeta\)</span>; to recover the shape of its fluctuations we rescale the sampling error by <span class="math inline">\(\sqrt{n}\)</span>: <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) = \left(\frac{\bX'\bX}{n}\right)^{-1}\underbrace{\frac{1}{\sqrt{n}}\bX'\beps}_{\text{a CLT term}}.\]</span> The left factor <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span> and the plim algebra. Everything then hinges on the second factor — so, before naming any distribution, we find its variance.</p>
 </section>
 <section id="the-variance-of-the-score" class="slide level3">
 <h3>The variance of the score</h3>
-<p>The CLT term is <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps = \sqrt{n}\,\bar{\mathbf{w}}\)</span>, an average of the i.i.d. vectors <span class="math inline">\(\mathbf{w}_i = \mathbf{x}_i\varepsilon_i\)</span>. By A3 each has mean <span class="math inline">\(\bzero\)</span>, so its variance is just the second moment — and <strong>we impose nothing on <span class="math inline">\(\Var[\varepsilon \mid \bX]\)</span></strong>:</p>
-<p><span class="math display">\[\bOmega \;\equiv\; \Var[\mathbf{w}_i] \;=\; \E[\mathbf{w}_i\mathbf{w}_i'] \;=\; \E[\varepsilon^2\,\mathbf{x}\mathbf{x}'].\]</span></p>
-<p>This <span class="math inline">\(\bOmega\)</span> is the <strong>general</strong> score variance — the same object whether or not the errors are homoskedastic. By the CLT, <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span>.</p>
+<p>The CLT term is <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps = \sqrt{n}\,\bar{\mathbf{w}}\)</span>, an average of the i.i.d. vectors <span class="math inline">\(\mathbf{w}_i = \mathbf{x}_i\varepsilon_i\)</span>. By A3 each has mean <span class="math inline">\(\bzero\)</span>, so its variance is just the second moment: <span class="math display">\[\bOmega \;\equiv\; \Var[\mathbf{w}_i] \;=\; \E[\mathbf{w}_i\mathbf{w}_i'] \;=\; \E[\varepsilon^2\,\mathbf{x}\mathbf{x}'].\]</span> By the CLT, <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span>.</p>
 </section>
 <section id="the-limiting-distribution-in-general" class="slide level3">
 <h3>The limiting distribution, in general</h3>
 <p>Slutsky combines the two factors — a normal times a constant matrix stays normal:</p>
 <div id="thm-asymp-normal" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 7 (Asymptotic normality of least squares)</strong></span> Under A1–A3, A5a and A2<span class="math inline">\('\)</span> (<strong>no homoskedasticity assumed</strong>), <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) \;\dto\; \Normal\!\big(\bzero,\ \bQ^{-1}\bOmega\,\bQ^{-1}\big),
+<p><span class="theorem-title"><strong>Theorem 6 (Asymptotic normality of least squares)</strong></span> Under A1–A3, A5a and A2<span class="math inline">\('\)</span>, <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) \;\dto\; \Normal\!\big(\bzero,\ \bQ^{-1}\bOmega\,\bQ^{-1}\big),
 \qquad \bOmega = \E[\varepsilon^2\mathbf{x}\mathbf{x}'].\]</span></p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\tfrac1{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span> by the CLT and <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span>. By <strong>Slutsky</strong> the product converges to <span class="math inline">\(\bQ^{-1}\Normal(\bzero,\bOmega) = \Normal(\bzero, \bQ^{-1}\bOmega\bQ^{-1})\)</span>. <span class="math inline">\(\square\)</span></p>
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\tfrac1{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span> by the CLT and <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span>. By Slutsky the product converges to <span class="math inline">\(\bQ^{-1}\Normal(\bzero,\bOmega) = \Normal(\bzero, \bQ^{-1}\bOmega\bQ^{-1})\)</span>. <span class="math inline">\(\square\)</span></p>
 </div>
 </section>
 <section id="the-homoskedastic-special-case" class="slide level3">
 <h3>The homoskedastic special case</h3>
-<p>Exactly as in Lecture 4, homoskedasticity is a <strong>special case</strong>, not the starting point. Under A4, <span class="math inline">\(\E[\varepsilon^2\mathbf{x}\mathbf{x}'] = \sigma^2\E[\mathbf{x}\mathbf{x}'] = \sigma^2\bQ\)</span>, and the sandwich collapses:</p>
-<div id="cor-asymp-homosk" class="theorem corollary">
+<p>Under A4, <span class="math inline">\(\E[\varepsilon^2\mathbf{x}\mathbf{x}'] = \sigma^2\E[\mathbf{x}\mathbf{x}'] = \sigma^2\bQ\)</span>, and the sandwich collapses:</p>
+<div id="cor-homosk" class="theorem corollary">
 <p><span class="theorem-title"><strong>Corollary 2 (Homoskedastic limiting distribution)</strong></span> Adding A4, <span class="math inline">\(\bOmega = \sigma^2\bQ\)</span>, so <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) \;\dto\; \Normal\!\big(\bzero,\ \sigma^2\bQ^{-1}\big).\]</span></p>
 </div>
 </section>
@@ -524,14 +492,13 @@ Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the sl
 </section>
 <section id="from-the-limit-to-a-standard-error" class="slide level3">
 <h3>From the limit to a standard error</h3>
-<p>In large samples <span class="math inline">\(\bb \approx \Normal\!\big(\bbeta,\ \tfrac1n\bQ^{-1}\bOmega\bQ^{-1}\big)\)</span>. To use it we plug in consistent estimates. The bread <span class="math inline">\(\bQ\)</span> is estimated by <span class="math inline">\(\bX'\bX/n\)</span>; the filling <span class="math inline">\(\bOmega = \E[\varepsilon^2\mathbf{x}\mathbf{x}']\)</span> by its sample analogue, residuals in place of errors, <span class="math inline">\(\tfrac1n\sum_i e_i^2\,\mathbf{x}_i\mathbf{x}_i'\)</span>. This is the <strong>robust</strong> (sandwich) estimator:</p>
-<p><span class="math display">\[\widehat{\Asyvar}[\bb] = (\bX'\bX)^{-1}\Big(\textstyle\sum_i e_i^2\,\mathbf{x}_i\mathbf{x}_i'\Big)(\bX'\bX)^{-1}.\]</span></p>
+<p>In large samples <span class="math inline">\(\bb \approx \Normal\!\big(\bbeta,\ \tfrac1n\bQ^{-1}\bOmega\bQ^{-1}\big)\)</span>. To use it we plug in consistent estimates: the bread <span class="math inline">\(\bQ\)</span> by <span class="math inline">\(\bX'\bX/n\)</span>; the filling <span class="math inline">\(\bOmega = \E[\varepsilon^2\mathbf{x}\mathbf{x}']\)</span> by its sample analogue, residuals in place of errors, <span class="math inline">\(\tfrac1n\sum_i e_i^2\,\mathbf{x}_i\mathbf{x}_i'\)</span>. This is the <strong>robust (sandwich)</strong> estimator: <span class="math display">\[\widehat{\Asyvar}[\bb] = (\bX'\bX)^{-1}\Big(\textstyle\sum_i e_i^2\,\mathbf{x}_i\mathbf{x}_i'\Big)(\bX'\bX)^{-1}.\]</span></p>
 </section>
 <section id="the-homoskedastic-short-cut" class="slide level3">
 <h3>The homoskedastic short-cut</h3>
 <p>Under A4 there is a single scalar to estimate: <span class="math inline">\(\bOmega = \sigma^2\bQ\)</span> needs only <span class="math inline">\(s^2 = \be'\be/(n-K)\)</span>, and the sandwich collapses to <span class="math display">\[\widehat{\Asyvar}[\bb] = s^2(\bX'\bX)^{-1}.\]</span></p>
 <div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">This is exactly Lecture 4's sandwich</span></div><div class="econ-box-body">
-<p>The robust estimator above <strong>is</strong> the heteroskedasticity-consistent covariance matrix asserted in Lecture 4 — now derived. HC0–HC4 are the competing estimators of the filling <span class="math inline">\(\bOmega\)</span> (they differ only in the leverage correction on <span class="math inline">\(e_i^2\)</span>); the bread <span class="math inline">\((\bX'\bX)^{-1}\)</span> is common to all. The asymptotic argument Lecture 4 deferred is this whole section.</p>
+<p>The robust estimator above is the heteroskedasticity-consistent covariance matrix asserted in Lecture 4 — now <strong>derived</strong>. HC0–HC4 are the competing estimators of the filling <span class="math inline">\(\bOmega\)</span> (they differ only in the leverage correction on <span class="math inline">\(e_i^2\)</span>); the bread <span class="math inline">\((\bX'\bX)^{-1}\)</span> is common to all. The asymptotic argument Lecture 4 deferred is this whole section.</p>
 </div></div>
 </section>
 
@@ -541,11 +508,6 @@ Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the sl
 </section>
 <section id="asymptotic-efficiency" class="slide level3">
 <h3>Asymptotic efficiency</h3>
-</section>
-<section id="the-delta-method-applied" class="slide level3">
-<h3>The Delta Method, applied</h3>
-<p>For a smooth function of the coefficients, the Delta Method converts <a href="#/thm-asymp-normal" class="quarto-xref">Theorem&nbsp;7</a> into <span class="math display">\[\sqrt{n}\big(f(\bb) - f(\bbeta)\big) \dto \Normal\!\big(\bzero,\ \bGamma\,\bV\,\bGamma'\big),
-\qquad \bV = \bQ^{-1}\bOmega\bQ^{-1}, \quad \bGamma = \frac{\partial f(\bbeta)}{\partial\bbeta'},\]</span> which is how standard errors are attached to ratios, elasticities and marginal effects throughout the course.</p>
 </section>
 
 <section id="what-we-have-and-where-it-goes" class="title-slide slide level2 center">
@@ -600,7 +562,7 @@ Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the sl
 <tbody>
 <tr class="odd">
 <td><strong>Hansen</strong></td>
-<td>Chapter 5 (the toolkit: convergence, WLLN, CLT, Delta Method) and Chapter 6 (asymptotic theory for least squares)</td>
+<td>Chapter 5 (the toolkit: convergence, WLLN, CLT) and Chapter 6 (asymptotic theory for least squares)</td>
 </tr>
 <tr class="even">
 <td><strong>Greene</strong></td>
@@ -996,80 +958,42 @@ Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the sl
     })();
     </script>
     
-
     <script>
-
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
       // slide changes (different for each slide format).
-
       (function () {
-
         // dispatch for htmlwidgets
-
         function fireSlideEnter() {
-
           const event = window.document.createEvent("Event");
-
           event.initEvent("slideenter", true, true);
-
           window.document.dispatchEvent(event);
-
         }
-
-    
 
         function fireSlideChanged(previousSlide, currentSlide) {
-
           fireSlideEnter();
 
-    
-
           // dispatch for shiny
-
           if (window.jQuery) {
-
             if (previousSlide) {
-
               window.jQuery(previousSlide).trigger("hidden");
-
             }
-
             if (currentSlide) {
-
               window.jQuery(currentSlide).trigger("shown");
-
             }
-
           }
-
         }
-
-    
 
         // hookup for slidy
-
         if (window.w3c_slidy) {
-
           window.w3c_slidy.add_observer(function (slide_num) {
-
             // slide_num starts at position 1
-
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
           });
-
         }
 
-    
-
       })();
-
     </script>
-
-    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
