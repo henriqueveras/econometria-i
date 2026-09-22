@@ -474,7 +474,7 @@ By the WLLN, <span class="math inline">\(\bX'\beps/n = \tfrac1n\sum_i \mathbf{x}
 </section>
 <section id="the-homoskedastic-special-case" class="slide level3">
 <h3>The homoskedastic special case</h3>
-<p>Under A4, <span class="math inline">\(\E[\varepsilon^2\mathbf{x}\mathbf{x}'] = \sigma^2\E[\mathbf{x}\mathbf{x}'] = \sigma^2\bQ\)</span>, and the sandwich collapses:</p>
+<p><strong>A4</strong> says the conditional second moment of the error does not depend on <span class="math inline">\(\mathbf{x}\)</span>: <span class="math inline">\(\E[\varepsilon^2 \mid \mathbf{x}] = \sigma^2\)</span>, a constant. By the law of iterated expectations, <span class="math display">\[\bOmega = \E[\varepsilon^2\mathbf{x}\mathbf{x}'] = \E\big[\,\underbrace{\E[\varepsilon^2 \mid \mathbf{x}]}_{=\ \sigma^2}\,\mathbf{x}\mathbf{x}'\,\big] = \E[\sigma^2\mathbf{x}\mathbf{x}'] = \sigma^2\,\E[\mathbf{x}\mathbf{x}'] = \sigma^2\bQ,\]</span> and the sandwich collapses:</p>
 <div id="cor-homosk" class="theorem corollary">
 <p><span class="theorem-title"><strong>Corollary 2 (Homoskedastic limiting distribution)</strong></span> Adding A4, <span class="math inline">\(\bOmega = \sigma^2\bQ\)</span>, so <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) \;\dto\; \Normal\!\big(\bzero,\ \sigma^2\bQ^{-1}\big).\]</span></p>
 </div>
@@ -506,8 +506,16 @@ Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the sl
 <h2>Beyond Gauss-Markov</h2>
 
 </section>
-<section id="asymptotic-efficiency" class="slide level3">
+<section id="asymptotic-efficiency" class="slide level3 smaller">
 <h3>Asymptotic efficiency</h3>
+<p>As <span class="math inline">\(n \to \infty\)</span> the variance of <span class="math inline">\(\bb\)</span> collapses to <span class="math inline">\(\bzero\)</span> — <strong>every</strong> consistent estimator does — so raw variances cannot rank them. We compare the <strong>asymptotic variance</strong> <span class="math inline">\(\bV\)</span>, the non-degenerate limit of the rescaled estimator: <span class="math inline">\(\sqrt{n}(\bb - \bbeta) \dto \Normal(\bzero, \bV)\)</span>.</p>
+<div id="def-asymp-efficiency" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5 (Asymptotic efficiency)</strong></span> Within a class of consistent, asymptotically normal estimators, <span class="math inline">\(\bb\)</span> is <strong>asymptotically efficient</strong> if <span class="math inline">\(\bV_{\tilde{\bbeta}} - \bV_{\bb} \succeq \bzero\)</span> (positive semi-definite) for every competitor <span class="math inline">\(\tilde{\bbeta}\)</span> in the class.</p>
+</div>
+<ul>
+<li>Raw variance goes to <span class="math inline">\(\bzero\)</span> for everyone — the wrong yardstick. Rescale by <span class="math inline">\(\sqrt{n}\)</span> and compare <span class="math inline">\(\bV\)</span>.</li>
+<li>Gauss-Markov’s large-sample twin, now over <strong>consistent</strong> estimators; GLS (Lecture 7) beats OLS when A4 fails.</li>
+</ul>
 </section>
 
 <section id="what-we-have-and-where-it-goes" class="title-slide slide level2 center">

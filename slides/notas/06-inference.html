@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Henrique Veras">
+  <title>Econometrics I – Inference: Tests, Intervals, and the Wald Principle</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-236c1b7bd49c4d3db1ffb693765db2fa.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <!--
+    MathJax configuration for Econometrics I.
+
+    Two jobs:
+     (1) load the [tex]/html package so \class{} works, which is what lets
+         \eqt{key}{body} tag a sub-expression for the annotated-equation widget;
+     (2) define the course-wide macro set, so notation is declared once here
+         instead of being re-typed in every lecture.
+
+    This block is injected into <head> via `include-in-header`, so it runs before
+    MathJax itself is loaded and the configuration is picked up.
+
+    Shared by the website AND the Reveal.js decks, so the macro set is declared
+    once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
+    _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
+    MathJax 2 and is neutralised by the Hub shim below.
+  -->
+  <script>
+  window.MathJax = {
+    loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
+    tex: {
+      packages: { '[+]': ['html', 'ams', 'boldsymbol'] },
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      tags: 'ams',
+      macros: {
+        // --- annotated-equation term tag -------------------------------------
+        eqt: ['\\class{eqt eqt-#1}{#2}', 2],
+
+        // --- estimators and operators ----------------------------------------
+        plim:  ['\\operatorname*{plim}', 0],
+        argmin:['\\operatorname*{arg\\,min}', 0],
+        argmax:['\\operatorname*{arg\\,max}', 0],
+        tr:    ['\\operatorname{tr}', 0],
+        rank:  ['\\operatorname{rank}', 0],
+        diag:  ['\\operatorname{diag}', 0],
+        vect:  ['\\operatorname{vec}', 0],
+
+        // --- probability ------------------------------------------------------
+        E:     ['\\mathbb{E}', 0],
+        Var:   ['\\operatorname{Var}', 0],
+        Cov:   ['\\operatorname{Cov}', 0],
+        Prob:  ['\\mathbb{P}', 0],
+        indep: ['\\perp\\!\\!\\!\\perp', 0],
+        pto:   ['\\xrightarrow{\\;p\\;}', 0],
+        dto:   ['\\xrightarrow{\\;d\\;}', 0],
+        asto:  ['\\xrightarrow{\\;a.s.\\;}', 0],
+        Normal:['\\mathcal{N}', 0],
+
+        // --- vectors and matrices (bold upright) ------------------------------
+        mat:   ['\\mathbf{#1}', 1],
+        vecb:  ['\\mathbf{#1}', 1],
+        bbeta: ['\\boldsymbol{\\beta}', 0],
+        beps:  ['\\boldsymbol{\\varepsilon}', 0],
+        btheta:['\\boldsymbol{\\theta}', 0],
+        bX:    ['\\mathbf{X}', 0],
+        bY:    ['\\mathbf{y}', 0],
+        bZ:    ['\\mathbf{Z}', 0],
+        bb:    ['\\mathbf{b}', 0],
+        be:    ['\\mathbf{e}', 0],
+        bP:    ['\\mathbf{P}', 0],
+        bM:    ['\\mathbf{M}', 0],
+        bI:    ['\\mathbf{I}', 0],
+        bQ:    ['\\mathbf{Q}', 0],
+        bA:    ['\\mathbf{A}', 0],
+        bD:    ['\\mathbf{D}', 0],
+        bOmega:['\\boldsymbol{\\Omega}', 0],
+        bV:    ['\\mathbf{V}', 0],
+        bGamma:['\\boldsymbol{\\Gamma}', 0],
+        Asyvar:['\\operatorname{Asy.Var}', 0],
+        bzero: ['\\mathbf{0}', 0]
+      }
+    },
+    options: {
+      enableMenu: true,
+      menuOptions: { settings: { zoom: 'DoubleClick' } }
+    },
+    svg: { displayAlign: 'center', displayIndent: '0', fontCache: 'global' },
+    startup: {
+      ready: function () {
+        // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
+        // plugin. Pointed at v3 it loads the library correctly and then throws
+        // once on `MathJax.Hub.Config`, because v3 has no Hub. The error is
+        // cosmetic -- Reveal has already initialised and MathJax 3 typesets on
+        // its own. A Hub shim does not help: the plugin's callback runs before
+        // this hook, so there is nothing to shim yet.
+        MathJax.startup.defaultReady();
+        MathJax.startup.promise.then(function () {
+          // Signal the annotated-equation script that \eqt terms are in the DOM.
+          document.dispatchEvent(new CustomEvent('econ:mathjax-done'));
+          // Reveal sizes slides before the maths exists, so re-measure once it
+          // does. No-op on the website, where Reveal is undefined.
+          if (typeof Reveal !== 'undefined' && Reveal.layout) { Reveal.layout(); }
+        });
+      }
+    }
+  };
+
+  </script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Inference: Tests, Intervals, and the Wald Principle</h1>
+  <p class="subtitle">Lecture 6</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Henrique Veras
+</div>
+        <p class="quarto-title-affiliation">
+            PIMES/UFPE
+          </p>
+    </div>
+</div>
+
+</section>
+<section>
+<section id="where-we-are" class="title-slide slide level2 center">
+<h2>Where we are</h2>
+
+</section>
+<section id="where-this-lecture-sits" class="slide level3">
+<h3>Where this lecture sits</h3>
+<p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference is-active">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
+<p>Lectures 4 and 5 gave us <span class="math inline">\(\bb\)</span> and its <strong>distribution</strong> — exact under normality, asymptotically normal without it. A distribution, however, is not yet an answer. <strong>Inference</strong> turns it into statements about <span class="math inline">\(\bbeta\)</span>: is a hypothesis compatible with the data? which values are plausible? how sure can we be?</p>
+</section>
+<section id="from-a-distribution-to-a-decision" class="slide level3">
+<h3>From a distribution to a decision</h3>
+<p>Three questions, one apparatus:</p>
+<ul>
+<li><strong>Testing</strong> — is a stated value of <span class="math inline">\(\bbeta\)</span> compatible with the data?</li>
+<li><strong>Confidence</strong> — which values are <em>not</em> rejected? That set is the interval.</li>
+<li><strong>Uncertainty</strong> — every answer carries a probability of being wrong; we control it.</li>
+</ul>
+</section></section>
+<section>
+<section id="part-i-exact-inference-under-normality" class="title-slide slide level1 center">
+<h1>Part I · Exact inference under normality</h1>
+
+</section>
+<section id="the-distributions-we-deferred" class="title-slide slide level2 center">
+<h2>The distributions we deferred</h2>
+
+</section>
+<section id="closing-lecture-4s-debt" class="slide level3 smaller">
+<h3>Closing Lecture 4’s debt</h3>
+<p>Under normality the whole apparatus is <strong>exact</strong>, for every <span class="math inline">\(n\)</span>. Lecture 4 established the first piece — <span class="math inline">\(\bb\)</span> is normal; here are the two that testing needs.</p>
+<div id="thm-exact-dist" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Exact sampling distributions under normality)</strong></span> Under A1–A4 and A6 (<span class="math inline">\(\beps \mid \bX \sim \Normal(\bzero, \sigma^2\bI_n)\)</span>), conditional on <span class="math inline">\(\bX\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(\bb \sim \Normal\!\big(\bbeta,\ \sigma^2(\bX'\bX)^{-1}\big)\)</span>;</li>
+<li><span class="math inline">\(\dfrac{(n-K)\,s^2}{\sigma^2} \sim \chi^2_{\,n-K}\)</span>, and is <strong>independent</strong> of <span class="math inline">\(\bb\)</span>;</li>
+<li><span class="math inline">\(\dfrac{b_k - \beta_k}{\operatorname{se}(b_k)} \sim t_{\,n-K}\)</span>, where <span class="math inline">\(\operatorname{se}(b_k) = s\sqrt{S^{kk}}\)</span> and <span class="math inline">\(S^{kk} = [(\bX'\bX)^{-1}]_{kk}\)</span> is the <span class="math inline">\(k\)</span>-th diagonal element of <span class="math inline">\((\bX'\bX)^{-1}\)</span> (Greene’s notation).</li>
+</ol>
+</div>
+</section>
+<section id="how-the-three-distributions-arise" class="slide level3">
+<h3>How the three distributions arise</h3>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>The three in one breath: (1) a linear map of a normal is normal; (2) <span class="math inline">\((n-K)s^2 = \beps'\bM\beps\)</span> is a quadratic form in that normal, and <span class="math inline">\(\bM\)</span> idempotent of rank <span class="math inline">\(n-K\)</span> makes it <span class="math inline">\(\chi^2_{n-K}\)</span>; <span class="math inline">\(\bX'\bM = \bzero\)</span> gives the independence in (2); (3) is the normal of (1) over the root of the independent <span class="math inline">\(\chi^2\)</span> of (2) — the unknown <span class="math inline">\(\sigma\)</span> cancels, leaving <span class="math inline">\(s\)</span>.</p>
+</div></div>
+</section>
+<section id="why-a-t-and-not-a-normal" class="slide level3">
+<h3>Why a t, and not a normal</h3>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Where the t-table comes from</span></div><div class="econ-box-body">
+<p>If <span class="math inline">\(\sigma\)</span> were known, <span class="math inline">\((b_k-\beta_k)/(\sigma\sqrt{S^{kk}})\)</span> would be exactly standard normal. Replacing <span class="math inline">\(\sigma\)</span> by the estimate <span class="math inline">\(s\)</span> injects extra uncertainty, and the price is precisely the heavier tails of the <span class="math inline">\(t_{n-K}\)</span> — one degree of freedom lost per estimated coefficient. As <span class="math inline">\(n\)</span> grows, <span class="math inline">\(t_{n-K} \to \Normal(0,1)\)</span>: the exact <span class="math inline">\(t\)</span> here and the asymptotic normal of Lecture 5 are the two ends of the same object.</p>
+</div></div>
+</section>
+
+<section id="confidence-intervals" class="title-slide slide level2 center">
+<h2>Confidence intervals</h2>
+
+</section>
+<section id="from-the-distribution-to-an-interval" class="slide level3 smaller">
+<h3>From the distribution to an interval</h3>
+<p>A point estimate hides its own uncertainty. We turn the distribution of <span class="math inline">\(b_k\)</span> into a <strong>range</strong> of plausible values for <span class="math inline">\(\beta_k\)</span>. Two extremes are useless: “<span class="math inline">\(\beta_k \in b_k \pm \infty\)</span>” is certain but empty; “<span class="math inline">\(\beta_k = b_k\)</span> exactly” is precise but never true. We pick a confidence <span class="math inline">\(100(1-\alpha)\%\)</span> in between.</p>
+<div id="def-ci" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Confidence interval)</strong></span> Since <span class="math inline">\((b_k - \beta_k)/\operatorname{se}(b_k) \sim t_{n-K}\)</span> (<a href="#/thm-exact-dist" class="quarto-xref">Theorem&nbsp;1</a>), this ratio lies within <span class="math inline">\(\pm t_{1-\alpha/2,\,n-K}\)</span> with probability <span class="math inline">\(1-\alpha\)</span>; rearranging bounds <span class="math inline">\(\beta_k\)</span>. The <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\beta_k\)</span> is <span class="math display">\[b_k \pm t_{1-\alpha/2,\,n-K}\,\operatorname{se}(b_k).\]</span></p>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>The interval is random; <span class="math inline">\(\beta_k\)</span> is fixed. “<span class="math inline">\(95\%\)</span> confidence” is a statement about the <strong>procedure</strong> — over repeated samples, <span class="math inline">\(95\%\)</span> of the intervals it produces contain the truth — not a probability that this one interval contains <span class="math inline">\(\beta_k\)</span>. That probability is <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>; we simply do not know which.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="seeing-coverage" class="slide level3">
+<h3>Seeing coverage</h3>
+
+<img data-src="06-inference_files/figure-revealjs/fig-coverage-1.svg" width="2550" class="r-stretch quarto-figure-center" id="fig-coverage"><p class="caption">
+Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals for the same slope <span class="math inline">\(\beta=1\)</span> (dashed). About 95 cover the truth (teal); the few that miss (amber) are the 5% we agreed to tolerate. Coverage is this repeated-sampling fact — a property of the procedure, not of any single interval.
+</p></section>
+<section id="a-confidence-interval-for-a-linear-combination" class="slide level3">
+<h3>A confidence interval for a linear combination</h3>
+<p>The same machinery covers any <strong>linear combination</strong> <span class="math inline">\(c = \mathbf{w}'\bb\)</span> — a sum of returns, a predicted mean, a contrast. Under A6 it is normal with mean <span class="math inline">\(\mathbf{w}'\bbeta\)</span> and variance <span class="math inline">\(\mathbf{w}'\Var[\bb\mid\bX]\,\mathbf{w}\)</span>, so <span class="math display">\[\mathbf{w}'\bb \;\pm\; t_{1-\alpha/2,\,n-K}\,\sqrt{\mathbf{w}'\,\widehat{\Var}[\bb\mid\bX]\,\mathbf{w}}.\]</span></p>
+</section>
+</section>
+<section>
+<section id="part-ii-hypothesis-tests-on-the-linear-model" class="title-slide slide level1 center">
+<h1>Part II · Hypothesis tests on the linear model</h1>
+
+</section>
+<section id="the-testing-framework" class="title-slide slide level2 center">
+<h2>The testing framework</h2>
+
+</section>
+<section id="the-logic-through-an-example" class="slide level3">
+<h3>The logic, through an example</h3>
+<p>Consider a model of investment, <span class="math display">\[\ln I_t = \beta_1 + \beta_2\,i_t + \beta_3\,\Delta p_t + \beta_4\,\ln Y_t + \beta_5\,t + \varepsilon_t,\]</span> with <span class="math inline">\(i_t\)</span> the <strong>nominal</strong> interest rate and <span class="math inline">\(\Delta p_t\)</span> inflation. A rival theory says investors respond only to the <strong>real</strong> rate <span class="math inline">\(i_t - \Delta p_t\)</span> — which is this <em>same model</em> under the restriction <span class="math inline">\(\beta_2 = -\beta_3\)</span>, i.e.&nbsp;<span class="math inline">\(\beta_2 + \beta_3 = 0\)</span>.</p>
+</section>
+<section id="what-a-test-is" class="slide level3">
+<h3>What a test is</h3>
+<p>A <strong>hypothesis test</strong> turns the restriction into a decision. We split the possibilities into two exclusive hypotheses — a null <span class="math inline">\(H_0\)</span> (the restriction holds) and an alternative <span class="math inline">\(H_1\)</span> (it does not) — and fix a <strong>rejection region</strong>: values of a test statistic so unlikely under <span class="math inline">\(H_0\)</span> that observing them counts as evidence against it.</p>
+</section>
+<section id="size-power-and-consistency" class="slide level3">
+<h3>Size, power, and consistency</h3>
+<ul>
+<li><strong>Size</strong> <span class="math inline">\(\alpha\)</span> — <span class="math inline">\(\Prob(\text{reject} \mid H_0 \text{ true})\)</span>: the error we <em>choose</em>.</li>
+<li><strong>Power</strong> — <span class="math inline">\(\Prob(\text{reject} \mid H_1 \text{ true})\)</span>: the error we <em>hope to avoid</em>, <span class="math inline">\(1-\beta\)</span>.</li>
+<li>Type I: reject a true <span class="math inline">\(H_0\)</span>. Type II: fail to reject a false one.</li>
+<li><strong>Consistent test</strong> — power <span class="math inline">\(\to 1\)</span> as <span class="math inline">\(n \to \infty\)</span>: a test built on consistent estimators is itself consistent.</li>
+</ul>
+</section>
+<section id="what-significant-at-5-does-and-does-not-say" class="slide level3">
+<h3>What “significant at 5%” does and does not say</h3>
+<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">What "significant at 5%" actually claims</span></div><div class="econ-box-body">
+<p>Rejecting at <span class="math inline">\(5\%\)</span> claims <strong>one thing</strong>: <em>if</em> the restriction held, data as extreme as those observed would occur in at most <span class="math inline">\(5\%\)</span> of samples. It does <strong>not</strong> say <span class="math inline">\(H_0\)</span> has a <span class="math inline">\(5\%\)</span> chance of being true, nor that the effect is large, nor that it is economically relevant. Significance measures <strong>incompatibility with chance</strong>, not <strong>importance</strong>. A tiny effect is “significant” with large <span class="math inline">\(n\)</span>; a huge effect is “insignificant” with small <span class="math inline">\(n\)</span>.</p>
+</div></div>
+</section>
+
+<section id="the-general-linear-restriction" class="title-slide slide level2 center">
+<h2>The general linear restriction</h2>
+
+</section>
+<section id="a-linear-restriction" class="slide level3">
+<h3>A linear restriction</h3>
+<p>Every linear hypothesis — one coefficient, a difference, a sum — fits one template.</p>
+<div id="def-restriction" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (Linear restriction)</strong></span> A set of <span class="math inline">\(J\)</span> linear hypotheses is <span class="math inline">\(\mathbf{R}\bbeta = \mathbf{q}\)</span>, with <span class="math inline">\(\mathbf{R}\)</span> a <span class="math inline">\(J \times K\)</span> matrix of rank <span class="math inline">\(J\)</span> (rows linearly independent, <span class="math inline">\(J &lt; K\)</span>) and <span class="math inline">\(\mathbf{q}\)</span> a <span class="math inline">\(J\)</span>-vector.</p>
+</div>
+<p>Take a three-coefficient model, <span class="math inline">\(\bbeta = [\,\beta_1,\ \beta_2,\ \beta_3\,]'\)</span>. Each hypothesis is one row of <span class="math inline">\(\mathbf{R}\)</span> (picking out the right combination) set equal to an entry of <span class="math inline">\(\mathbf{q}\)</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Hypothesis</th>
+<th><span class="math inline">\(\mathbf{R}\)</span></th>
+<th><span class="math inline">\(\mathbf{q}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\beta_2 = 0\)</span></td>
+<td><span class="math inline">\([\,0\ \ 1\ \ 0\,]\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\beta_1 = \beta_2\)</span></td>
+<td><span class="math inline">\([\,1\ {-1}\ \ 0\,]\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\beta_2 + \beta_3 = 0\)</span></td>
+<td><span class="math inline">\([\,0\ \ 1\ \ 1\,]\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reading-off-r-and-q" class="slide level3">
+<h3>Reading off R and q</h3>
+<div class="econ-box econ-box-questions" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">Exercise — find $\mathbf{R}$ and $\mathbf{q}$</span></div><div class="econ-box-body">
+<p>In the model <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \beta_5 x_5 + \varepsilon\)</span>, write <span class="math inline">\(\mathbf{R}\)</span> and <span class="math inline">\(\mathbf{q}\)</span> for each hypothesis:</p>
+<ol type="1">
+<li><span class="math inline">\(\beta_3 = 0\)</span></li>
+<li><span class="math inline">\(\beta_2 = \beta_3\)</span></li>
+<li><span class="math inline">\(\beta_1 + \beta_2 + \beta_3 = 1\)</span></li>
+<li><span class="math inline">\(\beta_1 = \beta_2 = \beta_3 = 0\)</span></li>
+<li>All coefficients except the intercept are zero.</li>
+</ol>
+</div></div>
+</section>
+<section id="least-squares-under-a-constraint" class="slide level3 smaller">
+<h3>Least squares under a constraint</h3>
+<p>Impose the restriction <em>while</em> fitting: minimize the sum of squares among the <span class="math inline">\(\bbeta\)</span> that obey <span class="math inline">\(\mathbf{R}\bbeta = \mathbf{q}\)</span>.</p>
+<div id="thm-restricted" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Restricted least squares)</strong></span> The minimizer of <span class="math inline">\((\bY - \bX\bbeta)'(\bY - \bX\bbeta)\)</span> subject to <span class="math inline">\(\mathbf{R}\bbeta = \mathbf{q}\)</span> is <span class="math display">\[\bb_R = \bb - (\bX'\bX)^{-1}\mathbf{R}'\big[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\mathbf{m},
+\qquad \mathbf{m} \equiv \mathbf{R}\bb - \mathbf{q},\]</span> where <span class="math inline">\(\bb\)</span> is the unrestricted estimator and <span class="math inline">\(\mathbf{m}\)</span> is the <strong>discrepancy vector</strong> — how far the unrestricted fit is from obeying the hypothesis.</p>
+</div>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>Lagrangian <span class="math inline">\(S(\bbeta) + 2\boldsymbol{\lambda}'(\mathbf{R}\bbeta - \mathbf{q})\)</span>; the first-order conditions give <span class="math inline">\(\bb_R\)</span> as <span class="math inline">\(\bb\)</span> <strong>pulled back</strong> by exactly the amount needed to satisfy the constraint — a correction proportional to the discrepancy <span class="math inline">\(\mathbf{m}\)</span>.</p>
+</div></div>
+</section>
+<section id="does-a-restriction-help" class="slide level3 smaller">
+<h3>Does a restriction help?</h3>
+<p>A <strong>true</strong> restriction is information: it cuts the free parameters from <span class="math inline">\(K\)</span> to <span class="math inline">\(K-J\)</span>, and estimating fewer things from the same data is more precise.</p>
+<ul>
+<li><strong>Under A4</strong>, exact (Greene–Seaks, 1991): <span class="math inline">\(\Var[\bb_R \mid \bX] = \Var[\bb \mid \bX] - \sigma^2(\bX'\bX)^{-1}\mathbf{R}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{R}(\bX'\bX)^{-1} \preceq \Var[\bb \mid \bX]\)</span> — a psd subtraction, so <span class="math inline">\(\bb_R\)</span> never has larger variance.</li>
+<li>A <strong>false</strong> restriction injects bias instead — which is what the test detects.</li>
+</ul>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Without A4 (the general case)</span></div><div class="econ-box-body">
+<p>The clean inequality needs A4. Writing <span class="math inline">\(\bb_R - \bbeta = \mathbf{C}(\bb - \bbeta)\)</span> with the idempotent <span class="math inline">\(\mathbf{C} = \bI - (\bX'\bX)^{-1}\mathbf{R}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{R}\)</span>, we get <span class="math inline">\(\Var[\bb_R\mid\bX] = \mathbf{C}\,\Var[\bb\mid\bX]\,\mathbf{C}'\)</span>. This is <span class="math inline">\(\preceq \Var[\bb\mid\bX]\)</span> <strong>only</strong> when <span class="math inline">\(\mathbf{C}\)</span> is an orthogonal projection in the metric of <span class="math inline">\(\Var[\bb]\)</span> — which A4 supplies (<span class="math inline">\(\Var[\bb]=\sigma^2(\bX'\bX)^{-1}\)</span>). Under heteroskedasticity, restricted <strong>OLS</strong> can be <em>less</em> precise in some directions; the estimator that always recovers the gain is restricted <strong>GLS</strong> (the efficient one, Lecture 7). The information intuition survives; only the plain-OLS identity needs A4.</p>
+</div></div>
+</section>
+
+<section id="two-views-of-the-f-test" class="title-slide slide level2 center">
+<h2>Two views of the F test</h2>
+
+</section>
+<section id="three-approaches-to-one-test" class="slide level3">
+<h3>Three approaches to one test</h3>
+<p>Now that <span class="math inline">\(\mathbf{R}\)</span>, <span class="math inline">\(\bb_R\)</span> and the discrepancy <span class="math inline">\(\mathbf{m}\)</span> are in hand, name the routes. A test compares the <strong>restricted</strong> and <strong>unrestricted</strong> fits; three ways to measure the gap, all agreeing exactly under normality (and asymptotically in general):</p>
+<ul>
+<li><strong>Distance (Wald)</strong> — from the unrestricted fit, how far is <span class="math inline">\(\mathbf{m} = \mathbf{R}\bb - \mathbf{q}\)</span> from <span class="math inline">\(\bzero\)</span>?</li>
+<li><strong>Fit (<span class="math inline">\(F\)</span>)</strong> — how much does the restriction raise the residual sum of squares, <span class="math inline">\(\text{SSR}_R - \text{SSR}_U\)</span>?</li>
+<li><strong>LM (score)</strong> — from the restricted fit, how hard does it push against the constraint?</li>
+</ul>
+</section>
+<section id="the-distance-view-is-the-wald-statistic" class="slide level3 smaller">
+<h3>The distance view is the Wald statistic</h3>
+<p>Take the discrepancy <span class="math inline">\(\mathbf{m} = \mathbf{R}\bb - \mathbf{q}\)</span> (from the restricted-LS slide) and ask how far it is from <span class="math inline">\(\bzero\)</span>, standardized by its own variance. That standardized distance <strong>is the Wald statistic</strong> — here in its exact, linear, classical-variance form; Part III lifts all three qualifiers.</p>
+<div id="thm-f" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (The Wald statistic (exact form))</strong></span> Under <span class="math inline">\(H_0\)</span> and A6, <span class="math inline">\(\mathbf{m}\)</span> is normal with <span class="math inline">\(\E[\mathbf{m}\mid\bX]=\bzero\)</span> and <span class="math inline">\(\Var[\mathbf{m}\mid\bX]=\mathbf{R}\,\sigma^2(\bX'\bX)^{-1}\mathbf{R}'\)</span>, so <span class="math display">\[\underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{\sigma^2}}_{W\ \sim\ \chi^2_J},
+\qquad
+\underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{J\,s^2}}_{F\ \sim\ F_{J,\,n-K}}.\]</span> The first (<span class="math inline">\(\sigma^2\)</span> known) is the Wald statistic; the second is its feasible <span class="math inline">\(F\)</span> form (<span class="math inline">\(\sigma^2\to s^2\)</span>, <span class="math inline">\(\div J\)</span>).</p>
+</div>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>It is a <span class="math inline">\(\chi^2_J\)</span> because standardizing the <span class="math inline">\(J\)</span>-vector <span class="math inline">\(\mathbf{m}\)</span> gives <span class="math inline">\(J\)</span> independent standard normals, squared and summed. Replacing the unknown <span class="math inline">\(\sigma^2\)</span> by <span class="math inline">\(s^2\)</span> — an independent <span class="math inline">\(\chi^2_{n-K}/(n-K)\)</span> from Theorem 1 — and dividing by <span class="math inline">\(J\)</span> turns the <span class="math inline">\(\chi^2_J\)</span> into an <span class="math inline">\(F_{J,\,n-K}\)</span>.</p>
+</div></div>
+</section>
+<section id="a-single-coefficient-the-case-j-1" class="slide level3">
+<h3>A single coefficient: the case J = 1</h3>
+<p>The most common test is a single restriction: <span class="math inline">\(\mathbf{R} = \mathbf{e}_k'\)</span> (a row picking out <span class="math inline">\(\beta_k\)</span>), <span class="math inline">\(\mathbf{q} = c\)</span>. Then <span class="math inline">\(\mathbf{m} = b_k - c\)</span> and <span class="math inline">\(\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}' = S^{kk}\)</span>, so the <span class="math inline">\(F\)</span> is the square of a <span class="math inline">\(t\)</span>-ratio.</p>
+<div id="def-test" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (The t-test)</strong></span> For <span class="math inline">\(H_0\!: \beta_k = c\)</span>, <span class="math display">\[t = \frac{b_k - c}{\operatorname{se}(b_k)} \sim t_{n-K}, \qquad
+\operatorname{se}(b_k) = s\sqrt{S^{kk}}, \qquad F = t^2 .\]</span> Reject when <span class="math inline">\(|t| &gt; t_{1-\alpha/2,\,n-K}\)</span>, with <span class="math inline">\(S^{kk} = [(\bX'\bX)^{-1}]_{kk}\)</span> as above.</p>
+</div>
+<p>The familiar <span class="math inline">\(t\)</span>-test is <strong>not</strong> a separate tool — it is the <span class="math inline">\(F\)</span> (equivalently the Wald) for one restriction.</p>
+</section>
+<section id="the-fit-view" class="slide level3 smaller">
+<h3>The fit view</h3>
+<p>The distance view standardized <span class="math inline">\(\mathbf{m}\)</span>. The <strong>fit</strong> view asks the equivalent question through the residuals — and the two are literally the same number.</p>
+<p>Because <span class="math inline">\(\bb\)</span> is the <strong>global</strong> minimizer of the residual sum of squares <span class="math inline">\(\text{SSR}=\sum_i e_i^2\)</span>, imposing any restriction can only raise it: <span class="math display">\[\text{SSR}_R \;\ge\; \text{SSR}_U .\]</span></p>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>The rise <strong>equals</strong> the standardized distance. With <span class="math inline">\(\be_* = \bY - \bX\bb_R = \be - \bX(\bb_R-\bb)\)</span> and <span class="math inline">\(\bX'\be = \bzero\)</span>, <span class="math display">\[\text{SSR}_R - \text{SSR}_U = (\bb_R-\bb)'\bX'\bX(\bb_R-\bb) = \mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m},\]</span> so the <span class="math inline">\(F\)</span> has the equivalent <strong>fit form</strong> <span class="math display">\[F = \frac{(\text{SSR}_R - \text{SSR}_U)/J}{\text{SSR}_U/(n-K)} = \frac{(R^2 - R^2_R)/J}{(1-R^2)/(n-K)}.\]</span></p>
+</div></div>
+</section>
+<section id="joint-significance-is-not-the-sum-of-its-parts" class="slide level3">
+<h3>Joint significance is not the sum of its parts</h3>
+<div id="exm-joint" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Overall significance)</strong></span> Testing that <strong>all</strong> slopes are zero (<span class="math inline">\(H_0\!: \beta_2 = \cdots = \beta_K = 0\)</span>) gives the “overall <span class="math inline">\(F\)</span>” reported by every regression package, <span class="math display">\[F = \frac{R^2/(K-1)}{(1-R^2)/(n-K)} \;\sim\; F_{K-1,\,n-K}.\]</span> A model can have <strong>every</strong> coefficient individually insignificant yet a highly significant overall <span class="math inline">\(F\)</span> — the hallmark of collinear regressors that are jointly, but not separately, informative.</p>
+</div>
+</section>
+</section>
+<section>
+<section id="part-iii-the-wald-principle" class="title-slide slide level1 center">
+<h1>Part III · The Wald principle</h1>
+
+</section>
+<section id="distance-based-testing" class="title-slide slide level2 center">
+<h2>Distance-based testing</h2>
+
+</section>
+<section id="the-wald-statistic-in-general" class="slide level3 smaller">
+<h3>The Wald statistic, in general</h3>
+<p>The distance-view <span class="math inline">\(W\)</span> of Part II was <strong>one special case</strong>. Keep the <em>same statistic</em> — a distance, weighted by its own variance — and lift three qualifiers at once:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Axis</th>
+<th>Part II (exact)</th>
+<th>Wald, in general</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variance <span class="math inline">\(\widehat{\bV}\)</span></td>
+<td>classical <span class="math inline">\(s^2(\bX'\bX)^{-1}\)</span> (A4)</td>
+<td>any consistent — incl.&nbsp;robust sandwich</td>
+</tr>
+<tr class="even">
+<td>Sample</td>
+<td>exact <span class="math inline">\(F\)</span>/<span class="math inline">\(\chi^2\)</span> under A6</td>
+<td>asymptotic <span class="math inline">\(\chi^2_J\)</span> without A6</td>
+</tr>
+<tr class="odd">
+<td>Restriction</td>
+<td>linear <span class="math inline">\(\mathbf{R}\bb-\mathbf{q}\)</span></td>
+<td>nonlinear <span class="math inline">\(h(\bb)\)</span> via the Delta Method</td>
+</tr>
+</tbody>
+</table>
+<div id="thm-wald" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Wald statistic)</strong></span> For <span class="math inline">\(H_0\!: \mathbf{R}\bbeta = \mathbf{q}\)</span>, with <span class="math inline">\(\widehat{\bV}\)</span> a consistent estimate of <span class="math inline">\(\Var[\bb]\)</span>, <span class="math display">\[W = (\mathbf{R}\bb - \mathbf{q})'\big[\mathbf{R}\,\widehat{\bV}\,\mathbf{R}'\big]^{-1}(\mathbf{R}\bb - \mathbf{q}) \;\dto\; \chi^2_J .\]</span> With the classical <span class="math inline">\(\widehat{\bV} = s^2(\bX'\bX)^{-1}\)</span> and A6 this <strong>is</strong> the Part II statistic, and <span class="math inline">\(W/J \sim F_{J,\,n-K}\)</span> exactly.</p>
+</div>
+</section>
+<section id="one-principle-many-estimators" class="slide level3">
+<h3>One principle, many estimators</h3>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Wald here, Wald everywhere</span></div><div class="econ-box-body">
+<p>Every Wald test has the shape <span class="math inline">\((\text{restriction})' \,[\,\text{its variance}\,]^{-1}\,
+(\text{restriction})\)</span>. Change the estimator — GLS, IV, GMM (Lecture 12), maximum likelihood (Lecture 13) — and only <span class="math inline">\(\bb\)</span> and <span class="math inline">\(\widehat{\bV}\)</span> change; the test does not. Learning it once here is learning it for the whole course.</p>
+</div></div>
+</section>
+<section id="the-same-tests-in-large-samples" class="slide level3">
+<h3>The same tests in large samples</h3>
+<p>Drop A6. The exact <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> and <span class="math inline">\(\chi^2\)</span> no longer hold — but the <strong>same statistics</strong> have limiting distributions.</p>
+<ul>
+<li>One coefficient: <span class="math inline">\(\dfrac{b_k - \beta_k^0}{\operatorname{se}(b_k)} \dto \Normal(0,1)\)</span> — the <span class="math inline">\(\sqrt{n}\)</span> cancels, so the statistic is unchanged; only its reference table is.</li>
+<li><span class="math inline">\(J\)</span> restrictions: <span class="math inline">\(W \dto \chi^2_J\)</span>, and <span class="math inline">\(F \to W/J\)</span> — read against <span class="math inline">\(\chi^2_J/J\)</span>.</li>
+<li>With the <strong>robust</strong> <span class="math inline">\(\widehat{\bV}\)</span>, all of this holds without homoskedasticity.</li>
+</ul>
+</section>
+<section id="the-lagrange-multiplier-test" class="slide level3">
+<h3>The Lagrange multiplier test</h3>
+<p>The <strong>restricted</strong> fit carries a Lagrange multiplier <span class="math inline">\(\boldsymbol{\lambda}_*\)</span> on the constraint — the “pressure” the data put on it. Testing whether that pressure is zero is testing <span class="math inline">\(H_0\)</span>.</p>
+<div id="thm-lm" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (LM (score) test)</strong></span> <span class="math display">\[\boldsymbol{\lambda}_* = [\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}(\mathbf{R}\bb - \mathbf{q}),
+\qquad
+W_{LM} = (\mathbf{R}\bb - \mathbf{q})'[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}']^{-1}(\mathbf{R}\bb - \mathbf{q}).\]</span> Since <span class="math inline">\(\boldsymbol{\lambda}_* = \bzero \iff \mathbf{R}\bbeta - \mathbf{q} = \bzero\)</span>, the LM test needs <strong>only the restricted model</strong> — and, in the linear case, no likelihood.</p>
+</div>
+</section>
+
+<section id="nonlinear-restrictions" class="title-slide slide level2 center">
+<h2>Nonlinear restrictions</h2>
+
+</section>
+<section id="when-the-restriction-is-a-function" class="slide level3">
+<h3>When the restriction is a function</h3>
+<p>Some hypotheses are not linear in <span class="math inline">\(\bbeta\)</span>: a ratio of coefficients equal to one, a long-run multiplier, an elasticity at a point. Write them <span class="math inline">\(h(\bbeta) = \mathbf{0}\)</span>. To test them we need the distribution of <span class="math inline">\(h(\bb)\)</span> — and <span class="math inline">\(h\)</span> of an estimator is not, in general, normal.</p>
+</section>
+<section id="the-delta-method-recovered" class="slide level3">
+<h3>The Delta Method, recovered</h3>
+<div id="thm-delta" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6 (Delta Method)</strong></span> If <span class="math inline">\(\sqrt{n}(\btheta_n - \btheta) \dto \Normal(\bzero, \bV)\)</span> and <span class="math inline">\(h\)</span> is continuously differentiable with Jacobian <span class="math inline">\(\bGamma = \partial h(\btheta)/\partial\btheta'\)</span>, then <span class="math display">\[\sqrt{n}\big(h(\btheta_n) - h(\btheta)\big) \dto \Normal\!\big(\bzero,\ \bGamma\bV\bGamma'\big).\]</span></p>
+</div>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>First-order Taylor: <span class="math inline">\(h(\btheta_n) = h(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>; the higher-order terms vanish in probability after rescaling by <span class="math inline">\(\sqrt{n}\)</span>, and the linear term carries the normal through. The Jacobian <span class="math inline">\(\bGamma\)</span> is the “exchange rate” between the uncertainty in <span class="math inline">\(\btheta\)</span> and that in <span class="math inline">\(h(\btheta)\)</span>.</p>
+</div></div>
+</section>
+<section id="nonlinear-wald" class="slide level3">
+<h3>Nonlinear Wald</h3>
+<p>Apply the Delta Method to the restriction itself. With <span class="math inline">\(\widehat{\bGamma} = \partial h(\bbeta)/\partial\bbeta'\)</span> evaluated at <span class="math inline">\(\bb\)</span>, <span class="math display">\[W = h(\bb)'\big[\widehat{\bGamma}\,\widehat{\bV}\,\widehat{\bGamma}'\big]^{-1} h(\bb) \;\dto\; \chi^2_J.\]</span></p>
+<div id="exm-ratio" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> To test <span class="math inline">\(H_0\!: \beta_1/\beta_2 = 1\)</span>, write <span class="math inline">\(h(\bbeta) = \beta_1 - \beta_2\)</span> (linear here) or, if the ratio itself is the object of interest, <span class="math inline">\(h(\bbeta) = \beta_1/\beta_2 - 1\)</span> with <span class="math inline">\(\widehat{\bGamma} = \big[\,1/b_2,\ -b_1/b_2^2\,\big]\)</span>. The Delta Method supplies the standard error of the ratio; the Wald statistic does the rest.</p>
+</div>
+</section>
+</section>
+<section>
+<section id="part-iv-joint-inference-prediction-and-stability" class="title-slide slide level1 center">
+<h1>Part IV · Joint inference, prediction, and stability</h1>
+
+</section>
+<section id="joint-versus-marginal" class="title-slide slide level2 center">
+<h2>Joint versus marginal</h2>
+
+</section>
+<section id="two-intervals-are-not-a-region" class="slide level3">
+<h3>Two intervals are not a region</h3>
+<p>Testing <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> <strong>separately</strong> is not testing them <strong>jointly</strong>. Because <span class="math inline">\(b_1\)</span> and <span class="math inline">\(b_2\)</span> are correlated, the joint <span class="math inline">\(95\%\)</span> region is an <strong>ellipse</strong>, not the rectangle formed by the two marginal intervals.</p>
+<ul>
+<li>A point can lie <strong>inside both</strong> marginal intervals yet <strong>outside</strong> the joint region — and vice versa.</li>
+<li>Two <span class="math inline">\(5\%\)</span> tests do not make a <span class="math inline">\(5\%\)</span> joint test: the error rates compound.</li>
+<li>The tilt of the ellipse is the <strong>correlation</strong> of the estimators.</li>
+</ul>
+</section>
+<section id="seeing-the-confidence-ellipse" class="slide level3">
+<h3>Seeing the confidence ellipse</h3>
+
+<img data-src="06-inference_files/figure-revealjs/fig-ellipse-1.svg" width="2280" class="r-stretch quarto-figure-center" id="fig-ellipse"><p class="caption">
+Figure&nbsp;2: A 95% joint confidence region (ellipse) for correlated <span class="math inline">\((\beta_1,\beta_2)\)</span>, and the box of the two marginal 95% intervals. The dot is inside both marginal intervals yet outside the joint region: two separate tests are not one joint test.
+</p></section>
+
+<section id="prediction" class="title-slide slide level2 center">
+<h2>Prediction</h2>
+
+</section>
+<section id="predicting-a-new-observation" class="slide level3">
+<h3>Predicting a new observation</h3>
+<p>Inference is usually about <span class="math inline">\(\bbeta\)</span>; sometimes it is about a <strong>new</strong> <span class="math inline">\(y\)</span>. Both use the same variance machinery, with one extra term.</p>
+<ul>
+<li>Predicting a <strong>mean</strong> <span class="math inline">\(\mathbf{x}_0'\bbeta\)</span>: uncertainty <span class="math inline">\(\propto \mathbf{x}_0'(\bX'\bX)^{-1}\mathbf{x}_0\)</span>.</li>
+<li>Predicting a <strong>draw</strong> <span class="math inline">\(y_0\)</span>: add the irreducible <span class="math inline">\(\sigma^2\)</span> — the “<span class="math inline">\(+1\)</span>”.</li>
+<li>Both widen as <span class="math inline">\(\mathbf{x}_0\)</span> moves away from the centre of the data.</li>
+</ul>
+</section>
+
+<section id="structural-stability" class="title-slide slide level2 center">
+<h2>Structural stability</h2>
+
+</section>
+<section id="has-the-relationship-changed" class="slide level3">
+<h3>Has the relationship changed?</h3>
+<p>Did the <strong>1973 oil shock</strong> change the structure of the U.S. gasoline market? Split the sample at 1973 and let each period have its <strong>own</strong> coefficients — the unrestricted model is block-diagonal, <span class="math inline">\(\mathbf{y} = \operatorname{diag}(\bX_1, \bX_2)(\bbeta_1', \bbeta_2')' + \beps\)</span>, which is just OLS on each subsample. “No structural break” is the restriction <span class="math inline">\(\bbeta_1 = \bbeta_2\)</span>, i.e. <span class="math inline">\(\mathbf{R} = [\bI : -\bI]\)</span>, <span class="math inline">\(\mathbf{q} = \bzero\)</span> — and imposing it is OLS on the <strong>pooled</strong> data.</p>
+<div id="exm-chow" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3 (The Chow test)</strong></span> Under <span class="math inline">\(H_0\!:\bbeta_1 = \bbeta_2\)</span>, with <span class="math inline">\(\be_1, \be_2\)</span> the separate residuals and <span class="math inline">\(\be_*\)</span> the pooled, <span class="math display">\[F = \frac{\big(\be_*'\be_* - (\be_1'\be_1 + \be_2'\be_2)\big)/K}{(\be_1'\be_1 + \be_2'\be_2)/(n_1 + n_2 - 2K)} \sim F_{K,\,n_1+n_2-2K}.\]</span> An ordinary <span class="math inline">\(F\)</span>: the <strong>pooled</strong> fit is the restricted model, the <strong>two separate</strong> fits the unrestricted one.</p>
+</div>
+</section>
+
+<section id="what-we-have-and-where-it-goes" class="title-slide slide level2 center">
+<h2>What we have, and where it goes</h2>
+
+</section>
+<section id="the-scoreboard" class="slide level3">
+<h3>The scoreboard</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Exact (finite sample)</th>
+<th>Large sample</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Needs</td>
+<td>A6 (normal errors)</td>
+<td>no A6; A5a, A2<span class="math inline">\('\)</span></td>
+</tr>
+<tr class="even">
+<td>One coefficient</td>
+<td><span class="math inline">\(t_{n-K}\)</span></td>
+<td><span class="math inline">\(\Normal(0,1)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(J\)</span> restrictions</td>
+<td><span class="math inline">\(F_{J,\,n-K}\)</span></td>
+<td><span class="math inline">\(\chi^2_J\)</span> (Wald)</td>
+</tr>
+<tr class="even">
+<td>Variance used</td>
+<td>classical <span class="math inline">\(s^2(\bX'\bX)^{-1}\)</span></td>
+<td>robust sandwich</td>
+</tr>
+<tr class="odd">
+<td>Nonlinear <span class="math inline">\(h(\bbeta)\)</span></td>
+<td>—</td>
+<td>Delta Method + Wald</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="reading" class="title-slide slide level2 center">
+<h2>Reading</h2>
+
+</section>
+<section id="sources" class="slide level3">
+<h3>Sources</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Hansen</strong></td>
+<td>Chapter 8 (restricted estimation) and Chapter 9 (hypothesis testing, Wald and the <span class="math inline">\(F\)</span>-test)</td>
+</tr>
+<tr class="even">
+<td><strong>Greene</strong></td>
+<td>Chapter 5 (hypothesis tests and model selection; interval estimation and prediction)</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="references" class="title-slide slide level2 center">
+<h2>References</h2>
+
+</section>
+<section id="references-1" class="slide level3 smaller scrollable">
+<h3>References</h3>
+<div id="refs" role="list">
+
+</div>
+
+
+</section>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"width":"normal"},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 760,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+
+        maxScale: 2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <!--
+      Annotated equations: link each \eqt{key}{...} term in the rendered math to its
+      explanation card, in both directions.
+
+      Injected via `include-after-body`, so the DOM exists when this runs. MathJax
+      typesets asynchronously, so we wait for the `econ:mathjax-done` event fired by
+      assets/mathjax.html (with a polling fallback in case MathJax is absent or the
+      event was missed).
+
+      Behaviour: hovering or focusing either a term or its card highlights both.
+      Clicking a term pins the pair, so it survives the pointer moving away — which
+      matters when the note is long enough to read.
+    -->
+    <script>
+    (function () {
+      'use strict';
+
+      var PINNED = 'eqt-pinned';
+      var ACTIVE = 'eqt-active';
+
+      // wire() can be reached from three paths (the MathJax event, DOMContentLoaded,
+      // and the polling fallback). Without this guard the later paths bind a second
+      // set of handlers and every click toggles the pin twice, i.e. never pins.
+      var wired = false;
+
+      function wire(root) {
+        if (wired) return true;
+
+        var terms = root.querySelectorAll('.eqt');
+        if (!terms.length) return false;
+
+        wired = true;
+
+        // MathJax emits \class{eqt eqt-a} on possibly several nested nodes; index by key.
+        var byKey = {};
+        terms.forEach(function (el) {
+          var key = null;
+          el.classList.forEach(function (c) {
+            if (c.indexOf('eqt-') === 0 && c !== 'eqt-active' && c !== 'eqt-pinned') {
+              key = c.slice(4);
+            }
+          });
+          if (!key) return;
+          (byKey[key] = byKey[key] || []).push(el);
+          el.setAttribute('data-eqt', key);
+          el.setAttribute('tabindex', '0');
+          el.setAttribute('role', 'button');
+          el.setAttribute('aria-label', 'Equation term ' + key);
+        });
+
+        var notes = root.querySelectorAll('.econ-eqnote-note');
+        var noteByKey = {};
+        notes.forEach(function (n) { noteByKey[n.getAttribute('data-eqt')] = n; });
+
+        function partners(key) {
+          var list = (byKey[key] || []).slice();
+          if (noteByKey[key]) list.push(noteByKey[key]);
+          return list;
+        }
+
+        function setActive(key, on) {
+          partners(key).forEach(function (el) { el.classList.toggle(ACTIVE, on); });
+        }
+
+        function clearPins(scope) {
+          scope.querySelectorAll('.' + PINNED).forEach(function (el) {
+            el.classList.remove(PINNED);
+            el.classList.remove(ACTIVE);
+          });
+        }
+
+        function togglePin(key, container) {
+          var already = (byKey[key] || []).some(function (el) {
+            return el.classList.contains(PINNED);
+          });
+          clearPins(container);
+          if (!already) {
+            partners(key).forEach(function (el) {
+              el.classList.add(PINNED);
+              el.classList.add(ACTIVE);
+            });
+          }
+        }
+
+        function bind(el) {
+          var key = el.getAttribute('data-eqt');
+          if (!key) return;
+          var container = el.closest('.econ-eqnote') || root;
+
+          el.addEventListener('mouseenter', function () { setActive(key, true); });
+          el.addEventListener('mouseleave', function () {
+            if (!el.classList.contains(PINNED)) setActive(key, false);
+          });
+          el.addEventListener('focus', function () { setActive(key, true); });
+          el.addEventListener('blur', function () {
+            if (!el.classList.contains(PINNED)) setActive(key, false);
+          });
+          el.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            togglePin(key, container);
+          });
+          el.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Enter' || ev.key === ' ') {
+              ev.preventDefault();
+              togglePin(key, container);
+            }
+          });
+        }
+
+        terms.forEach(bind);
+        notes.forEach(bind);
+
+        // Clicking outside any annotated equation releases the pin.
+        document.addEventListener('click', function (ev) {
+          if (!ev.target.closest('.econ-eqnote')) clearPins(root);
+        });
+
+        return true;
+      }
+
+      var timer = null;
+
+      function stopPolling() {
+        if (timer !== null) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      function start() {
+        if (wire(document)) {
+          stopPolling();
+          return;
+        }
+        if (timer !== null) return;
+        // Fallback: MathJax may not have finished (or may not be present at all).
+        var tries = 0;
+        timer = setInterval(function () {
+          if (wire(document) || ++tries > 40) stopPolling();
+        }, 150);
+      }
+
+      document.addEventListener('econ:mathjax-done', start);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start);
+      } else {
+        start();
+      }
+    })();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

@@ -52,7 +52,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/06-inference.html" rel="next">
 <link href="../notas/04-finite-sample.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -490,6 +490,12 @@ window.Quarto = {
  <span class="menu-text">5 · Large Sample Theory</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/06-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -541,6 +547,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/05-large-sample.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5 · Large Sample Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/06-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
   </div>
 </li>
       </ul>
@@ -877,6 +889,7 @@ By the WLLN, <span class="math inline">\(\bX'\beps/n = \tfrac1n\sum_i \mathbf{x}
 <p>The raw estimator collapses onto <span class="math inline">\(\bbeta\)</span>; to recover the shape of its fluctuations we rescale the sampling error by <span class="math inline">\(\sqrt{n}\)</span>: <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) = \left(\frac{\bX'\bX}{n}\right)^{-1}\underbrace{\frac{1}{\sqrt{n}}\bX'\beps}_{\text{a CLT term}}.\]</span> The left factor <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span> and the plim algebra. Everything then hinges on the second factor — so, before naming any distribution, we find its variance.</p>
 </section><section id="the-variance-of-the-score" class="level3"><h3 class="anchored" data-anchor-id="the-variance-of-the-score">The variance of the score</h3>
 <p>The CLT term is <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps = \sqrt{n}\,\bar{\mathbf{w}}\)</span>, an average of the i.i.d. vectors <span class="math inline">\(\mathbf{w}_i = \mathbf{x}_i\varepsilon_i\)</span>. By A3 each has mean <span class="math inline">\(\bzero\)</span>, so its variance is just the second moment: <span class="math display">\[\bOmega \;\equiv\; \Var[\mathbf{w}_i] \;=\; \E[\mathbf{w}_i\mathbf{w}_i'] \;=\; \E[\varepsilon^2\,\mathbf{x}\mathbf{x}'].\]</span> By the CLT, <span class="math inline">\(\tfrac{1}{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span>.</p>
+<p>Read the sizes carefully — this is where the matrix algebra trips people up. Each <span class="math inline">\(\mathbf{x}_i\)</span> is a <span class="math inline">\(K\times 1\)</span> vector, so the <strong>outer product</strong> <span class="math inline">\(\mathbf{x}_i\mathbf{x}_i'\)</span> is <span class="math inline">\(K \times K\)</span>, while <span class="math inline">\(\varepsilon_i^2\)</span> is a <strong>scalar</strong>; their average is the <span class="math inline">\(K \times K\)</span> matrix <span class="math inline">\(\bOmega\)</span>. It is <span class="math inline">\(\varepsilon_i^2\)</span> (a scalar, one observation) and <strong>not</strong> <span class="math inline">\(\beps\beps'\)</span> (the <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(\bD\)</span> of Lecture 4): <span class="math inline">\(\bOmega\)</span> is the <em>per-observation</em> object, linked to <span class="math inline">\(\bD\)</span> by <span class="math inline">\(\tfrac1n\bX'\bD\bX \pto \bOmega\)</span>. For the same reason <span class="math inline">\(\bQ = \E[\mathbf{x}\mathbf{x}']\)</span> is per-observation — the limit of the <strong>average</strong> <span class="math inline">\(\bX'\bX/n\)</span>, not <span class="math inline">\(\E[\bX'\bX]\)</span>, which would grow with <span class="math inline">\(n\)</span>.</p>
 </section><section id="the-limiting-distribution-in-general" class="level3"><h3 class="anchored" data-anchor-id="the-limiting-distribution-in-general">The limiting distribution, in general</h3>
 <p>Slutsky combines the two factors — a normal times a constant matrix stays normal:</p>
 <div id="thm-asymp-normal" class="theorem">
@@ -887,10 +900,11 @@ By the WLLN, <span class="math inline">\(\bX'\beps/n = \tfrac1n\sum_i \mathbf{x}
 <p><span class="proof-title"><em>Proof</em>. </span><span class="math inline">\(\tfrac1{\sqrt n}\bX'\beps \dto \Normal(\bzero, \bOmega)\)</span> by the CLT and <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span> by A2<span class="math inline">\('\)</span>. By Slutsky the product converges to <span class="math inline">\(\bQ^{-1}\Normal(\bzero,\bOmega) = \Normal(\bzero, \bQ^{-1}\bOmega\bQ^{-1})\)</span>. <span class="math inline">\(\square\)</span></p>
 </div>
 </section><section id="the-homoskedastic-special-case" class="level3"><h3 class="anchored" data-anchor-id="the-homoskedastic-special-case">The homoskedastic special case</h3>
-<p>Under A4, <span class="math inline">\(\E[\varepsilon^2\mathbf{x}\mathbf{x}'] = \sigma^2\E[\mathbf{x}\mathbf{x}'] = \sigma^2\bQ\)</span>, and the sandwich collapses:</p>
+<p><strong>A4</strong> says the conditional second moment of the error does not depend on <span class="math inline">\(\mathbf{x}\)</span>: <span class="math inline">\(\E[\varepsilon^2 \mid \mathbf{x}] = \sigma^2\)</span>, a constant. By the law of iterated expectations, <span class="math display">\[\bOmega = \E[\varepsilon^2\mathbf{x}\mathbf{x}'] = \E\big[\,\underbrace{\E[\varepsilon^2 \mid \mathbf{x}]}_{=\ \sigma^2}\,\mathbf{x}\mathbf{x}'\,\big] = \E[\sigma^2\mathbf{x}\mathbf{x}'] = \sigma^2\,\E[\mathbf{x}\mathbf{x}'] = \sigma^2\bQ,\]</span> and the sandwich collapses:</p>
 <div id="cor-homosk" class="theorem corollary">
 <p><span class="theorem-title"><strong>Corollary 2 (Homoskedastic limiting distribution)</strong></span> Adding A4, <span class="math inline">\(\bOmega = \sigma^2\bQ\)</span>, so <span class="math display">\[\sqrt{n}\,(\bb - \bbeta) \;\dto\; \Normal\!\big(\bzero,\ \sigma^2\bQ^{-1}\big).\]</span></p>
 </div>
+<p>The <span class="math inline">\(\sigma^2\)</span> leaves the expectation only because A4 makes it a <strong>constant</strong> — the same number for every <span class="math inline">\(\mathbf{x}\)</span>, so it factors out. Without A4 the conditional variance is a function <span class="math inline">\(\sigma^2(\mathbf{x})\)</span> that stays <em>inside</em>, weighting each <span class="math inline">\(\mathbf{x}\mathbf{x}'\)</span> differently, and <span class="math inline">\(\bOmega\)</span> does not simplify — which is precisely the heteroskedastic sandwich.</p>
 </section><section id="seeing-asymptotic-normality" class="level3"><h3 class="anchored" data-anchor-id="seeing-asymptotic-normality">Seeing asymptotic normality</h3>
 <div class="cell">
 <div class="cell-output-display">
@@ -920,8 +934,12 @@ Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the sl
 </div>
 </section></section><section id="beyond-gauss-markov" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="beyond-gauss-markov">
 <span class="header-section-number">2.5</span> Beyond Gauss-Markov</h2>
-<section id="asymptotic-efficiency" class="level3"><h3 class="anchored" data-anchor-id="asymptotic-efficiency">Asymptotic efficiency</h3>
-<p>Gauss-Markov ranked estimators that are linear and unbiased. Asymptotics lets us widen the field to <em>consistent</em> estimators — possibly biased, possibly nonlinear — and rank them by asymptotic variance. Least squares is asymptotically efficient within a broad class under A1–A4; when A4 fails, it is consistent but no longer efficient, and generalized least squares (Lecture 7) does better.</p>
+<section id="asymptotic-efficiency" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="asymptotic-efficiency">Asymptotic efficiency</h3>
+<p>As <span class="math inline">\(n \to \infty\)</span> the variance of <span class="math inline">\(\bb\)</span> collapses to <span class="math inline">\(\bzero\)</span> — <strong>every</strong> consistent estimator does — so raw variances cannot rank them. We compare the <strong>asymptotic variance</strong> <span class="math inline">\(\bV\)</span>, the non-degenerate limit of the rescaled estimator: <span class="math inline">\(\sqrt{n}(\bb - \bbeta) \dto \Normal(\bzero, \bV)\)</span>.</p>
+<div id="def-asymp-efficiency" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5 (Asymptotic efficiency)</strong></span> Within a class of consistent, asymptotically normal estimators, <span class="math inline">\(\bb\)</span> is <strong>asymptotically efficient</strong> if <span class="math inline">\(\bV_{\tilde{\bbeta}} - \bV_{\bb} \succeq \bzero\)</span> (positive semi-definite) for every competitor <span class="math inline">\(\tilde{\bbeta}\)</span> in the class.</p>
+</div>
+<p>Gauss-Markov ranked linear, unbiased estimators by finite-sample variance. Asymptotics widens the field to <em>consistent</em> estimators — possibly biased, possibly nonlinear — ranked by <span class="math inline">\(\bV\)</span>. Under A1–A4 least squares attains the smallest <span class="math inline">\(\bV\)</span>; when A4 fails it is consistent but not efficient, and generalized least squares reweights to a smaller <span class="math inline">\(\bV\)</span>.</p>
 </section></section><section id="what-we-have-and-where-it-goes" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="what-we-have-and-where-it-goes">
 <span class="header-section-number">2.6</span> What we have, and where it goes</h2>
 <section id="the-scoreboard" class="level3"><h3 class="anchored" data-anchor-id="the-scoreboard">The scoreboard</h3>
@@ -1557,8 +1575,8 @@ Figure&nbsp;4: <span class="math inline">\(\sqrt{n}(b-\beta)\)</span> for the sl
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../slides/notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
-        <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notas/06-inference.html" class="pagination-link" aria-label="6 · Inference: Tests, Intervals, and Wald">
+        <span class="nav-page-text">6 · Inference: Tests, Intervals, and Wald</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
