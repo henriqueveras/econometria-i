@@ -480,19 +480,62 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 </section>
 <section id="the-distance-view-is-the-wald-statistic" class="slide level3 smaller">
 <h3>The distance view is the Wald statistic</h3>
-<p>Take the discrepancy <span class="math inline">\(\mathbf{m} = \mathbf{R}\bb - \mathbf{q}\)</span> (from the restricted-LS slide) and ask how far it is from <span class="math inline">\(\bzero\)</span>, standardized by its own variance. That standardized distance <strong>is the Wald statistic</strong> — here in its exact, linear, classical-variance form; Part III lifts all three qualifiers.</p>
+<p>Take the discrepancy <span class="math inline">\(\mathbf{m} = \mathbf{R}\bb - \mathbf{q}\)</span> (from the restricted-LS slide) and ask how far it is from <span class="math inline">\(\bzero\)</span>, standardized by its <strong>own</strong> variance. That standardized distance <strong>is the Wald statistic</strong>. We build it in its exact, linear form using <strong>only normality</strong> — homoskedasticity (A4) is <em>not</em> needed here, and enters next only as a simplification.</p>
 <div id="thm-f" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3 (The Wald statistic (exact form))</strong></span> Under <span class="math inline">\(H_0\)</span> and A6, <span class="math inline">\(\mathbf{m}\)</span> is normal with <span class="math inline">\(\E[\mathbf{m}\mid\bX]=\bzero\)</span> and <span class="math inline">\(\Var[\mathbf{m}\mid\bX]=\mathbf{R}\,\sigma^2(\bX'\bX)^{-1}\mathbf{R}'\)</span>, so <span class="math display">\[\underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{\sigma^2}}_{W\ \sim\ \chi^2_J},
-\qquad
-\underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{J\,s^2}}_{F\ \sim\ F_{J,\,n-K}}.\]</span> The first (<span class="math inline">\(\sigma^2\)</span> known) is the Wald statistic; the second is its feasible <span class="math inline">\(F\)</span> form (<span class="math inline">\(\sigma^2\to s^2\)</span>, <span class="math inline">\(\div J\)</span>).</p>
+<p><span class="theorem-title"><strong>Theorem 3 (The exact Wald statistic, general variance)</strong></span> Under <span class="math inline">\(H_0\)</span> and A6 (normality), <span class="math inline">\(\mathbf{m}\)</span> is normal with <span class="math inline">\(\E[\mathbf{m}\mid\bX]=\bzero\)</span> and <span class="math inline">\(\Var[\mathbf{m}\mid\bX]=\mathbf{R}\,\bV_b\,\mathbf{R}'\)</span>, where <span class="math inline">\(\bV_b=\Var[\bb\mid\bX]=(\bX'\bX)^{-1}\bX'\bD\bX(\bX'\bX)^{-1}\)</span> is the variance of <span class="math inline">\(\bb\)</span> for a <strong>general</strong> <span class="math inline">\(\bD=\Var[\beps\mid\bX]\)</span>. Standardizing <span class="math inline">\(\mathbf{m}\)</span> by its own variance, <span class="math display">\[W=\mathbf{m}'\big(\mathbf{R}\bV_b\mathbf{R}'\big)^{-1}\mathbf{m}\ \sim\ \chi^2_J\qquad(\text{exact}),\]</span> whatever the form of <span class="math inline">\(\bD\)</span> — only normality and the <strong>correct</strong> variance are used, not homoskedasticity.</p>
 </div>
 <div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
-<p>It is a <span class="math inline">\(\chi^2_J\)</span> because standardizing the <span class="math inline">\(J\)</span>-vector <span class="math inline">\(\mathbf{m}\)</span> gives <span class="math inline">\(J\)</span> independent standard normals, squared and summed. Replacing the unknown <span class="math inline">\(\sigma^2\)</span> by <span class="math inline">\(s^2\)</span> — an independent <span class="math inline">\(\chi^2_{n-K}/(n-K)\)</span> from Theorem 1 — and dividing by <span class="math inline">\(J\)</span> turns the <span class="math inline">\(\chi^2_J\)</span> into an <span class="math inline">\(F_{J,\,n-K}\)</span>.</p>
+<p>Why <span class="math inline">\(\chi^2_J\)</span>: with <span class="math inline">\(\boldsymbol{\Sigma}=\mathbf{R}\bV_b\mathbf{R}'\)</span>, the whitened vector <span class="math inline">\(\boldsymbol{\Sigma}^{-1/2}\mathbf{m}\sim\Normal(\bzero,\bI_J)\)</span>, so <span class="math inline">\(W=\mathbf{m}'\boldsymbol{\Sigma}^{-1}\mathbf{m}=\sum_{j=1}^J z_j^2\sim\chi^2_J\)</span> — <span class="math inline">\(J\)</span> standard normals, squared and summed. Sphericity of the errors is never used; only the <strong>right</strong> variance is. (But <span class="math inline">\(\bV_b\)</span> is <strong>unknown</strong> — the next slide makes the test feasible, and shows what estimating it costs.)</p>
 </div></div>
+</section>
+<section id="the-variance-is-unobservable" class="slide level3 smaller">
+<h3>The variance is unobservable</h3>
+<p>The exact <span class="math inline">\(\chi^2_J\)</span> above is an <strong>oracle</strong>: it divides <span class="math inline">\(\mathbf{m}\)</span> by its <em>true</em> variance. That variance is <strong>unknown</strong>, and estimating it can cost the exact distribution — for <strong>two</strong> independent reasons:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>under <span class="math inline">\(H_0\)</span></th>
+<th>variance <strong>known</strong></th>
+<th>variance <strong>estimated</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>normal errors</strong></td>
+<td><span class="math inline">\(\chi^2_J\)</span> exact</td>
+<td>asymptotic — <em>except A4</em> (next)</td>
+</tr>
+<tr class="even">
+<td><strong>non-normal errors</strong></td>
+<td>asymptotic (CLT)</td>
+<td>asymptotic (Part III)</td>
+</tr>
+</tbody>
+</table>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p><strong>The variance is unknown.</strong> The exact <span class="math inline">\(\chi^2\)</span> came from dividing <span class="math inline">\(\mathbf{m}\)</span> by its <em>true</em> variance; but that variance’s core <span class="math inline">\(\bX'\bD\bX\)</span> depends on each observation’s error size <span class="math inline">\(\sigma_i^2\)</span>, which we never see.</p>
+<p><strong>White’s idea.</strong> Use each point’s own squared residual <span class="math inline">\(\hat e_i^2\)</span> as a stand-in for its <span class="math inline">\(\sigma_i^2\)</span> — estimate the filling by <span class="math inline">\(\sum_i \hat e_i^2\,\mathbf{x}_i\mathbf{x}_i'\)</span>. The test is now computable, but we are dividing by an <strong>estimated</strong> variance, not the true one.</p>
+<p><strong>Why exactness is lost.</strong> Two intuitions: (i) the estimated variance is now <strong>noisy</strong> — built from residuals, it wobbles; (ii) with no A4, the numerator and the estimated variance come from the <strong>same</strong> residuals, so they <strong>move together</strong>. The clean <span class="math inline">\(\chi^2\)</span> needed a <strong>fixed, correct</strong> variance.</p>
+<p><strong>What survives.</strong> With enough data the squared residuals average out to the right sizes, the estimated variance converges to the true one, and <span class="math inline">\(W\approx\chi^2_J\)</span> — <strong>for large <span class="math inline">\(n\)</span> only</strong>.</p>
+</div></div>
+</section>
+<section id="a4-buys-back-the-exact-distribution" class="slide level3 smaller">
+<h3>A4 buys back the exact distribution</h3>
+<p>The previous slide left the variance as the only obstacle to an exact test. <strong>A4</strong> (<span class="math inline">\(\Var[\beps\mid\bX]=\sigma^2\bI\)</span>) removes it: the sandwich collapses to a single scalar <span class="math inline">\(\sigma^2\)</span> — and that is exactly what <strong>buys back</strong> exactness, now as an <span class="math inline">\(F\)</span>.</p>
+<div id="cor-walda4" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 1 (Classical form, the A4 special case)</strong></span> With <span class="math inline">\(\bV_b=\sigma^2(\bX'\bX)^{-1}\)</span>, the variance is <span class="math inline">\(\mathbf{R}\bV_b\mathbf{R}'=\sigma^2\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}'\)</span>, so <span class="math display">\[\underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{\sigma^2}}_{W\ \sim\ \chi^2_J\ (\sigma^2\text{ known})},
+\qquad
+\underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{J\,s^2}}_{F\ \sim\ F_{J,\,n-K}\ (\text{exact})}.\]</span> Unlike the robust route, here estimating the variance <strong>keeps</strong> exactness: the lone unknown <span class="math inline">\(\sigma^2\)</span> is replaced by an <strong>independent</strong> <span class="math inline">\(s^2=\text{SSR}_U/(n-K)\)</span> (Theorem 1, <span class="math inline">\(s^2\perp\mathbf{m}\)</span>), turning the <span class="math inline">\(\chi^2_J\)</span> into an <strong>exact</strong> <span class="math inline">\(F_{J,\,n-K}\)</span>.</p>
+</div>
 </section>
 <section id="a-single-coefficient-the-case-j-1" class="slide level3">
 <h3>A single coefficient: the case J = 1</h3>
-<p>The most common test is a single restriction: <span class="math inline">\(\mathbf{R} = \mathbf{e}_k'\)</span> (a row picking out <span class="math inline">\(\beta_k\)</span>), <span class="math inline">\(\mathbf{q} = c\)</span>. Then <span class="math inline">\(\mathbf{m} = b_k - c\)</span> and <span class="math inline">\(\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}' = S^{kk}\)</span>, so the <span class="math inline">\(F\)</span> is the square of a <span class="math inline">\(t\)</span>-ratio.</p>
+<p>The most common test is a single restriction: <span class="math inline">\(\mathbf{R} = \boldsymbol{\iota}_k'\)</span>, where <span class="math inline">\(\boldsymbol{\iota}_k\)</span> is the <span class="math inline">\(k\)</span>-th <strong>unit vector</strong> (the <span class="math inline">\(k\)</span>-th column of <span class="math inline">\(\bI\)</span>: a <span class="math inline">\(1\)</span> in slot <span class="math inline">\(k\)</span>, <span class="math inline">\(0\)</span> elsewhere) — a row that picks out <span class="math inline">\(\beta_k\)</span> — and <span class="math inline">\(\mathbf{q} = c\)</span>. Then <span class="math inline">\(\mathbf{m} = b_k - c\)</span> and <span class="math inline">\(\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}' = \boldsymbol{\iota}_k'(\bX'\bX)^{-1}\boldsymbol{\iota}_k = S^{kk}\)</span>, so the <span class="math inline">\(F\)</span> is the square of a <span class="math inline">\(t\)</span>-ratio.</p>
 <div id="def-test" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3 (The t-test)</strong></span> For <span class="math inline">\(H_0\!: \beta_k = c\)</span>, <span class="math display">\[t = \frac{b_k - c}{\operatorname{se}(b_k)} \sim t_{n-K}, \qquad
 \operatorname{se}(b_k) = s\sqrt{S^{kk}}, \qquad F = t^2 .\]</span> Reject when <span class="math inline">\(|t| &gt; t_{1-\alpha/2,\,n-K}\)</span>, with <span class="math inline">\(S^{kk} = [(\bX'\bX)^{-1}]_{kk}\)</span> as above.</p>
@@ -525,7 +568,7 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 </section>
 <section id="the-wald-statistic-in-general" class="slide level3 smaller">
 <h3>The Wald statistic, in general</h3>
-<p>The distance-view <span class="math inline">\(W\)</span> of Part II was <strong>one special case</strong>. Keep the <em>same statistic</em> — a distance, weighted by its own variance — and lift three qualifiers at once:</p>
+<p>Part II already let the <strong>variance</strong> be general — the sandwich <span class="math inline">\(\bV_b\)</span>, with A4 only a simplification. Keep the <em>same statistic</em> — a distance weighted by its own variance — and lift the <strong>remaining</strong> two qualifiers:</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -542,7 +585,7 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 <tbody>
 <tr class="odd">
 <td>Variance <span class="math inline">\(\widehat{\bV}\)</span></td>
-<td>classical <span class="math inline">\(s^2(\bX'\bX)^{-1}\)</span> (A4)</td>
+<td>general <span class="math inline">\(\bV_b\)</span> (A4 <span class="math inline">\(\Rightarrow\)</span> classical)</td>
 <td>any consistent — incl.&nbsp;robust sandwich</td>
 </tr>
 <tr class="even">
