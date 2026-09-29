@@ -616,9 +616,41 @@ W_{LM} = \mathbf{m}'\big[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\math
 <p>First-order Taylor: <span class="math inline">\(h(\btheta_n) = h(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>; the higher-order terms vanish in probability after rescaling by <span class="math inline">\(\sqrt{n}\)</span>, and the linear term carries the normal through. The Jacobian <span class="math inline">\(\bGamma\)</span> is the local <strong>sensitivity</strong> (slope) of <span class="math inline">\(h\)</span> to <span class="math inline">\(\btheta\)</span>, and it carries the variance across: <span class="math inline">\(\bV \mapsto \bGamma\bV\bGamma'\)</span>.</p>
 </div></div>
 </section>
-<section id="nonlinear-wald" class="slide level3">
+<section id="nonlinear-wald" class="slide level3 smaller">
 <h3>Nonlinear Wald</h3>
-<p>Apply the Delta Method to the restriction itself. With <span class="math inline">\(\widehat{\bGamma} = \partial h(\bbeta)/\partial\bbeta'\)</span> evaluated at <span class="math inline">\(\bb\)</span>, <span class="math display">\[W = h(\bb)'\big[\widehat{\bGamma}\,\widehat{\bV}\,\widehat{\bGamma}'\big]^{-1} h(\bb) \;\dto\; \chi^2_J.\]</span></p>
+<p>Apply the Delta Method to the restriction itself. With <span class="math inline">\(\widehat{\bGamma} = \partial h(\bbeta)/\partial\bbeta'\)</span> evaluated at <span class="math inline">\(\bb\)</span>, <span class="math display">\[W = h(\bb)'\big[\widehat{\bGamma}\,\widehat{\bV}\,\widehat{\bGamma}'\big]^{-1} h(\bb) \;\dto\; \chi^2_J.\]</span> The <strong>same Wald</strong> — two substitutions from the linear case, and linear is the special case <span class="math inline">\(\bGamma=\mathbf{R}\)</span>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Linear</th>
+<th>Nonlinear</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>discrepancy</td>
+<td><span class="math inline">\(\mathbf{m} = \mathbf{R}\bb - \mathbf{q}\)</span></td>
+<td><span class="math inline">\(h(\bb)\)</span></td>
+</tr>
+<tr class="even">
+<td>variance</td>
+<td><span class="math inline">\(\mathbf{R}\,\widehat{\bV}\,\mathbf{R}'\)</span></td>
+<td><span class="math inline">\(\widehat{\bGamma}\,\widehat{\bV}\,\widehat{\bGamma}'\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Two cautions</span></div><div class="econ-box-body">
+<p><strong>Asymptotic only</strong> — the Delta Method linearizes in the limit (and <span class="math inline">\(\widehat{\bGamma},\widehat{\bV}\)</span> are estimated), so there is <strong>no</strong> exact finite-sample analogue of the <span class="math inline">\(F\)</span>. <strong>Not invariant</strong> to how the restriction is written: <span class="math inline">\(\beta_1/\beta_2 - 1 = 0\)</span> and <span class="math inline">\(\beta_1 - \beta_2 = 0\)</span> are the <em>same</em> hypothesis but give <em>different</em> <span class="math inline">\(W\)</span> in finite samples, because <span class="math inline">\(\bGamma\)</span> changes — prefer the linear form when one exists.</p>
+</div></div>
+</section>
+<section id="nonlinear-wald-a-worked-example" class="slide level3 smaller">
+<h3>Nonlinear Wald: a worked example</h3>
 <div id="exm-ratio" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> To test <span class="math inline">\(H_0\!: \beta_1/\beta_2 = 1\)</span>, write <span class="math inline">\(h(\bbeta) = \beta_1 - \beta_2\)</span> (linear here) or, if the ratio itself is the object of interest, <span class="math inline">\(h(\bbeta) = \beta_1/\beta_2 - 1\)</span> with <span class="math inline">\(\widehat{\bGamma} = \big[\,1/b_2,\ -b_1/b_2^2\,\big]\)</span>. The Delta Method supplies the standard error of the ratio; the Wald statistic does the rest.</p>
 </div>
