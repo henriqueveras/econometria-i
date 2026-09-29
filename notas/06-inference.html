@@ -657,9 +657,8 @@ window.Quarto = {
 <li>
 <a href="#distance-based-testing" id="toc-distance-based-testing" class="nav-link" data-scroll-target="#distance-based-testing"><span class="header-section-number">3.1</span> Distance-based testing</a>
   <ul class="collapse">
-<li><a href="#the-wald-statistic-in-general" id="toc-the-wald-statistic-in-general" class="nav-link" data-scroll-target="#the-wald-statistic-in-general">The Wald statistic, in general</a></li>
+<li><a href="#the-general-wald-statistic" id="toc-the-general-wald-statistic" class="nav-link" data-scroll-target="#the-general-wald-statistic">The general Wald statistic</a></li>
   <li><a href="#one-principle-many-estimators" id="toc-one-principle-many-estimators" class="nav-link" data-scroll-target="#one-principle-many-estimators">One principle, many estimators</a></li>
-  <li><a href="#the-same-tests-in-large-samples" id="toc-the-same-tests-in-large-samples" class="nav-link" data-scroll-target="#the-same-tests-in-large-samples">The same tests in large samples</a></li>
   <li><a href="#the-lagrange-multiplier-test" id="toc-the-lagrange-multiplier-test" class="nav-link" data-scroll-target="#the-lagrange-multiplier-test">The Lagrange multiplier test</a></li>
   </ul>
 </li>
@@ -667,8 +666,9 @@ window.Quarto = {
 <a href="#nonlinear-restrictions" id="toc-nonlinear-restrictions" class="nav-link" data-scroll-target="#nonlinear-restrictions"><span class="header-section-number">3.2</span> Nonlinear restrictions</a>
   <ul class="collapse">
 <li><a href="#when-the-restriction-is-a-function" id="toc-when-the-restriction-is-a-function" class="nav-link" data-scroll-target="#when-the-restriction-is-a-function">When the restriction is a function</a></li>
-  <li><a href="#the-delta-method-recovered" id="toc-the-delta-method-recovered" class="nav-link" data-scroll-target="#the-delta-method-recovered">The Delta Method, recovered</a></li>
+  <li><a href="#the-delta-method" id="toc-the-delta-method" class="nav-link" data-scroll-target="#the-delta-method">The Delta Method</a></li>
   <li><a href="#nonlinear-wald" id="toc-nonlinear-wald" class="nav-link" data-scroll-target="#nonlinear-wald">Nonlinear Wald</a></li>
+  <li><a href="#the-wald-statistic-in-general" id="toc-the-wald-statistic-in-general" class="nav-link" data-scroll-target="#the-wald-statistic-in-general">The Wald statistic, in general</a></li>
   </ul>
 </li>
   </ul>
@@ -942,13 +942,21 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 \underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{J\,s^2}}_{F\ \sim\ F_{J,\,n-K}\ (\text{exact})}.\]</span> Unlike the robust route, here estimating the variance <strong>keeps</strong> exactness: the lone unknown <span class="math inline">\(\sigma^2\)</span> is replaced by an <strong>independent</strong> <span class="math inline">\(s^2=\text{SSR}_U/(n-K)\)</span> (Theorem 1, <span class="math inline">\(s^2\perp\mathbf{m}\)</span>), turning the <span class="math inline">\(\chi^2_J\)</span> into an <strong>exact</strong> <span class="math inline">\(F_{J,\,n-K}\)</span>.</p>
 </div>
 <p>One caution on <strong>misusing</strong> the simplified variance: keep <span class="math inline">\(\sigma^2\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}'\)</span> when the errors are actually heteroskedastic, and you standardize <span class="math inline">\(\mathbf{m}\)</span> by the <strong>wrong</strong> <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. Then <span class="math inline">\(\mathbf{m}'\mathbf{A}^{-1}\mathbf{m}\sim\sum_{j=1}^J\lambda_j\chi^2_1\)</span>, <span class="math inline">\(\lambda_j=\)</span> eigenvalues of <span class="math inline">\(\mathbf{A}^{-1}\mathbf{R}\bV_b\mathbf{R}'\)</span> — a weighted mixture with mean <span class="math inline">\(\sum_j\lambda_j\neq J\)</span>, so the size is wrong. The closed form is valid only <em>because</em> A4 makes it the correct <span class="math inline">\(\boldsymbol{\Sigma}\)</span>; when A4 fails, return to the robust (White/HC) variance of the previous slide.</p>
-</section><section id="a-single-coefficient-the-case-j-1" class="level3"><h3 class="anchored" data-anchor-id="a-single-coefficient-the-case-j-1">A single coefficient: the case J = 1</h3>
+</section><section id="a-single-coefficient-the-case-j-1" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="a-single-coefficient-the-case-j-1">A single coefficient: the case J = 1</h3>
 <p>The most common test is a single restriction: <span class="math inline">\(\mathbf{R} = \boldsymbol{\iota}_k'\)</span>, where <span class="math inline">\(\boldsymbol{\iota}_k\)</span> is the <span class="math inline">\(k\)</span>-th <strong>unit vector</strong> (the <span class="math inline">\(k\)</span>-th column of <span class="math inline">\(\bI\)</span>: a <span class="math inline">\(1\)</span> in slot <span class="math inline">\(k\)</span>, <span class="math inline">\(0\)</span> elsewhere) — a row that picks out <span class="math inline">\(\beta_k\)</span> — and <span class="math inline">\(\mathbf{q} = c\)</span>. Then <span class="math inline">\(\mathbf{m} = b_k - c\)</span> and <span class="math inline">\(\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}' = \boldsymbol{\iota}_k'(\bX'\bX)^{-1}\boldsymbol{\iota}_k = S^{kk}\)</span>, so the <span class="math inline">\(F\)</span> is the square of a <span class="math inline">\(t\)</span>-ratio.</p>
 <div id="def-test" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3 (The t-test)</strong></span> For <span class="math inline">\(H_0\!: \beta_k = c\)</span>, <span class="math display">\[t = \frac{b_k - c}{\operatorname{se}(b_k)} \sim t_{n-K}, \qquad
 \operatorname{se}(b_k) = s\sqrt{S^{kk}}, \qquad F = t^2 .\]</span> Reject when <span class="math inline">\(|t| &gt; t_{1-\alpha/2,\,n-K}\)</span>, with <span class="math inline">\(S^{kk} = [(\bX'\bX)^{-1}]_{kk}\)</span> as above.</p>
 </div>
 <p>The familiar <span class="math inline">\(t\)</span>-test is <strong>not</strong> a separate tool — it is the <span class="math inline">\(F\)</span> (equivalently the Wald) for one restriction.</p>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
+<p><strong>Large samples.</strong> Drop A6 and the exact <span class="math inline">\(t_{n-K}\)</span> no longer holds, but the <strong>same</strong> ratio converges: <span class="math inline">\(t = (b_k - c)/\operatorname{se}(b_k) \dto \Normal(0,1)\)</span>. Both <span class="math inline">\(b_k - c\)</span> and <span class="math inline">\(\operatorname{se}(b_k)\)</span> are <span class="math inline">\(O_p(1/\sqrt{n})\)</span>, so the <span class="math inline">\(\sqrt{n}\)</span> cancels — only the reference table changes (<span class="math inline">\(\Normal\)</span> for <span class="math inline">\(t\)</span>). With a robust <span class="math inline">\(\operatorname{se}\)</span>, this holds without A4 too.</p>
+</div>
+</div>
 </section><section id="the-fit-view" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-fit-view">The fit view</h3>
 <p>The distance view standardized <span class="math inline">\(\mathbf{m}\)</span>. The <strong>fit</strong> view asks the equivalent question through the residuals — and the two are literally the same number.</p>
 <p>Because <span class="math inline">\(\bb\)</span> is the <strong>global</strong> minimizer of the residual sum of squares <span class="math inline">\(\text{SSR}=\sum_i e_i^2\)</span>, imposing any restriction can only raise it: <span class="math display">\[\text{SSR}_R \;\ge\; \text{SSR}_U .\]</span></p>
@@ -969,12 +977,20 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 <span class="header-section-number">3</span> Part III · The Wald principle</h1>
 <section id="distance-based-testing" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="distance-based-testing">
 <span class="header-section-number">3.1</span> Distance-based testing</h2>
-<section id="the-wald-statistic-in-general" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-wald-statistic-in-general">The Wald statistic, in general</h3>
-<p>Part II already let the <strong>variance</strong> be general — the sandwich <span class="math inline">\(\bV_b\)</span>, with A4 only a simplification. Keep the <em>same statistic</em> — a distance weighted by its own variance — and lift the <strong>remaining</strong> two qualifiers:</p>
+<section id="the-general-wald-statistic" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-general-wald-statistic">The general Wald statistic</h3>
+<p>Part II already let the <strong>variance</strong> be general — the sandwich <span class="math inline">\(\bV_b\)</span>, with A4 only a simplification. The <strong>same statistic</strong> — a distance weighted by its own variance — carries over once we also relax <strong>normality</strong>: with any <em>consistent</em> <span class="math inline">\(\widehat{\bV}\)</span>, it is asymptotically <span class="math inline">\(\chi^2_J\)</span>.</p>
 <div id="thm-wald" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 4 (Wald statistic)</strong></span> For <span class="math inline">\(H_0\!: \mathbf{R}\bbeta = \mathbf{q}\)</span>, with <span class="math inline">\(\widehat{\bV}\)</span> a consistent estimate of <span class="math inline">\(\Var[\bb]\)</span>, <span class="math display">\[W = (\mathbf{R}\bb - \mathbf{q})'\big[\mathbf{R}\,\widehat{\bV}\,\mathbf{R}'\big]^{-1}(\mathbf{R}\bb - \mathbf{q}) \;\dto\; \chi^2_J .\]</span> With the classical <span class="math inline">\(\widehat{\bV} = s^2(\bX'\bX)^{-1}\)</span> and A6 this <strong>is</strong> the Part II statistic, and <span class="math inline">\(W/J \sim F_{J,\,n-K}\)</span> exactly.</p>
 </div>
-<p>Nothing new in the <em>form</em> — only in what it tolerates. The three ingredients are unchanged: a <strong>distance</strong> <span class="math inline">\(\mathbf{R}\bb - \mathbf{q}\)</span>, its <strong>variance</strong> <span class="math inline">\(\mathbf{R}\widehat{\bV}\mathbf{R}'\)</span>, and a <strong>standardization</strong> into a <span class="math inline">\(\chi^2\)</span>. Swapping the classical <span class="math inline">\(\widehat{\bV}\)</span> for the robust sandwich of Lecture 5 buys validity without A6; the nonlinear axis is the last two slides of this part.</p>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
+<p>Why <span class="math inline">\(\chi^2_J\)</span> with an <strong>estimated</strong> variance. By Lecture 5, <span class="math inline">\(\bb\)</span> is asymptotically normal around <span class="math inline">\(\bbeta\)</span>; under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\mathbf{R}\bb - \mathbf{q}\)</span> is asymptotically <span class="math inline">\(\Normal(\bzero,\ \mathbf{R}\widehat{\bV}\mathbf{R}')\)</span>. A <strong>consistent</strong> <span class="math inline">\(\widehat{\bV}\)</span> gives <span class="math inline">\(\mathbf{R}\widehat{\bV}\mathbf{R}' \pto \mathbf{R}\bV_b\mathbf{R}'\)</span>, so by <strong>Slutsky</strong> the estimate can stand in for the truth without changing the limit — the standardized distance is <span class="math inline">\(\chi^2_J\)</span>. Exact only with a <em>known</em> variance (Part II); here it is <strong>asymptotic</strong>.</p>
+</div>
+</div>
+<p>Nothing new in the <em>form</em> — only in what it tolerates: a <strong>distance</strong> <span class="math inline">\(\mathbf{R}\bb - \mathbf{q}\)</span>, its <strong>variance</strong> <span class="math inline">\(\mathbf{R}\widehat{\bV}\mathbf{R}'\)</span>, and a <strong>standardization</strong> into a <span class="math inline">\(\chi^2\)</span>. The robust choice is <span class="math inline">\(\widehat{\bV} = (\bX'\bX)^{-1}\big(\textstyle\sum_i \hat e_i^2\,\mathbf{x}_i\mathbf{x}_i'\big)(\bX'\bX)^{-1}\)</span> (HC0; HC1–HC3 rescale the <span class="math inline">\(\hat e_i^2\)</span>), valid without A6 <strong>and</strong> without A4.</p>
 </section><section id="one-principle-many-estimators" class="level3"><h3 class="anchored" data-anchor-id="one-principle-many-estimators">One principle, many estimators</h3>
 <div class="econ-box econ-box-connection" role="note">
 <div class="econ-box-head">
@@ -985,23 +1001,29 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 (\text{restriction})\)</span>. Change the estimator — GLS, IV, GMM (Lecture 12), maximum likelihood (Lecture 13) — and only <span class="math inline">\(\bb\)</span> and <span class="math inline">\(\widehat{\bV}\)</span> change; the test does not. Learning it once here is learning it for the whole course.</p>
 </div>
 </div>
-</section><section id="the-same-tests-in-large-samples" class="level3"><h3 class="anchored" data-anchor-id="the-same-tests-in-large-samples">The same tests in large samples</h3>
-<p>Drop A6. The exact <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> and <span class="math inline">\(\chi^2\)</span> no longer hold — but the <strong>same statistics</strong> have limiting distributions.</p>
-<p>Nothing changes in what you compute — the same <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span>. What changes is the <strong>table</strong> you read them against (normal and <span class="math inline">\(\chi^2\)</span> instead of <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span>) and, with the robust <span class="math inline">\(\widehat{\bV}\)</span>, the validity extends to heteroskedasticity. For <span class="math inline">\(n-K\)</span> beyond about <span class="math inline">\(100\)</span> the <span class="math inline">\(t\)</span> and the normal — and the <span class="math inline">\(F\)</span> and <span class="math inline">\(\chi^2_J/J\)</span> — are indistinguishable anyway.</p>
-</section><section id="the-lagrange-multiplier-test" class="level3"><h3 class="anchored" data-anchor-id="the-lagrange-multiplier-test">The Lagrange multiplier test</h3>
+</section><section id="the-lagrange-multiplier-test" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-lagrange-multiplier-test">The Lagrange multiplier test</h3>
 <p>The <strong>restricted</strong> fit carries a Lagrange multiplier <span class="math inline">\(\boldsymbol{\lambda}_*\)</span> on the constraint — the “pressure” the data put on it. Testing whether that pressure is zero is testing <span class="math inline">\(H_0\)</span>.</p>
 <div id="thm-lm" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 5 (LM (score) test)</strong></span> <span class="math display">\[\boldsymbol{\lambda}_* = [\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}(\mathbf{R}\bb - \mathbf{q}),
+<p><span class="theorem-title"><strong>Theorem 5 (LM (score) test)</strong></span> With the discrepancy <span class="math inline">\(\mathbf{m} = \mathbf{R}\bb - \mathbf{q}\)</span>, <span class="math display">\[\boldsymbol{\lambda}_* = \big[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\mathbf{m},
 \qquad
-W_{LM} = (\mathbf{R}\bb - \mathbf{q})'[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}']^{-1}(\mathbf{R}\bb - \mathbf{q}).\]</span> Since <span class="math inline">\(\boldsymbol{\lambda}_* = \bzero \iff \mathbf{R}\bbeta - \mathbf{q} = \bzero\)</span>, the LM test needs <strong>only the restricted model</strong> — and, in the linear case, no likelihood.</p>
+W_{LM} = \mathbf{m}'\big[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\mathbf{m}.\]</span> Since <span class="math inline">\(\boldsymbol{\lambda}_* = \bzero \iff \mathbf{R}\bbeta - \mathbf{q} = \bzero\)</span>, the LM test needs <strong>only the restricted model</strong> — and, in the linear case, no likelihood.</p>
 </div>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
+<p>The <strong>score</strong> is the gradient of the fit at the restricted <span class="math inline">\(\bb_R\)</span>, namely <span class="math inline">\(\bX'\be_R\)</span> (restricted residuals): near <span class="math inline">\(\bzero\)</span> if <span class="math inline">\(H_0\)</span> holds, large if not. Equivalently, it is <span class="math inline">\(nR^2\)</span> from regressing <span class="math inline">\(\be_R\)</span> on <strong>all</strong> regressors — the restricted fit alone, no <span class="math inline">\(\bb\)</span> and no likelihood.</p>
+</div>
+</div>
+<p>“No likelihood” because the score used here is the gradient of the <strong>sum of squares</strong> (<span class="math inline">\(\bX'\be_R\)</span>), not of a log-likelihood — so no distribution is assumed. In maximum likelihood (Lecture 13) the score is the log-likelihood gradient, and the same construction gives the LM member of the Wald–LR–LM trinity.</p>
 <p>Wald, <span class="math inline">\(F\)</span> and LM are three readings of one discrepancy: Wald and <span class="math inline">\(F\)</span> standardize <span class="math inline">\(\mathbf{R}\bb -
 \mathbf{q}\)</span> from the unrestricted fit; LM reads the multiplier <span class="math inline">\(\boldsymbol{\lambda}_*\)</span> from the restricted fit. Here they agree exactly, and asymptotically in general. The <strong>likelihood ratio</strong> — the fourth route, comparing maximized likelihoods — needs a likelihood, so the full <em>trinity</em> Wald–LR–LM waits for maximum likelihood in Lecture 13.</p>
 </section></section><section id="nonlinear-restrictions" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="nonlinear-restrictions">
 <span class="header-section-number">3.2</span> Nonlinear restrictions</h2>
 <section id="when-the-restriction-is-a-function" class="level3"><h3 class="anchored" data-anchor-id="when-the-restriction-is-a-function">When the restriction is a function</h3>
 <p>Some hypotheses are not linear in <span class="math inline">\(\bbeta\)</span>: a ratio of coefficients equal to one, a long-run multiplier, an elasticity at a point. Write them <span class="math inline">\(h(\bbeta) = \mathbf{0}\)</span>. To test them we need the distribution of <span class="math inline">\(h(\bb)\)</span> — and <span class="math inline">\(h\)</span> of an estimator is not, in general, normal.</p>
-</section><section id="the-delta-method-recovered" class="level3"><h3 class="anchored" data-anchor-id="the-delta-method-recovered">The Delta Method, recovered</h3>
+</section><section id="the-delta-method" class="level3"><h3 class="anchored" data-anchor-id="the-delta-method">The Delta Method</h3>
 <div id="thm-delta" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 6 (Delta Method)</strong></span> If <span class="math inline">\(\sqrt{n}(\btheta_n - \btheta) \dto \Normal(\bzero, \bV)\)</span> and <span class="math inline">\(h\)</span> is continuously differentiable with Jacobian <span class="math inline">\(\bGamma = \partial h(\btheta)/\partial\btheta'\)</span>, then <span class="math display">\[\sqrt{n}\big(h(\btheta_n) - h(\btheta)\big) \dto \Normal\!\big(\bzero,\ \bGamma\bV\bGamma'\big).\]</span></p>
 </div>
@@ -1010,7 +1032,7 @@ W_{LM} = (\mathbf{R}\bb - \mathbf{q})'[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}']
 <span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
 </div>
 <div class="econ-box-body">
-<p>First-order Taylor: <span class="math inline">\(h(\btheta_n) = h(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>; the higher-order terms vanish in probability after rescaling by <span class="math inline">\(\sqrt{n}\)</span>, and the linear term carries the normal through. The Jacobian <span class="math inline">\(\bGamma\)</span> is the “exchange rate” between the uncertainty in <span class="math inline">\(\btheta\)</span> and that in <span class="math inline">\(h(\btheta)\)</span>.</p>
+<p>First-order Taylor: <span class="math inline">\(h(\btheta_n) = h(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>; the higher-order terms vanish in probability after rescaling by <span class="math inline">\(\sqrt{n}\)</span>, and the linear term carries the normal through. The Jacobian <span class="math inline">\(\bGamma\)</span> is the local <strong>sensitivity</strong> (slope) of <span class="math inline">\(h\)</span> to <span class="math inline">\(\btheta\)</span>, and it carries the variance across: <span class="math inline">\(\bV \mapsto \bGamma\bV\bGamma'\)</span>.</p>
 </div>
 </div>
 </section><section id="nonlinear-wald" class="level3"><h3 class="anchored" data-anchor-id="nonlinear-wald">Nonlinear Wald</h3>
@@ -1018,6 +1040,8 @@ W_{LM} = (\mathbf{R}\bb - \mathbf{q})'[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}']
 <div id="exm-ratio" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> To test <span class="math inline">\(H_0\!: \beta_1/\beta_2 = 1\)</span>, write <span class="math inline">\(h(\bbeta) = \beta_1 - \beta_2\)</span> (linear here) or, if the ratio itself is the object of interest, <span class="math inline">\(h(\bbeta) = \beta_1/\beta_2 - 1\)</span> with <span class="math inline">\(\widehat{\bGamma} = \big[\,1/b_2,\ -b_1/b_2^2\,\big]\)</span>. The Delta Method supplies the standard error of the ratio; the Wald statistic does the rest.</p>
 </div>
+</section><section id="the-wald-statistic-in-general" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-wald-statistic-in-general">The Wald statistic, in general</h3>
+<p>One statistic across three axes: everything in Part III was the <strong>same</strong> distance, weighted by its own variance. Now that each axis has been developed, the summary:</p>
 </section></section></section><section id="part-iv-joint-inference-prediction-and-stability" class="level1" data-number="4"><h1 data-number="4">
 <span class="header-section-number">4</span> Part IV · Joint inference, prediction, and stability</h1>
 <section id="joint-versus-marginal" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="joint-versus-marginal">

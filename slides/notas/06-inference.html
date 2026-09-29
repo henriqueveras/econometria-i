@@ -533,7 +533,7 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 \underbrace{\frac{\mathbf{m}'[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}\mathbf{m}}{J\,s^2}}_{F\ \sim\ F_{J,\,n-K}\ (\text{exact})}.\]</span> Unlike the robust route, here estimating the variance <strong>keeps</strong> exactness: the lone unknown <span class="math inline">\(\sigma^2\)</span> is replaced by an <strong>independent</strong> <span class="math inline">\(s^2=\text{SSR}_U/(n-K)\)</span> (Theorem 1, <span class="math inline">\(s^2\perp\mathbf{m}\)</span>), turning the <span class="math inline">\(\chi^2_J\)</span> into an <strong>exact</strong> <span class="math inline">\(F_{J,\,n-K}\)</span>.</p>
 </div>
 </section>
-<section id="a-single-coefficient-the-case-j-1" class="slide level3">
+<section id="a-single-coefficient-the-case-j-1" class="slide level3 smaller">
 <h3>A single coefficient: the case J = 1</h3>
 <p>The most common test is a single restriction: <span class="math inline">\(\mathbf{R} = \boldsymbol{\iota}_k'\)</span>, where <span class="math inline">\(\boldsymbol{\iota}_k\)</span> is the <span class="math inline">\(k\)</span>-th <strong>unit vector</strong> (the <span class="math inline">\(k\)</span>-th column of <span class="math inline">\(\bI\)</span>: a <span class="math inline">\(1\)</span> in slot <span class="math inline">\(k\)</span>, <span class="math inline">\(0\)</span> elsewhere) — a row that picks out <span class="math inline">\(\beta_k\)</span> — and <span class="math inline">\(\mathbf{q} = c\)</span>. Then <span class="math inline">\(\mathbf{m} = b_k - c\)</span> and <span class="math inline">\(\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}' = \boldsymbol{\iota}_k'(\bX'\bX)^{-1}\boldsymbol{\iota}_k = S^{kk}\)</span>, so the <span class="math inline">\(F\)</span> is the square of a <span class="math inline">\(t\)</span>-ratio.</p>
 <div id="def-test" class="theorem definition">
@@ -541,6 +541,9 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 \operatorname{se}(b_k) = s\sqrt{S^{kk}}, \qquad F = t^2 .\]</span> Reject when <span class="math inline">\(|t| &gt; t_{1-\alpha/2,\,n-K}\)</span>, with <span class="math inline">\(S^{kk} = [(\bX'\bX)^{-1}]_{kk}\)</span> as above.</p>
 </div>
 <p>The familiar <span class="math inline">\(t\)</span>-test is <strong>not</strong> a separate tool — it is the <span class="math inline">\(F\)</span> (equivalently the Wald) for one restriction.</p>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p><strong>Large samples.</strong> Drop A6 and the exact <span class="math inline">\(t_{n-K}\)</span> no longer holds, but the <strong>same</strong> ratio converges: <span class="math inline">\(t = (b_k - c)/\operatorname{se}(b_k) \dto \Normal(0,1)\)</span>. Both <span class="math inline">\(b_k - c\)</span> and <span class="math inline">\(\operatorname{se}(b_k)\)</span> are <span class="math inline">\(O_p(1/\sqrt{n})\)</span>, so the <span class="math inline">\(\sqrt{n}\)</span> cancels — only the reference table changes (<span class="math inline">\(\Normal\)</span> for <span class="math inline">\(t\)</span>). With a robust <span class="math inline">\(\operatorname{se}\)</span>, this holds without A4 too.</p>
+</div></div>
 </section>
 <section id="the-fit-view" class="slide level3 smaller">
 <h3>The fit view</h3>
@@ -566,9 +569,63 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 <h2>Distance-based testing</h2>
 
 </section>
+<section id="the-general-wald-statistic" class="slide level3 smaller">
+<h3>The general Wald statistic</h3>
+<p>Part II already let the <strong>variance</strong> be general — the sandwich <span class="math inline">\(\bV_b\)</span>, with A4 only a simplification. The <strong>same statistic</strong> — a distance weighted by its own variance — carries over once we also relax <strong>normality</strong>: with any <em>consistent</em> <span class="math inline">\(\widehat{\bV}\)</span>, it is asymptotically <span class="math inline">\(\chi^2_J\)</span>.</p>
+<div id="thm-wald" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Wald statistic)</strong></span> For <span class="math inline">\(H_0\!: \mathbf{R}\bbeta = \mathbf{q}\)</span>, with <span class="math inline">\(\widehat{\bV}\)</span> a consistent estimate of <span class="math inline">\(\Var[\bb]\)</span>, <span class="math display">\[W = (\mathbf{R}\bb - \mathbf{q})'\big[\mathbf{R}\,\widehat{\bV}\,\mathbf{R}'\big]^{-1}(\mathbf{R}\bb - \mathbf{q}) \;\dto\; \chi^2_J .\]</span> With the classical <span class="math inline">\(\widehat{\bV} = s^2(\bX'\bX)^{-1}\)</span> and A6 this <strong>is</strong> the Part II statistic, and <span class="math inline">\(W/J \sim F_{J,\,n-K}\)</span> exactly.</p>
+</div>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>Why <span class="math inline">\(\chi^2_J\)</span> with an <strong>estimated</strong> variance. By Lecture 5, <span class="math inline">\(\bb\)</span> is asymptotically normal around <span class="math inline">\(\bbeta\)</span>; under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\mathbf{R}\bb - \mathbf{q}\)</span> is asymptotically <span class="math inline">\(\Normal(\bzero,\ \mathbf{R}\widehat{\bV}\mathbf{R}')\)</span>. A <strong>consistent</strong> <span class="math inline">\(\widehat{\bV}\)</span> gives <span class="math inline">\(\mathbf{R}\widehat{\bV}\mathbf{R}' \pto \mathbf{R}\bV_b\mathbf{R}'\)</span>, so by <strong>Slutsky</strong> the estimate can stand in for the truth without changing the limit — the standardized distance is <span class="math inline">\(\chi^2_J\)</span>. Exact only with a <em>known</em> variance (Part II); here it is <strong>asymptotic</strong>.</p>
+</div></div>
+</section>
+<section id="one-principle-many-estimators" class="slide level3">
+<h3>One principle, many estimators</h3>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Wald here, Wald everywhere</span></div><div class="econ-box-body">
+<p>Every Wald test has the shape <span class="math inline">\((\text{restriction})' \,[\,\text{its variance}\,]^{-1}\,
+(\text{restriction})\)</span>. Change the estimator — GLS, IV, GMM (Lecture 12), maximum likelihood (Lecture 13) — and only <span class="math inline">\(\bb\)</span> and <span class="math inline">\(\widehat{\bV}\)</span> change; the test does not. Learning it once here is learning it for the whole course.</p>
+</div></div>
+</section>
+<section id="the-lagrange-multiplier-test" class="slide level3 smaller">
+<h3>The Lagrange multiplier test</h3>
+<p>The <strong>restricted</strong> fit carries a Lagrange multiplier <span class="math inline">\(\boldsymbol{\lambda}_*\)</span> on the constraint — the “pressure” the data put on it. Testing whether that pressure is zero is testing <span class="math inline">\(H_0\)</span>.</p>
+<div id="thm-lm" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5 (LM (score) test)</strong></span> With the discrepancy <span class="math inline">\(\mathbf{m} = \mathbf{R}\bb - \mathbf{q}\)</span>, <span class="math display">\[\boldsymbol{\lambda}_* = \big[\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\mathbf{m},
+\qquad
+W_{LM} = \mathbf{m}'\big[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\mathbf{m}.\]</span> Since <span class="math inline">\(\boldsymbol{\lambda}_* = \bzero \iff \mathbf{R}\bbeta - \mathbf{q} = \bzero\)</span>, the LM test needs <strong>only the restricted model</strong> — and, in the linear case, no likelihood.</p>
+</div>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>The <strong>score</strong> is the gradient of the fit at the restricted <span class="math inline">\(\bb_R\)</span>, namely <span class="math inline">\(\bX'\be_R\)</span> (restricted residuals): near <span class="math inline">\(\bzero\)</span> if <span class="math inline">\(H_0\)</span> holds, large if not. Equivalently, it is <span class="math inline">\(nR^2\)</span> from regressing <span class="math inline">\(\be_R\)</span> on <strong>all</strong> regressors — the restricted fit alone, no <span class="math inline">\(\bb\)</span> and no likelihood.</p>
+</div></div>
+</section>
+
+<section id="nonlinear-restrictions" class="title-slide slide level2 center">
+<h2>Nonlinear restrictions</h2>
+
+</section>
+<section id="when-the-restriction-is-a-function" class="slide level3">
+<h3>When the restriction is a function</h3>
+<p>Some hypotheses are not linear in <span class="math inline">\(\bbeta\)</span>: a ratio of coefficients equal to one, a long-run multiplier, an elasticity at a point. Write them <span class="math inline">\(h(\bbeta) = \mathbf{0}\)</span>. To test them we need the distribution of <span class="math inline">\(h(\bb)\)</span> — and <span class="math inline">\(h\)</span> of an estimator is not, in general, normal.</p>
+</section>
+<section id="the-delta-method" class="slide level3">
+<h3>The Delta Method</h3>
+<div id="thm-delta" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6 (Delta Method)</strong></span> If <span class="math inline">\(\sqrt{n}(\btheta_n - \btheta) \dto \Normal(\bzero, \bV)\)</span> and <span class="math inline">\(h\)</span> is continuously differentiable with Jacobian <span class="math inline">\(\bGamma = \partial h(\btheta)/\partial\btheta'\)</span>, then <span class="math display">\[\sqrt{n}\big(h(\btheta_n) - h(\btheta)\big) \dto \Normal\!\big(\bzero,\ \bGamma\bV\bGamma'\big).\]</span></p>
+</div>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>First-order Taylor: <span class="math inline">\(h(\btheta_n) = h(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>; the higher-order terms vanish in probability after rescaling by <span class="math inline">\(\sqrt{n}\)</span>, and the linear term carries the normal through. The Jacobian <span class="math inline">\(\bGamma\)</span> is the local <strong>sensitivity</strong> (slope) of <span class="math inline">\(h\)</span> to <span class="math inline">\(\btheta\)</span>, and it carries the variance across: <span class="math inline">\(\bV \mapsto \bGamma\bV\bGamma'\)</span>.</p>
+</div></div>
+</section>
+<section id="nonlinear-wald" class="slide level3">
+<h3>Nonlinear Wald</h3>
+<p>Apply the Delta Method to the restriction itself. With <span class="math inline">\(\widehat{\bGamma} = \partial h(\bbeta)/\partial\bbeta'\)</span> evaluated at <span class="math inline">\(\bb\)</span>, <span class="math display">\[W = h(\bb)'\big[\widehat{\bGamma}\,\widehat{\bV}\,\widehat{\bGamma}'\big]^{-1} h(\bb) \;\dto\; \chi^2_J.\]</span></p>
+<div id="exm-ratio" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> To test <span class="math inline">\(H_0\!: \beta_1/\beta_2 = 1\)</span>, write <span class="math inline">\(h(\bbeta) = \beta_1 - \beta_2\)</span> (linear here) or, if the ratio itself is the object of interest, <span class="math inline">\(h(\bbeta) = \beta_1/\beta_2 - 1\)</span> with <span class="math inline">\(\widehat{\bGamma} = \big[\,1/b_2,\ -b_1/b_2^2\,\big]\)</span>. The Delta Method supplies the standard error of the ratio; the Wald statistic does the rest.</p>
+</div>
+</section>
 <section id="the-wald-statistic-in-general" class="slide level3 smaller">
 <h3>The Wald statistic, in general</h3>
-<p>Part II already let the <strong>variance</strong> be general — the sandwich <span class="math inline">\(\bV_b\)</span>, with A4 only a simplification. Keep the <em>same statistic</em> — a distance weighted by its own variance — and lift the <strong>remaining</strong> two qualifiers:</p>
+<p>One statistic across three axes: everything in Part III was the <strong>same</strong> distance, weighted by its own variance. Now that each axis has been developed, the summary:</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -600,59 +657,6 @@ Figure&nbsp;1: One hundred samples, one hundred nominal-95% confidence intervals
 </tr>
 </tbody>
 </table>
-<div id="thm-wald" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 4 (Wald statistic)</strong></span> For <span class="math inline">\(H_0\!: \mathbf{R}\bbeta = \mathbf{q}\)</span>, with <span class="math inline">\(\widehat{\bV}\)</span> a consistent estimate of <span class="math inline">\(\Var[\bb]\)</span>, <span class="math display">\[W = (\mathbf{R}\bb - \mathbf{q})'\big[\mathbf{R}\,\widehat{\bV}\,\mathbf{R}'\big]^{-1}(\mathbf{R}\bb - \mathbf{q}) \;\dto\; \chi^2_J .\]</span> With the classical <span class="math inline">\(\widehat{\bV} = s^2(\bX'\bX)^{-1}\)</span> and A6 this <strong>is</strong> the Part II statistic, and <span class="math inline">\(W/J \sim F_{J,\,n-K}\)</span> exactly.</p>
-</div>
-</section>
-<section id="one-principle-many-estimators" class="slide level3">
-<h3>One principle, many estimators</h3>
-<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Wald here, Wald everywhere</span></div><div class="econ-box-body">
-<p>Every Wald test has the shape <span class="math inline">\((\text{restriction})' \,[\,\text{its variance}\,]^{-1}\,
-(\text{restriction})\)</span>. Change the estimator — GLS, IV, GMM (Lecture 12), maximum likelihood (Lecture 13) — and only <span class="math inline">\(\bb\)</span> and <span class="math inline">\(\widehat{\bV}\)</span> change; the test does not. Learning it once here is learning it for the whole course.</p>
-</div></div>
-</section>
-<section id="the-same-tests-in-large-samples" class="slide level3">
-<h3>The same tests in large samples</h3>
-<p>Drop A6. The exact <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> and <span class="math inline">\(\chi^2\)</span> no longer hold — but the <strong>same statistics</strong> have limiting distributions.</p>
-<ul>
-<li>One coefficient: <span class="math inline">\(\dfrac{b_k - \beta_k^0}{\operatorname{se}(b_k)} \dto \Normal(0,1)\)</span> — the <span class="math inline">\(\sqrt{n}\)</span> cancels, so the statistic is unchanged; only its reference table is.</li>
-<li><span class="math inline">\(J\)</span> restrictions: <span class="math inline">\(W \dto \chi^2_J\)</span>, and <span class="math inline">\(F \to W/J\)</span> — read against <span class="math inline">\(\chi^2_J/J\)</span>.</li>
-<li>With the <strong>robust</strong> <span class="math inline">\(\widehat{\bV}\)</span>, all of this holds without homoskedasticity.</li>
-</ul>
-</section>
-<section id="the-lagrange-multiplier-test" class="slide level3">
-<h3>The Lagrange multiplier test</h3>
-<p>The <strong>restricted</strong> fit carries a Lagrange multiplier <span class="math inline">\(\boldsymbol{\lambda}_*\)</span> on the constraint — the “pressure” the data put on it. Testing whether that pressure is zero is testing <span class="math inline">\(H_0\)</span>.</p>
-<div id="thm-lm" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 5 (LM (score) test)</strong></span> <span class="math display">\[\boldsymbol{\lambda}_* = [\mathbf{R}(\bX'\bX)^{-1}\mathbf{R}']^{-1}(\mathbf{R}\bb - \mathbf{q}),
-\qquad
-W_{LM} = (\mathbf{R}\bb - \mathbf{q})'[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}']^{-1}(\mathbf{R}\bb - \mathbf{q}).\]</span> Since <span class="math inline">\(\boldsymbol{\lambda}_* = \bzero \iff \mathbf{R}\bbeta - \mathbf{q} = \bzero\)</span>, the LM test needs <strong>only the restricted model</strong> — and, in the linear case, no likelihood.</p>
-</div>
-</section>
-
-<section id="nonlinear-restrictions" class="title-slide slide level2 center">
-<h2>Nonlinear restrictions</h2>
-
-</section>
-<section id="when-the-restriction-is-a-function" class="slide level3">
-<h3>When the restriction is a function</h3>
-<p>Some hypotheses are not linear in <span class="math inline">\(\bbeta\)</span>: a ratio of coefficients equal to one, a long-run multiplier, an elasticity at a point. Write them <span class="math inline">\(h(\bbeta) = \mathbf{0}\)</span>. To test them we need the distribution of <span class="math inline">\(h(\bb)\)</span> — and <span class="math inline">\(h\)</span> of an estimator is not, in general, normal.</p>
-</section>
-<section id="the-delta-method-recovered" class="slide level3">
-<h3>The Delta Method, recovered</h3>
-<div id="thm-delta" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 6 (Delta Method)</strong></span> If <span class="math inline">\(\sqrt{n}(\btheta_n - \btheta) \dto \Normal(\bzero, \bV)\)</span> and <span class="math inline">\(h\)</span> is continuously differentiable with Jacobian <span class="math inline">\(\bGamma = \partial h(\btheta)/\partial\btheta'\)</span>, then <span class="math display">\[\sqrt{n}\big(h(\btheta_n) - h(\btheta)\big) \dto \Normal\!\big(\bzero,\ \bGamma\bV\bGamma'\big).\]</span></p>
-</div>
-<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
-<p>First-order Taylor: <span class="math inline">\(h(\btheta_n) = h(\btheta) + \bGamma(\btheta_n - \btheta) + \text{h.o.t.}\)</span>; the higher-order terms vanish in probability after rescaling by <span class="math inline">\(\sqrt{n}\)</span>, and the linear term carries the normal through. The Jacobian <span class="math inline">\(\bGamma\)</span> is the “exchange rate” between the uncertainty in <span class="math inline">\(\btheta\)</span> and that in <span class="math inline">\(h(\btheta)\)</span>.</p>
-</div></div>
-</section>
-<section id="nonlinear-wald" class="slide level3">
-<h3>Nonlinear Wald</h3>
-<p>Apply the Delta Method to the restriction itself. With <span class="math inline">\(\widehat{\bGamma} = \partial h(\bbeta)/\partial\bbeta'\)</span> evaluated at <span class="math inline">\(\bb\)</span>, <span class="math display">\[W = h(\bb)'\big[\widehat{\bGamma}\,\widehat{\bV}\,\widehat{\bGamma}'\big]^{-1} h(\bb) \;\dto\; \chi^2_J.\]</span></p>
-<div id="exm-ratio" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> To test <span class="math inline">\(H_0\!: \beta_1/\beta_2 = 1\)</span>, write <span class="math inline">\(h(\bbeta) = \beta_1 - \beta_2\)</span> (linear here) or, if the ratio itself is the object of interest, <span class="math inline">\(h(\bbeta) = \beta_1/\beta_2 - 1\)</span> with <span class="math inline">\(\widehat{\bGamma} = \big[\,1/b_2,\ -b_1/b_2^2\,\big]\)</span>. The Delta Method supplies the standard error of the ratio; the Wald statistic does the rest.</p>
-</div>
 </section>
 </section>
 <section>
