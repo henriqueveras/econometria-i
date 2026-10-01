@@ -2,15 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Henrique Veras">
-<title>Component Reference – Econometrics I</title>
+<title>Generalized Least Squares and Clustered Dependence – Econometrics I</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -18,62 +24,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
@@ -82,21 +33,22 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../slides/notas/04-finite-sample.html" rel="prev">
+<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/06-inference.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f53dd81e4532dc1ad2d5a3da1ba84db5.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-02beb63025c899febbcbc111e4ab76c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8d695445161a98bc055f58d1fd7d7c9d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-85294af6fad2849895ed9755e431b126.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-277eec4239be35b0c5fe8e171b89b371.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-cad400c46c93dce54b79ec7577b89e54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -189,6 +141,9 @@ window.MathJax = {
       bA:    ['\\mathbf{A}', 0],
       bD:    ['\\mathbf{D}', 0],
       bOmega:['\\boldsymbol{\\Omega}', 0],
+      bV:    ['\\mathbf{V}', 0],
+      bGamma:['\\boldsymbol{\\Gamma}', 0],
+      Asyvar:['\\operatorname{Asy.Var}', 0],
       bzero: ['\\mathbf{0}', 0]
     }
   },
@@ -217,7 +172,7 @@ window.MathJax = {
   }
 };
 
-</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script><script type="text/javascript">
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -228,7 +183,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -244,7 +199,7 @@ window.Quarto = {
 };
 </script><link rel="stylesheet" href="../assets/components.css">
 </head>
-<body class="nav-sidebar docked nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -444,7 +399,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/00-components.html">Reference</a></li><li class="breadcrumb-item"><a href="../notas/00-components.html">Component Reference</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/07-gls.html">7 · GLS and Clustered Dependence</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -516,21 +471,21 @@ window.Quarto = {
  <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/05-large-sample.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5 · Large Sample Theory</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/06-inference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notas/07-gls.html" class="sidebar-item-text sidebar-link">
+  <a href="../notas/07-gls.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
   </div>
 </li>
@@ -581,19 +536,19 @@ window.Quarto = {
  <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/05-large-sample.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5 · Large Sample Theory</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/06-inference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/07-gls.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
@@ -612,7 +567,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Component Reference</span></a>
   </div>
 </li>
@@ -626,49 +581,117 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#theorem-environments" id="toc-theorem-environments" class="nav-link active" data-scroll-target="#theorem-environments"><span class="header-section-number">1</span> 1. Theorem environments</a></li>
-  <li><a href="#annotated-equations" id="toc-annotated-equations" class="nav-link" data-scroll-target="#annotated-equations"><span class="header-section-number">2</span> 2. Annotated equations</a></li>
-  <li>
-<a href="#pedagogical-boxes" id="toc-pedagogical-boxes" class="nav-link" data-scroll-target="#pedagogical-boxes"><span class="header-section-number">3</span> 3. Pedagogical boxes</a>
+<li>
+<a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">0.1</span> Where we are</a>
   <ul class="collapse">
-<li><a href="#what-is-the-dgp" id="toc-what-is-the-dgp" class="nav-link" data-scroll-target="#what-is-the-dgp"><span class="header-section-number">3.1</span> What is the DGP?</a></li>
-  <li><a href="#the-four-questions" id="toc-the-four-questions" class="nav-link" data-scroll-target="#the-four-questions"><span class="header-section-number">3.2</span> The Four Questions</a></li>
-  <li><a href="#researchers-toolbox" id="toc-researchers-toolbox" class="nav-link" data-scroll-target="#researchers-toolbox"><span class="header-section-number">3.3</span> Researcher’s Toolbox</a></li>
-  <li><a href="#under-the-hood" id="toc-under-the-hood" class="nav-link" data-scroll-target="#under-the-hood"><span class="header-section-number">3.4</span> Under the Hood</a></li>
-  <li><a href="#monte-carlo" id="toc-monte-carlo" class="nav-link" data-scroll-target="#monte-carlo"><span class="header-section-number">3.5</span> Monte Carlo</a></li>
-  <li><a href="#connection" id="toc-connection" class="nav-link" data-scroll-target="#connection"><span class="header-section-number">3.6</span> Connection</a></li>
-  <li><a href="#on-the-board" id="toc-on-the-board" class="nav-link" data-scroll-target="#on-the-board"><span class="header-section-number">3.7</span> On the Board</a></li>
-  <li><a href="#in-the-literature" id="toc-in-the-literature" class="nav-link" data-scroll-target="#in-the-literature"><span class="header-section-number">3.8</span> In the Literature</a></li>
+<li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
+  <li><a href="#two-questions-robust-ols-does-not-answer" id="toc-two-questions-robust-ols-does-not-answer" class="nav-link" data-scroll-target="#two-questions-robust-ols-does-not-answer">Two questions robust OLS does not answer</a></li>
   </ul>
 </li>
   <li>
-<a href="#standard-quarto-constructs" id="toc-standard-quarto-constructs" class="nav-link" data-scroll-target="#standard-quarto-constructs"><span class="header-section-number">4</span> 4. Standard Quarto constructs</a>
+<a href="#part-i-the-generalized-model-and-the-cost-to-ols" id="toc-part-i-the-generalized-model-and-the-cost-to-ols" class="nav-link" data-scroll-target="#part-i-the-generalized-model-and-the-cost-to-ols"><span class="header-section-number">1</span> Part I · The generalized model and the cost to OLS</a>
   <ul class="collapse">
-<li><a href="#margin-content" id="toc-margin-content" class="nav-link" data-scroll-target="#margin-content"><span class="header-section-number">4.1</span> Margin content</a></li>
-  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code"><span class="header-section-number">4.2</span> Code</a></li>
-  <li><a href="#tabsets" id="toc-tabsets" class="nav-link" data-scroll-target="#tabsets"><span class="header-section-number">4.3</span> Tabsets</a></li>
+<li>
+<a href="#the-generalized-regression-model" id="toc-the-generalized-regression-model" class="nav-link" data-scroll-target="#the-generalized-regression-model"><span class="header-section-number">1.1</span> The generalized regression model</a>
+  <ul class="collapse">
+<li><a href="#one-assumption-dropped-long-ago" id="toc-one-assumption-dropped-long-ago" class="nav-link" data-scroll-target="#one-assumption-dropped-long-ago">One assumption, dropped long ago</a></li>
+  <li><a href="#ols-still-works-it-just-is-not-the-best" id="toc-ols-still-works-it-just-is-not-the-best" class="nav-link" data-scroll-target="#ols-still-works-it-just-is-not-the-best">OLS still works — it just is not the best</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   <li>
-<a href="#writing-one-source-for-two-outputs" id="toc-writing-one-source-for-two-outputs" class="nav-link" data-scroll-target="#writing-one-source-for-two-outputs"><span class="header-section-number">5</span> 5. Writing one source for two outputs</a>
+<a href="#part-ii-generalized-least-squares" id="toc-part-ii-generalized-least-squares" class="nav-link" data-scroll-target="#part-ii-generalized-least-squares"><span class="header-section-number">2</span> Part II · Generalized Least Squares</a>
   <ul class="collapse">
-<li><a href="#heading-levels-are-the-primary-control" id="toc-heading-levels-are-the-primary-control" class="nav-link" data-scroll-target="#heading-levels-are-the-primary-control">Heading levels are the primary control</a></li>
-  <li><a href="#longform-and-.onslide" id="toc-longform-and-.onslide" class="nav-link" data-scroll-target="#longform-and-.onslide"><code>.longform</code> and <code>.onslide</code></a></li>
-  <li><a href="#the-explicit-form" id="toc-the-explicit-form" class="nav-link" data-scroll-target="#the-explicit-form">The explicit form</a></li>
+<li>
+<a href="#the-cost-of-ignoring-d" id="toc-the-cost-of-ignoring-d" class="nav-link" data-scroll-target="#the-cost-of-ignoring-d"><span class="header-section-number">2.1</span> The cost of ignoring D</a>
+  <ul class="collapse">
+<li><a href="#every-observation-weighted-equally" id="toc-every-observation-weighted-equally" class="nav-link" data-scroll-target="#every-observation-weighted-equally">Every observation weighted equally</a></li>
   </ul>
 </li>
   <li>
-<a href="#cross-references" id="toc-cross-references" class="nav-link" data-scroll-target="#cross-references"><span class="header-section-number">6</span> 6. Cross-references</a>
+<a href="#gls-with-known-d" id="toc-gls-with-known-d" class="nav-link" data-scroll-target="#gls-with-known-d"><span class="header-section-number">2.2</span> GLS with known D</a>
   <ul class="collapse">
-<li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6.1</span> References</a></li>
+<li><a href="#transforming-to-constant-variance" id="toc-transforming-to-constant-variance" class="nav-link" data-scroll-target="#transforming-to-constant-variance">Transforming to constant variance</a></li>
+  <li><a href="#the-gls-estimator" id="toc-the-gls-estimator" class="nav-link" data-scroll-target="#the-gls-estimator">The GLS estimator</a></li>
+  <li><a href="#weighted-least-squares-the-heteroskedastic-case" id="toc-weighted-least-squares-the-heteroskedastic-case" class="nav-link" data-scroll-target="#weighted-least-squares-the-heteroskedastic-case">Weighted least squares: the heteroskedastic case</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#part-iii-feasible-gls" id="toc-part-iii-feasible-gls" class="nav-link" data-scroll-target="#part-iii-feasible-gls"><span class="header-section-number">3</span> Part III · Feasible GLS</a>
+  <ul class="collapse">
+<li>
+<a href="#when-d-is-unknown" id="toc-when-d-is-unknown" class="nav-link" data-scroll-target="#when-d-is-unknown"><span class="header-section-number">3.1</span> When D is unknown</a>
+  <ul class="collapse">
+<li><a href="#the-skedastic-regression" id="toc-the-skedastic-regression" class="nav-link" data-scroll-target="#the-skedastic-regression">The skedastic regression</a></li>
+  <li><a href="#the-fgls-estimator" id="toc-the-fgls-estimator" class="nav-link" data-scroll-target="#the-fgls-estimator">The FGLS estimator</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#why-not-always-fgls" id="toc-why-not-always-fgls" class="nav-link" data-scroll-target="#why-not-always-fgls"><span class="header-section-number">3.2</span> Why not always FGLS?</a>
+  <ul class="collapse">
+<li><a href="#the-efficiencyrobustness-trade-off" id="toc-the-efficiencyrobustness-trade-off" class="nav-link" data-scroll-target="#the-efficiencyrobustness-trade-off">The efficiency–robustness trade-off</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#part-iv-testing-for-heteroskedasticity" id="toc-part-iv-testing-for-heteroskedasticity" class="nav-link" data-scroll-target="#part-iv-testing-for-heteroskedasticity"><span class="header-section-number">4</span> Part IV · Testing for heteroskedasticity</a>
+  <ul class="collapse">
+<li>
+<a href="#the-skedastic-regression-tested" id="toc-the-skedastic-regression-tested" class="nav-link" data-scroll-target="#the-skedastic-regression-tested"><span class="header-section-number">4.1</span> The skedastic regression, tested</a>
+  <ul class="collapse">
+<li><a href="#white-and-breuschpagan-are-one-test" id="toc-white-and-breuschpagan-are-one-test" class="nav-link" data-scroll-target="#white-and-breuschpagan-are-one-test">White and Breusch–Pagan are one test</a></li>
+  <li><a href="#what-the-test-is-and-is-not-for" id="toc-what-the-test-is-and-is-not-for" class="nav-link" data-scroll-target="#what-the-test-is-and-is-not-for">What the test is — and is not — for</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#part-v-clustered-dependence" id="toc-part-v-clustered-dependence" class="nav-link" data-scroll-target="#part-v-clustered-dependence"><span class="header-section-number">5</span> Part V · Clustered dependence</a>
+  <ul class="collapse">
+<li>
+<a href="#when-observations-come-in-groups" id="toc-when-observations-come-in-groups" class="nav-link" data-scroll-target="#when-observations-come-in-groups"><span class="header-section-number">5.1</span> When observations come in groups</a>
+  <ul class="collapse">
+<li><a href="#clusters-dependence-by-design" id="toc-clusters-dependence-by-design" class="nav-link" data-scroll-target="#clusters-dependence-by-design">Clusters: dependence by design</a></li>
+  <li><a href="#the-cluster-robust-variance" id="toc-the-cluster-robust-variance" class="nav-link" data-scroll-target="#the-cluster-robust-variance">The cluster-robust variance</a></li>
+  <li><a href="#the-catch-asymptotics-in-the-number-of-clusters" id="toc-the-catch-asymptotics-in-the-number-of-clusters" class="nav-link" data-scroll-target="#the-catch-asymptotics-in-the-number-of-clusters">The catch: asymptotics in the number of clusters</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#at-what-level-to-cluster" id="toc-at-what-level-to-cluster" class="nav-link" data-scroll-target="#at-what-level-to-cluster"><span class="header-section-number">5.2</span> At what level to cluster?</a>
+  <ul class="collapse">
+<li><a href="#the-cluster-level-is-a-choice" id="toc-the-cluster-level-is-a-choice" class="nav-link" data-scroll-target="#the-cluster-level-is-a-choice">The cluster level is a choice</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#when-robust-is-not-enough" id="toc-when-robust-is-not-enough" class="nav-link" data-scroll-target="#when-robust-is-not-enough"><span class="header-section-number">5.3</span> When robust is not enough</a>
+  <ul class="collapse">
+<li><a href="#the-limits-of-a-robust-variance" id="toc-the-limits-of-a-robust-variance" class="nav-link" data-scroll-target="#the-limits-of-a-robust-variance">The limits of a robust variance</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#seeing-it-coverage-under-heteroskedasticity" id="toc-seeing-it-coverage-under-heteroskedasticity" class="nav-link" data-scroll-target="#seeing-it-coverage-under-heteroskedasticity"><span class="header-section-number">5.4</span> Seeing it: coverage under heteroskedasticity</a>
+  <ul class="collapse">
+<li><a href="#does-the-interval-cover-95" id="toc-does-the-interval-cover-95" class="nav-link" data-scroll-target="#does-the-interval-cover-95">Does the interval cover 95%?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.5</span> Summary</a>
+  <ul class="collapse">
+<li><a href="#what-to-take-away" id="toc-what-to-take-away" class="nav-link" data-scroll-target="#what-to-take-away">What to take away</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/00-components.html">Reference</a></li><li class="breadcrumb-item"><a href="../notas/00-components.html">Component Reference</a></li></ol></nav><div class="quarto-title">
-<h1 class="title">Component Reference</h1>
-<p class="subtitle lead">Every authoring construct available in the lecture notes</p>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/07-gls.html">7 · GLS and Clustered Dependence</a></li></ol></nav><div class="quarto-title">
+<h1 class="title">Generalized Least Squares and Clustered Dependence</h1>
+<p class="subtitle lead">Lecture 7</p>
 </div>
 
 
@@ -695,441 +718,178 @@ window.Quarto = {
   
 
 
-</header><p>This page is the working reference for writing lectures. Each construct below shows the source on the left of the fence and the rendered result immediately after. Nothing here is course content — it exists so that writing Lecture 5 does not require remembering how the Monte Carlo box is spelled.</p>
-<p>The page also functions as a smoke test: if it renders correctly, the infrastructure is sound.</p>
-<hr>
-<section id="theorem-environments" class="level1" data-number="1"><h1 data-number="1">
-<span class="header-section-number">1</span> 1. Theorem environments</h1>
-<p>These replace the screenshots of Greene used in the legacy notes. They are numbered automatically, cross-referenceable, searchable, and accessible.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>::: {#thm-demo}</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Frisch-Waugh-Lovell</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>In the regression $\bY = \bX_1\bbeta_1 + \bX_2\bbeta_2 + \beps$, the OLS estimator</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>of $\bbeta_2$ is $\bb_2 = (\bX_2'\bM_1\bX_2)^{-1}\bX_2'\bM_1\bY$.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>As @thm-demo shows, ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="thm-demo" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (Frisch-Waugh-Lovell)</strong></span> In the regression <span class="math inline">\(\bY = \bX_1\bbeta_1 + \bX_2\bbeta_2 + \beps\)</span>, the OLS estimator of <span class="math inline">\(\bbeta_2\)</span> is <span class="math display">\[\bb_2 = (\bX_2'\bM_1\bX_2)^{-1}\bX_2'\bM_1\bY, \qquad \bM_1 = \bI - \bX_1(\bX_1'\bX_1)^{-1}\bX_1'.\]</span></p>
+</header><section id="where-we-are" class="level2" data-number="0.1"><h2 data-number="0.1" class="anchored" data-anchor-id="where-we-are">
+<span class="header-section-number">0.1</span> Where we are</h2>
+<section id="where-this-lecture-sits" class="level3"><h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
+<p></p>
+<div class="econ-stage" role="note" aria-label="Position in the course architecture">
+<div class="econ-stage-row">
+<span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span>
 </div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Partition the normal equations and solve the first block for <span class="math inline">\(\bb_1\)</span>. Substituting into the second block and collecting terms gives the stated expression. <span class="math inline">\(\square\)</span></p>
+<div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div>
 </div>
-<p>As <a href="#thm-demo" class="quarto-xref">Theorem&nbsp;1</a> shows, a multiple regression coefficient is a simple regression coefficient on partialled-out data.</p>
-<p>The full family is available: <code>#thm-</code>, <code>#lem-</code>, <code>#cor-</code>, <code>#prp-</code>, <code>#def-</code>, <code>#exm-</code>, <code>#exr-</code>, plus <code>::: {.proof}</code> and <code>::: {.remark}</code>.</p>
-<div id="def-projection" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Projection matrix)</strong></span> <span class="math inline">\(\bP = \bX(\bX'\bX)^{-1}\bX'\)</span> is the orthogonal projection onto the column space of <span class="math inline">\(\bX\)</span>.</p>
+<p>Lectures 4–5 already made <strong>heteroskedasticity the default</strong>: <span class="math inline">\(\E[\beps\beps'\mid\bX]=\bD\)</span> is a general positive-definite matrix, OLS is consistent, and the <strong>robust (sandwich) standard errors</strong> deliver valid inference with no homoskedasticity assumption. So the classical “violation of A4” story is behind us. Two questions remain — and they are what this lecture is about.</p>
+<p>The reordering of the course did the heavy lifting here. What used to be “the heteroskedasticity lecture” — deriving the sandwich variance, White’s estimator, showing that <span class="math inline">\(s^2(\bX'\bX)^{-1}\)</span> is wrong — now lives in Lectures 4 and 5, as the <strong>general case</strong>. Building on that, this lecture asks the two things robust OLS does <em>not</em> settle: whether we can estimate <span class="math inline">\(\bbeta\)</span> <strong>more efficiently</strong>, and what to do when errors are <strong>correlated across observations</strong>.</p>
+</section><section id="two-questions-robust-ols-does-not-answer" class="level3"><h3 class="anchored" data-anchor-id="two-questions-robust-ols-does-not-answer">Two questions robust OLS does not answer</h3>
+<p>The two questions have very different answers. Efficiency leads to <strong>generalized least squares</strong> — a better estimator <em>if</em> we know (or can model) <span class="math inline">\(\bD\)</span>, but one that trades robustness for that efficiency. Dependence leads to <strong>cluster-robust</strong> inference — not a better estimator at all, but a different variance, because the design of the sample changed.</p>
+</section></section><section id="part-i-the-generalized-model-and-the-cost-to-ols" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Part I · The generalized model and the cost to OLS</h1>
+<section id="the-generalized-regression-model" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="the-generalized-regression-model">
+<span class="header-section-number">1.1</span> The generalized regression model</h2>
+<section id="one-assumption-dropped-long-ago" class="level3"><h3 class="anchored" data-anchor-id="one-assumption-dropped-long-ago">One assumption, dropped long ago</h3>
+<p>The model is the familiar linear one, with the error covariance left <strong>general</strong>: <span class="math display">\[\bY=\bX\bbeta+\beps,\qquad \E[\beps\mid\bX]=\bzero,\qquad \E[\beps\beps'\mid\bX]=\bD,\]</span> with <span class="math inline">\(\bD\)</span> symmetric positive-definite (an <span class="math inline">\(n\times n\)</span> matrix). Homoskedasticity, <span class="math inline">\(\bD=\sigma^2\bI\)</span>, is the <strong>special case</strong> — not the starting point.</p>
+<div id="def-generalized" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (The two leading structures)</strong></span> <strong>Heteroskedasticity</strong> (this lecture’s focus): errors uncorrelated across observations but with different variances — <span class="math inline">\(\bD=\operatorname{diag}(\sigma_1^2,\dots,\sigma_n^2)\)</span>, i.e.&nbsp;<span class="math inline">\(\E[\varepsilon_i^2\mid\mathbf{x}_i]=\sigma_i^2(\mathbf{x}_i)\)</span>. <strong>Dependence</strong>: <span class="math inline">\(\bD\)</span> has non-zero off-diagonal entries — serial correlation (time series) or <strong>within-cluster</strong> correlation (Part V).</p>
 </div>
-<div id="cor-residual-maker" class="theorem corollary">
-<p><span class="theorem-title"><strong>Corollary 1 (Residual maker)</strong></span> <span class="math inline">\(\bM = \bI - \bP\)</span> is symmetric, idempotent, and satisfies <span class="math inline">\(\bM\bX = \bzero\)</span>.</p>
-</div>
-<hr></section><section id="annotated-equations" class="level1" data-number="2"><h1 data-number="2">
-<span class="header-section-number">2</span> 2. Annotated equations</h1>
-<p>The construct that carries the most pedagogical weight. Terms inside the display math are tagged with <code>\eqt{key}{...}</code>; the explanations follow as a definition list keyed by the same letters. Hover or click a term — the term and its note highlight together. Click again, or click outside, to release.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>::: {.eqnote}</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>\bb = \bbeta + \eqt{a}{\left(\frac{\bX'\bX}{n}\right)^{-1}}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             \eqt{b}{\left(\frac{\bX'\beps}{n}\right)}</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>:   By assumption A2$'$, this converges in probability to $\bQ^{-1}$.</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>b</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>:   By the LLN this converges to $\E<span class="co">[</span><span class="ot">\bX_i\varepsilon_i</span><span class="co">]</span> = \bzero$.</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    **This is the term that carries exogeneity.**</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="econ-eqnote">
-<div class="econ-eqnote-math">
-<p><span class="math display">\[
-\bb = \bbeta + \eqt{a}{\left(\frac{\bX'\bX}{n}\right)^{-1}}
-             \eqt{b}{\left(\frac{\bX'\beps}{n}\right)}
-\]</span></p>
-</div>
-<div class="econ-eqnote-notes">
-<div class="econ-eqnote-note" data-eqt="a" tabindex="0">
-<span class="econ-eqnote-key">a</span><div class="econ-eqnote-text">
-By assumption A2<span class="math inline">\('\)</span>, <span class="math inline">\(\bX'\bX/n \pto \bQ\)</span>, a positive definite matrix. The Continuous Mapping Theorem then gives <span class="math inline">\((\bX'\bX/n)^{-1} \pto \bQ^{-1}\)</span>, a <em>finite</em> limit.
-</div>
-</div>
-<div class="econ-eqnote-note" data-eqt="b" tabindex="0">
-<span class="econ-eqnote-key">b</span><div class="econ-eqnote-text">
-By the LLN, <span class="math inline">\(\bX'\beps/n \pto \E[\mathbf{x}_i\varepsilon_i]\)</span>. Under A3 this expectation is <span class="math inline">\(\bzero\)</span>. <strong>This is the term that carries exogeneity</strong> — and the single point at which the whole consistency argument can fail.
-</div>
-</div>
-</div>
-</div>
-<p>Consistency of <span class="math inline">\(\bb\)</span> is the product of these two limits: a finite matrix times zero.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Authoring notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ul>
-<li>Keys are arbitrary strings (<code>a</code>, <code>b</code>, <code>Q</code>, <code>num</code>). Keep them short — they appear in a circular badge.</li>
-<li>A <code>\eqt{}</code> with no matching note, or the reverse, produces a render-time warning. Silent dead cards are not possible.</li>
-<li>In PDF output <code>\eqt{key}{body}</code> degrades to <code>body</code> and the notes become an ordinary list. Nothing is lost.</li>
-<li>The macro set (<code>\bb</code>, <code>\bX</code>, <code>\beps</code>, <code>\pto</code>, <code>\plim</code>, <code>\E</code>, …) is declared once in <code>assets/mathjax.html</code>. Add to it there rather than redefining per lecture.</li>
-</ul>
-</div>
-</div>
-</div>
-<hr></section><section id="pedagogical-boxes" class="level1" data-number="3"><h1 data-number="3">
-<span class="header-section-number">3</span> 3. Pedagogical boxes</h1>
-<p>Seven recurring callouts implementing the narrative architecture. All take an optional <code>title=</code>.</p>
-<section id="what-is-the-dgp" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="what-is-the-dgp">
-<span class="header-section-number">3.1</span> What is the DGP?</h2>
-<p>Opens each major topic.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.dgp}</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>$y_i = \mathbf{x}_i'\bbeta + \varepsilon_i$, with $(y_i, \mathbf{x}_i)$ i.i.d.</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="econ-box econ-box-dgp" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span>
-</div>
-<div class="econ-box-body">
-<p><span class="math inline">\(y_i = \mathbf{x}_i'\bbeta + \varepsilon_i\)</span> with <span class="math inline">\((y_i,\mathbf{x}_i)\)</span> i.i.d. across <span class="math inline">\(i\)</span>, <span class="math inline">\(\E[\varepsilon_i \mid \mathbf{x}_i] = 0\)</span>, and <span class="math inline">\(\E[\mathbf{x}_i\mathbf{x}_i']\)</span> finite and nonsingular.</p>
-<p><strong>Parameter of interest:</strong> <span class="math inline">\(\bbeta\)</span>. <strong>Is it identified?</strong> Yes — full rank plus exogeneity.</p>
-</div>
-</div>
-</section><section id="the-four-questions" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="the-four-questions">
-<span class="header-section-number">3.2</span> The Four Questions</h2>
-<p>Precedes each formal result.</p>
-<div class="econ-box econ-box-questions" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">Before Gauss-Markov</span>
-</div>
-<div class="econ-box-body">
-<ol type="1">
-<li>
-<strong>What problem are we solving?</strong> Many estimators are unbiased. We need a reason to prefer one.</li>
-<li>
-<strong>Why does it matter?</strong> Without an efficiency criterion, “use OLS” is a convention rather than a result.</li>
-<li>
-<strong>What is the idea?</strong> Restrict attention to linear unbiased estimators and minimise variance within that class.</li>
-<li>
-<strong>How do we formalise it?</strong> Show any such estimator has variance exceeding that of OLS by a positive semi-definite matrix.</li>
-</ol>
-</div>
-</div>
-</section><section id="researchers-toolbox" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="researchers-toolbox">
-<span class="header-section-number">3.3</span> Researcher’s Toolbox</h2>
-<div class="econ-box econ-box-toolbox" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">🧰</span><span class="econ-box-label">Researcher's Toolbox</span><span class="econ-box-sep">—</span><span class="econ-box-title">OLS as an M-estimator</span>
-</div>
-<div class="econ-box-body">
-<p>We derived <span class="math inline">\(\bb\)</span> by minimising <span class="math inline">\(S(\mathbf{b}) = (\bY - \bX\mathbf{b})'(\bY - \bX\mathbf{b})\)</span>. That is an instance of <span class="math display">\[\hat\btheta = \argmin_{\btheta} Q_n(\btheta).\]</span> Estimators of this form are <strong>M-estimators</strong>. Maximum likelihood is another. Keep the shape in mind — it returns in Lecture 13, where it becomes the organising idea rather than an observation.</p>
-</div>
-</div>
-</section><section id="under-the-hood" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="under-the-hood">
-<span class="header-section-number">3.4</span> Under the Hood</h2>
-<div class="econ-box econ-box-hood" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">No software inverts X'X</span>
-</div>
-<div class="econ-box-body">
-<p>The textbook formula <span class="math inline">\(\bb = (\bX'\bX)^{-1}\bX'\bY\)</span> is not what <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> computes. Forming <span class="math inline">\(\bX'\bX\)</span> squares the condition number, so a design that is merely awkward becomes numerically singular. R uses a QR decomposition instead:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">qr_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/qr.html">qr</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/qr.html">qr.coef</a></span><span class="op">(</span><span class="va">qr_fit</span>, <span class="va">y</span><span class="op">)</span>     <span class="co"># no explicit inverse anywhere</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is why near-collinearity is a <em>numerical</em> problem before it is a statistical one — a point we return to in Lecture 9.</p>
-</div>
-</div>
-</section><section id="monte-carlo" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="monte-carlo">
-<span class="header-section-number">3.5</span> Monte Carlo</h2>
-<div class="econ-box econ-box-montecarlo" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">🎲</span><span class="econ-box-label">Monte Carlo</span><span class="econ-box-sep">—</span><span class="econ-box-title">Seeing consistency</span>
-</div>
-<div class="econ-box-body">
-<p>Fix <span class="math inline">\(\beta = 1\)</span>. Draw samples of size <span class="math inline">\(n\)</span>, estimate <span class="math inline">\(\hat\beta\)</span>, repeat 10,000 times, and plot the distribution. As <span class="math inline">\(n\)</span> grows the distribution concentrates on <span class="math inline">\(1\)</span> — that is consistency, made visible. Rescale by <span class="math inline">\(\sqrt{n}\)</span> and it stabilises into a normal curve — that is asymptotic normality.</p>
-<p>The simulation proves nothing. It shows what the theorem already established.</p>
-</div>
-</div>
-</section><section id="connection" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="connection">
-<span class="header-section-number">3.6</span> Connection</h2>
-<div class="econ-box econ-box-connection" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The within transformation is FWL again</span>
-</div>
-<div class="econ-box-body">
-<p>Demeaning <span class="math inline">\(y_{it}\)</span> and <span class="math inline">\(x_{it}\)</span> within each unit is exactly <span class="math inline">\(\bM_1\)</span> applied to <span class="math inline">\(\bY\)</span> and <span class="math inline">\(\bX\)</span>, where <span class="math inline">\(\bX_1\)</span> is the matrix of unit dummies. Fixed effects is not a new estimator — it is <a href="#thm-demo" class="quarto-xref">Theorem&nbsp;1</a> applied to a particular partition.</p>
-</div>
-</div>
-</section><section id="on-the-board" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="on-the-board">
-<span class="header-section-number">3.7</span> On the Board</h2>
-<p>Marks a derivation worked live on the blackboard. The written proof stays condensed — the structure and the pivotal step — because the steps are supplied in the lecture.</p>
+</section><section id="ols-still-works-it-just-is-not-the-best" class="level3"><h3 class="anchored" data-anchor-id="ols-still-works-it-just-is-not-the-best">OLS still works — it just is not the best</h3>
+<p>Nothing about consistency or valid inference breaks under a general <span class="math inline">\(\bD\)</span>:</p>
+<p>This is the exact sense in which the lecture is about <em>efficiency</em>, not <em>validity</em>. OLS gives you the right answer with honest uncertainty. The open question is whether another linear unbiased estimator has a <strong>smaller</strong> variance — and Lecture 5’s “asymptotic efficiency” slide already told us where to look: the estimator that attains the efficiency bound is generalized least squares.</p>
+</section></section></section><section id="part-ii-generalized-least-squares" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Part II · Generalized Least Squares</h1>
+<section id="the-cost-of-ignoring-d" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="the-cost-of-ignoring-d">
+<span class="header-section-number">2.1</span> The cost of ignoring D</h2>
+<section id="every-observation-weighted-equally" class="level3"><h3 class="anchored" data-anchor-id="every-observation-weighted-equally">Every observation weighted equally</h3>
+<p>A general <span class="math inline">\(\bD\)</span> can break A4 in two ways — <strong>heteroskedasticity</strong> (the diagonal of <span class="math inline">\(\bD\)</span> varies across observations) or <strong>autocorrelation</strong> (non-zero off-diagonals), or both. OLS stays unbiased and consistent either way, but it pays for ignoring <span class="math inline">\(\bD\)</span> in <strong>precision</strong>. Compare the variance OLS <em>assumes</em> with the <em>true</em> one: <span class="math display">\[\underbrace{\sigma^2(\bX'\bX)^{-1}}_{\text{under A4}}
+\qquad\text{vs.}\qquad
+\underbrace{(\bX'\bX)^{-1}\bX'\bD\bX(\bX'\bX)^{-1}}_{\text{true, general }\bD}.\]</span></p>
+<p>Following Greene: the conventional variance is built from <span class="math inline">\(\sum_i\mathbf{x}_i\mathbf{x}_i'\)</span> — weight <span class="math inline">\(1\)</span> on every <span class="math inline">\(\mathbf{x}_i\mathbf{x}_i'\)</span> — whereas the true variance weights the <span class="math inline">\(i\)</span>-th term by <span class="math inline">\(\sigma_i^2\)</span> (through <span class="math inline">\(\bX'\bD\bX\)</span>). The two agree only when all <span class="math inline">\(\sigma_i^2\)</span> are equal, i.e.&nbsp;A4. Otherwise OLS spreads its attention equally over observations that deserve <strong>unequal</strong> trust, and a re-weighted estimator must do better. That estimator is GLS; the weight that “should” appear, <span class="math inline">\(1/\sigma_i^2\)</span>, emerges on its own.</p>
+</section></section><section id="gls-with-known-d" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="gls-with-known-d">
+<span class="header-section-number">2.2</span> GLS with known D</h2>
+<section id="transforming-to-constant-variance" class="level3"><h3 class="anchored" data-anchor-id="transforming-to-constant-variance">Transforming to constant variance</h3>
+<p>If the trouble is unequal (and correlated) variances, the cure is to <strong>rescale the observations so the variances become equal and the correlations vanish</strong> — then the classical model, and OLS’s optimality, are back. Since <span class="math inline">\(\bD\)</span> is positive-definite, there is a matrix <span class="math inline">\(\mathbf{L}\)</span> with <span class="math display">\[\mathbf{L}\,\bD\,\mathbf{L}'=\bI,\qquad\text{equivalently}\qquad \bD^{-1}=\mathbf{L}'\mathbf{L}\]</span> — the matrix analogue of “dividing by the standard deviation” (a Cholesky factor is one such <span class="math inline">\(\mathbf{L}\)</span>).</p>
 <div class="econ-box econ-box-board" role="note">
 <div class="econ-box-head">
 <span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
 </div>
 <div class="econ-box-body">
-<p>Worked on the board. The skeleton:</p>
+<p>Pre-multiply the model by <span class="math inline">\(\mathbf{L}\)</span>: with <span class="math inline">\(\bY_*=\mathbf{L}\bY\)</span>, <span class="math inline">\(\bX_*=\mathbf{L}\bX\)</span>, <span class="math inline">\(\beps_*=\mathbf{L}\beps\)</span>, <span class="math display">\[\bY_*=\bX_*\bbeta+\beps_*,\qquad
+\E[\beps_*\beps_*'\mid\bX]=\mathbf{L}\,\bD\,\mathbf{L}'=\bI.\]</span> The transformed errors are <strong>homoskedastic and uncorrelated</strong> — the classical model holds for <span class="math inline">\((\bY_*,\bX_*)\)</span>, so <strong>OLS on the transformed data</strong> is efficient. That is GLS.</p>
 </div>
 </div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Substitute <span class="math inline">\(\bb_1\)</span> from the first block into the second and collect terms; the projector assembles itself. A2 gives invertibility. <span class="math inline">\(\square\)</span></p>
+</section><section id="the-gls-estimator" class="level3"><h3 class="anchored" data-anchor-id="the-gls-estimator">The GLS estimator</h3>
+<div id="thm-gls" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Generalized least squares)</strong></span> OLS on the transformed model is <span class="math display">\[\hat{\bbeta}_{\text{GLS}}
+=(\bX_*'\bX_*)^{-1}\bX_*'\bY_*
+=(\bX'\bD^{-1}\bX)^{-1}\bX'\bD^{-1}\bY.\]</span> Among <strong>linear unbiased</strong> estimators it has the smallest variance — the <strong>generalized Gauss–Markov (Aitken) theorem</strong> — with <span class="math display">\[\Var[\hat{\bbeta}_{\text{GLS}}\mid\bX]=(\bX'\bD^{-1}\bX)^{-1}.\]</span> OLS is the special case <span class="math inline">\(\bD=\sigma^2\bI\)</span> (weight matrix <span class="math inline">\(\bI\)</span> instead of <span class="math inline">\(\bD^{-1}\)</span>).</p>
 </div>
-</section><section id="in-the-literature" class="level2" data-number="3.8"><h2 data-number="3.8" class="anchored" data-anchor-id="in-the-literature">
-<span class="header-section-number">3.8</span> In the Literature</h2>
-<div class="econ-box econ-box-literature" role="note">
+<p>GLS re-weights: it downweights high-variance observations and upweights precise ones, which is exactly the information OLS ignores by treating every observation alike. The efficiency gain is the payoff Lecture 5 promised — <span class="math inline">\(\Var[\hat{\bbeta}_{\text{GLS}}]\preceq\Var[\bb]\)</span> in the psd order, whenever <span class="math inline">\(\bD\neq\sigma^2\bI\)</span>. Under i.i.d. sampling the result is stronger still (Hansen’s <em>modern</em> Gauss–Markov): <span class="math inline">\((\bX'\bD^{-1}\bX)^{-1}\)</span> is the smallest variance among <strong>all</strong> unbiased estimators — not only linear ones — a semiparametric efficiency bound.</p>
+</section><section id="weighted-least-squares-the-heteroskedastic-case" class="level3"><h3 class="anchored" data-anchor-id="weighted-least-squares-the-heteroskedastic-case">Weighted least squares: the heteroskedastic case</h3>
+<div id="cor-wls" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 1 (Weighted least squares)</strong></span> When the violation is pure <strong>heteroskedasticity</strong>, <span class="math inline">\(\bD=\operatorname{diag}(\sigma_1^2,\dots,\sigma_n^2)\)</span>, the transformation is just <strong>dividing each observation by its own <span class="math inline">\(\sigma_i\)</span></strong> (<span class="math inline">\(\mathbf{L}=\operatorname{diag}(1/\sigma_1,\dots,1/\sigma_n)\)</span>). GLS then takes the familiar <strong>weighted</strong> form <span class="math display">\[\hat{\bbeta}_{\text{WLS}}
+=\Big(\textstyle\sum_i \tfrac{1}{\sigma_i^2}\,\mathbf{x}_i\mathbf{x}_i'\Big)^{-1}\Big(\textstyle\sum_i \tfrac{1}{\sigma_i^2}\,\mathbf{x}_i y_i\Big)
+\ -\ \text{exactly the weighting OLS was missing.}\]</span></p>
+</div>
+</section></section></section><section id="part-iii-feasible-gls" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Part III · Feasible GLS</h1>
+<section id="when-d-is-unknown" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="when-d-is-unknown">
+<span class="header-section-number">3.1</span> When D is unknown</h2>
+<section id="the-skedastic-regression" class="level3"><h3 class="anchored" data-anchor-id="the-skedastic-regression">The skedastic regression</h3>
+<p>GLS needs <span class="math inline">\(\bD\)</span>, which we never know. But an unrestricted <span class="math inline">\(\bD\)</span> has <span class="math inline">\(n\)</span> variances — too many to estimate from <span class="math inline">\(n\)</span> observations. <strong>Model</strong> the variance with a few parameters:</p>
+<div id="def-skedastic" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (The skedastic regression)</strong></span> Specify <span class="math inline">\(\sigma_i^2=\sigma^2(\mathbf{z}_i,\boldsymbol{\alpha})\)</span> for a small parameter vector <span class="math inline">\(\boldsymbol{\alpha}\)</span> and observed <span class="math inline">\(\mathbf{z}_i\)</span> (often a subset/transform of <span class="math inline">\(\mathbf{x}_i\)</span>) — for example the linear <span class="math inline">\(\sigma_i^2=\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1\)</span> or the multiplicative <span class="math inline">\(\sigma_i^2=\exp(\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1)\)</span>. Estimate <span class="math inline">\(\boldsymbol{\alpha}\)</span> by <strong>regressing the squared OLS residuals <span class="math inline">\(\hat e_i^2\)</span> on <span class="math inline">\(\mathbf{z}_i\)</span></strong> — the <em>skedastic regression</em>.</p>
+</div>
+<p>The squared residual <span class="math inline">\(\hat e_i^2\)</span> is a noisy but consistent proxy for <span class="math inline">\(\sigma_i^2\)</span> (OLS is consistent, so <span class="math inline">\(\hat e_i\)</span> tracks <span class="math inline">\(\varepsilon_i\)</span>). Regressing <span class="math inline">\(\hat e_i^2\)</span> on <span class="math inline">\(\mathbf{z}_i\)</span> recovers how the variance moves with <span class="math inline">\(\mathbf{z}_i\)</span>. Replacing the true <span class="math inline">\(\sigma_i^2\)</span> by the fitted <span class="math inline">\(\hat\sigma_i^2\)</span> is what makes GLS <em>feasible</em>.</p>
+</section><section id="the-fgls-estimator" class="level3"><h3 class="anchored" data-anchor-id="the-fgls-estimator">The FGLS estimator</h3>
+<div id="thm-fgls" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Feasible GLS)</strong></span> Form <span class="math inline">\(\widehat{\bD}=\operatorname{diag}(\hat\sigma_1^2,\dots,\hat\sigma_n^2)\)</span> from the skedastic regression and plug it in: <span class="math display">\[\hat{\bbeta}_{\text{FGLS}}=(\bX'\widehat{\bD}^{-1}\bX)^{-1}\bX'\widehat{\bD}^{-1}\bY.\]</span> If the skedastic model is <strong>correctly specified</strong>, estimating <span class="math inline">\(\boldsymbol{\alpha}\)</span> is <em>asymptotically free</em>: <span class="math inline">\(\hat{\bbeta}_{\text{FGLS}}\)</span> has the <strong>same asymptotic distribution</strong> as infeasible GLS.</p>
+</div>
+<div class="econ-box econ-box-board" role="note">
 <div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Angrist &amp; Krueger (1991)</span>
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
 </div>
 <div class="econ-box-body">
-<p>Quarter of birth as an instrument for schooling <span class="citation" data-cites="angrist1991does">(<a href="#ref-angrist1991does" role="doc-biblioref">Angrist and Krueger 1991</a>)</span>. Read it after Lecture 10 and return to it after Lecture 11 — it is also the canonical cautionary tale about weak instruments.</p>
+<p>Why “asymptotically free”: the sampling error in <span class="math inline">\(\hat{\boldsymbol{\alpha}}\)</span> enters <span class="math inline">\(\hat{\bbeta}_{\text{FGLS}}\)</span> only through <span class="math inline">\(\widehat{\bD}\pto\bD\)</span>, and a <span class="math inline">\(\sqrt{n}\)</span>-consistent <span class="math inline">\(\hat{\boldsymbol{\alpha}}\)</span> perturbs <span class="math inline">\(\hat{\bbeta}\)</span> by a term that vanishes faster than <span class="math inline">\(1/\sqrt{n}\)</span>. So FGLS and GLS share the limit <span class="math inline">\(\Normal(\bzero,(\bX'\bD^{-1}\bX/n)^{-1})\)</span>.</p>
 </div>
 </div>
-<hr></section></section><section id="standard-quarto-constructs" class="level1 page-columns page-full" data-number="4"><h1 data-number="4">
-<span class="header-section-number">4</span> 4. Standard Quarto constructs</h1>
-<p>The built-in callouts remain available and are used for mechanics rather than pedagogy.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section></section><section id="why-not-always-fgls" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="why-not-always-fgls">
+<span class="header-section-number">3.2</span> Why not always FGLS?</h2>
+<section id="the-efficiencyrobustness-trade-off" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-efficiencyrobustness-trade-off">The efficiency–robustness trade-off</h3>
+<p>If FGLS is efficient and asymptotically free, why is OLS still the default? <strong>Three reasons</strong> — this is the heart of the lecture.</p>
+<p><strong>OLS is a robust estimator.</strong> The deepest reason is the third. If the equation is a <strong>projection</strong> (a best linear approximation) rather than a true CEF, OLS still estimates that projection consistently — but weighting by <span class="math inline">\(\widehat{\bD}^{-1}\)</span> changes the target, so FGLS estimates <em>something else</em>. Efficiency and robustness pull in opposite directions: FGLS buys a smaller variance by betting the conditional mean is exactly right. <strong>The standard advice is OLS with robust (or cluster-robust) standard errors</strong> — the safe default — with FGLS reserved for cases where the variance structure is genuinely known.</p>
+<p>This resolves the guiding question. Robust inference already handles heteroskedasticity for <em>validity</em>; FGLS offers <em>efficiency</em>, but conditionally and at a real cost. So the practical hierarchy is: OLS + robust by default; WLS/FGLS when you have a credible, verified model for <span class="math inline">\(\bD\)</span> (e.g.&nbsp;known grouping, survey weights, a physical variance law).</p>
+</section></section></section><section id="part-iv-testing-for-heteroskedasticity" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Part IV · Testing for heteroskedasticity</h1>
+<section id="the-skedastic-regression-tested" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="the-skedastic-regression-tested">
+<span class="header-section-number">4.1</span> The skedastic regression, tested</h2>
+<section id="white-and-breuschpagan-are-one-test" class="level3"><h3 class="anchored" data-anchor-id="white-and-breuschpagan-are-one-test">White and Breusch–Pagan are one test</h3>
+<div id="thm-bp-white" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Testing constant variance)</strong></span> Homoskedasticity is <span class="math inline">\(H_0:\boldsymbol{\alpha}_1=\bzero\)</span> in the skedastic regression <span class="math inline">\(\hat e_i^2=\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1+\nu_i\)</span> — the variance does <strong>not</strong> depend on <span class="math inline">\(\mathbf{z}_i\)</span>. Test it with the joint <strong>Wald/<span class="math inline">\(F\)</span></strong> on <span class="math inline">\(\boldsymbol{\alpha}_1\)</span> (equivalently <span class="math inline">\(nR^2\dto\chi^2_q\)</span>, <span class="math inline">\(q=\dim\boldsymbol{\alpha}_1\)</span>). The two classic choices differ only in <span class="math inline">\(\mathbf{z}_i\)</span>: <strong>White</strong> uses the squares and cross-products of <span class="math inline">\(\mathbf{x}_i\)</span>; <strong>Breusch–Pagan</strong> uses a general <span class="math inline">\(\mathbf{z}_i\)</span>. Under independence they are essentially the <strong>same test</strong>.</p>
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<p>Both read off a single auxiliary regression of squared residuals. White’s choice of <span class="math inline">\(\mathbf{z}_i\)</span> makes the test omnibus (it also picks up misspecification); Breusch–Pagan targets a direction you specify. The statistic is the joint significance of that regression — nothing new relative to Part II of Lecture 6.</p>
+</section><section id="what-the-test-is-and-is-not-for" class="level3"><h3 class="anchored" data-anchor-id="what-the-test-is-and-is-not-for">What the test is — and is not — for</h3>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Do not misuse the test</span>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Administrative information: deadlines, corrections, reading assignments.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A common error, or a result that does <em>not</em> hold under weaker assumptions.</p>
+<div class="econ-box-body">
+<p>A heteroskedasticity test answers <strong>one</strong> scientific question: does <span class="math inline">\(\sigma^2\)</span> depend on the regressors? It is <strong>not</strong> a tool to choose between OLS and FGLS, nor between classical and robust standard errors — <em>“hypothesis tests are not designed for these purposes.”</em> You use <strong>robust</strong> errors regardless of the test. Run the test only if whether <span class="math inline">\(\sigma^2(\mathbf{x})\)</span> varies is itself of economic interest.</p>
 </div>
 </div>
-<section id="margin-content" class="level2 page-columns page-full" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="margin-content">
-<span class="header-section-number">4.1</span> Margin content</h2>
-<p>Side remarks that would break the argument go in the margin.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Margin note: useful for pointing at the corresponding section of Hansen or Greene without interrupting the flow.</p>
-</div></div></section><section id="code" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="code">
-<span class="header-section-number">4.2</span> Code</h2>
-<div class="cell">
-<details open="" class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20262</span><span class="op">)</span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; (Intercept)           x </span></span>
-<span><span class="co">#&gt;   0.9500911   2.0813428</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</section></section></section><section id="part-v-clustered-dependence" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> Part V · Clustered dependence</h1>
+<section id="when-observations-come-in-groups" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="when-observations-come-in-groups">
+<span class="header-section-number">5.1</span> When observations come in groups</h2>
+<section id="clusters-dependence-by-design" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="clusters-dependence-by-design">Clusters: dependence by design</h3>
+<div id="def-cluster" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Clustered sampling)</strong></span> The sample is <span class="math inline">\(C\)</span> groups (clusters) — firms in industries, students in schools, individuals in villages — <span class="math display">\[y_{i,c}=\mathbf{x}_{i,c}'\bbeta+\varepsilon_{i,c},\]</span> with errors <strong>correlated within a cluster</strong> but <strong>independent across</strong> clusters — off-diagonal structure in <span class="math inline">\(\bD\)</span>, block by block, from how the sample was <strong>drawn</strong>. OLS stays <strong>unbiased</strong> when <span class="math inline">\(\E[\beps_c\mid\bX_c]=\bzero\)</span>, which requires within-cluster interactions to be in the model (a pupil’s outcome must not depend on <em>classmates’</em> regressors).</p>
 </div>
-</section><section id="tabsets" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="tabsets">
-<span class="header-section-number">4.3</span> Tabsets</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Matrix algebra</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">By hand</a></li>
+<p>How bad can it get? With equal clusters of size <span class="math inline">\(N\)</span>, intra-cluster correlation <span class="math inline">\(\rho\)</span>, and a cluster-constant regressor, the <strong>design effect</strong> (Moulton) inflates the variance by <span class="math inline">\(1+\rho(N-1)\)</span>: at <span class="math inline">\(\rho=0.25,\ N=48\)</span> the correct standard error is about <strong>three times</strong> the conventional one. Ignoring clustering does not nudge the errors — it can shrink them several-fold.</p>
+</section><section id="the-cluster-robust-variance" class="level3"><h3 class="anchored" data-anchor-id="the-cluster-robust-variance">The cluster-robust variance</h3>
+<div id="thm-cluster" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4 (Cluster-robust covariance)</strong></span> With <span class="math inline">\(\bX_c,\beps_c\)</span> the regressors and errors of cluster <span class="math inline">\(c\)</span>, OLS is unchanged, and <span class="math display">\[\Var[\bb\mid\bX]=(\bX'\bX)^{-1}\Big[\textstyle\sum_{c=1}^{C}\bX_c'\,\bD_c\,\bX_c\Big](\bX'\bX)^{-1},
+\qquad \bD_c=\E[\beps_c\beps_c'\mid\bX_c].\]</span> It is estimated by the <strong>cluster sandwich</strong>, summing the cluster score vectors <span class="math inline">\(\bX_c'\hat{\be}_c\)</span>: <span class="math display">\[\widehat{\Asyvar}[\bb]=(\bX'\bX)^{-1}\Big[\textstyle\sum_{c=1}^{C}(\bX_c'\hat{\be}_c)(\bX_c'\hat{\be}_c)'\Big](\bX'\bX)^{-1}.\]</span> White’s estimator is the special case of one observation per cluster (<span class="math inline">\(\bD_c\)</span> scalar).</p>
+</div>
+<p>The construction mirrors White’s exactly, but the “meat” now sums <strong>outer products of cluster totals</strong> <span class="math inline">\(\bX_c'\hat{\be}_c\)</span> instead of individual <span class="math inline">\(\hat e_i^2\mathbf{x}_i\mathbf{x}_i'\)</span> — that is what captures the within-cluster covariances. Everything else — the bread <span class="math inline">\((\bX'\bX)^{-1}\)</span>, the sandwich shape — is identical.</p>
+</section><section id="the-catch-asymptotics-in-the-number-of-clusters" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-catch-asymptotics-in-the-number-of-clusters">The catch: asymptotics in the number of clusters</h3>
+<div class="econ-box econ-box-hood" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Few clusters break the sandwich</span>
+</div>
+<div class="econ-box-body">
+<p>The cluster-robust variance is consistent as the <strong>number of clusters</strong> <span class="math inline">\(C\to\infty\)</span> — <strong>not</strong> as <span class="math inline">\(n\to\infty\)</span>. Stata’s finite-sample correction multiplies it by <span class="math inline">\(a_n=\dfrac{n-1}{n-k}\cdot\dfrac{C}{C-1}\)</span> (the <span class="math inline">\(C/(C-1)\)</span> helps when <span class="math inline">\(C\)</span> is small; <span class="math inline">\(C=n\)</span> recovers the i.i.d. factor). But no correction rescues small <span class="math inline">\(C\)</span>: <strong><span class="math inline">\(C\)</span> is the effective sample size</strong> — <span class="math inline">\(C=50\)</span> clusters is like heteroskedasticity-robust inference with <span class="math inline">\(n=50\)</span> observations, and <strong>unequal cluster sizes</strong> make it worse. Treat it as a small-sample problem, not a fixed reference distribution.</p>
+</div>
+</div>
+<p>The reliable finite-sample tools are resampling, in Lecture 8. The <strong>wild cluster bootstrap</strong> multiplies each cluster’s residual vector by a single <span class="math inline">\(\pm1\)</span> (Rademacher) weight — one draw per cluster, preserving within-cluster dependence — then re-computes the statistic (the <em>restricted</em> version, under <span class="math inline">\(H_0\)</span>, is recommended). The <strong>delete-cluster jackknife</strong> drops one whole cluster at a time; both are formula-free alternatives to the sandwich.</p>
+</section></section><section id="at-what-level-to-cluster" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="at-what-level-to-cluster">
+<span class="header-section-number">5.2</span> At what level to cluster?</h2>
+<section id="the-cluster-level-is-a-choice" class="level3"><h3 class="anchored" data-anchor-id="the-cluster-level-is-a-choice">The cluster level is a choice</h3>
+<p>The cluster level is a <strong>choice</strong>, and it is a genuine trade-off — not “always cluster more”.</p>
+</section></section><section id="when-robust-is-not-enough" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="when-robust-is-not-enough">
+<span class="header-section-number">5.3</span> When robust is not enough</h2>
+<section id="the-limits-of-a-robust-variance" class="level3"><h3 class="anchored" data-anchor-id="the-limits-of-a-robust-variance">The limits of a robust variance</h3>
+<div class="econ-box econ-box-questions" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">What robust standard errors do and do not fix</span>
+</div>
+<div class="econ-box-body">
+<ul>
+<li>They <strong>fix</strong> the <em>variance</em> — the sandwich (White or cluster) gives valid standard errors under heteroskedasticity or clustering.</li>
+<li>They do <strong>not</strong> fix <strong>inconsistency</strong> — if <span class="math inline">\(\E[\mathbf{x}\varepsilon]\neq\bzero\)</span> (endogeneity, Lecture 10), no variance formula saves you; the point estimate is wrong.</li>
+<li>They do <strong>not</strong> fix <strong>dependence</strong> you failed to model — the White errors are wrong under clustering; you must match the sandwich to the actual dependence structure.</li>
 </ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/qr.html">qr.solve</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><span class="math display">\[\bb = (\bX'\bX)^{-1}\bX'\bY\]</span></p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>Form the normal equations <span class="math inline">\(\bX'\bX\mathbf{b} = \bX'\bY\)</span> and solve the linear system.</p>
 </div>
 </div>
+</section></section><section id="seeing-it-coverage-under-heteroskedasticity" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="seeing-it-coverage-under-heteroskedasticity">
+<span class="header-section-number">5.4</span> Seeing it: coverage under heteroskedasticity</h2>
+<section id="does-the-interval-cover-95" class="level3"><h3 class="anchored" data-anchor-id="does-the-interval-cover-95">Does the interval cover 95%?</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-coverage" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07-gls_files/figure-html/fig-coverage-1.svg" class="img-fluid figure-img" width="2280">
 </div>
-<hr></section></section><section id="writing-one-source-for-two-outputs" class="level1" data-number="5"><h1 data-number="5">
-<span class="header-section-number">5</span> 5. Writing one source for two outputs</h1>
-<p>Each lecture <code>.qmd</code> renders both as a chapter of the website and as a Reveal.js deck.</p>
-<section id="heading-levels-are-the-primary-control" class="level3"><h3 class="anchored" data-anchor-id="heading-levels-are-the-primary-control">Heading levels are the primary control</h3>
-<table class="caption-top table">
-<thead><tr class="header">
-<th>Level</th>
-<th>Website</th>
-<th>Deck</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>##</code></td>
-<td>Section</td>
-<td>Section divider slide</td>
-</tr>
-<tr class="even">
-<td><code>###</code></td>
-<td>Subsection</td>
-<td><strong>One slide</strong></td>
-</tr>
-</tbody>
-</table>
-<p>Write <code>###</code> units that hold <em>one idea</em>. A <code>###</code> whose prose runs past roughly 80 words is a slide that will be unreadable from the back of the room — split it.</p>
-</section><section id="longform-and-.onslide" class="level3"><h3 class="anchored" data-anchor-id="longform-and-.onslide">
-<code>.longform</code> and <code>.onslide</code>
-</h3>
-<p>The real problem is not structure but register: prose that reads well in the notes is unreadable projected on a wall. Two wrappers keep one source serving both.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::: {.longform}</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Expository prose — full argument, subordinate clauses, the "why".</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Appears in the notes; dropped from the deck.</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>::: {.onslide}</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Three bullets</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The same point, compressed</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>Appears in the deck; dropped from the notes.</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Content outside either wrapper appears in both — which is where definitions, theorems, boxes, figures and tables normally belong.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-The density target
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the slope, over increasing heteroskedasticity (<span class="math inline">\(\sigma_i = x_i^{\gamma}\)</span>). The conventional interval <span class="math inline">\(s^2(\mathbf{X}'\mathbf{X})^{-1}\)</span> under-covers as <span class="math inline">\(\gamma\)</span> grows; the heteroskedasticity-robust (HC1) interval stays near 0.95.
+</figcaption></figure>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>Aim for <strong>40–70 words per slide</strong>, and treat anything above 90 as a defect. To measure a deck after rendering:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-</span> <span class="op">&lt;&lt;'EOF'</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">import re</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">h = open('_slides/notas/01-map.html').read()</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">secs = re.findall(r'&lt;section[^&gt;]*&gt;(.*?)&lt;/section&gt;', h, re.S)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">w = [len(re.sub(r'&lt;[^&gt;]+&gt;', ' ', s).split()) for s in secs]</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">w = [x for x in w if x &gt; 3]</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="st">print(f'slides {len(w)}  mean {sum(w)//len(w)}  worst {max(w)}')</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</section><section id="the-explicit-form" class="level3"><h3 class="anchored" data-anchor-id="the-explicit-form">The explicit form</h3>
-<p><code>.longform</code> and <code>.onslide</code> are shorthand. The underlying mechanism is Quarto’s conditional content, and when you need it directly, <strong>always key the condition on <code>revealjs</code></strong>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>::: {.content-hidden when-format="revealjs"}</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Long-form derivation, shown only in the notes.</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>::: {.content-visible when-format="revealjs"}</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>Three bullet points, shown only in the lecture.</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Do not write <code>when-format="html"</code> to mean “the website”
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Reveal.js <strong>is</strong> an HTML format, so <code>when-format="html"</code> matches the deck as well and the content leaks into the slides. Only <code>revealjs</code> distinguishes the two reliably:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead><tr class="header">
-<th>Intent</th>
-<th>Correct</th>
-<th>Wrong</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Website only</td>
-<td><code>.content-hidden when-format="revealjs"</code></td>
-<td><code>.content-visible when-format="html"</code></td>
-</tr>
-<tr class="even">
-<td>Slides only</td>
-<td><code>.content-visible when-format="revealjs"</code></td>
-<td>—</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You are reading the <strong>website</strong> version — this paragraph is absent from the slides.</p>
-</div>
-</div>
-<p>Speaker notes:</p>
-<div class="notes">
-<p>Visible in the Reveal.js presenter view (press <code>S</code>), absent from the website.</p>
-</div>
-<hr></section></section><section id="cross-references" class="level1" data-number="6"><h1 data-number="6">
-<span class="header-section-number">6</span> 6. Cross-references</h1>
-<table class="caption-top table">
-<thead><tr class="header">
-<th>Target</th>
-<th>Syntax</th>
-<th>Renders</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Theorem</td>
-<td><code>@thm-demo</code></td>
-<td><a href="#thm-demo" class="quarto-xref">Theorem&nbsp;1</a></td>
-</tr>
-<tr class="even">
-<td>Definition</td>
-<td><code>@def-projection</code></td>
-<td><a href="#def-projection" class="quarto-xref">Definition&nbsp;1</a></td>
-</tr>
-<tr class="odd">
-<td>Corollary</td>
-<td><code>@cor-residual-maker</code></td>
-<td><a href="#cor-residual-maker" class="quarto-xref">Corollary&nbsp;1</a></td>
-</tr>
-<tr class="even">
-<td>Citation</td>
-<td><code>@hansen2022econometrics</code></td>
-<td><span class="citation" data-cites="hansen2022econometrics">Hansen (<a href="#ref-hansen2022econometrics" role="doc-biblioref">2022</a>)</span></td>
-</tr>
-<tr class="odd">
-<td>Section</td>
-<td><code>@sec-label</code></td>
-<td>—</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<section id="references" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="references">
-<span class="header-section-number">6.1</span> References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-angrist1991does" class="csl-entry" role="listitem">
-Angrist, Joshua D., and Alan B. Krueger. 1991. <span>“Does Compulsory School Attendance Affect Schooling and Earnings?”</span> <em>Quarterly Journal of Economics</em> 106 (4): 979–1014.
-</div>
-<div id="ref-hansen2022econometrics" class="csl-entry" role="listitem">
-Hansen, Bruce E. 2022. <em>Econometrics</em>. Princeton, NJ: Princeton University Press.
-</div>
-</div>
+</section></section><section id="summary" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">5.5</span> Summary</h2>
+<section id="what-to-take-away" class="level3"><h3 class="anchored" data-anchor-id="what-to-take-away">What to take away</h3>
 
 
-</section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-<ol>
-<li id="fn1"><p>Footnotes work as usual and appear on hover.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></div></main><!-- /main --><!--
+</section></section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><!--
   Annotated equations: link each \eqt{key}{...} term in the rendered math to its
   explanation card, in both directions.
 
@@ -1341,13 +1101,14 @@ Hansen, Bruce E. 2022. <em>Econometrics</em>. Princeton, NJ: Princeton Universit
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1694,11 +1455,14 @@ Hansen, Bruce E. 2022. <em>Econometrics</em>. Princeton, NJ: Princeton Universit
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../slides/notas/04-finite-sample.html" class="pagination-link" aria-label="4 · Finite-Sample Properties and Gauss-Markov">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">4 · Finite-Sample Properties and Gauss-Markov</span>
+      <a href="../notas/06-inference.html" class="pagination-link" aria-label="6 · Inference: Tests, Intervals, and Wald">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">6 · Inference: Tests, Intervals, and Wald</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../slides/notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
+        <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
