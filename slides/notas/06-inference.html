@@ -652,8 +652,25 @@ W_{LM} = \mathbf{m}'\big[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\math
 <section id="nonlinear-wald-a-worked-example" class="slide level3 smaller">
 <h3>Nonlinear Wald: a worked example</h3>
 <div id="exm-ratio" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> To test <span class="math inline">\(H_0\!: \beta_1/\beta_2 = 1\)</span>, write <span class="math inline">\(h(\bbeta) = \beta_1 - \beta_2\)</span> (linear here) or, if the ratio itself is the object of interest, <span class="math inline">\(h(\bbeta) = \beta_1/\beta_2 - 1\)</span> with <span class="math inline">\(\widehat{\bGamma} = \big[\,1/b_2,\ -b_1/b_2^2\,\big]\)</span>. The Delta Method supplies the standard error of the ratio; the Wald statistic does the rest.</p>
+<p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> Test <span class="math inline">\(H_0\!:\beta_1/\beta_2=1\)</span>, i.e.&nbsp;<span class="math inline">\(h(\bbeta)=\beta_1/\beta_2-1=0\)</span> (nonlinear in <span class="math inline">\(\bbeta\)</span>). Its gradient, evaluated at <span class="math inline">\(\bb\)</span>, is the Jacobian <span class="math display">\[\widehat{\bGamma}=\Big[\tfrac{\partial h}{\partial\beta_1},\ \tfrac{\partial h}{\partial\beta_2}\Big]
+=\Big[\tfrac{1}{b_2},\ -\tfrac{b_1}{b_2^{2}}\Big].\]</span></p>
 </div>
+<p>Under <span class="math inline">\(H_0\)</span> the Delta Method makes the restriction asymptotically normal — <span class="math inline">\(h(\bb)\)</span> is approximately <span class="math inline">\(\Normal\!\big(0,\ \widehat{\bGamma}\,\widehat{\Asyvar}[\bb]\,\widehat{\bGamma}'\big)\)</span> — so standardizing gives the (<span class="math inline">\(J=1\)</span>) Wald statistic <span class="math display">\[W=\frac{h(\bb)^2}{\widehat{\bGamma}\,\widehat{\Asyvar}[\bb]\,\widehat{\bGamma}'}\ \dto\ \chi^2_1.\]</span> The denominator is the Delta-Method variance of the ratio; its square root is <span class="math inline">\(\operatorname{se}(h(\bb))\)</span>.</p>
+</section>
+<section id="the-ratio-test-by-the-numbers" class="slide level3 smaller">
+<h3>The ratio test, by the numbers</h3>
+<p>Suppose <span class="math inline">\(b_1=2\)</span>, <span class="math inline">\(b_2=1\)</span>, with estimated variance <span class="math display">\[\widehat{\Asyvar}[\bb]=\begin{bmatrix}0.09 &amp; 0.02\\[2pt] 0.02 &amp; 0.04\end{bmatrix}
+\quad(\operatorname{se}(b_1)=0.3,\ \operatorname{se}(b_2)=0.2,\ \widehat{\Cov}=0.02).\]</span></p>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<ul>
+<li><strong>Restriction:</strong> <span class="math inline">\(h(\bb)=b_1/b_2-1=2/1-1=1\)</span>.</li>
+<li><strong>Jacobian:</strong> <span class="math inline">\(\widehat{\bGamma}=[\,1/b_2,\ -b_1/b_2^2\,]=[\,1,\ -2\,]\)</span>.</li>
+<li><strong>Variance of <span class="math inline">\(h(\bb)\)</span></strong> (Delta): <span class="math display">\[\widehat{\bGamma}\,\widehat{\Asyvar}[\bb]\,\widehat{\bGamma}'
+=\underbrace{1^2(0.09)+(-2)^2(0.04)}_{0.25}+\underbrace{2\,(1)(-2)(0.02)}_{-0.08}=0.17,\]</span> so <span class="math inline">\(\operatorname{se}(h(\bb))=\sqrt{0.17}=0.412\)</span> — the covariance term <span class="math inline">\((-0.08)\)</span> is not optional.</li>
+<li><strong>Statistic:</strong> <span class="math inline">\(W=h(\bb)^2/0.17=1/0.17=5.88\)</span>.</li>
+<li><strong>Decision:</strong> <span class="math inline">\(\chi^2_{1,\,0.95}=3.84\)</span>; since <span class="math inline">\(5.88&gt;3.84\)</span>, <strong>reject</strong> <span class="math inline">\(H_0:\beta_1/\beta_2=1\)</span> at <span class="math inline">\(5\%\)</span> (equivalently <span class="math inline">\(z=\sqrt{W}=2.43\)</span>, <span class="math inline">\(p\approx0.015\)</span>).</li>
+</ul>
+</div></div>
 </section>
 <section id="the-wald-statistic-in-general" class="slide level3 smaller">
 <h3>The Wald statistic, in general</h3>
@@ -692,8 +709,8 @@ W_{LM} = \mathbf{m}'\big[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\math
 </section>
 </section>
 <section>
-<section id="part-iv-joint-inference-prediction-and-stability" class="title-slide slide level1 center">
-<h1>Part IV · Joint inference, prediction, and stability</h1>
+<section id="part-iv-joint-inference-and-stability" class="title-slide slide level1 center">
+<h1>Part IV · Joint inference and stability</h1>
 
 </section>
 <section id="joint-versus-marginal" class="title-slide slide level2 center">
@@ -715,20 +732,6 @@ W_{LM} = \mathbf{m}'\big[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\math
 <img data-src="06-inference_files/figure-revealjs/fig-ellipse-1.svg" width="2280" class="r-stretch quarto-figure-center" id="fig-ellipse"><p class="caption">
 Figure&nbsp;2: A 95% joint confidence region (ellipse) for correlated <span class="math inline">\((\beta_1,\beta_2)\)</span>, and the box of the two marginal 95% intervals. The dot is inside both marginal intervals yet outside the joint region: two separate tests are not one joint test.
 </p></section>
-
-<section id="prediction" class="title-slide slide level2 center">
-<h2>Prediction</h2>
-
-</section>
-<section id="predicting-a-new-observation" class="slide level3">
-<h3>Predicting a new observation</h3>
-<p>Inference is usually about <span class="math inline">\(\bbeta\)</span>; sometimes it is about a <strong>new</strong> <span class="math inline">\(y\)</span>. Both use the same variance machinery, with one extra term.</p>
-<ul>
-<li>Predicting a <strong>mean</strong> <span class="math inline">\(\mathbf{x}_0'\bbeta\)</span>: uncertainty <span class="math inline">\(\propto \mathbf{x}_0'(\bX'\bX)^{-1}\mathbf{x}_0\)</span>.</li>
-<li>Predicting a <strong>draw</strong> <span class="math inline">\(y_0\)</span>: add the irreducible <span class="math inline">\(\sigma^2\)</span> — the “<span class="math inline">\(+1\)</span>”.</li>
-<li>Both widen as <span class="math inline">\(\mathbf{x}_0\)</span> moves away from the centre of the data.</li>
-</ul>
-</section>
 
 <section id="structural-stability" class="title-slide slide level2 center">
 <h2>Structural stability</h2>

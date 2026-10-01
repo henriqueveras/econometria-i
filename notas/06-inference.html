@@ -52,7 +52,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/07-gls.html" rel="next">
 <link href="../notas/05-large-sample.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -502,6 +502,12 @@ window.Quarto = {
  <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/07-gls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
+  </div>
+</li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -559,6 +565,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/06-inference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/07-gls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
   </div>
 </li>
       </ul>
@@ -669,13 +681,14 @@ window.Quarto = {
   <li><a href="#the-delta-method" id="toc-the-delta-method" class="nav-link" data-scroll-target="#the-delta-method">The Delta Method</a></li>
   <li><a href="#nonlinear-wald" id="toc-nonlinear-wald" class="nav-link" data-scroll-target="#nonlinear-wald">Nonlinear Wald</a></li>
   <li><a href="#nonlinear-wald-a-worked-example" id="toc-nonlinear-wald-a-worked-example" class="nav-link" data-scroll-target="#nonlinear-wald-a-worked-example">Nonlinear Wald: a worked example</a></li>
+  <li><a href="#the-ratio-test-by-the-numbers" id="toc-the-ratio-test-by-the-numbers" class="nav-link" data-scroll-target="#the-ratio-test-by-the-numbers">The ratio test, by the numbers</a></li>
   <li><a href="#the-wald-statistic-in-general" id="toc-the-wald-statistic-in-general" class="nav-link" data-scroll-target="#the-wald-statistic-in-general">The Wald statistic, in general</a></li>
   </ul>
 </li>
   </ul>
 </li>
   <li>
-<a href="#part-iv-joint-inference-prediction-and-stability" id="toc-part-iv-joint-inference-prediction-and-stability" class="nav-link" data-scroll-target="#part-iv-joint-inference-prediction-and-stability"><span class="header-section-number">4</span> Part IV · Joint inference, prediction, and stability</a>
+<a href="#part-iv-joint-inference-and-stability" id="toc-part-iv-joint-inference-and-stability" class="nav-link" data-scroll-target="#part-iv-joint-inference-and-stability"><span class="header-section-number">4</span> Part IV · Joint inference and stability</a>
   <ul class="collapse">
 <li>
 <a href="#joint-versus-marginal" id="toc-joint-versus-marginal" class="nav-link" data-scroll-target="#joint-versus-marginal"><span class="header-section-number">4.1</span> Joint versus marginal</a>
@@ -685,31 +698,25 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">4.2</span> Prediction</a>
-  <ul class="collapse">
-<li><a href="#predicting-a-new-observation" id="toc-predicting-a-new-observation" class="nav-link" data-scroll-target="#predicting-a-new-observation">Predicting a new observation</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#structural-stability" id="toc-structural-stability" class="nav-link" data-scroll-target="#structural-stability"><span class="header-section-number">4.3</span> Structural stability</a>
+<a href="#structural-stability" id="toc-structural-stability" class="nav-link" data-scroll-target="#structural-stability"><span class="header-section-number">4.2</span> Structural stability</a>
   <ul class="collapse">
 <li><a href="#has-the-relationship-changed" id="toc-has-the-relationship-changed" class="nav-link" data-scroll-target="#has-the-relationship-changed">Has the relationship changed?</a></li>
   </ul>
 </li>
   <li>
-<a href="#what-we-have-and-where-it-goes" id="toc-what-we-have-and-where-it-goes" class="nav-link" data-scroll-target="#what-we-have-and-where-it-goes"><span class="header-section-number">4.4</span> What we have, and where it goes</a>
+<a href="#what-we-have-and-where-it-goes" id="toc-what-we-have-and-where-it-goes" class="nav-link" data-scroll-target="#what-we-have-and-where-it-goes"><span class="header-section-number">4.3</span> What we have, and where it goes</a>
   <ul class="collapse">
 <li><a href="#the-scoreboard" id="toc-the-scoreboard" class="nav-link" data-scroll-target="#the-scoreboard">The scoreboard</a></li>
   </ul>
 </li>
   <li>
-<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">4.5</span> Reading</a>
+<a href="#reading" id="toc-reading" class="nav-link" data-scroll-target="#reading"><span class="header-section-number">4.4</span> Reading</a>
   <ul class="collapse">
 <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
   </ul>
 </li>
   <li>
-<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">4.6</span> References</a>
+<a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">4.5</span> References</a>
   <ul class="collapse">
 <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
   </ul>
@@ -1048,17 +1055,42 @@ W_{LM} = \mathbf{m}'\big[\mathbf{R}\,s^2(\bX'\bX)^{-1}\mathbf{R}'\big]^{-1}\math
 </div>
 </section><section id="nonlinear-wald-a-worked-example" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="nonlinear-wald-a-worked-example">Nonlinear Wald: a worked example</h3>
 <div id="exm-ratio" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> To test <span class="math inline">\(H_0\!: \beta_1/\beta_2 = 1\)</span>, write <span class="math inline">\(h(\bbeta) = \beta_1 - \beta_2\)</span> (linear here) or, if the ratio itself is the object of interest, <span class="math inline">\(h(\bbeta) = \beta_1/\beta_2 - 1\)</span> with <span class="math inline">\(\widehat{\bGamma} = \big[\,1/b_2,\ -b_1/b_2^2\,\big]\)</span>. The Delta Method supplies the standard error of the ratio; the Wald statistic does the rest.</p>
+<p><span class="theorem-title"><strong>Example 2 (A ratio of coefficients)</strong></span> Test <span class="math inline">\(H_0\!:\beta_1/\beta_2=1\)</span>, i.e.&nbsp;<span class="math inline">\(h(\bbeta)=\beta_1/\beta_2-1=0\)</span> (nonlinear in <span class="math inline">\(\bbeta\)</span>). Its gradient, evaluated at <span class="math inline">\(\bb\)</span>, is the Jacobian <span class="math display">\[\widehat{\bGamma}=\Big[\tfrac{\partial h}{\partial\beta_1},\ \tfrac{\partial h}{\partial\beta_2}\Big]
+=\Big[\tfrac{1}{b_2},\ -\tfrac{b_1}{b_2^{2}}\Big].\]</span></p>
+</div>
+<p>Under <span class="math inline">\(H_0\)</span> the Delta Method makes the restriction asymptotically normal — <span class="math inline">\(h(\bb)\)</span> is approximately <span class="math inline">\(\Normal\!\big(0,\ \widehat{\bGamma}\,\widehat{\Asyvar}[\bb]\,\widehat{\bGamma}'\big)\)</span> — so standardizing gives the (<span class="math inline">\(J=1\)</span>) Wald statistic <span class="math display">\[W=\frac{h(\bb)^2}{\widehat{\bGamma}\,\widehat{\Asyvar}[\bb]\,\widehat{\bGamma}'}\ \dto\ \chi^2_1.\]</span> The denominator is the Delta-Method variance of the ratio; its square root is <span class="math inline">\(\operatorname{se}(h(\bb))\)</span>.</p>
+</section><section id="the-ratio-test-by-the-numbers" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-ratio-test-by-the-numbers">The ratio test, by the numbers</h3>
+<p>Suppose <span class="math inline">\(b_1=2\)</span>, <span class="math inline">\(b_2=1\)</span>, with estimated variance <span class="math display">\[\widehat{\Asyvar}[\bb]=\begin{bmatrix}0.09 &amp; 0.02\\[2pt] 0.02 &amp; 0.04\end{bmatrix}
+\quad(\operatorname{se}(b_1)=0.3,\ \operatorname{se}(b_2)=0.2,\ \widehat{\Cov}=0.02).\]</span></p>
+<div class="econ-box econ-box-board" role="note">
+<div class="econ-box-head">
+<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
+</div>
+<div class="econ-box-body">
+<ul>
+<li>
+<strong>Restriction:</strong> <span class="math inline">\(h(\bb)=b_1/b_2-1=2/1-1=1\)</span>.</li>
+<li>
+<strong>Jacobian:</strong> <span class="math inline">\(\widehat{\bGamma}=[\,1/b_2,\ -b_1/b_2^2\,]=[\,1,\ -2\,]\)</span>.</li>
+<li>
+<strong>Variance of <span class="math inline">\(h(\bb)\)</span></strong> (Delta): <span class="math display">\[\widehat{\bGamma}\,\widehat{\Asyvar}[\bb]\,\widehat{\bGamma}'
+=\underbrace{1^2(0.09)+(-2)^2(0.04)}_{0.25}+\underbrace{2\,(1)(-2)(0.02)}_{-0.08}=0.17,\]</span> so <span class="math inline">\(\operatorname{se}(h(\bb))=\sqrt{0.17}=0.412\)</span> — the covariance term <span class="math inline">\((-0.08)\)</span> is not optional.</li>
+<li>
+<strong>Statistic:</strong> <span class="math inline">\(W=h(\bb)^2/0.17=1/0.17=5.88\)</span>.</li>
+<li>
+<strong>Decision:</strong> <span class="math inline">\(\chi^2_{1,\,0.95}=3.84\)</span>; since <span class="math inline">\(5.88&gt;3.84\)</span>, <strong>reject</strong> <span class="math inline">\(H_0:\beta_1/\beta_2=1\)</span> at <span class="math inline">\(5\%\)</span> (equivalently <span class="math inline">\(z=\sqrt{W}=2.43\)</span>, <span class="math inline">\(p\approx0.015\)</span>).</li>
+</ul>
+</div>
 </div>
 </section><section id="the-wald-statistic-in-general" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-wald-statistic-in-general">The Wald statistic, in general</h3>
 <p>One statistic across three axes: everything in Part III was the <strong>same</strong> distance, weighted by its own variance. Now that each axis has been developed, the summary:</p>
-</section></section></section><section id="part-iv-joint-inference-prediction-and-stability" class="level1" data-number="4"><h1 data-number="4">
-<span class="header-section-number">4</span> Part IV · Joint inference, prediction, and stability</h1>
+</section></section></section><section id="part-iv-joint-inference-and-stability" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Part IV · Joint inference and stability</h1>
 <section id="joint-versus-marginal" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="joint-versus-marginal">
 <span class="header-section-number">4.1</span> Joint versus marginal</h2>
 <section id="two-intervals-are-not-a-region" class="level3"><h3 class="anchored" data-anchor-id="two-intervals-are-not-a-region">Two intervals are not a region</h3>
 <p>Testing <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> <strong>separately</strong> is not testing them <strong>jointly</strong>. Because <span class="math inline">\(b_1\)</span> and <span class="math inline">\(b_2\)</span> are correlated, the joint <span class="math inline">\(95\%\)</span> region is an <strong>ellipse</strong>, not the rectangle formed by the two marginal intervals.</p>
-<p>The rectangle ignores the covariance <span class="math inline">\(\Cov(b_1, b_2)\)</span>; the ellipse encodes it. When the estimators are strongly correlated — the collinear case again — the ellipse is a thin diagonal sliver, and the gap between “each looks fine” and “together they are rejected” is at its widest. This is why a joint <span class="math inline">\(F\)</span> (or Wald) is not a convenience but a necessity.</p>
+<p><strong>Why an ellipse?</strong> The joint region is the set of <span class="math inline">\(\bbeta\)</span> the data do not reject — exactly where the Wald distance stays below a cutoff, <span class="math inline">\(\{\bbeta:(\bb-\bbeta)'\widehat{\Asyvar}[\bb]^{-1}(\bb-\bbeta)\le c\}\)</span>. That is a <strong>quadratic form <span class="math inline">\(\le\)</span> constant</strong>, whose boundary is an ellipse — a contour of the bivariate normal density of <span class="math inline">\(\bb\)</span>. If <span class="math inline">\(b_1,b_2\)</span> were uncorrelated with equal variance it would be a <strong>circle</strong> (Euclidean distance); correlation and unequal variances stretch and tilt it. So the rectangle ignores <span class="math inline">\(\Cov(b_1,b_2)\)</span> while the ellipse encodes it: when the estimators are strongly correlated — the collinear case again — the ellipse is a thin diagonal sliver, and the gap between “each looks fine” and “together they are rejected” is at its widest. A joint <span class="math inline">\(F\)</span> (or Wald) is not a convenience but a necessity.</p>
 </section><section id="seeing-the-confidence-ellipse" class="level3"><h3 class="anchored" data-anchor-id="seeing-the-confidence-ellipse">Seeing the confidence ellipse</h3>
 <div class="cell">
 <div class="cell-output-display">
@@ -1072,21 +1104,16 @@ Figure&nbsp;2: A 95% joint confidence region (ellipse) for correlated <span clas
 </div>
 </div>
 </div>
-</section></section><section id="prediction" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="prediction">
-<span class="header-section-number">4.2</span> Prediction</h2>
-<section id="predicting-a-new-observation" class="level3"><h3 class="anchored" data-anchor-id="predicting-a-new-observation">Predicting a new observation</h3>
-<p>Inference is usually about <span class="math inline">\(\bbeta\)</span>; sometimes it is about a <strong>new</strong> <span class="math inline">\(y\)</span>. Both use the same variance machinery, with one extra term.</p>
-<p>For a new unit with regressors <span class="math inline">\(\mathbf{x}_0\)</span>, the point prediction is <span class="math inline">\(\hat y_0 = \mathbf{x}_0'\bb\)</span>. Its error has <strong>two</strong> sources: we do not know <span class="math inline">\(\bbeta\)</span> (estimation uncertainty, <span class="math inline">\(\mathbf{x}_0'\Var[\bb]\mathbf{x}_0\)</span>) and the new disturbance <span class="math inline">\(\varepsilon_0\)</span> is unseen (irreducible noise, <span class="math inline">\(\sigma^2\)</span>). Hence <span class="math display">\[\Var[\hat y_0 - y_0 \mid \bX] = \sigma^2\big(1 + \mathbf{x}_0'(\bX'\bX)^{-1}\mathbf{x}_0\big),\]</span> and the prediction interval, <span class="math inline">\(\hat y_0 \pm t\,s\sqrt{1 + \mathbf{x}_0'(\bX'\bX)^{-1}\mathbf{x}_0}\)</span>, is <strong>wider</strong> than the confidence interval for the mean <span class="math inline">\(\mathbf{x}_0'\bbeta\)</span>, which drops the <span class="math inline">\(1\)</span>.</p>
-</section></section><section id="structural-stability" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="structural-stability">
-<span class="header-section-number">4.3</span> Structural stability</h2>
+</section></section><section id="structural-stability" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="structural-stability">
+<span class="header-section-number">4.2</span> Structural stability</h2>
 <section id="has-the-relationship-changed" class="level3"><h3 class="anchored" data-anchor-id="has-the-relationship-changed">Has the relationship changed?</h3>
 <p>Did the <strong>1973 oil shock</strong> change the structure of the U.S. gasoline market? Split the sample at 1973 and let each period have its <strong>own</strong> coefficients — the unrestricted model is block-diagonal, <span class="math inline">\(\mathbf{y} = \operatorname{diag}(\bX_1, \bX_2)(\bbeta_1', \bbeta_2')' + \beps\)</span>, which is just OLS on each subsample. “No structural break” is the restriction <span class="math inline">\(\bbeta_1 = \bbeta_2\)</span>, i.e. <span class="math inline">\(\mathbf{R} = [\bI : -\bI]\)</span>, <span class="math inline">\(\mathbf{q} = \bzero\)</span> — and imposing it is OLS on the <strong>pooled</strong> data.</p>
 <div id="exm-chow" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3 (The Chow test)</strong></span> Under <span class="math inline">\(H_0\!:\bbeta_1 = \bbeta_2\)</span>, with <span class="math inline">\(\be_1, \be_2\)</span> the separate residuals and <span class="math inline">\(\be_*\)</span> the pooled, <span class="math display">\[F = \frac{\big(\be_*'\be_* - (\be_1'\be_1 + \be_2'\be_2)\big)/K}{(\be_1'\be_1 + \be_2'\be_2)/(n_1 + n_2 - 2K)} \sim F_{K,\,n_1+n_2-2K}.\]</span> An ordinary <span class="math inline">\(F\)</span>: the <strong>pooled</strong> fit is the restricted model, the <strong>two separate</strong> fits the unrestricted one.</p>
 </div>
 <p>The Chow test is not a new method but a reading of the <span class="math inline">\(F\)</span>: “one relationship for everyone” is a linear restriction on a model that allows two. Its logic — restricted pooled fit versus unrestricted split fit — returns in panel data (Lecture 15) and in the difference-in-differences designs of the end of the course.</p>
-</section></section><section id="what-we-have-and-where-it-goes" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="what-we-have-and-where-it-goes">
-<span class="header-section-number">4.4</span> What we have, and where it goes</h2>
+</section></section><section id="what-we-have-and-where-it-goes" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="what-we-have-and-where-it-goes">
+<span class="header-section-number">4.3</span> What we have, and where it goes</h2>
 <section id="the-scoreboard" class="level3"><h3 class="anchored" data-anchor-id="the-scoreboard">The scoreboard</h3>
 <table class="caption-top table">
 <thead><tr class="header">
@@ -1128,8 +1155,8 @@ Figure&nbsp;2: A 95% joint confidence region (ellipse) for correlated <span clas
 </tbody>
 </table>
 <p>Read the table left to right and it is the Lecture 4 → 5 story, told for inference: the exact, normality-bound results on the left; the asymptotic, assumption-light ones on the right; and the same statistic — a standardized distance — underlying both. The Wald principle is the throughline, and the <span class="math inline">\(\widehat{\Asyvar}[\bb]\)</span> you choose is the only real decision.</p>
-</section></section><section id="reading" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="reading">
-<span class="header-section-number">4.5</span> Reading</h2>
+</section></section><section id="reading" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="reading">
+<span class="header-section-number">4.4</span> Reading</h2>
 <section id="sources" class="level3"><h3 class="anchored" data-anchor-id="sources">Sources</h3>
 <table class="caption-top table">
 <colgroup>
@@ -1148,8 +1175,8 @@ Figure&nbsp;2: A 95% joint confidence region (ellipse) for correlated <span clas
 </tbody>
 </table>
 <p>Hansen’s ordering — restricted least squares (Ch. 8) before testing (Ch. 9) — is the one used here, and it is what makes the <span class="math inline">\(F\)</span>-test read as a loss of fit rather than a formula. Greene’s Chapter 5 is the reference for the <span class="math inline">\(t\)</span>- and <span class="math inline">\(F\)</span>-mechanics, prediction, and the confidence-region picture.</p>
-</section></section><section id="references" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="references">
-<span class="header-section-number">4.6</span> References</h2>
+</section></section><section id="references" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="references">
+<span class="header-section-number">4.5</span> References</h2>
 <section id="references-1" class="level3"><h3 class="anchored" data-anchor-id="references-1">References</h3>
 <div id="refs" role="list">
 
@@ -1727,8 +1754,8 @@ Figure&nbsp;2: A 95% joint confidence region (ellipse) for correlated <span clas
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../slides/notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
-        <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notas/07-gls.html" class="pagination-link" aria-label="7 · GLS and Clustered Dependence">
+        <span class="nav-page-text">7 · GLS and Clustered Dependence</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
