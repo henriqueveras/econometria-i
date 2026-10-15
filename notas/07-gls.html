@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Henrique Veras">
+
 <title>Generalized Least Squares and Clustered Dependence – Econometrics I</title>
 <style>
 /* Default styles provided by pandoc.
@@ -25,6 +28,7 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 </style>
+
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
@@ -48,7 +52,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-cad400c46c93dce54b79ec7577b89e54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -73,7 +78,8 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><style>html{ scroll-behavior: smooth; }</style>
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
 <!--
   MathJax configuration for Econometrics I.
 
@@ -90,7 +96,8 @@ ul.task-list li input[type="checkbox"] {
   once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
   _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
   MathJax 2 and is neutralised by the Hub shim below.
---><script>
+-->
+<script>
 window.MathJax = {
   loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
   tex: {
@@ -172,7 +179,12 @@ window.MathJax = {
   }
 };
 
-</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script><script type="text/javascript">
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -197,8 +209,11 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script><link rel="stylesheet" href="../assets/components.css">
+</script>
+
+<link rel="stylesheet" href="../assets/components.css">
 </head>
+
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
@@ -364,7 +379,9 @@ window.Quarto = {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Econometrics I</span>
@@ -375,7 +392,7 @@ window.Quarto = {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-<li class="nav-item">
+  <li class="nav-item">
     <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
@@ -384,8 +401,9 @@ window.Quarto = {
 <span class="menu-text">Syllabus</span></a>
   </li>  
 </ul>
-<ul class="navbar-nav navbar-nav-scroll ms-auto"></ul>
-</div> <!-- /navcollapse -->
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+</ul>
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -395,7 +413,9 @@ window.Quarto = {
 </a>
 </div>
       </div> <!-- /container-fluid -->
-    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -406,16 +426,20 @@ window.Quarto = {
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Map</span></a>
@@ -435,8 +459,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
@@ -449,7 +473,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -458,8 +482,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
@@ -490,7 +514,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
  <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
@@ -511,8 +535,8 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
@@ -555,7 +579,7 @@ window.Quarto = {
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
@@ -564,132 +588,107 @@ window.Quarto = {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Component Reference</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
-<li>
-<a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">0.1</span> Where we are</a>
+  <li><a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">0.1</span> Where we are</a>
   <ul class="collapse">
-<li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
+  <li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
   <li><a href="#two-questions-robust-ols-does-not-answer" id="toc-two-questions-robust-ols-does-not-answer" class="nav-link" data-scroll-target="#two-questions-robust-ols-does-not-answer">Two questions robust OLS does not answer</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#part-i-the-generalized-model-and-the-cost-to-ols" id="toc-part-i-the-generalized-model-and-the-cost-to-ols" class="nav-link" data-scroll-target="#part-i-the-generalized-model-and-the-cost-to-ols"><span class="header-section-number">1</span> Part I · The generalized model and the cost to OLS</a>
+  </ul></li>
+  <li><a href="#part-i-the-generalized-model-and-the-cost-to-ols" id="toc-part-i-the-generalized-model-and-the-cost-to-ols" class="nav-link" data-scroll-target="#part-i-the-generalized-model-and-the-cost-to-ols"><span class="header-section-number">1</span> Part I · The generalized model and the cost to OLS</a>
   <ul class="collapse">
-<li>
-<a href="#the-generalized-regression-model" id="toc-the-generalized-regression-model" class="nav-link" data-scroll-target="#the-generalized-regression-model"><span class="header-section-number">1.1</span> The generalized regression model</a>
+  <li><a href="#the-generalized-regression-model" id="toc-the-generalized-regression-model" class="nav-link" data-scroll-target="#the-generalized-regression-model"><span class="header-section-number">1.1</span> The generalized regression model</a>
   <ul class="collapse">
-<li><a href="#one-assumption-dropped-long-ago" id="toc-one-assumption-dropped-long-ago" class="nav-link" data-scroll-target="#one-assumption-dropped-long-ago">One assumption, dropped long ago</a></li>
+  <li><a href="#one-assumption-dropped-long-ago" id="toc-one-assumption-dropped-long-ago" class="nav-link" data-scroll-target="#one-assumption-dropped-long-ago">One assumption, dropped long ago</a></li>
   <li><a href="#ols-still-works-it-just-is-not-the-best" id="toc-ols-still-works-it-just-is-not-the-best" class="nav-link" data-scroll-target="#ols-still-works-it-just-is-not-the-best">OLS still works — it just is not the best</a></li>
-  </ul>
-</li>
-  </ul>
-</li>
-  <li>
-<a href="#part-ii-generalized-least-squares" id="toc-part-ii-generalized-least-squares" class="nav-link" data-scroll-target="#part-ii-generalized-least-squares"><span class="header-section-number">2</span> Part II · Generalized Least Squares</a>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-ii-generalized-least-squares" id="toc-part-ii-generalized-least-squares" class="nav-link" data-scroll-target="#part-ii-generalized-least-squares"><span class="header-section-number">2</span> Part II · Generalized Least Squares</a>
   <ul class="collapse">
-<li>
-<a href="#the-cost-of-ignoring-d" id="toc-the-cost-of-ignoring-d" class="nav-link" data-scroll-target="#the-cost-of-ignoring-d"><span class="header-section-number">2.1</span> The cost of ignoring D</a>
+  <li><a href="#the-cost-of-ignoring-d" id="toc-the-cost-of-ignoring-d" class="nav-link" data-scroll-target="#the-cost-of-ignoring-d"><span class="header-section-number">2.1</span> The cost of ignoring D</a>
   <ul class="collapse">
-<li><a href="#every-observation-weighted-equally" id="toc-every-observation-weighted-equally" class="nav-link" data-scroll-target="#every-observation-weighted-equally">Every observation weighted equally</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#gls-with-known-d" id="toc-gls-with-known-d" class="nav-link" data-scroll-target="#gls-with-known-d"><span class="header-section-number">2.2</span> GLS with known D</a>
+  <li><a href="#every-observation-weighted-equally" id="toc-every-observation-weighted-equally" class="nav-link" data-scroll-target="#every-observation-weighted-equally">Every observation weighted equally</a></li>
+  </ul></li>
+  <li><a href="#gls-with-known-d" id="toc-gls-with-known-d" class="nav-link" data-scroll-target="#gls-with-known-d"><span class="header-section-number">2.2</span> GLS with known D</a>
   <ul class="collapse">
-<li><a href="#transforming-to-constant-variance" id="toc-transforming-to-constant-variance" class="nav-link" data-scroll-target="#transforming-to-constant-variance">Transforming to constant variance</a></li>
+  <li><a href="#transforming-to-constant-variance" id="toc-transforming-to-constant-variance" class="nav-link" data-scroll-target="#transforming-to-constant-variance">Transforming to constant variance</a></li>
   <li><a href="#the-gls-estimator" id="toc-the-gls-estimator" class="nav-link" data-scroll-target="#the-gls-estimator">The GLS estimator</a></li>
   <li><a href="#weighted-least-squares-the-heteroskedastic-case" id="toc-weighted-least-squares-the-heteroskedastic-case" class="nav-link" data-scroll-target="#weighted-least-squares-the-heteroskedastic-case">Weighted least squares: the heteroskedastic case</a></li>
-  </ul>
-</li>
-  </ul>
-</li>
-  <li>
-<a href="#part-iii-feasible-gls" id="toc-part-iii-feasible-gls" class="nav-link" data-scroll-target="#part-iii-feasible-gls"><span class="header-section-number">3</span> Part III · Feasible GLS</a>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-iii-feasible-gls" id="toc-part-iii-feasible-gls" class="nav-link" data-scroll-target="#part-iii-feasible-gls"><span class="header-section-number">3</span> Part III · Feasible GLS</a>
   <ul class="collapse">
-<li>
-<a href="#when-d-is-unknown" id="toc-when-d-is-unknown" class="nav-link" data-scroll-target="#when-d-is-unknown"><span class="header-section-number">3.1</span> When D is unknown</a>
+  <li><a href="#when-d-is-unknown" id="toc-when-d-is-unknown" class="nav-link" data-scroll-target="#when-d-is-unknown"><span class="header-section-number">3.1</span> When D is unknown</a>
   <ul class="collapse">
-<li><a href="#the-skedastic-regression" id="toc-the-skedastic-regression" class="nav-link" data-scroll-target="#the-skedastic-regression">The skedastic regression</a></li>
+  <li><a href="#the-skedastic-regression" id="toc-the-skedastic-regression" class="nav-link" data-scroll-target="#the-skedastic-regression">The skedastic regression</a></li>
   <li><a href="#the-fgls-estimator" id="toc-the-fgls-estimator" class="nav-link" data-scroll-target="#the-fgls-estimator">The FGLS estimator</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#why-not-always-fgls" id="toc-why-not-always-fgls" class="nav-link" data-scroll-target="#why-not-always-fgls"><span class="header-section-number">3.2</span> Why not always FGLS?</a>
+  </ul></li>
+  <li><a href="#why-not-always-fgls" id="toc-why-not-always-fgls" class="nav-link" data-scroll-target="#why-not-always-fgls"><span class="header-section-number">3.2</span> Why not always FGLS?</a>
   <ul class="collapse">
-<li><a href="#the-efficiencyrobustness-trade-off" id="toc-the-efficiencyrobustness-trade-off" class="nav-link" data-scroll-target="#the-efficiencyrobustness-trade-off">The efficiency–robustness trade-off</a></li>
-  </ul>
-</li>
-  </ul>
-</li>
-  <li>
-<a href="#part-iv-testing-for-heteroskedasticity" id="toc-part-iv-testing-for-heteroskedasticity" class="nav-link" data-scroll-target="#part-iv-testing-for-heteroskedasticity"><span class="header-section-number">4</span> Part IV · Testing for heteroskedasticity</a>
+  <li><a href="#the-efficiencyrobustness-trade-off" id="toc-the-efficiencyrobustness-trade-off" class="nav-link" data-scroll-target="#the-efficiencyrobustness-trade-off">The efficiency–robustness trade-off</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-iv-testing-for-heteroskedasticity" id="toc-part-iv-testing-for-heteroskedasticity" class="nav-link" data-scroll-target="#part-iv-testing-for-heteroskedasticity"><span class="header-section-number">4</span> Part IV · Testing for heteroskedasticity</a>
   <ul class="collapse">
-<li>
-<a href="#the-skedastic-regression-tested" id="toc-the-skedastic-regression-tested" class="nav-link" data-scroll-target="#the-skedastic-regression-tested"><span class="header-section-number">4.1</span> The skedastic regression, tested</a>
+  <li><a href="#the-skedastic-regression-tested" id="toc-the-skedastic-regression-tested" class="nav-link" data-scroll-target="#the-skedastic-regression-tested"><span class="header-section-number">4.1</span> The skedastic regression, tested</a>
   <ul class="collapse">
-<li><a href="#white-and-breuschpagan-are-one-test" id="toc-white-and-breuschpagan-are-one-test" class="nav-link" data-scroll-target="#white-and-breuschpagan-are-one-test">White and Breusch–Pagan are one test</a></li>
+  <li><a href="#white-and-breuschpagan-are-one-test" id="toc-white-and-breuschpagan-are-one-test" class="nav-link" data-scroll-target="#white-and-breuschpagan-are-one-test">White and Breusch–Pagan are one test</a></li>
   <li><a href="#what-the-test-is-and-is-not-for" id="toc-what-the-test-is-and-is-not-for" class="nav-link" data-scroll-target="#what-the-test-is-and-is-not-for">What the test is — and is not — for</a></li>
-  </ul>
-</li>
-  </ul>
-</li>
-  <li>
-<a href="#part-v-clustered-dependence" id="toc-part-v-clustered-dependence" class="nav-link" data-scroll-target="#part-v-clustered-dependence"><span class="header-section-number">5</span> Part V · Clustered dependence</a>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-v-clustered-dependence" id="toc-part-v-clustered-dependence" class="nav-link" data-scroll-target="#part-v-clustered-dependence"><span class="header-section-number">5</span> Part V · Clustered dependence</a>
   <ul class="collapse">
-<li>
-<a href="#when-observations-come-in-groups" id="toc-when-observations-come-in-groups" class="nav-link" data-scroll-target="#when-observations-come-in-groups"><span class="header-section-number">5.1</span> When observations come in groups</a>
+  <li><a href="#when-observations-come-in-groups" id="toc-when-observations-come-in-groups" class="nav-link" data-scroll-target="#when-observations-come-in-groups"><span class="header-section-number">5.1</span> When observations come in groups</a>
   <ul class="collapse">
-<li><a href="#clusters-dependence-by-design" id="toc-clusters-dependence-by-design" class="nav-link" data-scroll-target="#clusters-dependence-by-design">Clusters: dependence by design</a></li>
+  <li><a href="#clusters-dependence-by-design" id="toc-clusters-dependence-by-design" class="nav-link" data-scroll-target="#clusters-dependence-by-design">Clusters: dependence by design</a></li>
+  <li><a href="#a-map-of-bd-block-diagonal" id="toc-a-map-of-bd-block-diagonal" class="nav-link" data-scroll-target="#a-map-of-bd-block-diagonal">A map of <span class="math inline">\(\bD\)</span>: block-diagonal</a></li>
   <li><a href="#the-cluster-robust-variance" id="toc-the-cluster-robust-variance" class="nav-link" data-scroll-target="#the-cluster-robust-variance">The cluster-robust variance</a></li>
   <li><a href="#the-catch-asymptotics-in-the-number-of-clusters" id="toc-the-catch-asymptotics-in-the-number-of-clusters" class="nav-link" data-scroll-target="#the-catch-asymptotics-in-the-number-of-clusters">The catch: asymptotics in the number of clusters</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#at-what-level-to-cluster" id="toc-at-what-level-to-cluster" class="nav-link" data-scroll-target="#at-what-level-to-cluster"><span class="header-section-number">5.2</span> At what level to cluster?</a>
+  </ul></li>
+  <li><a href="#at-what-level-to-cluster" id="toc-at-what-level-to-cluster" class="nav-link" data-scroll-target="#at-what-level-to-cluster"><span class="header-section-number">5.2</span> At what level to cluster?</a>
   <ul class="collapse">
-<li><a href="#the-cluster-level-is-a-choice" id="toc-the-cluster-level-is-a-choice" class="nav-link" data-scroll-target="#the-cluster-level-is-a-choice">The cluster level is a choice</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#when-robust-is-not-enough" id="toc-when-robust-is-not-enough" class="nav-link" data-scroll-target="#when-robust-is-not-enough"><span class="header-section-number">5.3</span> When robust is not enough</a>
+  <li><a href="#the-cluster-level-is-a-choice" id="toc-the-cluster-level-is-a-choice" class="nav-link" data-scroll-target="#the-cluster-level-is-a-choice">The cluster level is a choice</a></li>
+  </ul></li>
+  <li><a href="#clustering-in-practice" id="toc-clustering-in-practice" class="nav-link" data-scroll-target="#clustering-in-practice"><span class="header-section-number">5.3</span> Clustering in practice</a>
   <ul class="collapse">
-<li><a href="#the-limits-of-a-robust-variance" id="toc-the-limits-of-a-robust-variance" class="nav-link" data-scroll-target="#the-limits-of-a-robust-variance">The limits of a robust variance</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#seeing-it-coverage-under-heteroskedasticity" id="toc-seeing-it-coverage-under-heteroskedasticity" class="nav-link" data-scroll-target="#seeing-it-coverage-under-heteroskedasticity"><span class="header-section-number">5.4</span> Seeing it: coverage under heteroskedasticity</a>
+  <li><a href="#classic-studies-and-their-clustering-level" id="toc-classic-studies-and-their-clustering-level" class="nav-link" data-scroll-target="#classic-studies-and-their-clustering-level">Classic studies and their clustering level</a></li>
+  <li><a href="#a-menu-of-standard-errors" id="toc-a-menu-of-standard-errors" class="nav-link" data-scroll-target="#a-menu-of-standard-errors">A menu of standard errors</a></li>
+  </ul></li>
+  <li><a href="#when-robust-is-not-enough" id="toc-when-robust-is-not-enough" class="nav-link" data-scroll-target="#when-robust-is-not-enough"><span class="header-section-number">5.4</span> When robust is not enough</a>
   <ul class="collapse">
-<li><a href="#does-the-interval-cover-95" id="toc-does-the-interval-cover-95" class="nav-link" data-scroll-target="#does-the-interval-cover-95">Does the interval cover 95%?</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.5</span> Summary</a>
+  <li><a href="#the-limits-of-a-robust-variance" id="toc-the-limits-of-a-robust-variance" class="nav-link" data-scroll-target="#the-limits-of-a-robust-variance">The limits of a robust variance</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.5</span> Summary</a>
   <ul class="collapse">
-<li><a href="#what-to-take-away" id="toc-what-to-take-away" class="nav-link" data-scroll-target="#what-to-take-away">What to take away</a></li>
+  <li><a href="#what-to-take-away" id="toc-what-to-take-away" class="nav-link" data-scroll-target="#what-to-take-away">What to take away</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
-</li>
-  </ul>
-</li>
-  </ul></nav>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/07-gls.html">7 · GLS and Clustered Dependence</a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/07-gls.html">7 · GLS and Clustered Dependence</a></li></ol></nav>
+<div class="quarto-title">
 <h1 class="title">Generalized Least Squares and Clustered Dependence</h1>
 <p class="subtitle lead">Lecture 7</p>
 </div>
@@ -718,178 +717,361 @@ window.Quarto = {
   
 
 
-</header><section id="where-we-are" class="level2" data-number="0.1"><h2 data-number="0.1" class="anchored" data-anchor-id="where-we-are">
-<span class="header-section-number">0.1</span> Where we are</h2>
-<section id="where-this-lecture-sits" class="level3"><h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
-<p></p>
-<div class="econ-stage" role="note" aria-label="Position in the course architecture">
-<div class="econ-stage-row">
-<span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span>
-</div>
-<div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div>
-</div>
+</header>
+
+
+<section id="where-we-are" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="where-we-are"><span class="header-section-number">0.1</span> Where we are</h2>
+<section id="where-this-lecture-sits" class="level3">
+<h3 class="anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
+<p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
 <p>Lectures 4–5 already made <strong>heteroskedasticity the default</strong>: <span class="math inline">\(\E[\beps\beps'\mid\bX]=\bD\)</span> is a general positive-definite matrix, OLS is consistent, and the <strong>robust (sandwich) standard errors</strong> deliver valid inference with no homoskedasticity assumption. So the classical “violation of A4” story is behind us. Two questions remain — and they are what this lecture is about.</p>
 <p>The reordering of the course did the heavy lifting here. What used to be “the heteroskedasticity lecture” — deriving the sandwich variance, White’s estimator, showing that <span class="math inline">\(s^2(\bX'\bX)^{-1}\)</span> is wrong — now lives in Lectures 4 and 5, as the <strong>general case</strong>. Building on that, this lecture asks the two things robust OLS does <em>not</em> settle: whether we can estimate <span class="math inline">\(\bbeta\)</span> <strong>more efficiently</strong>, and what to do when errors are <strong>correlated across observations</strong>.</p>
-</section><section id="two-questions-robust-ols-does-not-answer" class="level3"><h3 class="anchored" data-anchor-id="two-questions-robust-ols-does-not-answer">Two questions robust OLS does not answer</h3>
+</section>
+<section id="two-questions-robust-ols-does-not-answer" class="level3">
+<h3 class="anchored" data-anchor-id="two-questions-robust-ols-does-not-answer">Two questions robust OLS does not answer</h3>
 <p>The two questions have very different answers. Efficiency leads to <strong>generalized least squares</strong> — a better estimator <em>if</em> we know (or can model) <span class="math inline">\(\bD\)</span>, but one that trades robustness for that efficiency. Dependence leads to <strong>cluster-robust</strong> inference — not a better estimator at all, but a different variance, because the design of the sample changed.</p>
-</section></section><section id="part-i-the-generalized-model-and-the-cost-to-ols" class="level1" data-number="1"><h1 data-number="1">
-<span class="header-section-number">1</span> Part I · The generalized model and the cost to OLS</h1>
-<section id="the-generalized-regression-model" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="the-generalized-regression-model">
-<span class="header-section-number">1.1</span> The generalized regression model</h2>
-<section id="one-assumption-dropped-long-ago" class="level3"><h3 class="anchored" data-anchor-id="one-assumption-dropped-long-ago">One assumption, dropped long ago</h3>
+</section>
+</section>
+<section id="part-i-the-generalized-model-and-the-cost-to-ols" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Part I · The generalized model and the cost to OLS</h1>
+<section id="the-generalized-regression-model" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-generalized-regression-model"><span class="header-section-number">1.1</span> The generalized regression model</h2>
+<section id="one-assumption-dropped-long-ago" class="level3">
+<h3 class="anchored" data-anchor-id="one-assumption-dropped-long-ago">One assumption, dropped long ago</h3>
 <p>The model is the familiar linear one, with the error covariance left <strong>general</strong>: <span class="math display">\[\bY=\bX\bbeta+\beps,\qquad \E[\beps\mid\bX]=\bzero,\qquad \E[\beps\beps'\mid\bX]=\bD,\]</span> with <span class="math inline">\(\bD\)</span> symmetric positive-definite (an <span class="math inline">\(n\times n\)</span> matrix). Homoskedasticity, <span class="math inline">\(\bD=\sigma^2\bI\)</span>, is the <strong>special case</strong> — not the starting point.</p>
 <div id="def-generalized" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 1 (The two leading structures)</strong></span> <strong>Heteroskedasticity</strong> (this lecture’s focus): errors uncorrelated across observations but with different variances — <span class="math inline">\(\bD=\operatorname{diag}(\sigma_1^2,\dots,\sigma_n^2)\)</span>, i.e.&nbsp;<span class="math inline">\(\E[\varepsilon_i^2\mid\mathbf{x}_i]=\sigma_i^2(\mathbf{x}_i)\)</span>. <strong>Dependence</strong>: <span class="math inline">\(\bD\)</span> has non-zero off-diagonal entries — serial correlation (time series) or <strong>within-cluster</strong> correlation (Part V).</p>
 </div>
-</section><section id="ols-still-works-it-just-is-not-the-best" class="level3"><h3 class="anchored" data-anchor-id="ols-still-works-it-just-is-not-the-best">OLS still works — it just is not the best</h3>
+</section>
+<section id="ols-still-works-it-just-is-not-the-best" class="level3">
+<h3 class="anchored" data-anchor-id="ols-still-works-it-just-is-not-the-best">OLS still works — it just is not the best</h3>
 <p>Nothing about consistency or valid inference breaks under a general <span class="math inline">\(\bD\)</span>:</p>
 <p>This is the exact sense in which the lecture is about <em>efficiency</em>, not <em>validity</em>. OLS gives you the right answer with honest uncertainty. The open question is whether another linear unbiased estimator has a <strong>smaller</strong> variance — and Lecture 5’s “asymptotic efficiency” slide already told us where to look: the estimator that attains the efficiency bound is generalized least squares.</p>
-</section></section></section><section id="part-ii-generalized-least-squares" class="level1" data-number="2"><h1 data-number="2">
-<span class="header-section-number">2</span> Part II · Generalized Least Squares</h1>
-<section id="the-cost-of-ignoring-d" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="the-cost-of-ignoring-d">
-<span class="header-section-number">2.1</span> The cost of ignoring D</h2>
-<section id="every-observation-weighted-equally" class="level3"><h3 class="anchored" data-anchor-id="every-observation-weighted-equally">Every observation weighted equally</h3>
+</section>
+</section>
+</section>
+<section id="part-ii-generalized-least-squares" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Part II · Generalized Least Squares</h1>
+<section id="the-cost-of-ignoring-d" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="the-cost-of-ignoring-d"><span class="header-section-number">2.1</span> The cost of ignoring D</h2>
+<section id="every-observation-weighted-equally" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="every-observation-weighted-equally">Every observation weighted equally</h3>
 <p>A general <span class="math inline">\(\bD\)</span> can break A4 in two ways — <strong>heteroskedasticity</strong> (the diagonal of <span class="math inline">\(\bD\)</span> varies across observations) or <strong>autocorrelation</strong> (non-zero off-diagonals), or both. OLS stays unbiased and consistent either way, but it pays for ignoring <span class="math inline">\(\bD\)</span> in <strong>precision</strong>. Compare the variance OLS <em>assumes</em> with the <em>true</em> one: <span class="math display">\[\underbrace{\sigma^2(\bX'\bX)^{-1}}_{\text{under A4}}
 \qquad\text{vs.}\qquad
 \underbrace{(\bX'\bX)^{-1}\bX'\bD\bX(\bX'\bX)^{-1}}_{\text{true, general }\bD}.\]</span></p>
 <p>Following Greene: the conventional variance is built from <span class="math inline">\(\sum_i\mathbf{x}_i\mathbf{x}_i'\)</span> — weight <span class="math inline">\(1\)</span> on every <span class="math inline">\(\mathbf{x}_i\mathbf{x}_i'\)</span> — whereas the true variance weights the <span class="math inline">\(i\)</span>-th term by <span class="math inline">\(\sigma_i^2\)</span> (through <span class="math inline">\(\bX'\bD\bX\)</span>). The two agree only when all <span class="math inline">\(\sigma_i^2\)</span> are equal, i.e.&nbsp;A4. Otherwise OLS spreads its attention equally over observations that deserve <strong>unequal</strong> trust, and a re-weighted estimator must do better. That estimator is GLS; the weight that “should” appear, <span class="math inline">\(1/\sigma_i^2\)</span>, emerges on its own.</p>
-</section></section><section id="gls-with-known-d" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="gls-with-known-d">
-<span class="header-section-number">2.2</span> GLS with known D</h2>
-<section id="transforming-to-constant-variance" class="level3"><h3 class="anchored" data-anchor-id="transforming-to-constant-variance">Transforming to constant variance</h3>
-<p>If the trouble is unequal (and correlated) variances, the cure is to <strong>rescale the observations so the variances become equal and the correlations vanish</strong> — then the classical model, and OLS’s optimality, are back. Since <span class="math inline">\(\bD\)</span> is positive-definite, there is a matrix <span class="math inline">\(\mathbf{L}\)</span> with <span class="math display">\[\mathbf{L}\,\bD\,\mathbf{L}'=\bI,\qquad\text{equivalently}\qquad \bD^{-1}=\mathbf{L}'\mathbf{L}\]</span> — the matrix analogue of “dividing by the standard deviation” (a Cholesky factor is one such <span class="math inline">\(\mathbf{L}\)</span>).</p>
-<div class="econ-box econ-box-board" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
-</div>
-<div class="econ-box-body">
-<p>Pre-multiply the model by <span class="math inline">\(\mathbf{L}\)</span>: with <span class="math inline">\(\bY_*=\mathbf{L}\bY\)</span>, <span class="math inline">\(\bX_*=\mathbf{L}\bX\)</span>, <span class="math inline">\(\beps_*=\mathbf{L}\beps\)</span>, <span class="math display">\[\bY_*=\bX_*\bbeta+\beps_*,\qquad
-\E[\beps_*\beps_*'\mid\bX]=\mathbf{L}\,\bD\,\mathbf{L}'=\bI.\]</span> The transformed errors are <strong>homoskedastic and uncorrelated</strong> — the classical model holds for <span class="math inline">\((\bY_*,\bX_*)\)</span>, so <strong>OLS on the transformed data</strong> is efficient. That is GLS.</p>
-</div>
-</div>
-</section><section id="the-gls-estimator" class="level3"><h3 class="anchored" data-anchor-id="the-gls-estimator">The GLS estimator</h3>
+</section>
+</section>
+<section id="gls-with-known-d" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="gls-with-known-d"><span class="header-section-number">2.2</span> GLS with known D</h2>
+<section id="transforming-to-constant-variance" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="transforming-to-constant-variance">Transforming to constant variance</h3>
+<p>If the trouble is unequal (and correlated) variances, the cure is to <strong>rescale the observations so the variances become equal and the correlations vanish</strong> — then the classical model, and OLS’s optimality, are back. Since <span class="math inline">\(\bD\)</span> is symmetric positive-definite, it has a <strong>spectral decomposition</strong> <span class="math inline">\(\bD=\mathbf{C}\boldsymbol{\Lambda}\mathbf{C}'\)</span>, with <span class="math inline">\(\mathbf{C}\)</span> orthogonal (<span class="math inline">\(\mathbf{C}'\mathbf{C}=\bI\)</span>, columns the eigenvectors) and <span class="math inline">\(\boldsymbol{\Lambda}=\operatorname{diag}(\lambda_1,\dots,\lambda_n)\)</span>, <span class="math inline">\(\lambda_i&gt;0\)</span>. Following Greene, build <span class="math inline">\(\mathbf{P}=\boldsymbol{\Lambda}^{-1/2}\mathbf{C}'\)</span>, which satisfies <span class="math display">\[\mathbf{P}\,\bD\,\mathbf{P}'=\bI,\qquad\text{equivalently}\qquad \bD^{-1}=\mathbf{P}'\mathbf{P}\]</span> — the matrix analogue of “dividing by the standard deviation”, now along the <strong>principal axes</strong> of <span class="math inline">\(\bD\)</span>.</p>
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
+<p>Pre-multiply the model by <span class="math inline">\(\mathbf{P}\)</span>: with <span class="math inline">\(\bY_*=\mathbf{P}\bY\)</span>, <span class="math inline">\(\bX_*=\mathbf{P}\bX\)</span>, <span class="math inline">\(\beps_*=\mathbf{P}\beps\)</span>, <span class="math display">\[\bY_*=\bX_*\bbeta+\beps_*,\qquad
+\E[\beps_*\beps_*'\mid\bX]=\mathbf{P}\,\bD\,\mathbf{P}'=\bI.\]</span> Two moves: <span class="math inline">\(\mathbf{C}'\)</span> <strong>rotates</strong> the errors into the eigenbasis (decorrelating them — <span class="math inline">\(\E[\mathbf{C}'\beps\,\beps'\mathbf{C}\mid\bX]=\boldsymbol{\Lambda}\)</span>), then <span class="math inline">\(\boldsymbol{\Lambda}^{-1/2}\)</span> <strong>rescales</strong> each axis by <span class="math inline">\(1/\sqrt{\lambda_i}\)</span> (equalizing the variances to <span class="math inline">\(1\)</span>). The transformed errors are <strong>homoskedastic and uncorrelated</strong> — the classical model holds for <span class="math inline">\((\bY_*,\bX_*)\)</span>, so <strong>OLS on the transformed data</strong> is efficient. That is GLS.</p>
+</div></div>
+</section>
+<section id="the-gls-estimator" class="level3">
+<h3 class="anchored" data-anchor-id="the-gls-estimator">The GLS estimator</h3>
 <div id="thm-gls" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1 (Generalized least squares)</strong></span> OLS on the transformed model is <span class="math display">\[\hat{\bbeta}_{\text{GLS}}
 =(\bX_*'\bX_*)^{-1}\bX_*'\bY_*
 =(\bX'\bD^{-1}\bX)^{-1}\bX'\bD^{-1}\bY.\]</span> Among <strong>linear unbiased</strong> estimators it has the smallest variance — the <strong>generalized Gauss–Markov (Aitken) theorem</strong> — with <span class="math display">\[\Var[\hat{\bbeta}_{\text{GLS}}\mid\bX]=(\bX'\bD^{-1}\bX)^{-1}.\]</span> OLS is the special case <span class="math inline">\(\bD=\sigma^2\bI\)</span> (weight matrix <span class="math inline">\(\bI\)</span> instead of <span class="math inline">\(\bD^{-1}\)</span>).</p>
 </div>
 <p>GLS re-weights: it downweights high-variance observations and upweights precise ones, which is exactly the information OLS ignores by treating every observation alike. The efficiency gain is the payoff Lecture 5 promised — <span class="math inline">\(\Var[\hat{\bbeta}_{\text{GLS}}]\preceq\Var[\bb]\)</span> in the psd order, whenever <span class="math inline">\(\bD\neq\sigma^2\bI\)</span>. Under i.i.d. sampling the result is stronger still (Hansen’s <em>modern</em> Gauss–Markov): <span class="math inline">\((\bX'\bD^{-1}\bX)^{-1}\)</span> is the smallest variance among <strong>all</strong> unbiased estimators — not only linear ones — a semiparametric efficiency bound.</p>
-</section><section id="weighted-least-squares-the-heteroskedastic-case" class="level3"><h3 class="anchored" data-anchor-id="weighted-least-squares-the-heteroskedastic-case">Weighted least squares: the heteroskedastic case</h3>
+</section>
+<section id="weighted-least-squares-the-heteroskedastic-case" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="weighted-least-squares-the-heteroskedastic-case">Weighted least squares: the heteroskedastic case</h3>
 <div id="cor-wls" class="theorem corollary">
-<p><span class="theorem-title"><strong>Corollary 1 (Weighted least squares)</strong></span> When the violation is pure <strong>heteroskedasticity</strong>, <span class="math inline">\(\bD=\operatorname{diag}(\sigma_1^2,\dots,\sigma_n^2)\)</span>, the transformation is just <strong>dividing each observation by its own <span class="math inline">\(\sigma_i\)</span></strong> (<span class="math inline">\(\mathbf{L}=\operatorname{diag}(1/\sigma_1,\dots,1/\sigma_n)\)</span>). GLS then takes the familiar <strong>weighted</strong> form <span class="math display">\[\hat{\bbeta}_{\text{WLS}}
+<p><span class="theorem-title"><strong>Corollary 1 (Weighted least squares)</strong></span> When the violation is pure <strong>heteroskedasticity</strong>, <span class="math inline">\(\bD=\operatorname{diag}(\sigma_1^2,\dots,\sigma_n^2)\)</span>, the transformation is just <strong>dividing each observation by its own <span class="math inline">\(\sigma_i\)</span></strong> (<span class="math inline">\(\mathbf{P}=\operatorname{diag}(1/\sigma_1,\dots,1/\sigma_n)\)</span>). GLS then takes the familiar <strong>weighted</strong> form <span class="math display">\[\hat{\bbeta}_{\text{WLS}}
 =\Big(\textstyle\sum_i \tfrac{1}{\sigma_i^2}\,\mathbf{x}_i\mathbf{x}_i'\Big)^{-1}\Big(\textstyle\sum_i \tfrac{1}{\sigma_i^2}\,\mathbf{x}_i y_i\Big)
 \ -\ \text{exactly the weighting OLS was missing.}\]</span></p>
 </div>
-</section></section></section><section id="part-iii-feasible-gls" class="level1" data-number="3"><h1 data-number="3">
-<span class="header-section-number">3</span> Part III · Feasible GLS</h1>
-<section id="when-d-is-unknown" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="when-d-is-unknown">
-<span class="header-section-number">3.1</span> When D is unknown</h2>
-<section id="the-skedastic-regression" class="level3"><h3 class="anchored" data-anchor-id="the-skedastic-regression">The skedastic regression</h3>
+</section>
+</section>
+</section>
+<section id="part-iii-feasible-gls" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part III · Feasible GLS</h1>
+<section id="when-d-is-unknown" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="when-d-is-unknown"><span class="header-section-number">3.1</span> When D is unknown</h2>
+<section id="the-skedastic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="the-skedastic-regression">The skedastic regression</h3>
 <p>GLS needs <span class="math inline">\(\bD\)</span>, which we never know. But an unrestricted <span class="math inline">\(\bD\)</span> has <span class="math inline">\(n\)</span> variances — too many to estimate from <span class="math inline">\(n\)</span> observations. <strong>Model</strong> the variance with a few parameters:</p>
 <div id="def-skedastic" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 2 (The skedastic regression)</strong></span> Specify <span class="math inline">\(\sigma_i^2=\sigma^2(\mathbf{z}_i,\boldsymbol{\alpha})\)</span> for a small parameter vector <span class="math inline">\(\boldsymbol{\alpha}\)</span> and observed <span class="math inline">\(\mathbf{z}_i\)</span> (often a subset/transform of <span class="math inline">\(\mathbf{x}_i\)</span>) — for example the linear <span class="math inline">\(\sigma_i^2=\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1\)</span> or the multiplicative <span class="math inline">\(\sigma_i^2=\exp(\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1)\)</span>. Estimate <span class="math inline">\(\boldsymbol{\alpha}\)</span> by <strong>regressing the squared OLS residuals <span class="math inline">\(\hat e_i^2\)</span> on <span class="math inline">\(\mathbf{z}_i\)</span></strong> — the <em>skedastic regression</em>.</p>
 </div>
 <p>The squared residual <span class="math inline">\(\hat e_i^2\)</span> is a noisy but consistent proxy for <span class="math inline">\(\sigma_i^2\)</span> (OLS is consistent, so <span class="math inline">\(\hat e_i\)</span> tracks <span class="math inline">\(\varepsilon_i\)</span>). Regressing <span class="math inline">\(\hat e_i^2\)</span> on <span class="math inline">\(\mathbf{z}_i\)</span> recovers how the variance moves with <span class="math inline">\(\mathbf{z}_i\)</span>. Replacing the true <span class="math inline">\(\sigma_i^2\)</span> by the fitted <span class="math inline">\(\hat\sigma_i^2\)</span> is what makes GLS <em>feasible</em>.</p>
-</section><section id="the-fgls-estimator" class="level3"><h3 class="anchored" data-anchor-id="the-fgls-estimator">The FGLS estimator</h3>
+</section>
+<section id="the-fgls-estimator" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-fgls-estimator">The FGLS estimator</h3>
 <div id="thm-fgls" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 2 (Feasible GLS)</strong></span> Form <span class="math inline">\(\widehat{\bD}=\operatorname{diag}(\hat\sigma_1^2,\dots,\hat\sigma_n^2)\)</span> from the skedastic regression and plug it in: <span class="math display">\[\hat{\bbeta}_{\text{FGLS}}=(\bX'\widehat{\bD}^{-1}\bX)^{-1}\bX'\widehat{\bD}^{-1}\bY.\]</span> If the skedastic model is <strong>correctly specified</strong>, estimating <span class="math inline">\(\boldsymbol{\alpha}\)</span> is <em>asymptotically free</em>: <span class="math inline">\(\hat{\bbeta}_{\text{FGLS}}\)</span> has the <strong>same asymptotic distribution</strong> as infeasible GLS.</p>
 </div>
-<div class="econ-box econ-box-board" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
-</div>
-<div class="econ-box-body">
+<div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
 <p>Why “asymptotically free”: the sampling error in <span class="math inline">\(\hat{\boldsymbol{\alpha}}\)</span> enters <span class="math inline">\(\hat{\bbeta}_{\text{FGLS}}\)</span> only through <span class="math inline">\(\widehat{\bD}\pto\bD\)</span>, and a <span class="math inline">\(\sqrt{n}\)</span>-consistent <span class="math inline">\(\hat{\boldsymbol{\alpha}}\)</span> perturbs <span class="math inline">\(\hat{\bbeta}\)</span> by a term that vanishes faster than <span class="math inline">\(1/\sqrt{n}\)</span>. So FGLS and GLS share the limit <span class="math inline">\(\Normal(\bzero,(\bX'\bD^{-1}\bX/n)^{-1})\)</span>.</p>
-</div>
-</div>
-</section></section><section id="why-not-always-fgls" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="why-not-always-fgls">
-<span class="header-section-number">3.2</span> Why not always FGLS?</h2>
-<section id="the-efficiencyrobustness-trade-off" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-efficiencyrobustness-trade-off">The efficiency–robustness trade-off</h3>
+</div></div>
+</section>
+</section>
+<section id="why-not-always-fgls" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="why-not-always-fgls"><span class="header-section-number">3.2</span> Why not always FGLS?</h2>
+<section id="the-efficiencyrobustness-trade-off" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-efficiencyrobustness-trade-off">The efficiency–robustness trade-off</h3>
 <p>If FGLS is efficient and asymptotically free, why is OLS still the default? <strong>Three reasons</strong> — this is the heart of the lecture.</p>
 <p><strong>OLS is a robust estimator.</strong> The deepest reason is the third. If the equation is a <strong>projection</strong> (a best linear approximation) rather than a true CEF, OLS still estimates that projection consistently — but weighting by <span class="math inline">\(\widehat{\bD}^{-1}\)</span> changes the target, so FGLS estimates <em>something else</em>. Efficiency and robustness pull in opposite directions: FGLS buys a smaller variance by betting the conditional mean is exactly right. <strong>The standard advice is OLS with robust (or cluster-robust) standard errors</strong> — the safe default — with FGLS reserved for cases where the variance structure is genuinely known.</p>
 <p>This resolves the guiding question. Robust inference already handles heteroskedasticity for <em>validity</em>; FGLS offers <em>efficiency</em>, but conditionally and at a real cost. So the practical hierarchy is: OLS + robust by default; WLS/FGLS when you have a credible, verified model for <span class="math inline">\(\bD\)</span> (e.g.&nbsp;known grouping, survey weights, a physical variance law).</p>
-</section></section></section><section id="part-iv-testing-for-heteroskedasticity" class="level1" data-number="4"><h1 data-number="4">
-<span class="header-section-number">4</span> Part IV · Testing for heteroskedasticity</h1>
-<section id="the-skedastic-regression-tested" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="the-skedastic-regression-tested">
-<span class="header-section-number">4.1</span> The skedastic regression, tested</h2>
-<section id="white-and-breuschpagan-are-one-test" class="level3"><h3 class="anchored" data-anchor-id="white-and-breuschpagan-are-one-test">White and Breusch–Pagan are one test</h3>
+</section>
+</section>
+</section>
+<section id="part-iv-testing-for-heteroskedasticity" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part IV · Testing for heteroskedasticity</h1>
+<section id="the-skedastic-regression-tested" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="the-skedastic-regression-tested"><span class="header-section-number">4.1</span> The skedastic regression, tested</h2>
+<section id="white-and-breuschpagan-are-one-test" class="level3">
+<h3 class="anchored" data-anchor-id="white-and-breuschpagan-are-one-test">White and Breusch–Pagan are one test</h3>
 <div id="thm-bp-white" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 3 (Testing constant variance)</strong></span> Homoskedasticity is <span class="math inline">\(H_0:\boldsymbol{\alpha}_1=\bzero\)</span> in the skedastic regression <span class="math inline">\(\hat e_i^2=\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1+\nu_i\)</span> — the variance does <strong>not</strong> depend on <span class="math inline">\(\mathbf{z}_i\)</span>. Test it with the joint <strong>Wald/<span class="math inline">\(F\)</span></strong> on <span class="math inline">\(\boldsymbol{\alpha}_1\)</span> (equivalently <span class="math inline">\(nR^2\dto\chi^2_q\)</span>, <span class="math inline">\(q=\dim\boldsymbol{\alpha}_1\)</span>). The two classic choices differ only in <span class="math inline">\(\mathbf{z}_i\)</span>: <strong>White</strong> uses the squares and cross-products of <span class="math inline">\(\mathbf{x}_i\)</span>; <strong>Breusch–Pagan</strong> uses a general <span class="math inline">\(\mathbf{z}_i\)</span>. Under independence they are essentially the <strong>same test</strong>.</p>
 </div>
 <p>Both read off a single auxiliary regression of squared residuals. White’s choice of <span class="math inline">\(\mathbf{z}_i\)</span> makes the test omnibus (it also picks up misspecification); Breusch–Pagan targets a direction you specify. The statistic is the joint significance of that regression — nothing new relative to Part II of Lecture 6.</p>
-</section><section id="what-the-test-is-and-is-not-for" class="level3"><h3 class="anchored" data-anchor-id="what-the-test-is-and-is-not-for">What the test is — and is not — for</h3>
-<div class="econ-box econ-box-hood" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Do not misuse the test</span>
-</div>
-<div class="econ-box-body">
+</section>
+<section id="what-the-test-is-and-is-not-for" class="level3">
+<h3 class="anchored" data-anchor-id="what-the-test-is-and-is-not-for">What the test is — and is not — for</h3>
+<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Do not misuse the test</span></div><div class="econ-box-body">
 <p>A heteroskedasticity test answers <strong>one</strong> scientific question: does <span class="math inline">\(\sigma^2\)</span> depend on the regressors? It is <strong>not</strong> a tool to choose between OLS and FGLS, nor between classical and robust standard errors — <em>“hypothesis tests are not designed for these purposes.”</em> You use <strong>robust</strong> errors regardless of the test. Run the test only if whether <span class="math inline">\(\sigma^2(\mathbf{x})\)</span> varies is itself of economic interest.</p>
-</div>
-</div>
-</section></section></section><section id="part-v-clustered-dependence" class="level1" data-number="5"><h1 data-number="5">
-<span class="header-section-number">5</span> Part V · Clustered dependence</h1>
-<section id="when-observations-come-in-groups" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="when-observations-come-in-groups">
-<span class="header-section-number">5.1</span> When observations come in groups</h2>
-<section id="clusters-dependence-by-design" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="clusters-dependence-by-design">Clusters: dependence by design</h3>
+</div></div>
+</section>
+</section>
+</section>
+<section id="part-v-clustered-dependence" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Part V · Clustered dependence</h1>
+<section id="when-observations-come-in-groups" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="when-observations-come-in-groups"><span class="header-section-number">5.1</span> When observations come in groups</h2>
+<section id="clusters-dependence-by-design" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="clusters-dependence-by-design">Clusters: dependence by design</h3>
 <div id="def-cluster" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3 (Clustered sampling)</strong></span> The sample is <span class="math inline">\(C\)</span> groups (clusters) — firms in industries, students in schools, individuals in villages — <span class="math display">\[y_{i,c}=\mathbf{x}_{i,c}'\bbeta+\varepsilon_{i,c},\]</span> with errors <strong>correlated within a cluster</strong> but <strong>independent across</strong> clusters — off-diagonal structure in <span class="math inline">\(\bD\)</span>, block by block, from how the sample was <strong>drawn</strong>. OLS stays <strong>unbiased</strong> when <span class="math inline">\(\E[\beps_c\mid\bX_c]=\bzero\)</span>, which requires within-cluster interactions to be in the model (a pupil’s outcome must not depend on <em>classmates’</em> regressors).</p>
+<p><span class="theorem-title"><strong>Definition 3 (Clustered sampling)</strong></span> The sample is <span class="math inline">\(C\)</span> groups (clusters) — firms in industries, pupils in schools, people in villages: <span class="math display">\[y_{i,c}=\mathbf{x}_{i,c}'\bbeta+\varepsilon_{i,c}.\]</span> Errors are <strong>correlated within</strong> a cluster but <strong>independent across</strong> them — this is <strong>dependence, a trait of the sampling design</strong>, not heteroskedasticity (not a statement about each observation’s own variance). Stacking by cluster, <span class="math inline">\(\bD=\E[\beps\beps'\mid\bX]\)</span> is <strong>block-diagonal</strong>: each cluster its own block <span class="math inline">\(\bD_c=\E[\beps_c\beps_c'\mid\bX_c]\)</span>, zeros between blocks. OLS stays <strong>unbiased</strong> when <span class="math inline">\(\E[\beps_c\mid\bX_c]=\bzero\)</span> (within-cluster interactions must be in the model — a pupil’s outcome must not depend on <em>classmates’</em> regressors).</p>
 </div>
-<p>How bad can it get? With equal clusters of size <span class="math inline">\(N\)</span>, intra-cluster correlation <span class="math inline">\(\rho\)</span>, and a cluster-constant regressor, the <strong>design effect</strong> (Moulton) inflates the variance by <span class="math inline">\(1+\rho(N-1)\)</span>: at <span class="math inline">\(\rho=0.25,\ N=48\)</span> the correct standard error is about <strong>three times</strong> the conventional one. Ignoring clustering does not nudge the errors — it can shrink them several-fold.</p>
-</section><section id="the-cluster-robust-variance" class="level3"><h3 class="anchored" data-anchor-id="the-cluster-robust-variance">The cluster-robust variance</h3>
+<p><strong>Where does <span class="math inline">\(\rho\)</span> come from?</strong> Write the error as a cluster component plus an idiosyncratic one, <span class="math display">\[\varepsilon_{i,c}=u_c+\nu_{i,c},\qquad \Var(u_c)=\sigma_u^2,\quad \Var(\nu_{i,c})=\sigma_\nu^2,\]</span> so <span class="math inline">\(\sigma^2=\sigma_u^2+\sigma_\nu^2\)</span>, <span class="math inline">\(\Cov(\varepsilon_{i,c},\varepsilon_{j,c})=\sigma_u^2\)</span>, and the <strong>intra-cluster (intraclass) correlation</strong> is <span class="math inline">\(\rho=\sigma_u^2/(\sigma_u^2+\sigma_\nu^2)\)</span>. The within-cluster covariance is then <strong>exchangeable</strong>, <span class="math display">\[\bD_c=\sigma^2\big[(1-\rho)\bI_N+\rho\,\mathbf{J}_N\big],\qquad \mathbf{J}_N=\mathbf{1}_N\mathbf{1}_N',\]</span> with one large eigenvalue <span class="math inline">\(\sigma^2[1+\rho(N-1)]\)</span> along the common mode <span class="math inline">\(\mathbf{1}_N\)</span> and <span class="math inline">\(N-1\)</span> small ones <span class="math inline">\(\sigma^2(1-\rho)\)</span> orthogonal to it. The cluster sum lives in that common mode, so <span class="math display">\[\Var(S_c)=\mathbf{1}_N'\bD_c\mathbf{1}_N=N\sigma^2\big[1+\rho(N-1)\big]=N^2\sigma_u^2+N\sigma_\nu^2.\]</span> That is why a <strong>group-level</strong> regressor is where the damage concentrates — it, too, lives in the common mode.</p>
+<p><strong>How bad can it get?</strong> For a general regressor the inflation is governed by the <em>product</em> of the error and regressor intra-cluster correlations — the <strong>design effect</strong> (Moulton) <span class="math display">\[\tau=1+(N-1)\,\rho_x\,\rho_\varepsilon\qquad\Longrightarrow\qquad \text{s.e.}\times\sqrt{\tau},\]</span> with <span class="math inline">\(\rho_x=1\)</span> for a cluster-constant regressor (worst case) and <span class="math inline">\(\rho_x\approx 0\)</span> for an individual one (almost no inflation). For a group-level regressor, <span class="math inline">\(\sqrt{1+(N-1)\rho_\varepsilon}\)</span> is:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(N\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\rho_\varepsilon=0.05\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(0.10\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(0.25\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: center;">1.20</td>
+<td style="text-align: center;">1.38</td>
+<td style="text-align: center;">1.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: center;">1.57</td>
+<td style="text-align: center;">1.97</td>
+<td style="text-align: center;">2.87</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">50</td>
+<td style="text-align: center;">1.86</td>
+<td style="text-align: center;">2.43</td>
+<td style="text-align: center;">3.64</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: center;">2.44</td>
+<td style="text-align: center;">3.30</td>
+<td style="text-align: center;">5.07</td>
+</tr>
+</tbody>
+</table>
+<p>At <span class="math inline">\(\rho_\varepsilon=0.25,\ N\approx 48\)</span> the correct standard error is about <strong>three to four times</strong> the conventional one — ignoring clustering does not nudge the errors, it can shrink them several-fold. Equivalently, the design effect makes the <strong>effective</strong> sample size <span class="math inline">\(n/[1+(N-1)\rho]\approx C\)</span> (the number of clusters) for a group-level regressor, which is why the relevant asymptotics is <span class="math inline">\(C\to\infty\)</span>, not <span class="math inline">\(n\to\infty\)</span> (next slides).</p>
+</section>
+<section id="a-map-of-bd-block-diagonal" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="a-map-of-bd-block-diagonal">A map of <span class="math inline">\(\bD\)</span>: block-diagonal</h3>
+<p>Three clusters (here of size two) — correlated <strong>within</strong> a block (<span class="math inline">\(\blacksquare\)</span>), independent <strong>across</strong> blocks (<span class="math inline">\(0\)</span>): <span class="math display">\[\bD=\left[\begin{array}{cc|cc|cc}
+\blacksquare&amp;\blacksquare&amp;0&amp;0&amp;0&amp;0\\
+\blacksquare&amp;\blacksquare&amp;0&amp;0&amp;0&amp;0\\\hline
+0&amp;0&amp;\blacksquare&amp;\blacksquare&amp;0&amp;0\\
+0&amp;0&amp;\blacksquare&amp;\blacksquare&amp;0&amp;0\\\hline
+0&amp;0&amp;0&amp;0&amp;\blacksquare&amp;\blacksquare\\
+0&amp;0&amp;0&amp;0&amp;\blacksquare&amp;\blacksquare
+\end{array}\right]
+\qquad
+\bD=\begin{bmatrix}\bD_1&amp;&amp;\\&amp;\bD_2&amp;\\&amp;&amp;\bD_3\end{bmatrix}\]</span></p>
+<p>The picture is the whole argument. Within a block the errors share the cluster’s common shocks, so the entries are non-zero; across blocks the sampling makes them independent, so those entries are exactly zero. White’s estimator forms <span class="math inline">\(\sum_i \hat e_i^2\,\mathbf{x}_i\mathbf{x}_i'\)</span> — a sum over the <strong>diagonal</strong> alone — and so throws away precisely the <span class="math inline">\(\blacksquare\)</span> off-diagonal terms that clustering creates. The fix (next slide) sums over <strong>blocks</strong>: <span class="math inline">\(\sum_c \bX_c'\hat{\beps}_c\hat{\beps}_c'\bX_c\)</span>.</p>
+</section>
+<section id="the-cluster-robust-variance" class="level3">
+<h3 class="anchored" data-anchor-id="the-cluster-robust-variance">The cluster-robust variance</h3>
 <div id="thm-cluster" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 4 (Cluster-robust covariance)</strong></span> With <span class="math inline">\(\bX_c,\beps_c\)</span> the regressors and errors of cluster <span class="math inline">\(c\)</span>, OLS is unchanged, and <span class="math display">\[\Var[\bb\mid\bX]=(\bX'\bX)^{-1}\Big[\textstyle\sum_{c=1}^{C}\bX_c'\,\bD_c\,\bX_c\Big](\bX'\bX)^{-1},
 \qquad \bD_c=\E[\beps_c\beps_c'\mid\bX_c].\]</span> It is estimated by the <strong>cluster sandwich</strong>, summing the cluster score vectors <span class="math inline">\(\bX_c'\hat{\be}_c\)</span>: <span class="math display">\[\widehat{\Asyvar}[\bb]=(\bX'\bX)^{-1}\Big[\textstyle\sum_{c=1}^{C}(\bX_c'\hat{\be}_c)(\bX_c'\hat{\be}_c)'\Big](\bX'\bX)^{-1}.\]</span> White’s estimator is the special case of one observation per cluster (<span class="math inline">\(\bD_c\)</span> scalar).</p>
 </div>
 <p>The construction mirrors White’s exactly, but the “meat” now sums <strong>outer products of cluster totals</strong> <span class="math inline">\(\bX_c'\hat{\be}_c\)</span> instead of individual <span class="math inline">\(\hat e_i^2\mathbf{x}_i\mathbf{x}_i'\)</span> — that is what captures the within-cluster covariances. Everything else — the bread <span class="math inline">\((\bX'\bX)^{-1}\)</span>, the sandwich shape — is identical.</p>
-</section><section id="the-catch-asymptotics-in-the-number-of-clusters" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="the-catch-asymptotics-in-the-number-of-clusters">The catch: asymptotics in the number of clusters</h3>
-<div class="econ-box econ-box-hood" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Few clusters break the sandwich</span>
-</div>
-<div class="econ-box-body">
+<p><strong>Inside a block.</strong> With <span class="math inline">\(\beps_c=(\varepsilon_{1,c},\dots,\varepsilon_{n_c,c})'\)</span>, the block <span class="math inline">\(\bD_c=\E[\beps_c\beps_c'\mid\bX_c]\)</span> is the <span class="math inline">\(n_c\times n_c\)</span> matrix <span class="math display">\[\bD_c=\begin{bmatrix}\sigma_{1,c}^2 &amp; \sigma_{12,c} &amp; \cdots\\[2pt] \sigma_{12,c} &amp; \sigma_{2,c}^2 &amp; \cdots\\[2pt] \vdots &amp; &amp; \ddots\end{bmatrix},
+\qquad \sigma_{i,c}^2=\E[\varepsilon_{i,c}^2\mid\bX_c],\quad \sigma_{ij,c}=\E[\varepsilon_{i,c}\varepsilon_{j,c}\mid\bX_c].\]</span> The diagonal holds the conditional variances; the <strong>off-diagonal</strong> <span class="math inline">\(\sigma_{ij,c}\)</span> are the within-cluster covariances — zero under heteroskedasticity alone, non-zero under clustering.</p>
+<p><strong>Why it works without estimating <span class="math inline">\(\bD_c\)</span>.</strong> A block has <span class="math inline">\(n_c(n_c+1)/2\)</span> distinct entries, and each covariance would be “estimated” from a single product <span class="math inline">\(\hat e_{i,c}\hat e_{j,c}\)</span> — far too noisy. We never form a <span class="math inline">\(\widehat{\bD}_c\)</span>. Instead, with the true errors, <span class="math display">\[\E\!\big[(\bX_c'\beps_c)(\bX_c'\beps_c)'\mid\bX_c\big]=\bX_c'\bD_c\bX_c,\]</span> so the single outer product <span class="math inline">\(\mathbf{g}_c\mathbf{g}_c'\)</span> (with <span class="math inline">\(\mathbf{g}_c=\bX_c'\hat{\be}_c\)</span>) is approximately <strong>unbiased</strong> for the block <span class="math inline">\(\bX_c'\bD_c\bX_c\)</span>. It is a rank-one, hopeless estimate of <span class="math inline">\(\bD_c\)</span> <em>entry by entry</em> — but that is irrelevant: what we need is the <strong>sum</strong> <span class="math inline">\(\sum_c\bX_c'\bD_c\bX_c\)</span>, and <span class="math inline">\(\sum_c\mathbf{g}_c\mathbf{g}_c'\)</span> is <strong>consistent</strong> for it as <span class="math inline">\(C\to\infty\)</span>. Consistency comes from averaging over many independent clusters, not from pinning down any single <span class="math inline">\(\bD_c\)</span>.</p>
+<p><strong>Where the <span class="math inline">\(1/C\)</span> in that statement comes from.</strong> The estimator itself is the <em>sum</em> <span class="math inline">\(\sum_c\mathbf{g}_c\mathbf{g}_c'\)</span> — but a sum of <span class="math inline">\(C\)</span> positive matrices <strong>grows</strong> with <span class="math inline">\(C\)</span>, so the law of large numbers cannot act on it directly. It acts on the <strong>average</strong>: both <span class="math inline">\(\tfrac1C\sum_c\mathbf{g}_c\mathbf{g}_c'\pto\E[\mathbf{g}_c\mathbf{g}_c']\)</span> and <span class="math inline">\(\tfrac1C\bX'\bX\pto\E[\bX_c'\bX_c]\)</span> converge. Since <span class="math inline">\(\bX'\bX\)</span> also grows like <span class="math inline">\(C\)</span>, each bread carries a hidden <span class="math inline">\(\tfrac1C\)</span>: <span class="math inline">\((\bX'\bX)^{-1}=\tfrac1C\big(\tfrac1C\bX'\bX\big)^{-1}\)</span>. Factoring the sandwich, the three factors of <span class="math inline">\(C\)</span> collapse to a net <span class="math inline">\(1/C\)</span> — the correct order of <span class="math inline">\(\Var[\bb]\)</span> — so the normalization was <strong>already inside the two breads</strong>; it is not added to the estimator. “Consistent as <span class="math inline">\(C\to\infty\)</span>” is thus a statement about the <strong>averaged</strong> meat <span class="math inline">\(\tfrac1C\sum_c\mathbf{g}_c\mathbf{g}_c'\)</span>, and the object with a finite limit is <span class="math inline">\(C\,\widehat{\Asyvar}[\bb]\)</span>.</p>
+</section>
+<section id="the-catch-asymptotics-in-the-number-of-clusters" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-catch-asymptotics-in-the-number-of-clusters">The catch: asymptotics in the number of clusters</h3>
+<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">Few clusters break the sandwich</span></div><div class="econ-box-body">
 <p>The cluster-robust variance is consistent as the <strong>number of clusters</strong> <span class="math inline">\(C\to\infty\)</span> — <strong>not</strong> as <span class="math inline">\(n\to\infty\)</span>. Stata’s finite-sample correction multiplies it by <span class="math inline">\(a_n=\dfrac{n-1}{n-k}\cdot\dfrac{C}{C-1}\)</span> (the <span class="math inline">\(C/(C-1)\)</span> helps when <span class="math inline">\(C\)</span> is small; <span class="math inline">\(C=n\)</span> recovers the i.i.d. factor). But no correction rescues small <span class="math inline">\(C\)</span>: <strong><span class="math inline">\(C\)</span> is the effective sample size</strong> — <span class="math inline">\(C=50\)</span> clusters is like heteroskedasticity-robust inference with <span class="math inline">\(n=50\)</span> observations, and <strong>unequal cluster sizes</strong> make it worse. Treat it as a small-sample problem, not a fixed reference distribution.</p>
-</div>
-</div>
+</div></div>
 <p>The reliable finite-sample tools are resampling, in Lecture 8. The <strong>wild cluster bootstrap</strong> multiplies each cluster’s residual vector by a single <span class="math inline">\(\pm1\)</span> (Rademacher) weight — one draw per cluster, preserving within-cluster dependence — then re-computes the statistic (the <em>restricted</em> version, under <span class="math inline">\(H_0\)</span>, is recommended). The <strong>delete-cluster jackknife</strong> drops one whole cluster at a time; both are formula-free alternatives to the sandwich.</p>
-</section></section><section id="at-what-level-to-cluster" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="at-what-level-to-cluster">
-<span class="header-section-number">5.2</span> At what level to cluster?</h2>
-<section id="the-cluster-level-is-a-choice" class="level3"><h3 class="anchored" data-anchor-id="the-cluster-level-is-a-choice">The cluster level is a choice</h3>
+</section>
+</section>
+<section id="at-what-level-to-cluster" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="at-what-level-to-cluster"><span class="header-section-number">5.2</span> At what level to cluster?</h2>
+<section id="the-cluster-level-is-a-choice" class="level3">
+<h3 class="anchored" data-anchor-id="the-cluster-level-is-a-choice">The cluster level is a choice</h3>
 <p>The cluster level is a <strong>choice</strong>, and it is a genuine trade-off — not “always cluster more”.</p>
-</section></section><section id="when-robust-is-not-enough" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="when-robust-is-not-enough">
-<span class="header-section-number">5.3</span> When robust is not enough</h2>
-<section id="the-limits-of-a-robust-variance" class="level3"><h3 class="anchored" data-anchor-id="the-limits-of-a-robust-variance">The limits of a robust variance</h3>
-<div class="econ-box econ-box-questions" role="note">
-<div class="econ-box-head">
-<span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">What robust standard errors do and do not fix</span>
-</div>
-<div class="econ-box-body">
+<p><strong>The trade-off, made precise.</strong> The chosen level partitions the data into blocks <span class="math inline">\(b\)</span>, and the cluster-robust meat keeps within-block covariances and zeros the rest, <span class="math inline">\(\hat{\mathbf M}=\sum_b(\bX_b'\hat{\be}_b)(\bX_b'\hat{\be}_b)'\)</span>. Write <span class="math inline">\(\mathbf M=\sum_c\bX_c'\bD_c\bX_c\)</span> for the meat at the <strong>true</strong> dependence level.</p>
+<p><em>Clustering too fine</em> (sub-clusters <span class="math inline">\(s\)</span> of a true cluster) keeps only the within-sub-block terms and drops the within-true-cluster covariances <strong>across</strong> sub-blocks: <span class="math display">\[\E[\hat{\mathbf M}_{\text{fine}}]=\mathbf M-\underbrace{\sum_c\sum_{s\neq s'\in c}\bX_s'\bD_{ss'}\bX_{s'}}_{\succeq\,\bzero\ \text{under positive within-correlation}}\ \prec\ \mathbf M,\]</span> a <strong>downward bias</strong> — standard errors too small, spurious significance: the Moulton problem reintroduced.</p>
+<p><em>Clustering too coarse</em> (super-clusters that merge <strong>independent</strong> true clusters) adds pairs whose true covariance is zero, so in expectation it is <strong>unbiased</strong>, <span class="math display">\[\E[\hat{\mathbf M}_{\text{coarse}}]=\mathbf M+\underbrace{\{\text{cross-true-cluster terms}\}}_{\E[\cdot]=\bzero}=\mathbf M,\]</span> but it is built from <strong>fewer, larger, more unequal</strong> blocks — small <span class="math inline">\(C\)</span>, hence a <strong>noisy</strong> estimator and the finite-sample breakdown of the previous slide.</p>
+<p>The trade-off is thus in the <strong>variance estimator</strong>, not in <span class="math inline">\(\bb\)</span>: finer buys precision at the risk of bias, coarser is unbiased but imprecise. This is why a changing standard error is <strong>not</strong> a decision rule — the change may be bias reduction (the fine level was dropping real covariances) <em>or</em> sampling noise (the coarse level has few clusters), and the magnitude alone cannot tell them apart. The correct level is a judgement about the <strong>design</strong> — sampling, treatment assignment — not something the data select for you.</p>
+</section>
+</section>
+<section id="clustering-in-practice" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="clustering-in-practice"><span class="header-section-number">5.3</span> Clustering in practice</h2>
+<section id="classic-studies-and-their-clustering-level" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="classic-studies-and-their-clustering-level">Classic studies and their clustering level</h3>
+<p>The cluster level is an empirical judgement — here is how canonical studies made it.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Study</th>
+<th>Setting</th>
+<th>Cluster level</th>
+<th>Lesson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Moulton (1986, 1990)</td>
+<td>Aggregate regressors on micro data</td>
+<td>Aggregate group</td>
+<td>Conventional s.e. understated several-fold</td>
+</tr>
+<tr class="even">
+<td>Bertrand, Duflo &amp; Mullainathan (2004)</td>
+<td>DiD, state<span class="math inline">\(\times\)</span>year panel</td>
+<td>State</td>
+<td>Serial correlation inflates false significance</td>
+</tr>
+<tr class="odd">
+<td>Angrist &amp; Lavy (1999)</td>
+<td>Class size (Maimonides’ rule)</td>
+<td>Class / school</td>
+<td>Group-level instrument → cluster there</td>
+</tr>
+<tr class="even">
+<td>Petersen (2009)</td>
+<td>Finance panels</td>
+<td>Firm and year (two-way)</td>
+<td>Many published s.e. were wrong</td>
+</tr>
+<tr class="odd">
+<td>Cameron, Gelbach &amp; Miller (2008)</td>
+<td>Few clusters</td>
+<td>—</td>
+<td>Wild cluster bootstrap</td>
+</tr>
+<tr class="even">
+<td>Cameron, Gelbach &amp; Miller (2011)</td>
+<td>Trade, networks</td>
+<td>Multiway</td>
+<td>Clustering on several dimensions</td>
+</tr>
+<tr class="odd">
+<td>Abadie–Athey–Imbens–Wooldridge (2023)</td>
+<td>When to cluster</td>
+<td>Design level</td>
+<td>Clustering is about design, not just correlation</td>
+</tr>
+</tbody>
+</table>
+<p>The common thread: cluster where the <strong>design</strong> induces dependence — the unit of sampling or of treatment assignment — and allow the <strong>broadest plausible</strong> correlation (in panels, serial correlation within the unit).</p>
+</section>
+<section id="a-menu-of-standard-errors" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="a-menu-of-standard-errors">A menu of standard errors</h3>
+<p>Same coefficient, same regression — the standard error depends entirely on the dependence you allow for (<span class="math inline">\(\hat\beta=0.050\)</span> throughout; numbers <strong>illustrative</strong>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Standard error</th>
+<th style="text-align: center;">s.e.</th>
+<th style="text-align: center;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: center;">verdict (5%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>i.i.d. (conventional)</td>
+<td style="text-align: center;">0.010</td>
+<td style="text-align: center;">5.0</td>
+<td style="text-align: center;">reject</td>
+</tr>
+<tr class="even">
+<td>robust (White)</td>
+<td style="text-align: center;">0.012</td>
+<td style="text-align: center;">4.2</td>
+<td style="text-align: center;">reject</td>
+</tr>
+<tr class="odd">
+<td>cluster by state</td>
+<td style="text-align: center;">0.028</td>
+<td style="text-align: center;">1.8</td>
+<td style="text-align: center;">fail to reject</td>
+</tr>
+<tr class="even">
+<td>two-way (state, year)</td>
+<td style="text-align: center;">0.031</td>
+<td style="text-align: center;">1.6</td>
+<td style="text-align: center;">fail to reject</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The point estimate never moves — only the inference does.</strong></p>
+<p>This is the format of Petersen’s (2009) finance table: reporting the same slope under i.i.d., White, one-way and two-way clustering exposed how many published standard errors were too small. In practice, report the clustered s.e. as the default, and note how far it exceeds the conventional one (the empirical Moulton factor). If significance hinges on the clustering choice, that fragility is itself a finding.</p>
+</section>
+</section>
+<section id="when-robust-is-not-enough" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="when-robust-is-not-enough"><span class="header-section-number">5.4</span> When robust is not enough</h2>
+<section id="the-limits-of-a-robust-variance" class="level3">
+<h3 class="anchored" data-anchor-id="the-limits-of-a-robust-variance">The limits of a robust variance</h3>
+<div class="econ-box econ-box-questions" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◇</span><span class="econ-box-label">The Four Questions</span><span class="econ-box-sep">—</span><span class="econ-box-title">What robust standard errors do and do not fix</span></div><div class="econ-box-body">
 <ul>
 <li>They <strong>fix</strong> the <em>variance</em> — the sandwich (White or cluster) gives valid standard errors under heteroskedasticity or clustering.</li>
 <li>They do <strong>not</strong> fix <strong>inconsistency</strong> — if <span class="math inline">\(\E[\mathbf{x}\varepsilon]\neq\bzero\)</span> (endogeneity, Lecture 10), no variance formula saves you; the point estimate is wrong.</li>
 <li>They do <strong>not</strong> fix <strong>dependence</strong> you failed to model — the White errors are wrong under clustering; you must match the sandwich to the actual dependence structure.</li>
 </ul>
-</div>
-</div>
-</section></section><section id="seeing-it-coverage-under-heteroskedasticity" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="seeing-it-coverage-under-heteroskedasticity">
-<span class="header-section-number">5.4</span> Seeing it: coverage under heteroskedasticity</h2>
-<section id="does-the-interval-cover-95" class="level3"><h3 class="anchored" data-anchor-id="does-the-interval-cover-95">Does the interval cover 95%?</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-coverage" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="07-gls_files/figure-html/fig-coverage-1.svg" class="img-fluid figure-img" width="2280">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the slope, over increasing heteroskedasticity (<span class="math inline">\(\sigma_i = x_i^{\gamma}\)</span>). The conventional interval <span class="math inline">\(s^2(\mathbf{X}'\mathbf{X})^{-1}\)</span> under-covers as <span class="math inline">\(\gamma\)</span> grows; the heteroskedasticity-robust (HC1) interval stays near 0.95.
-</figcaption></figure>
-</div>
-</div>
-</div>
-</section></section><section id="summary" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">5.5</span> Summary</h2>
-<section id="what-to-take-away" class="level3"><h3 class="anchored" data-anchor-id="what-to-take-away">What to take away</h3>
+</div></div>
+</section>
+</section>
+<section id="summary" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.5</span> Summary</h2>
+<section id="what-to-take-away" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-take-away">What to take away</h3>
 
 
-</section></section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><!--
+</section>
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<!--
   Annotated equations: link each \eqt{key}{...} term in the rendered math to its
   explanation card, in both directions.
 
@@ -901,7 +1083,8 @@ Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the s
   Behaviour: hovering or focusing either a term or its card highlights both.
   Clicking a term pins the pair, so it survives the pointer moving away — which
   matters when the note is long enough to read.
---><script>
+-->
+<script>
 (function () {
   'use strict';
 
@@ -1037,7 +1220,8 @@ Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the s
     start();
   }
 })();
-</script><script id="quarto-html-after-body" type="application/javascript">
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1454,7 +1638,9 @@ Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the s
       }
     }
   });
-  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="../notas/06-inference.html" class="pagination-link" aria-label="6 · Inference: Tests, Intervals, and Wald">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">6 · Inference: Tests, Intervals, and Wald</span>
       </a>          
@@ -1466,7 +1652,8 @@ Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the s
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
 <p>Econometrics I — PIMES/UFPE</p>
 </div>   
@@ -1478,6 +1665,8 @@ Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the s
 </div>
   </div>
 </footer>
+
+
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

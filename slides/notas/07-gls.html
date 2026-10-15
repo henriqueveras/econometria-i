@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="en"><head>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/06-inference.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8d695445161a98bc055f58d1fd7d7c9d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-cad400c46c93dce54b79ec7577b89e54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -231,11 +253,11 @@
 
   </script>
 </head>
-<body class="quarto-light">
+<body class="quarto-light nav-sidebar">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" class="quarto-title-block center"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/07-gls.html">7 · GLS and Clustered Dependence</a></li></ol></nav>
   <h1 class="title">Generalized Least Squares and Clustered Dependence</h1>
   <p class="subtitle">Lecture 7</p>
 
@@ -303,7 +325,7 @@ Henrique Veras
 <h2>The cost of ignoring D</h2>
 
 </section>
-<section id="every-observation-weighted-equally" class="slide level3">
+<section id="every-observation-weighted-equally" class="slide level3 smaller">
 <h3>Every observation weighted equally</h3>
 <p>A general <span class="math inline">\(\bD\)</span> can break A4 in two ways — <strong>heteroskedasticity</strong> (the diagonal of <span class="math inline">\(\bD\)</span> varies across observations) or <strong>autocorrelation</strong> (non-zero off-diagonals), or both. OLS stays unbiased and consistent either way, but it pays for ignoring <span class="math inline">\(\bD\)</span> in <strong>precision</strong>. Compare the variance OLS <em>assumes</em> with the <em>true</em> one: <span class="math display">\[\underbrace{\sigma^2(\bX'\bX)^{-1}}_{\text{under A4}}
 \qquad\text{vs.}\qquad
@@ -321,10 +343,10 @@ Henrique Veras
 </section>
 <section id="transforming-to-constant-variance" class="slide level3 smaller">
 <h3>Transforming to constant variance</h3>
-<p>If the trouble is unequal (and correlated) variances, the cure is to <strong>rescale the observations so the variances become equal and the correlations vanish</strong> — then the classical model, and OLS’s optimality, are back. Since <span class="math inline">\(\bD\)</span> is positive-definite, there is a matrix <span class="math inline">\(\mathbf{L}\)</span> with <span class="math display">\[\mathbf{L}\,\bD\,\mathbf{L}'=\bI,\qquad\text{equivalently}\qquad \bD^{-1}=\mathbf{L}'\mathbf{L}\]</span> — the matrix analogue of “dividing by the standard deviation” (a Cholesky factor is one such <span class="math inline">\(\mathbf{L}\)</span>).</p>
+<p>If the trouble is unequal (and correlated) variances, the cure is to <strong>rescale the observations so the variances become equal and the correlations vanish</strong> — then the classical model, and OLS’s optimality, are back. Since <span class="math inline">\(\bD\)</span> is symmetric positive-definite, it has a <strong>spectral decomposition</strong> <span class="math inline">\(\bD=\mathbf{C}\boldsymbol{\Lambda}\mathbf{C}'\)</span>, with <span class="math inline">\(\mathbf{C}\)</span> orthogonal (<span class="math inline">\(\mathbf{C}'\mathbf{C}=\bI\)</span>, columns the eigenvectors) and <span class="math inline">\(\boldsymbol{\Lambda}=\operatorname{diag}(\lambda_1,\dots,\lambda_n)\)</span>, <span class="math inline">\(\lambda_i&gt;0\)</span>. Following Greene, build <span class="math inline">\(\mathbf{P}=\boldsymbol{\Lambda}^{-1/2}\mathbf{C}'\)</span>, which satisfies <span class="math display">\[\mathbf{P}\,\bD\,\mathbf{P}'=\bI,\qquad\text{equivalently}\qquad \bD^{-1}=\mathbf{P}'\mathbf{P}\]</span> — the matrix analogue of “dividing by the standard deviation”, now along the <strong>principal axes</strong> of <span class="math inline">\(\bD\)</span>.</p>
 <div class="econ-box econ-box-board" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span></div><div class="econ-box-body">
-<p>Pre-multiply the model by <span class="math inline">\(\mathbf{L}\)</span>: with <span class="math inline">\(\bY_*=\mathbf{L}\bY\)</span>, <span class="math inline">\(\bX_*=\mathbf{L}\bX\)</span>, <span class="math inline">\(\beps_*=\mathbf{L}\beps\)</span>, <span class="math display">\[\bY_*=\bX_*\bbeta+\beps_*,\qquad
-\E[\beps_*\beps_*'\mid\bX]=\mathbf{L}\,\bD\,\mathbf{L}'=\bI.\]</span> The transformed errors are <strong>homoskedastic and uncorrelated</strong> — the classical model holds for <span class="math inline">\((\bY_*,\bX_*)\)</span>, so <strong>OLS on the transformed data</strong> is efficient. That is GLS.</p>
+<p>Pre-multiply the model by <span class="math inline">\(\mathbf{P}\)</span>: with <span class="math inline">\(\bY_*=\mathbf{P}\bY\)</span>, <span class="math inline">\(\bX_*=\mathbf{P}\bX\)</span>, <span class="math inline">\(\beps_*=\mathbf{P}\beps\)</span>, <span class="math display">\[\bY_*=\bX_*\bbeta+\beps_*,\qquad
+\E[\beps_*\beps_*'\mid\bX]=\mathbf{P}\,\bD\,\mathbf{P}'=\bI.\]</span> Two moves: <span class="math inline">\(\mathbf{C}'\)</span> <strong>rotates</strong> the errors into the eigenbasis (decorrelating them — <span class="math inline">\(\E[\mathbf{C}'\beps\,\beps'\mathbf{C}\mid\bX]=\boldsymbol{\Lambda}\)</span>), then <span class="math inline">\(\boldsymbol{\Lambda}^{-1/2}\)</span> <strong>rescales</strong> each axis by <span class="math inline">\(1/\sqrt{\lambda_i}\)</span> (equalizing the variances to <span class="math inline">\(1\)</span>). The transformed errors are <strong>homoskedastic and uncorrelated</strong> — the classical model holds for <span class="math inline">\((\bY_*,\bX_*)\)</span>, so <strong>OLS on the transformed data</strong> is efficient. That is GLS.</p>
 </div></div>
 </section>
 <section id="the-gls-estimator" class="slide level3">
@@ -335,10 +357,10 @@ Henrique Veras
 =(\bX'\bD^{-1}\bX)^{-1}\bX'\bD^{-1}\bY.\]</span> Among <strong>linear unbiased</strong> estimators it has the smallest variance — the <strong>generalized Gauss–Markov (Aitken) theorem</strong> — with <span class="math display">\[\Var[\hat{\bbeta}_{\text{GLS}}\mid\bX]=(\bX'\bD^{-1}\bX)^{-1}.\]</span> OLS is the special case <span class="math inline">\(\bD=\sigma^2\bI\)</span> (weight matrix <span class="math inline">\(\bI\)</span> instead of <span class="math inline">\(\bD^{-1}\)</span>).</p>
 </div>
 </section>
-<section id="weighted-least-squares-the-heteroskedastic-case" class="slide level3">
+<section id="weighted-least-squares-the-heteroskedastic-case" class="slide level3 smaller">
 <h3>Weighted least squares: the heteroskedastic case</h3>
 <div id="cor-wls" class="theorem corollary">
-<p><span class="theorem-title"><strong>Corollary 1 (Weighted least squares)</strong></span> When the violation is pure <strong>heteroskedasticity</strong>, <span class="math inline">\(\bD=\operatorname{diag}(\sigma_1^2,\dots,\sigma_n^2)\)</span>, the transformation is just <strong>dividing each observation by its own <span class="math inline">\(\sigma_i\)</span></strong> (<span class="math inline">\(\mathbf{L}=\operatorname{diag}(1/\sigma_1,\dots,1/\sigma_n)\)</span>). GLS then takes the familiar <strong>weighted</strong> form <span class="math display">\[\hat{\bbeta}_{\text{WLS}}
+<p><span class="theorem-title"><strong>Corollary 1 (Weighted least squares)</strong></span> When the violation is pure <strong>heteroskedasticity</strong>, <span class="math inline">\(\bD=\operatorname{diag}(\sigma_1^2,\dots,\sigma_n^2)\)</span>, the transformation is just <strong>dividing each observation by its own <span class="math inline">\(\sigma_i\)</span></strong> (<span class="math inline">\(\mathbf{P}=\operatorname{diag}(1/\sigma_1,\dots,1/\sigma_n)\)</span>). GLS then takes the familiar <strong>weighted</strong> form <span class="math display">\[\hat{\bbeta}_{\text{WLS}}
 =\Big(\textstyle\sum_i \tfrac{1}{\sigma_i^2}\,\mathbf{x}_i\mathbf{x}_i'\Big)^{-1}\Big(\textstyle\sum_i \tfrac{1}{\sigma_i^2}\,\mathbf{x}_i y_i\Big)
 \ -\ \text{exactly the weighting OLS was missing.}\]</span></p>
 </div>
@@ -364,7 +386,7 @@ Henrique Veras
 <p><span class="theorem-title"><strong>Definition 2 (The skedastic regression)</strong></span> Specify <span class="math inline">\(\sigma_i^2=\sigma^2(\mathbf{z}_i,\boldsymbol{\alpha})\)</span> for a small parameter vector <span class="math inline">\(\boldsymbol{\alpha}\)</span> and observed <span class="math inline">\(\mathbf{z}_i\)</span> (often a subset/transform of <span class="math inline">\(\mathbf{x}_i\)</span>) — for example the linear <span class="math inline">\(\sigma_i^2=\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1\)</span> or the multiplicative <span class="math inline">\(\sigma_i^2=\exp(\alpha_0+\mathbf{z}_i'\boldsymbol{\alpha}_1)\)</span>. Estimate <span class="math inline">\(\boldsymbol{\alpha}\)</span> by <strong>regressing the squared OLS residuals <span class="math inline">\(\hat e_i^2\)</span> on <span class="math inline">\(\mathbf{z}_i\)</span></strong> — the <em>skedastic regression</em>.</p>
 </div>
 </section>
-<section id="the-fgls-estimator" class="slide level3">
+<section id="the-fgls-estimator" class="slide level3 smaller">
 <h3>The FGLS estimator</h3>
 <div id="thm-fgls" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 2 (Feasible GLS)</strong></span> Form <span class="math inline">\(\widehat{\bD}=\operatorname{diag}(\hat\sigma_1^2,\dots,\hat\sigma_n^2)\)</span> from the skedastic regression and plug it in: <span class="math display">\[\hat{\bbeta}_{\text{FGLS}}=(\bX'\widehat{\bD}^{-1}\bX)^{-1}\bX'\widehat{\bD}^{-1}\bY.\]</span> If the skedastic model is <strong>correctly specified</strong>, estimating <span class="math inline">\(\boldsymbol{\alpha}\)</span> is <em>asymptotically free</em>: <span class="math inline">\(\hat{\bbeta}_{\text{FGLS}}\)</span> has the <strong>same asymptotic distribution</strong> as infeasible GLS.</p>
@@ -422,12 +444,30 @@ Henrique Veras
 <section id="clusters-dependence-by-design" class="slide level3 smaller">
 <h3>Clusters: dependence by design</h3>
 <div id="def-cluster" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3 (Clustered sampling)</strong></span> The sample is <span class="math inline">\(C\)</span> groups (clusters) — firms in industries, students in schools, individuals in villages — <span class="math display">\[y_{i,c}=\mathbf{x}_{i,c}'\bbeta+\varepsilon_{i,c},\]</span> with errors <strong>correlated within a cluster</strong> but <strong>independent across</strong> clusters — off-diagonal structure in <span class="math inline">\(\bD\)</span>, block by block, from how the sample was <strong>drawn</strong>. OLS stays <strong>unbiased</strong> when <span class="math inline">\(\E[\beps_c\mid\bX_c]=\bzero\)</span>, which requires within-cluster interactions to be in the model (a pupil’s outcome must not depend on <em>classmates’</em> regressors).</p>
+<p><span class="theorem-title"><strong>Definition 3 (Clustered sampling)</strong></span> The sample is <span class="math inline">\(C\)</span> groups (clusters) — firms in industries, pupils in schools, people in villages: <span class="math display">\[y_{i,c}=\mathbf{x}_{i,c}'\bbeta+\varepsilon_{i,c}.\]</span> Errors are <strong>correlated within</strong> a cluster but <strong>independent across</strong> them — this is <strong>dependence, a trait of the sampling design</strong>, not heteroskedasticity (not a statement about each observation’s own variance). Stacking by cluster, <span class="math inline">\(\bD=\E[\beps\beps'\mid\bX]\)</span> is <strong>block-diagonal</strong>: each cluster its own block <span class="math inline">\(\bD_c=\E[\beps_c\beps_c'\mid\bX_c]\)</span>, zeros between blocks. OLS stays <strong>unbiased</strong> when <span class="math inline">\(\E[\beps_c\mid\bX_c]=\bzero\)</span> (within-cluster interactions must be in the model — a pupil’s outcome must not depend on <em>classmates’</em> regressors).</p>
 </div>
 <ul>
-<li>Within a school, pupils share teachers, neighborhood, shocks — their errors move together.</li>
-<li>Even the <strong>White</strong> (heteroskedasticity-robust) errors are <strong>wrong</strong> here: they assume independence.</li>
-<li>Ignoring clustering <strong>understates</strong> standard errors, often badly.</li>
+<li><strong>Dependence, not heteroskedasticity</strong> — a trait of the <strong>sampling design</strong>, not of each observation’s own variance.</li>
+<li>Errors are <strong>dependent within</strong> a cluster, <strong>independent across</strong>: shared teachers, neighborhood, shocks move them together.</li>
+<li>The <strong>White</strong> estimator <strong>does not fix it</strong> — it assumes independence, discards the within-cluster terms, and <strong>understates</strong> standard errors (often badly).</li>
+</ul>
+</section>
+<section id="a-map-of-bd-block-diagonal" class="slide level3 smaller">
+<h3>A map of <span class="math inline">\(\bD\)</span>: block-diagonal</h3>
+<p>Three clusters (here of size two) — correlated <strong>within</strong> a block (<span class="math inline">\(\blacksquare\)</span>), independent <strong>across</strong> blocks (<span class="math inline">\(0\)</span>): <span class="math display">\[\bD=\left[\begin{array}{cc|cc|cc}
+\blacksquare&amp;\blacksquare&amp;0&amp;0&amp;0&amp;0\\
+\blacksquare&amp;\blacksquare&amp;0&amp;0&amp;0&amp;0\\\hline
+0&amp;0&amp;\blacksquare&amp;\blacksquare&amp;0&amp;0\\
+0&amp;0&amp;\blacksquare&amp;\blacksquare&amp;0&amp;0\\\hline
+0&amp;0&amp;0&amp;0&amp;\blacksquare&amp;\blacksquare\\
+0&amp;0&amp;0&amp;0&amp;\blacksquare&amp;\blacksquare
+\end{array}\right]
+\qquad
+\bD=\begin{bmatrix}\bD_1&amp;&amp;\\&amp;\bD_2&amp;\\&amp;&amp;\bD_3\end{bmatrix}\]</span></p>
+<ul>
+<li>The <span class="math inline">\(\blacksquare\)</span> <strong>off-diagonals within a block</strong> are the clustering — the shared-shock covariances.</li>
+<li><strong>White keeps only the main diagonal</strong>, discarding every within-cluster <span class="math inline">\(\blacksquare\)</span> → wrong under clustering.</li>
+<li>A valid variance must sum <strong>block by block</strong>, not observation by observation.</li>
 </ul>
 </section>
 <section id="the-cluster-robust-variance" class="slide level3">
@@ -458,6 +498,63 @@ Henrique Veras
 </ul>
 </section>
 
+<section id="clustering-in-practice" class="title-slide slide level2 center">
+<h2>Clustering in practice</h2>
+
+</section>
+<section id="classic-studies-and-their-clustering-level" class="slide level3 smaller">
+<h3>Classic studies and their clustering level</h3>
+<p>The cluster level is an empirical judgement — here is how canonical studies made it.</p>
+<ul>
+<li><strong>Moulton (1986)</strong> — aggregate regressors (state, industry) on micro data → cluster at the <strong>aggregate</strong> level.</li>
+<li><strong>Bertrand, Duflo &amp; Mullainathan (2004)</strong> — difference-in-differences in state<span class="math inline">\(\times\)</span>year panels → cluster by <strong>state</strong> (to allow serial correlation).</li>
+<li><strong>Petersen (2009)</strong> — finance panels → <strong>two-way</strong> clustering (firm and year).</li>
+<li><strong>Cameron, Gelbach &amp; Miller (2011)</strong> — dependence along several dimensions (firm and time, exporter and importer) → <strong>multiway</strong> clustering.</li>
+<li><strong>Abadie–Athey–Imbens–Wooldridge (2023)</strong> — cluster at the level of the <strong>sampling or treatment-assignment design</strong>, not merely where errors happen to correlate.</li>
+</ul>
+</section>
+<section id="a-menu-of-standard-errors" class="slide level3 smaller">
+<h3>A menu of standard errors</h3>
+<p>Same coefficient, same regression — the standard error depends entirely on the dependence you allow for (<span class="math inline">\(\hat\beta=0.050\)</span> throughout; numbers <strong>illustrative</strong>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Standard error</th>
+<th style="text-align: center;">s.e.</th>
+<th style="text-align: center;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: center;">verdict (5%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>i.i.d. (conventional)</td>
+<td style="text-align: center;">0.010</td>
+<td style="text-align: center;">5.0</td>
+<td style="text-align: center;">reject</td>
+</tr>
+<tr class="even">
+<td>robust (White)</td>
+<td style="text-align: center;">0.012</td>
+<td style="text-align: center;">4.2</td>
+<td style="text-align: center;">reject</td>
+</tr>
+<tr class="odd">
+<td>cluster by state</td>
+<td style="text-align: center;">0.028</td>
+<td style="text-align: center;">1.8</td>
+<td style="text-align: center;">fail to reject</td>
+</tr>
+<tr class="even">
+<td>two-way (state, year)</td>
+<td style="text-align: center;">0.031</td>
+<td style="text-align: center;">1.6</td>
+<td style="text-align: center;">fail to reject</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The point estimate never moves — only the inference does.</strong></p>
+</section>
+
 <section id="when-robust-is-not-enough" class="title-slide slide level2 center">
 <h2>When robust is not enough</h2>
 
@@ -472,17 +569,6 @@ Henrique Veras
 </ul>
 </div></div>
 </section>
-
-<section id="seeing-it-coverage-under-heteroskedasticity" class="title-slide slide level2 center">
-<h2>Seeing it: coverage under heteroskedasticity</h2>
-
-</section>
-<section id="does-the-interval-cover-95" class="slide level3">
-<h3>Does the interval cover 95%?</h3>
-
-<img data-src="07-gls_files/figure-revealjs/fig-coverage-1.svg" width="2280" class="r-stretch quarto-figure-center" id="fig-coverage"><p class="caption">
-Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the slope, over increasing heteroskedasticity (<span class="math inline">\(\sigma_i = x_i^{\gamma}\)</span>). The conventional interval <span class="math inline">\(s^2(\mathbf{X}'\mathbf{X})^{-1}\)</span> under-covers as <span class="math inline">\(\gamma\)</span> grows; the heteroskedasticity-robust (HC1) interval stays near 0.95.
-</p></section>
 
 <section id="summary" class="title-slide slide level2 center">
 <h2>Summary</h2>
@@ -873,44 +959,6 @@ Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the s
       }
     })();
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
@@ -1081,4 +1129,5 @@ Figure&nbsp;1: Empirical coverage of a nominal 95% confidence interval for the s
       </script>
     
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
