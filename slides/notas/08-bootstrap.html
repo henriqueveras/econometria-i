@@ -253,7 +253,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/03-algebra.html">II — Linear Estimation</a></li><li class="breadcrumb-item"><a href="../notas/08-bootstrap.html">8 · Bootstrap and Monte Carlo</a></li></ol></nav><h1 class="title">Resampling: The Bootstrap and Monte Carlo</h1>
+<section id="title-slide" class="quarto-title-block center"><h1 class="title">Resampling: The Bootstrap and Monte Carlo</h1>
   <p class="subtitle">Lecture 8</p>
 
 <div class="quarto-title-authors">
@@ -361,13 +361,13 @@ Figure&nbsp;2: Why Monte Carlo matters. Left — an <em>inconsistent</em> estima
 </ul></section><section id="the-jackknife-is-robust" class="title-slide slide level2 center"><h2>The jackknife is robust</h2>
 
 </section><section id="it-reproduces-hc3" class="slide level3 smaller"><h3>It reproduces HC3</h3>
-<p>For OLS there is <strong>no need to refit <span class="math inline">\(n\)</span> times</strong> — the leave-one-out coefficient has a closed form through the leverage <span class="math inline">\(h_{ii}=\mathbf{x}_i'(\bX'\bX)^{-1}\mathbf{x}_i\)</span>: <span class="math display">\[\hat{\bbeta}_{(-i)}=\hat{\bbeta}-\frac{(\bX'\bX)^{-1}\mathbf{x}_i\,\hat e_i}{1-h_{ii}}.\]</span></p>
+<p>For OLS there is <strong>no need to refit <span class="math inline">\(n\)</span> times</strong> — the leave-one-out coefficient has a closed form through the leverage <span class="math inline">\(h_{ii}=\mathbf{x}_i'(\bX'\bX)^{-1}\mathbf{x}_i\)</span>: <span class="math display">\[\bb_{(-i)}=\bb-\frac{(\bX'\bX)^{-1}\mathbf{x}_i\,\hat e_i}{1-h_{ii}}.\]</span></p>
 <div class="econ-box econ-box-board" role="note">
 <div class="econ-box-head">
 <span class="econ-box-icon" aria-hidden="true">📐</span><span class="econ-box-label">On the Board</span>
 </div>
 <div class="econ-box-body">
-<p>Substituting into <span class="math inline">\(\widehat{\Var}_{\text{jack}}\)</span> gives — up to the <span class="math inline">\((n-1)/n\)</span> factor — the <strong>HC3</strong> robust variance, <span class="math display">\[\widehat{\Var}_{\text{HC3}}[\hat{\bbeta}]=(\bX'\bX)^{-1}\Big[\textstyle\sum_i \dfrac{\hat e_i^2}{(1-h_{ii})^2}\,\mathbf{x}_i\mathbf{x}_i'\Big](\bX'\bX)^{-1}.\]</span> The jackknife of OLS <strong>is</strong> the heteroskedasticity-robust sandwich — derived by resampling, not assumed.</p>
+<p>Substituting into <span class="math inline">\(\widehat{\Var}_{\text{jack}}\)</span> gives — up to the <span class="math inline">\((n-1)/n\)</span> factor — the <strong>HC3</strong> robust variance, <span class="math display">\[\widehat{\Var}_{\text{HC3}}[\bb]=(\bX'\bX)^{-1}\Big[\textstyle\sum_i \dfrac{\hat e_i^2}{(1-h_{ii})^2}\,\mathbf{x}_i\mathbf{x}_i'\Big](\bX'\bX)^{-1}.\]</span> The jackknife of OLS <strong>is</strong> the heteroskedasticity-robust sandwich — derived by resampling, not assumed.</p>
 </div>
 </div>
 <ul>
@@ -424,21 +424,21 @@ Figure&nbsp;2: Why Monte Carlo matters. Left — an <em>inconsistent</em> estima
 <p>Resample the <strong>residuals</strong>, keeping the regressors <span class="math inline">\(\mathbf{X}\)</span> fixed.</p>
 <ul>
 <li>
-<strong>1.</strong> Fit OLS <strong>once</strong>: <span class="math inline">\(\hat{\bbeta}\)</span> and residuals <span class="math inline">\(\hat e_i=y_i-\mathbf{x}_i'\hat{\bbeta}\)</span>.</li>
+<strong>1.</strong> Fit OLS <strong>once</strong>: <span class="math inline">\(\bb\)</span> and residuals <span class="math inline">\(\hat e_i=y_i-\mathbf{x}_i'\bb\)</span>.</li>
 <li>
 <strong>2.</strong> Draw <span class="math inline">\(\hat e_i^{*}\)</span> <strong>with replacement</strong> from <span class="math inline">\(\{\hat e_1,\dots,\hat e_n\}\)</span> — the residuals get <strong>shuffled</strong> across observations.</li>
 <li>
-<strong>3.</strong> Rebuild <span class="math inline">\(y_i^{*}=\mathbf{x}_i'\hat{\bbeta}+\hat e_i^{*}\)</span> and refit to get <span class="math inline">\(\hat{\bbeta}^{*}\)</span>; repeat <span class="math inline">\(B\)</span> times.</li>
+<strong>3.</strong> Rebuild <span class="math inline">\(y_i^{*}=\mathbf{x}_i'\bb+\hat e_i^{*}\)</span> and refit to get <span class="math inline">\(\bb^{*}\)</span>; repeat <span class="math inline">\(B\)</span> times.</li>
 <li>Shuffling residuals assumes they are <strong>i.i.d.</strong> (homoskedastic) ⇒ <strong>invalid under heteroskedasticity</strong>.</li>
 </ul></section><section id="the-wild-bootstrap" class="slide level3 smaller"><h3>The wild bootstrap</h3>
 <p>Keep each residual <strong>with its own observation</strong> — only flip its sign at random.</p>
 <ul>
 <li>
-<strong>1.</strong> Fit OLS <strong>once</strong>: <span class="math inline">\(\hat{\bbeta}\)</span> and residuals <span class="math inline">\(\hat e_i\)</span> (same as before).</li>
+<strong>1.</strong> Fit OLS <strong>once</strong>: <span class="math inline">\(\bb\)</span> and residuals <span class="math inline">\(\hat e_i\)</span> (same as before).</li>
 <li>
 <strong>2.</strong> For each <span class="math inline">\(i\)</span>, draw a sign <span class="math inline">\(v_i=\pm1\)</span> (each with prob <span class="math inline">\(\tfrac12\)</span> — <strong>Rademacher</strong>: <span class="math inline">\(\E[v_i]=0\)</span>, <span class="math inline">\(\Var(v_i)=1\)</span>) and set <span class="math inline">\(\hat e_i^{*}=\hat e_i\,v_i\)</span>.</li>
 <li>
-<strong>3.</strong> Rebuild <span class="math inline">\(y_i^{*}=\mathbf{x}_i'\hat{\bbeta}+\hat e_i^{*}\)</span> and refit; repeat <span class="math inline">\(B\)</span> times.</li>
+<strong>3.</strong> Rebuild <span class="math inline">\(y_i^{*}=\mathbf{x}_i'\bb+\hat e_i^{*}\)</span> and refit; repeat <span class="math inline">\(B\)</span> times.</li>
 <li>The residual is <strong>not shuffled</strong> — it stays at its own <span class="math inline">\(i\)</span>, so a large residual stays a large perturbation <strong>there</strong>: this <strong>preserves heteroskedasticity</strong>, so the wild bootstrap is <strong>valid under heteroskedasticity</strong>.</li>
 </ul>
 <div class="econ-box econ-box-connection" role="note">
@@ -453,17 +453,33 @@ Figure&nbsp;2: Why Monte Carlo matters. Left — an <em>inconsistent</em> estima
 
 </section><section id="from-resamples-to-standard-errors-and-intervals" class="title-slide slide level2 center"><h2>From resamples to standard errors and intervals</h2>
 
-</section><section id="bootstrap-standard-errors" class="slide level3"><h3>Bootstrap standard errors</h3>
+</section><section id="bootstrap-standard-errors" class="slide level3 smaller"><h3>Bootstrap standard errors</h3>
 <div id="thm-bootstrap-se" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 2 (Bootstrap standard error)</strong></span> The bootstrap standard error of <span class="math inline">\(\hat{\theta}\)</span> is the <strong>standard deviation</strong> of <span class="math inline">\(\hat{\theta}^{*}\)</span> across the <span class="math inline">\(B\)</span> resamples, <span class="math display">\[\widehat{\mathrm{se}}_{\text{boot}}=\sqrt{\frac{1}{B-1}\sum_{b=1}^{B}\big(\hat{\theta}^{*}_b-\bar{\theta}^{*}\big)^2},
-\qquad \bar{\theta}^{*}=\frac1B\sum_b \hat{\theta}^{*}_b.\]</span> No analytic formula for <span class="math inline">\(\Var(\hat{\theta})\)</span> is needed — the resamples supply it. This is what makes the bootstrap valuable for estimators whose variance is hard to derive (e.g.&nbsp;functions of <span class="math inline">\(\hat{\bbeta}\)</span>).</p>
+\qquad \bar{\theta}^{*}=\frac1B\sum_b \hat{\theta}^{*}_b.\]</span></p>
 </div>
-</section><section id="confidence-intervals-briefly" class="slide level3 smaller"><h3>Confidence intervals, briefly</h3>
-<p>Beyond a standard error, the bootstrap also gives a whole <strong>interval</strong>, straight from the resamples.</p>
+<ul>
+<li>It is literally the <strong>standard deviation</strong> of the resampled estimates — no variance formula, no derivatives.</li>
+<li>The payoff is <strong>functions of <span class="math inline">\(\bb\)</span></strong> — ratios, elasticities, turning points — where the delta method is laborious.</li>
+<li>It is the <strong>random</strong> sibling of the <strong>jackknife variance</strong> (Part II): resample vs.&nbsp;leave-one-out, same goal — a standard error with <strong>no formula</strong>.</li>
+</ul></section><section id="where-the-delta-method-hurts" class="slide level3 smaller"><h3>Where the delta method hurts</h3>
+<p>In a wage–experience regression <span class="math inline">\(y=b_0+b_1\,\mathrm{exp}+b_2\,\mathrm{exp}^2+\cdots\)</span>, the experience that <strong>maximises earnings</strong> is the turning point <span class="math inline">\(x^{*}=-b_1/(2b_2)\)</span> — a <strong>nonlinear function</strong> of two estimates.</p>
 <ul>
 <li>
-<strong>Percentile interval:</strong> take the <span class="math inline">\(2.5\%\)</span> and <span class="math inline">\(97.5\%\)</span> <strong>quantiles</strong> of the <span class="math inline">\(B\)</span> bootstrap estimates <span class="math inline">\(\{\hat\theta^{*}_b\}\)</span> — that <em>is</em> the 95% interval. Simple and assumption-light.</li>
-<li>A studentized refinement (the <strong>percentile-<span class="math inline">\(t\)</span></strong>) improves coverage accuracy; we note it exists and stop there.</li>
+<strong>Delta method:</strong> you need the gradient <span class="math inline">\(\nabla g=\big(-\tfrac{1}{2b_2},\,\tfrac{b_1}{2b_2^{2}}\big)'\)</span> <strong>and</strong> the full <span class="math inline">\(2\times2\)</span> covariance of <span class="math inline">\((b_1,b_2)\)</span>, then <span class="math inline">\(\widehat{\Var}(x^{*})\approx\nabla g'\,\widehat{\Var}(b_1,b_2)\,\nabla g\)</span> — three terms, easy to slip.</li>
+<li>
+<strong>Bootstrap:</strong> in each resample recompute <span class="math inline">\(x^{*}_b=-b_1/(2b_2)\)</span>; the <strong>standard deviation</strong> of <span class="math inline">\(\{x^{*}_b\}\)</span> is the standard error. One line, no algebra.</li>
+<li>Same limit as <span class="math inline">\(n\to\infty\)</span> — and the bootstrap also captures <strong>skew</strong> in <span class="math inline">\(x^{*}\)</span> that the delta’s normal approximation misses.</li>
+</ul></section><section id="confidence-intervals-briefly" class="slide level3 smaller"><h3>Confidence intervals, briefly</h3>
+<p>The <span class="math inline">\(B\)</span> resampled estimates <span class="math inline">\(\{\hat\theta^{*}_b\}\)</span> trace out the sampling distribution — so its <strong>quantiles</strong> are the interval, read off directly.</p>
+<ul>
+<li>
+<strong>1.</strong> Run <span class="math inline">\(B\)</span> resamples, collect <span class="math inline">\(\hat\theta^{*}_1,\dots,\hat\theta^{*}_B\)</span>, and <strong>sort</strong> them.</li>
+<li>
+<strong>2.</strong> The <strong>percentile interval</strong> is the <span class="math inline">\(2.5\%\)</span> and <span class="math inline">\(97.5\%\)</span> quantiles, <span class="math inline">\(\big[q_{0.025},\,q_{0.975}\big]\)</span> of <span class="math inline">\(\{\hat\theta^{*}_b\}\)</span> — with <span class="math inline">\(B=1000\)</span>, the <span class="math inline">\(25\)</span>th and <span class="math inline">\(975\)</span>th sorted values.</li>
+<li>
+<strong>3.</strong> No normality, no se formula, no symmetry imposed — the interval may come out <strong>asymmetric</strong>, a feature for ratios and bounded parameters.</li>
+<li>A studentized refinement (the <strong>percentile-<span class="math inline">\(t\)</span></strong>) is more accurate but costlier; we note it exists and stop there.</li>
 </ul></section><section id="how-many-replications" class="slide level3 smaller"><h3>How many replications?</h3>
 <p>A <strong>standard error</strong> is a central quantity and settles early; a <strong>quantile</strong> lives in the tail and needs more resamples to pin down.</p>
 <ul>
