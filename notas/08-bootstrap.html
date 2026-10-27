@@ -33,7 +33,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/09-iv.html" rel="next">
 <link href="../notas/07-gls.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -498,14 +498,21 @@ window.Quarto = {
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
-  </li>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/09-iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9 · Endogeneity and Instrumental Variables</span></a>
   </div>
+</li>
+      </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
@@ -572,7 +579,7 @@ window.Quarto = {
  <span class="menu-text">8 · Bootstrap and Monte Carlo</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/09-iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9 · Endogeneity and Instrumental Variables</span></a>
@@ -927,6 +934,15 @@ Figure&nbsp;3: The resampling laboratory. Grey: the <em>true</em> sampling distr
 </section></section></section><section id="summary" class="level1" data-number="6"><h1 data-number="6">
 <span class="header-section-number">6</span> Summary</h1>
 <section id="what-to-take-away" class="level3 smaller"><h3 class="smaller anchored" data-anchor-id="what-to-take-away">What to take away</h3>
+<ul>
+<li>The <strong>sampling distribution</strong> is the target; asymptotics approximates it with a <strong>formula</strong>, resampling with <strong>simulation</strong>.</li>
+<li>
+<strong>Monte Carlo</strong> studies estimators when you <strong>know</strong> the truth; the <strong>bootstrap</strong> replaces the unknown <span class="math inline">\(F\)</span> by the data, <span class="math inline">\(F\to\hat{F}\)</span>.</li>
+<li>
+<strong>Match the scheme:</strong> pairs/wild for heteroskedasticity, <strong>wild cluster</strong> for clustering, residual only if i.i.d.</li>
+<li>Report a bootstrap <strong>standard error</strong> or a <strong>percentile</strong> interval; fix the <strong>seed</strong> and <strong><span class="math inline">\(B\)</span></strong>.</li>
+<li>It <strong>complements</strong> asymptotics — it does not fix inconsistency, weak instruments, or non-regular cases.</li>
+</ul>
 <div class="econ-box econ-box-literature" role="note">
 <div class="econ-box-head">
 <span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Reading</span>
@@ -1508,8 +1524,8 @@ Figure&nbsp;3: The resampling laboratory. Grey: the <em>true</em> sampling distr
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../slides/notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
-        <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../notas/09-iv.html" class="pagination-link" aria-label="9 · Endogeneity and Instrumental Variables">
+        <span class="nav-page-text">9 · Endogeneity and Instrumental Variables</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
