@@ -496,9 +496,9 @@ Henrique Veras
 </div></div>
 <ul>
 <li><strong>Same equation, different instrument:</strong> OLS imposes <span class="math inline">\(\E[\mathbf{x}_i\varepsilon_i]=\mathbf{0}\)</span> (<span class="math inline">\(\mathbf{x}\)</span> instruments itself); IV imposes <span class="math inline">\(\E[\mathbf{z}_i\varepsilon_i]=\mathbf{0}\)</span> (<span class="math inline">\(\mathbf{z}\)</span> in place of <span class="math inline">\(\mathbf{x}\)</span>).</li>
-<li>One moment condition <strong>per instrument</strong>: <span class="math inline">\(\dim(\mathbf{z})\)</span> equations for <span class="math inline">\(\dim(\bbeta)\)</span> unknowns.</li>
-<li><span class="math inline">\(\dim(\mathbf{z})=\dim(\mathbf{x})\)</span>: <strong>exactly identified</strong> — the IV estimator.</li>
-<li><span class="math inline">\(\dim(\mathbf{z})&gt;\dim(\mathbf{x})\)</span>: <strong>overidentified</strong> — more conditions than parameters → 2SLS.</li>
+<li>One moment condition <strong>per instrument</strong>: <span class="math inline">\(\ell\)</span> equations (<span class="math inline">\(\ell=\dim\mathbf{z}\)</span>) for the <span class="math inline">\(k\)</span> unknowns in <span class="math inline">\(\bbeta\)</span> (<span class="math inline">\(k=\dim\mathbf{x}\)</span>).</li>
+<li><span class="math inline">\(\ell=k\)</span>: <strong>exactly identified</strong> — the IV estimator.</li>
+<li><span class="math inline">\(\ell&gt;k\)</span>: <strong>overidentified</strong> — more conditions than parameters → 2SLS.</li>
 </ul>
 </section>
 
@@ -521,6 +521,29 @@ Henrique Veras
 <h1>Part III · The IV and 2SLS estimators</h1>
 
 </section>
+<section id="the-regressorinstrument-partition" class="title-slide slide level2 center">
+<h2>The regressor–instrument partition</h2>
+
+</section>
+<section id="which-columns-are-endogenous-and-what-goes-into-bz" class="slide level3 smaller">
+<h3>Which columns are endogenous — and what goes into <span class="math inline">\(\bZ\)</span></h3>
+<p>Split the <span class="math inline">\(k\)</span> regressors by their relation to the error, then build the instrument vector to match: <span class="math display">\[\mathbf{x}_i=\begin{pmatrix}\mathbf{x}_{1i}\\[2pt]\mathbf{x}_{2i}\end{pmatrix},\qquad
+\underbrace{\E[\mathbf{x}_{1i}\varepsilon_i]=\mathbf{0}}_{k_1\text{ exogenous}},\quad
+\underbrace{\E[\mathbf{x}_{2i}\varepsilon_i]\neq\mathbf{0}}_{k_2\text{ endogenous}},\qquad k=k_1+k_2,\]</span> <span class="math display">\[\mathbf{z}_i=\begin{pmatrix}\mathbf{x}_{1i}\\[2pt]\mathbf{z}_{2i}\end{pmatrix},\qquad
+\underbrace{\mathbf{x}_{1i}}_{\text{included }(\ell_1=k_1)},\quad
+\underbrace{\mathbf{z}_{2i}}_{\text{excluded }(\ell_2)},\qquad \ell=\ell_1+\ell_2,\ \ \ell_1=k_1.\]</span></p>
+<ul>
+<li><strong>Exogenous regressors instrument themselves.</strong> The <span class="math inline">\(k_1\)</span> clean columns <span class="math inline">\(\mathbf{x}_1\)</span> enter <span class="math inline">\(\bZ\)</span> <strong>unchanged</strong> — they already satisfy <span class="math inline">\(\E[\mathbf{x}_1\varepsilon]=0\)</span>, so there is nothing to replace. These are the <strong>included instruments</strong> — <span class="math inline">\(\ell_1=k_1\)</span> of them.</li>
+<li><strong>Only the <span class="math inline">\(k_2\)</span> endogenous columns need help.</strong> For them we bring in <span class="math inline">\(\ell_2\)</span> <strong>excluded instruments</strong> <span class="math inline">\(\mathbf{z}_2\)</span> — variables deliberately kept <strong>out</strong> of the structural equation (that absence <em>is</em> the exclusion restriction) that still move <span class="math inline">\(\mathbf{x}_2\)</span>.</li>
+<li><strong>Counting — the order condition.</strong> <span class="math inline">\(\ell\)</span> moment equations for <span class="math inline">\(k\)</span> parameters ⇒ need <span class="math inline">\(\ell\ge k\)</span>; since the <span class="math inline">\(k_1\)</span> exogenous slots line up automatically, this is just <span class="math inline">\(\ell_2\ge k_2\)</span> — <strong>at least as many excluded instruments as endogenous regressors.</strong>
+<ul>
+<li><span class="math inline">\(\ell_2=k_2\ (\ell=k)\)</span>: <strong>exactly identified</strong> → IV, <span class="math inline">\(\bZ'\bX\)</span> square.</li>
+<li><span class="math inline">\(\ell_2&gt;k_2\ (\ell&gt;k)\)</span>: <strong>over-identified</strong> → 2SLS (next).</li>
+<li><span class="math inline">\(\ell_2&lt;k_2\)</span>: <strong>under-identified</strong> → no consistent estimator.</li>
+</ul></li>
+</ul>
+</section>
+
 <section id="exactly-identified" class="title-slide slide level2 center">
 <h2>Exactly identified</h2>
 
@@ -528,7 +551,7 @@ Henrique Veras
 <section id="the-iv-estimator" class="slide level3 smaller">
 <h3>The IV estimator</h3>
 <div id="def-iv" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4 (IV estimator (exactly identified))</strong></span> When <span class="math inline">\(\dim(\mathbf{z})=\dim(\mathbf{x})\)</span>, the sample moment condition <span class="math inline">\(\tfrac1n\sum_i\mathbf{z}_i(y_i-\mathbf{x}_i'\mathbf{b})=\mathbf{0}\)</span> solves uniquely: <span class="math display">\[\bb_{\text{IV}}=(\bZ'\bX)^{-1}\bZ'\bY,\qquad\text{scalar: } b_{\text{IV}}=\frac{\Cov(z,y)}{\Cov(z,x)}=\frac{\lambda}{\Pi}.\]</span> The scalar form is literally <strong>reduced form <span class="math inline">\(\div\)</span> first stage</strong> — <span class="math inline">\(\lambda=\)</span> effect of <span class="math inline">\(z\)</span> on <span class="math inline">\(y\)</span>, <span class="math inline">\(\Pi=\)</span> effect of <span class="math inline">\(z\)</span> on <span class="math inline">\(x\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 4 (IV estimator (exactly identified))</strong></span> When <span class="math inline">\(\ell=k\)</span> (exactly identified: <span class="math inline">\(\ell_2=k_2\)</span> excluded instruments for the <span class="math inline">\(k_2\)</span> endogenous regressors, with <span class="math inline">\(\mathbf{x}_1\)</span> instrumenting itself), the sample moment condition <span class="math inline">\(\tfrac1n\sum_i\mathbf{z}_i(y_i-\mathbf{x}_i'\mathbf{b})=\mathbf{0}\)</span> solves uniquely: <span class="math display">\[\bb_{\text{IV}}=(\bZ'\bX)^{-1}\bZ'\bY,\qquad\text{scalar: } b_{\text{IV}}=\frac{\Cov(z,y)}{\Cov(z,x)}=\frac{\lambda}{\Pi}.\]</span> The scalar form is literally <strong>reduced form <span class="math inline">\(\div\)</span> first stage</strong> — <span class="math inline">\(\lambda=\)</span> effect of <span class="math inline">\(z\)</span> on <span class="math inline">\(y\)</span>, <span class="math inline">\(\Pi=\)</span> effect of <span class="math inline">\(z\)</span> on <span class="math inline">\(x\)</span>.</p>
 </div>
 <ul>
 <li><strong>Read it as <span class="math inline">\(\lambda/\Pi\)</span>:</strong> the <span class="math inline">\(z\to y\)</span> effect over the <span class="math inline">\(z\to x\)</span> effect. Since <span class="math inline">\(z\)</span> reaches <span class="math inline">\(y\)</span> only through <span class="math inline">\(x\)</span>, dividing isolates the <span class="math inline">\(x\to y\)</span> effect <span class="math inline">\(\bbeta\)</span>.</li>
@@ -544,11 +567,11 @@ Henrique Veras
 </section>
 <section id="two-stage-least-squares" class="slide level3 smaller">
 <h3>Two-stage least squares</h3>
-<p>With <span class="math inline">\(\ell&gt;k\)</span> instruments, <strong>each</strong> gives a valid IV — but one at a time <strong>wastes</strong> the others. Any linear combination of the <span class="math inline">\(\mathbf{z}\)</span>’s is still a valid instrument; the <strong>best</strong> (most correlated with <span class="math inline">\(\mathbf{x}\)</span>) is the first-stage OLS fit <span class="math inline">\(\hat{\mathbf{x}}\)</span>. Let <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span> and <span class="math inline">\(\hat{\bX}=\bP_{\bZ}\bX\)</span>: <span class="math display">\[\bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY.\]</span></p>
+<p>With <span class="math inline">\(\ell&gt;k\)</span> instruments (<span class="math inline">\(\ell_2&gt;k_2\)</span> excluded ones), <strong>each</strong> gives a valid IV — but one at a time <strong>wastes</strong> the others. Any linear combination of the <span class="math inline">\(\mathbf{z}\)</span>’s is still a valid instrument; the <strong>best</strong> (most correlated with <span class="math inline">\(\mathbf{x}\)</span>) is the first-stage OLS fit <span class="math inline">\(\hat{\mathbf{x}}\)</span>. Let <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span> and <span class="math inline">\(\hat{\bX}=\bP_{\bZ}\bX\)</span>: <span class="math display">\[\bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY.\]</span></p>
 <ul>
 <li><strong>Why not just pick one?</strong> Each valid <span class="math inline">\(\mathbf{z}\)</span> gives a consistent IV, but using one <strong>throws away</strong> the information in the excluded instruments.</li>
 <li><strong>Stage 1</strong> builds the best combined instrument — regress <span class="math inline">\(\mathbf{x}\)</span> on <strong>all</strong> <span class="math inline">\(\mathbf{z}\)</span> → fitted <span class="math inline">\(\hat{\mathbf{X}}\)</span>; <strong>Stage 2</strong> regresses <span class="math inline">\(y\)</span> on <span class="math inline">\(\hat{\mathbf{X}}\)</span>.</li>
-<li>Exactly identified (<span class="math inline">\(\dim\mathbf{z}=\dim\mathbf{x}\)</span>) → 2SLS <strong>equals</strong> IV; the projection is the general, <strong>over-identified</strong> case.</li>
+<li>Exactly identified (<span class="math inline">\(\ell=k\)</span>) → 2SLS <strong>equals</strong> IV; the projection is the general, <strong>over-identified</strong> (<span class="math inline">\(\ell&gt;k\)</span>) case.</li>
 </ul>
 </section>
 <section id="what-the-two-stages-actually-do" class="slide level3 smaller">
@@ -592,7 +615,7 @@ Henrique Veras
 <li>OLS always estimates the <strong>projection</strong> <span class="math inline">\(\bbeta^{*}\)</span>; <strong>endogeneity</strong> (<span class="math inline">\(\E[\mathbf{x}\varepsilon]\neq\mathbf{0}\)</span>, i.e.&nbsp;<span class="math inline">\(\bbeta^{*}\neq\bbeta\)</span>) makes it <strong>inconsistent for the structural <span class="math inline">\(\bbeta\)</span></strong> — wrong target, not small-sample bias.</li>
 <li>Four sources, one symptom: <strong>omitted variables, measurement error, selection, simultaneity</strong>.</li>
 <li>Recovering <span class="math inline">\(\bbeta\)</span> is <strong>identification</strong>, not estimation: an <strong>instrument</strong> with <strong>relevance</strong> (<span class="math inline">\(\Cov(\mathbf{z},\mathbf{x})\neq0\)</span>) and <strong>exclusion</strong> (<span class="math inline">\(\E[\mathbf{z}\varepsilon]=\mathbf{0}\)</span>) makes <span class="math inline">\(\bbeta\)</span> a unique function of observable moments.</li>
-<li><strong>Exactly identified</strong> → <span class="math inline">\(\bb_{\text{IV}}=(\bZ'\bX)^{-1}\bZ'\bY\)</span>; <strong>overidentified</strong> → 2SLS projects <span class="math inline">\(\bX\)</span> onto <span class="math inline">\(\bZ\)</span>.</li>
+<li><strong>Exactly identified</strong> (<span class="math inline">\(\ell=k\)</span>, i.e.&nbsp;<span class="math inline">\(\ell_2=k_2\)</span>) → <span class="math inline">\(\bb_{\text{IV}}=(\bZ'\bX)^{-1}\bZ'\bY\)</span>; <strong>overidentified</strong> (<span class="math inline">\(\ell&gt;k\)</span>) → 2SLS projects <span class="math inline">\(\bX\)</span> onto <span class="math inline">\(\bZ\)</span>.</li>
 <li>IV buys <strong>consistency</strong>; the <strong>price</strong> — efficiency, and total reliance on an untestable exclusion — is next lecture.</li>
 </ul>
 <div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Reading</span></div><div class="econ-box-body">
