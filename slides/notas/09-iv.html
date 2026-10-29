@@ -497,8 +497,25 @@ Henrique Veras
 <ul>
 <li><strong>Same equation, different instrument:</strong> OLS imposes <span class="math inline">\(\E[\mathbf{x}_i\varepsilon_i]=\mathbf{0}\)</span> (<span class="math inline">\(\mathbf{x}\)</span> instruments itself); IV imposes <span class="math inline">\(\E[\mathbf{z}_i\varepsilon_i]=\mathbf{0}\)</span> (<span class="math inline">\(\mathbf{z}\)</span> in place of <span class="math inline">\(\mathbf{x}\)</span>).</li>
 <li>One moment condition <strong>per instrument</strong>: <span class="math inline">\(\ell\)</span> equations (<span class="math inline">\(\ell=\dim\mathbf{z}\)</span>) for the <span class="math inline">\(k\)</span> unknowns in <span class="math inline">\(\bbeta\)</span> (<span class="math inline">\(k=\dim\mathbf{x}\)</span>).</li>
-<li><span class="math inline">\(\ell=k\)</span>: <strong>exactly identified</strong> — the IV estimator.</li>
-<li><span class="math inline">\(\ell&gt;k\)</span>: <strong>overidentified</strong> — more conditions than parameters → 2SLS.</li>
+<li><strong>The count decides everything:</strong> <span class="math inline">\(\ell=k\)</span> gives the <strong>IV</strong> estimator; <span class="math inline">\(\ell&gt;k\)</span> needs <strong>2SLS</strong>. <em>But which columns are <span class="math inline">\(\mathbf{x}\)</span>, what goes into <span class="math inline">\(\mathbf{z}\)</span>, and when does the count hold?</em> — right below.</li>
+</ul>
+</section>
+<section id="which-columns-are-endogenous-and-what-goes-into-bz" class="slide level3 smaller">
+<h3>Which columns are endogenous — and what goes into <span class="math inline">\(\bZ\)</span></h3>
+<p>Split the <span class="math inline">\(k\)</span> regressors by their relation to the error, then build the instrument vector to match: <span class="math display">\[\mathbf{x}_i=\begin{pmatrix}\mathbf{x}_{1i}\\[2pt]\mathbf{x}_{2i}\end{pmatrix},\qquad
+\underbrace{\E[\mathbf{x}_{1i}\varepsilon_i]=\mathbf{0}}_{k_1\text{ exogenous}},\quad
+\underbrace{\E[\mathbf{x}_{2i}\varepsilon_i]\neq\mathbf{0}}_{k_2\text{ endogenous}},\qquad k=k_1+k_2,\]</span> <span class="math display">\[\mathbf{z}_i=\begin{pmatrix}\mathbf{x}_{1i}\\[2pt]\mathbf{z}_{2i}\end{pmatrix},\qquad
+\underbrace{\mathbf{x}_{1i}}_{\text{included }(\ell_1=k_1)},\quad
+\underbrace{\mathbf{z}_{2i}}_{\text{excluded }(\ell_2)},\qquad \ell=\ell_1+\ell_2,\ \ \ell_1=k_1.\]</span></p>
+<ul>
+<li><strong>Exogenous regressors instrument themselves.</strong> The <span class="math inline">\(k_1\)</span> clean columns <span class="math inline">\(\mathbf{x}_1\)</span> enter <span class="math inline">\(\bZ\)</span> <strong>unchanged</strong> — they already satisfy <span class="math inline">\(\E[\mathbf{x}_1\varepsilon]=0\)</span>, so there is nothing to replace. These are the <strong>included instruments</strong> — <span class="math inline">\(\ell_1=k_1\)</span> of them.</li>
+<li><strong>Only the <span class="math inline">\(k_2\)</span> endogenous columns need help.</strong> For them we bring in <span class="math inline">\(\ell_2\)</span> <strong>excluded instruments</strong> <span class="math inline">\(\mathbf{z}_2\)</span> — variables deliberately kept <strong>out</strong> of the structural equation (that absence <em>is</em> the exclusion restriction) that still move <span class="math inline">\(\mathbf{x}_2\)</span>.</li>
+<li><strong>Counting — the order condition.</strong> <span class="math inline">\(\ell\)</span> moment equations for <span class="math inline">\(k\)</span> parameters ⇒ need <span class="math inline">\(\ell\ge k\)</span>; since the <span class="math inline">\(k_1\)</span> exogenous slots line up automatically, this is just <span class="math inline">\(\ell_2\ge k_2\)</span> — <strong>at least as many excluded instruments as endogenous regressors.</strong>
+<ul>
+<li><span class="math inline">\(\ell_2=k_2\ (\ell=k)\)</span>: <strong>exactly identified</strong> → IV, <span class="math inline">\(\bZ'\bX\)</span> square.</li>
+<li><span class="math inline">\(\ell_2&gt;k_2\ (\ell&gt;k)\)</span>: <strong>over-identified</strong> → 2SLS (next).</li>
+<li><span class="math inline">\(\ell_2&lt;k_2\)</span>: <strong>under-identified</strong> → no consistent estimator.</li>
+</ul></li>
 </ul>
 </section>
 
@@ -521,29 +538,6 @@ Henrique Veras
 <h1>Part III · The IV and 2SLS estimators</h1>
 
 </section>
-<section id="the-regressorinstrument-partition" class="title-slide slide level2 center">
-<h2>The regressor–instrument partition</h2>
-
-</section>
-<section id="which-columns-are-endogenous-and-what-goes-into-bz" class="slide level3 smaller">
-<h3>Which columns are endogenous — and what goes into <span class="math inline">\(\bZ\)</span></h3>
-<p>Split the <span class="math inline">\(k\)</span> regressors by their relation to the error, then build the instrument vector to match: <span class="math display">\[\mathbf{x}_i=\begin{pmatrix}\mathbf{x}_{1i}\\[2pt]\mathbf{x}_{2i}\end{pmatrix},\qquad
-\underbrace{\E[\mathbf{x}_{1i}\varepsilon_i]=\mathbf{0}}_{k_1\text{ exogenous}},\quad
-\underbrace{\E[\mathbf{x}_{2i}\varepsilon_i]\neq\mathbf{0}}_{k_2\text{ endogenous}},\qquad k=k_1+k_2,\]</span> <span class="math display">\[\mathbf{z}_i=\begin{pmatrix}\mathbf{x}_{1i}\\[2pt]\mathbf{z}_{2i}\end{pmatrix},\qquad
-\underbrace{\mathbf{x}_{1i}}_{\text{included }(\ell_1=k_1)},\quad
-\underbrace{\mathbf{z}_{2i}}_{\text{excluded }(\ell_2)},\qquad \ell=\ell_1+\ell_2,\ \ \ell_1=k_1.\]</span></p>
-<ul>
-<li><strong>Exogenous regressors instrument themselves.</strong> The <span class="math inline">\(k_1\)</span> clean columns <span class="math inline">\(\mathbf{x}_1\)</span> enter <span class="math inline">\(\bZ\)</span> <strong>unchanged</strong> — they already satisfy <span class="math inline">\(\E[\mathbf{x}_1\varepsilon]=0\)</span>, so there is nothing to replace. These are the <strong>included instruments</strong> — <span class="math inline">\(\ell_1=k_1\)</span> of them.</li>
-<li><strong>Only the <span class="math inline">\(k_2\)</span> endogenous columns need help.</strong> For them we bring in <span class="math inline">\(\ell_2\)</span> <strong>excluded instruments</strong> <span class="math inline">\(\mathbf{z}_2\)</span> — variables deliberately kept <strong>out</strong> of the structural equation (that absence <em>is</em> the exclusion restriction) that still move <span class="math inline">\(\mathbf{x}_2\)</span>.</li>
-<li><strong>Counting — the order condition.</strong> <span class="math inline">\(\ell\)</span> moment equations for <span class="math inline">\(k\)</span> parameters ⇒ need <span class="math inline">\(\ell\ge k\)</span>; since the <span class="math inline">\(k_1\)</span> exogenous slots line up automatically, this is just <span class="math inline">\(\ell_2\ge k_2\)</span> — <strong>at least as many excluded instruments as endogenous regressors.</strong>
-<ul>
-<li><span class="math inline">\(\ell_2=k_2\ (\ell=k)\)</span>: <strong>exactly identified</strong> → IV, <span class="math inline">\(\bZ'\bX\)</span> square.</li>
-<li><span class="math inline">\(\ell_2&gt;k_2\ (\ell&gt;k)\)</span>: <strong>over-identified</strong> → 2SLS (next).</li>
-<li><span class="math inline">\(\ell_2&lt;k_2\)</span>: <strong>under-identified</strong> → no consistent estimator.</li>
-</ul></li>
-</ul>
-</section>
-
 <section id="exactly-identified" class="title-slide slide level2 center">
 <h2>Exactly identified</h2>
 

@@ -695,6 +695,7 @@ window.Quarto = {
   <li><a href="#exogeneity-as-a-moment-condition" id="toc-exogeneity-as-a-moment-condition" class="nav-link" data-scroll-target="#exogeneity-as-a-moment-condition"><span class="header-section-number">2.3</span> Exogeneity as a moment condition</a>
   <ul class="collapse">
   <li><a href="#the-condition-that-defines-the-estimator" id="toc-the-condition-that-defines-the-estimator" class="nav-link" data-scroll-target="#the-condition-that-defines-the-estimator">The condition that defines the estimator</a></li>
+  <li><a href="#which-columns-are-endogenous-and-what-goes-into-bz" id="toc-which-columns-are-endogenous-and-what-goes-into-bz" class="nav-link" data-scroll-target="#which-columns-are-endogenous-and-what-goes-into-bz">Which columns are endogenous — and what goes into <span class="math inline">\(\bZ\)</span></a></li>
   </ul></li>
   <li><a href="#reduced-form-and-first-stage" id="toc-reduced-form-and-first-stage" class="nav-link" data-scroll-target="#reduced-form-and-first-stage"><span class="header-section-number">2.4</span> Reduced form and first stage</a>
   <ul class="collapse">
@@ -703,15 +704,11 @@ window.Quarto = {
   </ul></li>
   <li><a href="#part-iii-the-iv-and-2sls-estimators" id="toc-part-iii-the-iv-and-2sls-estimators" class="nav-link" data-scroll-target="#part-iii-the-iv-and-2sls-estimators"><span class="header-section-number">3</span> Part III · The IV and 2SLS estimators</a>
   <ul class="collapse">
-  <li><a href="#the-regressorinstrument-partition" id="toc-the-regressorinstrument-partition" class="nav-link" data-scroll-target="#the-regressorinstrument-partition"><span class="header-section-number">3.1</span> The regressor–instrument partition</a>
-  <ul class="collapse">
-  <li><a href="#which-columns-are-endogenous-and-what-goes-into-bz" id="toc-which-columns-are-endogenous-and-what-goes-into-bz" class="nav-link" data-scroll-target="#which-columns-are-endogenous-and-what-goes-into-bz">Which columns are endogenous — and what goes into <span class="math inline">\(\bZ\)</span></a></li>
-  </ul></li>
-  <li><a href="#exactly-identified" id="toc-exactly-identified" class="nav-link" data-scroll-target="#exactly-identified"><span class="header-section-number">3.2</span> Exactly identified</a>
+  <li><a href="#exactly-identified" id="toc-exactly-identified" class="nav-link" data-scroll-target="#exactly-identified"><span class="header-section-number">3.1</span> Exactly identified</a>
   <ul class="collapse">
   <li><a href="#the-iv-estimator" id="toc-the-iv-estimator" class="nav-link" data-scroll-target="#the-iv-estimator">The IV estimator</a></li>
   </ul></li>
-  <li><a href="#overidentified" id="toc-overidentified" class="nav-link" data-scroll-target="#overidentified"><span class="header-section-number">3.3</span> Overidentified</a>
+  <li><a href="#overidentified" id="toc-overidentified" class="nav-link" data-scroll-target="#overidentified"><span class="header-section-number">3.2</span> Overidentified</a>
   <ul class="collapse">
   <li><a href="#two-stage-least-squares" id="toc-two-stage-least-squares" class="nav-link" data-scroll-target="#two-stage-least-squares">Two-stage least squares</a></li>
   <li><a href="#what-the-two-stages-actually-do" id="toc-what-the-two-stages-actually-do" class="nav-link" data-scroll-target="#what-the-two-stages-actually-do">What the two stages actually do</a></li>
@@ -913,19 +910,6 @@ window.Quarto = {
 <p>Write exclusion as an expectation involving the parameter: <span class="math display">\[\E\big[\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta)\big]=\E[\mathbf{z}_i\varepsilon_i]=\mathbf{0}.\]</span> This single vector equation <strong>is</strong> the estimator — replace the expectation by its sample analogue and solve. For OLS the instrument is <span class="math inline">\(\mathbf{x}\)</span> itself (<span class="math inline">\(\E[\mathbf{x}_i\varepsilon_i]=\mathbf{0}\)</span>); when <span class="math inline">\(\mathbf{x}\)</span> is endogenous we swap in <span class="math inline">\(\mathbf{z}\)</span>. This is the <strong>moment condition</strong> that returns, generalised to <span class="math inline">\(\E[g(W_i,\theta)]=\mathbf{0}\)</span>, as the foundation of <strong>GMM</strong> in Lecture 11.</p>
 </div></div>
 </section>
-</section>
-<section id="reduced-form-and-first-stage" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="reduced-form-and-first-stage"><span class="header-section-number">2.4</span> Reduced form and first stage</h2>
-<section id="the-first-stage" class="level3 smaller">
-<h3 class="smaller anchored" data-anchor-id="the-first-stage">The first stage</h3>
-<p>The <strong>first stage</strong> regresses the endogenous regressor on the instruments, <span class="math display">\[\mathbf{x}_i=\boldsymbol{\Pi}'\mathbf{z}_i+\mathbf{v}_i,\qquad \boldsymbol{\Pi}=(\E[\mathbf{z}\mathbf{z}'])^{-1}\E[\mathbf{z}\mathbf{x}'].\]</span> Substituting into the structural equation gives the <strong>reduced form</strong> of <span class="math inline">\(y\)</span>, <span class="math display">\[y_i=\mathbf{z}_i'(\boldsymbol{\Pi}\bbeta)+(\mathbf{v}_i'\bbeta+\varepsilon_i),\]</span> a regression of <span class="math inline">\(y\)</span> on the <strong>exogenous</strong> <span class="math inline">\(\mathbf{z}\)</span> — consistently estimable by OLS.</p>
-</section>
-</section>
-</section>
-<section id="part-iii-the-iv-and-2sls-estimators" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Part III · The IV and 2SLS estimators</h1>
-<section id="the-regressorinstrument-partition" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="the-regressorinstrument-partition"><span class="header-section-number">3.1</span> The regressor–instrument partition</h2>
 <section id="which-columns-are-endogenous-and-what-goes-into-bz" class="level3 smaller">
 <h3 class="smaller anchored" data-anchor-id="which-columns-are-endogenous-and-what-goes-into-bz">Which columns are endogenous — and what goes into <span class="math inline">\(\bZ\)</span></h3>
 <p>Split the <span class="math inline">\(k\)</span> regressors by their relation to the error, then build the instrument vector to match: <span class="math display">\[\mathbf{x}_i=\begin{pmatrix}\mathbf{x}_{1i}\\[2pt]\mathbf{x}_{2i}\end{pmatrix},\qquad
@@ -945,8 +929,18 @@ window.Quarto = {
 <p><strong>Order is necessary, not sufficient.</strong> Counting right does not guarantee identification: two excluded instruments that both move only the <em>first</em> endogenous regressor leave the second unreached. The clean statement is the <strong>rank condition</strong> <span class="math inline">\(\rank(\E[\mathbf{z}\mathbf{x}'])=k\)</span> from Part II — the order condition <span class="math inline">\(\ell_2\ge k_2\)</span> is just its necessary byproduct.</p>
 </section>
 </section>
-<section id="exactly-identified" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="exactly-identified"><span class="header-section-number">3.2</span> Exactly identified</h2>
+<section id="reduced-form-and-first-stage" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="reduced-form-and-first-stage"><span class="header-section-number">2.4</span> Reduced form and first stage</h2>
+<section id="the-first-stage" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-first-stage">The first stage</h3>
+<p>The <strong>first stage</strong> regresses the endogenous regressor on the instruments, <span class="math display">\[\mathbf{x}_i=\boldsymbol{\Pi}'\mathbf{z}_i+\mathbf{v}_i,\qquad \boldsymbol{\Pi}=(\E[\mathbf{z}\mathbf{z}'])^{-1}\E[\mathbf{z}\mathbf{x}'].\]</span> Substituting into the structural equation gives the <strong>reduced form</strong> of <span class="math inline">\(y\)</span>, <span class="math display">\[y_i=\mathbf{z}_i'(\boldsymbol{\Pi}\bbeta)+(\mathbf{v}_i'\bbeta+\varepsilon_i),\]</span> a regression of <span class="math inline">\(y\)</span> on the <strong>exogenous</strong> <span class="math inline">\(\mathbf{z}\)</span> — consistently estimable by OLS.</p>
+</section>
+</section>
+</section>
+<section id="part-iii-the-iv-and-2sls-estimators" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part III · The IV and 2SLS estimators</h1>
+<section id="exactly-identified" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="exactly-identified"><span class="header-section-number">3.1</span> Exactly identified</h2>
 <section id="the-iv-estimator" class="level3 smaller">
 <h3 class="smaller anchored" data-anchor-id="the-iv-estimator">The IV estimator</h3>
 <div id="def-iv" class="theorem definition">
@@ -958,8 +952,8 @@ window.Quarto = {
 <p><em>3 — Why <span class="math inline">\(\lambda/\Pi\)</span>.</em> In the scalar case <span class="math inline">\(b_{\text{IV}}=\Cov(z,y)/\Cov(z,x)\)</span>. The reduced-form slope is <span class="math inline">\(\lambda=\Cov(z,y)/\Var(z)\)</span> and the first-stage slope is <span class="math inline">\(\Pi=\Cov(z,x)/\Var(z)\)</span>, so <span class="math inline">\(b_{\text{IV}}=\dfrac{\lambda\,\Var(z)}{\Pi\,\Var(z)}=\dfrac{\lambda}{\Pi}\)</span> — the <span class="math inline">\(\Var(z)\)</span> cancels, and IV is reduced form over first stage.</p>
 </section>
 </section>
-<section id="overidentified" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="overidentified"><span class="header-section-number">3.3</span> Overidentified</h2>
+<section id="overidentified" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="overidentified"><span class="header-section-number">3.2</span> Overidentified</h2>
 <section id="two-stage-least-squares" class="level3 smaller">
 <h3 class="smaller anchored" data-anchor-id="two-stage-least-squares">Two-stage least squares</h3>
 <p>With <span class="math inline">\(\ell&gt;k\)</span> instruments (<span class="math inline">\(\ell_2&gt;k_2\)</span> excluded ones), <strong>each</strong> gives a valid IV — but one at a time <strong>wastes</strong> the others. Any linear combination of the <span class="math inline">\(\mathbf{z}\)</span>’s is still a valid instrument; the <strong>best</strong> (most correlated with <span class="math inline">\(\mathbf{x}\)</span>) is the first-stage OLS fit <span class="math inline">\(\hat{\mathbf{x}}\)</span>. Let <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span> and <span class="math inline">\(\hat{\bX}=\bP_{\bZ}\bX\)</span>: <span class="math display">\[\bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY.\]</span></p>
