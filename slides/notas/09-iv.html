@@ -563,11 +563,12 @@ Henrique Veras
 </section>
 <section id="two-stage-least-squares" class="slide level3 smaller">
 <h3>Two-stage least squares</h3>
-<p>With <span class="math inline">\(\ell&gt;k\)</span> instruments (<span class="math inline">\(\ell_2&gt;k_2\)</span> excluded ones), <strong>each</strong> gives a valid IV — but one at a time <strong>wastes</strong> the others. Any linear combination of the <span class="math inline">\(\mathbf{z}\)</span>’s is still a valid instrument; the <strong>best</strong> (most correlated with <span class="math inline">\(\mathbf{x}\)</span>) is the first-stage OLS fit <span class="math inline">\(\hat{\mathbf{x}}\)</span>. Let <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span> and <span class="math inline">\(\hat{\bX}=\bP_{\bZ}\bX\)</span>: <span class="math display">\[\bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY.\]</span></p>
+<p>With <span class="math inline">\(\ell&gt;k\)</span> instruments (<span class="math inline">\(\ell_2&gt;k_2\)</span> excluded ones), <strong>each</strong> gives a valid IV — but one at a time <strong>wastes</strong> the others. Any linear combination of the <span class="math inline">\(\mathbf{z}\)</span>’s is still a valid instrument; the <strong>best</strong> (most correlated with <span class="math inline">\(\mathbf{x}\)</span>) is the first-stage OLS fit. Hence literally <strong>two OLS stages</strong>: <span class="math display">\[\textbf{Stage 1: } \hat{\bX}=\bP_{\bZ}\bX,\quad \bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ';\qquad
+\textbf{Stage 2: } \bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY.\]</span> Since <span class="math inline">\(\bP_{\bZ}\)</span> is <strong>symmetric and idempotent</strong> (<span class="math inline">\(\hat{\bX}'\hat{\bX}=\bX'\bP_{\bZ}\bX\)</span>, <span class="math inline">\(\hat{\bX}'\bY=\bX'\bP_{\bZ}\bY\)</span>): <span class="math display">\[\bb_{\text{2SLS}}=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY.\]</span></p>
 <ul>
 <li><strong>Why not just pick one?</strong> Each valid <span class="math inline">\(\mathbf{z}\)</span> gives a consistent IV, but using one <strong>throws away</strong> the information in the excluded instruments.</li>
-<li><strong>Stage 1</strong> builds the best combined instrument — regress <span class="math inline">\(\mathbf{x}\)</span> on <strong>all</strong> <span class="math inline">\(\mathbf{z}\)</span> → fitted <span class="math inline">\(\hat{\mathbf{X}}\)</span>; <strong>Stage 2</strong> regresses <span class="math inline">\(y\)</span> on <span class="math inline">\(\hat{\mathbf{X}}\)</span>.</li>
-<li>Exactly identified (<span class="math inline">\(\ell=k\)</span>) → 2SLS <strong>equals</strong> IV; the projection is the general, <strong>over-identified</strong> (<span class="math inline">\(\ell&gt;k\)</span>) case.</li>
+<li><strong>Stage 1</strong> builds the best combined instrument — regress <span class="math inline">\(\mathbf{x}\)</span> on <strong>all</strong> <span class="math inline">\(\mathbf{z}\)</span> → fitted <span class="math inline">\(\hat{\mathbf{X}}=\bP_{\bZ}\bX\)</span>; <strong>Stage 2</strong> regresses <span class="math inline">\(y\)</span> on <span class="math inline">\(\hat{\mathbf{X}}\)</span>. Idempotency of <span class="math inline">\(\bP_{\bZ}\)</span> folds the two into one formula.</li>
+<li>Exactly identified (<span class="math inline">\(\ell=k\)</span>) → 2SLS <strong>equals</strong> IV (proof below); the projection is the general, <strong>over-identified</strong> (<span class="math inline">\(\ell&gt;k\)</span>) case.</li>
 </ul>
 </section>
 <section id="what-the-two-stages-actually-do" class="slide level3 smaller">
@@ -594,12 +595,56 @@ Henrique Veras
 <ul>
 <li><strong>The same <span class="math inline">\(\lambda/\Pi\)</span> estimator</strong>, <span class="math inline">\(b_{\text{IV}}=\Cov(z,y)/\Cov(z,x)\)</span>: with <span class="math inline">\(z\in\{0,1\}\)</span> each covariance is a <strong>difference in means</strong> — numerator = how <span class="math inline">\(y\)</span> differs across groups, denominator = how <strong>treatment</strong> differs.</li>
 <li>Dividing rescales the reduced-form effect of <span class="math inline">\(z\)</span> into a <strong>per-unit-of-treatment</strong> effect.</li>
-<li>With heterogeneous effects it is a <strong>local</strong> effect (for those the instrument moves) — developed properly later.</li>
+<li>With heterogeneous effects it is a <strong>local</strong> effect — the average effect <strong>on the compliers</strong> the instrument moves (the LATE, next).</li>
 </ul>
-<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Angrist &amp; Krueger (1991)</span></div><div class="econ-box-body">
-<p>Quarter of birth as an instrument for schooling <span class="citation" data-cites="angrist1991does">(<a href="#/what-to-take-away" role="doc-biblioref" onclick="">Angrist and Krueger 1991</a>)</span>: compulsory-schooling laws make birth date shift years of education, plausibly unrelated to earnings except through schooling. The canonical IV study — and, from Lecture 10, the canonical <strong>cautionary tale</strong> about weak instruments.</p>
+<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">KIPP charter schools — Angrist, Dynarski, Kane, Pathak &amp; Walters (2012)</span></div><div class="econ-box-body">
+<p>Oversubscribed <strong>KIPP</strong> charter schools admit by <strong>lottery</strong>: winning the lottery <span class="math inline">\(z\in\{0,1\}\)</span> is <strong>randomly assigned</strong>, a textbook-clean instrument for actually <strong>attending</strong> <span class="math inline">\(D\in\{0,1\}\)</span> (not every winner enrols, and losers rarely attend). 2SLS of test scores on attendance, instrumented by the lottery offer, estimates KIPP’s effect — a <strong>LATE</strong> for the students whose enrolment the lottery moves <span class="citation" data-cites="angrist2012kipp">(<a href="#/what-to-take-away" role="doc-biblioref" onclick="">Angrist et al. 2012</a>)</span>. (Angrist–Krueger’s quarter-of-birth returns in Lecture 10 as the weak-instrument cautionary tale.)</p>
 </div></div>
-</section></section>
+</section>
+<section id="heterogeneous-effects-the-late" class="title-slide slide level2 center">
+<h2>Heterogeneous effects: the LATE</h2>
+
+</section>
+<section id="who-does-the-instrument-move" class="slide level3 smaller">
+<h3>Who does the instrument move?</h3>
+<p>Label each unit by how its treatment <strong>would</strong> respond to the binary instrument — its potential treatments <span class="math inline">\((D_i(0),D_i(1))\)</span>. Read through the <strong>Vietnam draft</strong> <span class="citation" data-cites="angrist1990lifetime">(<a href="#/what-to-take-away" role="doc-biblioref" onclick="">Angrist 1990</a>)</span>: <span class="math inline">\(z=\)</span> draft-<strong>eligible</strong> (random lottery number), <span class="math inline">\(D=\)</span> served, <span class="math inline">\(y=\)</span> earnings.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(D_i(0)\,\backslash\,D_i(1)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(D_i(1)=0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(D_i(1)=1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><span class="math inline">\(D_i(0)=0\)</span></strong></td>
+<td style="text-align: center;">never-taker</td>
+<td style="text-align: center;"><strong>complier</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><span class="math inline">\(D_i(0)=1\)</span></strong></td>
+<td style="text-align: center;">defier</td>
+<td style="text-align: center;">always-taker</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Compliers</strong> (<span class="math inline">\(0\to1\)</span>): serve <strong>because</strong> drafted — the <strong>only</strong> group the instrument actually moves.</li>
+<li><strong>Always-takers</strong> (<span class="math inline">\(1,1\)</span>): volunteers, serve either way. <strong>Never-takers</strong> (<span class="math inline">\(0,0\)</span>): unfit/deferred, never serve. The instrument changes <strong>neither</strong>.</li>
+<li><strong>Defiers</strong> (<span class="math inline">\(1\to0\)</span>): would serve only if <em>not</em> drafted — implausible; <strong>monotonicity</strong> assumes they do not exist.</li>
+</ul>
+</section>
+<section id="the-wald-ratio-is-a-late" class="slide level3 smaller">
+<h3>The Wald ratio is a LATE</h3>
+<p>Under <strong>random <span class="math inline">\(z\)</span></strong>, <strong>exclusion</strong>, <strong>relevance</strong>, and <strong>monotonicity</strong> (no defiers), the Wald ratio identifies the <strong>average treatment effect on compliers</strong>: <span class="math display">\[\frac{\E[y\mid z=1]-\E[y\mid z=0]}{\E[D\mid z=1]-\E[D\mid z=0]}=\E[\,y_1-y_0\mid\text{complier}\,]\equiv\textbf{LATE}.\]</span></p>
+<ul>
+<li><strong>Denominator = share of compliers:</strong> <span class="math inline">\(\E[D\mid z{=}1]-\E[D\mid z{=}0]\)</span> is exactly the fraction whose treatment the instrument flips.</li>
+<li><strong>Numerator = compliers only:</strong> always- and never-takers keep the <strong>same <span class="math inline">\(D\)</span></strong> under <span class="math inline">\(z=0,1\)</span>, so by random <span class="math inline">\(z\)</span> their <span class="math inline">\(y\)</span> <strong>cancels</strong>; only compliers switch.</li>
+<li><strong>So IV <span class="math inline">\(\neq\)</span> ATE:</strong> it is <strong>local</strong> — silent on always- and never-takers. A different instrument moves a different complier group → a <strong>different LATE</strong>.</li>
+</ul>
+</section>
+</section>
 <section>
 <section id="summary" class="title-slide slide level1 center">
 <h1>Summary</h1>
@@ -620,8 +665,11 @@ Henrique Veras
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-angrist1991does" class="csl-entry" role="listitem">
-Angrist, Joshua D., and Alan B. Krueger. 1991. <span>“Does Compulsory School Attendance Affect Schooling and Earnings?”</span> <em>Quarterly Journal of Economics</em> 106 (4): 979–1014.
+<div id="ref-angrist1990lifetime" class="csl-entry" role="listitem">
+Angrist, Joshua D. 1990. <span>“Lifetime Earnings and the <span>Vietnam</span> Era Draft Lottery: Evidence from Social Security Administrative Records.”</span> <em>American Economic Review</em> 80 (3): 313–36.
+</div>
+<div id="ref-angrist2012kipp" class="csl-entry" role="listitem">
+Angrist, Joshua D., Susan M. Dynarski, Thomas J. Kane, Parag A. Pathak, and Christopher R. Walters. 2012. <span>“Who Benefits from <span>KIPP</span>?”</span> <em>Journal of Policy Analysis and Management</em> 31 (4): 837–60.
 </div>
 </div>
 </section></section>

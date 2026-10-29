@@ -717,6 +717,11 @@ window.Quarto = {
   <li><a href="#part-iv-endogenous-dummies-and-treatment-effects" id="toc-part-iv-endogenous-dummies-and-treatment-effects" class="nav-link" data-scroll-target="#part-iv-endogenous-dummies-and-treatment-effects"><span class="header-section-number">4</span> Part IV · Endogenous dummies and treatment effects</a>
   <ul class="collapse">
   <li><a href="#a-binary-endogenous-regressor" id="toc-a-binary-endogenous-regressor" class="nav-link" data-scroll-target="#a-binary-endogenous-regressor">A binary endogenous regressor</a></li>
+  <li><a href="#heterogeneous-effects-the-late" id="toc-heterogeneous-effects-the-late" class="nav-link" data-scroll-target="#heterogeneous-effects-the-late"><span class="header-section-number">4.1</span> Heterogeneous effects: the LATE</a>
+  <ul class="collapse">
+  <li><a href="#who-does-the-instrument-move" id="toc-who-does-the-instrument-move" class="nav-link" data-scroll-target="#who-does-the-instrument-move">Who does the instrument move?</a></li>
+  <li><a href="#the-wald-ratio-is-a-late" id="toc-the-wald-ratio-is-a-late" class="nav-link" data-scroll-target="#the-wald-ratio-is-a-late">The Wald ratio is a LATE</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5</span> Summary</a>
   <ul class="collapse">
@@ -939,6 +944,9 @@ window.Quarto = {
 <li><span class="math inline">\(\E[\mathbf{z}\varepsilon]=\mathbf{0}\)</span> <strong>is</strong> the assumption: exogeneity / exclusion — instrument validity.</li>
 </ul>
 <p>Together <span class="math inline">\(\E[\mathbf{z}u]=\mathbf{0}\)</span>, so OLS on <span class="math inline">\(\mathbf{z}\)</span> consistently estimates <span class="math inline">\(\boldsymbol{\lambda}=\boldsymbol{\Pi}\bbeta\)</span>.</p>
+<p><strong><span class="math inline">\(\boldsymbol{\lambda}=\boldsymbol{\Pi}\bbeta\)</span> is a genuine product — the chain rule along <span class="math inline">\(\mathbf{z}\to\mathbf{x}\to y\)</span>.</strong> The reduced-form coefficient is the projection of <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{z}\)</span>: <span class="math display">\[\boldsymbol{\lambda}=(\E[\mathbf{z}\mathbf{z}'])^{-1}\E[\mathbf{z}y]
+=(\E[\mathbf{z}\mathbf{z}'])^{-1}\big(\E[\mathbf{z}\mathbf{x}']\bbeta+\E[\mathbf{z}\varepsilon]\big)
+=\boldsymbol{\Pi}\bbeta+(\E[\mathbf{z}\mathbf{z}'])^{-1}\E[\mathbf{z}\varepsilon].\]</span> Under <strong>exclusion</strong> the last term vanishes and <span class="math inline">\(\boldsymbol{\lambda}=\boldsymbol{\Pi}\bbeta\)</span> <strong>exactly</strong> — the <span class="math inline">\(\ell\times k\)</span> first-stage matrix times the <span class="math inline">\(k\times1\)</span> structural vector, with <span class="math inline">\(\lambda_j=\sum_m\Pi_{jm}\beta_m\)</span>. It is the <strong>chain rule</strong> <span class="math inline">\(\partial y/\partial\mathbf{z}=(\partial\mathbf{x}/\partial\mathbf{z})(\partial y/\partial\mathbf{x})\)</span>: the total <span class="math inline">\(\mathbf{z}\to y\)</span> effect <strong>factors</strong> into “<span class="math inline">\(\mathbf{z}\)</span> moves <span class="math inline">\(\mathbf{x}\)</span>” (<span class="math inline">\(\boldsymbol{\Pi}\)</span>) composed with “<span class="math inline">\(\mathbf{x}\)</span> moves <span class="math inline">\(y\)</span>” (<span class="math inline">\(\bbeta\)</span>) — precisely because, by exclusion, <span class="math inline">\(\mathbf{z}\)</span> reaches <span class="math inline">\(y\)</span> <strong>only through</strong> <span class="math inline">\(\mathbf{x}\)</span>. Had exclusion failed, the extra <span class="math inline">\(\E[\mathbf{z}\varepsilon]\)</span> term would break the factorisation. In the exactly-identified case this is mirrored in-sample: <span class="math inline">\(\hat{\boldsymbol{\lambda}}=\hat{\boldsymbol{\Pi}}\,\bb_{\text{IV}}\)</span>, i.e.&nbsp;<span class="math inline">\(\bb_{\text{IV}}=\hat{\boldsymbol{\Pi}}^{-1}\hat{\boldsymbol{\lambda}}\)</span>.</p>
 <p><strong>The subtlety — why <span class="math inline">\(\mathbf{x}\)</span> fails where <span class="math inline">\(\mathbf{z}\)</span> works.</strong> The errors <span class="math inline">\(\mathbf{v}\)</span> and <span class="math inline">\(\varepsilon\)</span> <strong>are</strong> correlated; that <em>is</em> the endogeneity: <span class="math display">\[\Cov(\mathbf{x},\varepsilon)=\Cov(\boldsymbol{\Pi}'\mathbf{z}+\mathbf{v},\varepsilon)=\boldsymbol{\Pi}'\underbrace{\Cov(\mathbf{z},\varepsilon)}_{=\,\mathbf{0}}+\Cov(\mathbf{v},\varepsilon)=\Cov(\mathbf{v},\varepsilon)\neq\mathbf{0}.\]</span> So the composite error <span class="math inline">\(u\)</span> <strong>is</strong> correlated with <span class="math inline">\(\mathbf{x}\)</span> — regressing <span class="math inline">\(y\)</span> on <span class="math inline">\(\mathbf{x}\)</span> stays biased — yet <span class="math inline">\(u\)</span> is orthogonal to <span class="math inline">\(\mathbf{z}\)</span>. The reduced form <strong>launders</strong> the endogeneity by swapping the <strong>dirty</strong> regressor <span class="math inline">\(\mathbf{x}\)</span> for the <strong>clean</strong> <span class="math inline">\(\mathbf{z}\)</span>: <span class="math inline">\(\mathbf{z}\)</span> is orthogonal to <span class="math inline">\(\mathbf{v}\)</span> (projection) and to <span class="math inline">\(\varepsilon\)</span> (exogeneity), hence to the whole error. That is the instrument’s entire job.</p>
 </section>
 </section>
@@ -968,7 +976,11 @@ window.Quarto = {
 <h2 data-number="3.2" class="anchored" data-anchor-id="overidentified"><span class="header-section-number">3.2</span> Overidentified</h2>
 <section id="two-stage-least-squares" class="level3 smaller">
 <h3 class="smaller anchored" data-anchor-id="two-stage-least-squares">Two-stage least squares</h3>
-<p>With <span class="math inline">\(\ell&gt;k\)</span> instruments (<span class="math inline">\(\ell_2&gt;k_2\)</span> excluded ones), <strong>each</strong> gives a valid IV — but one at a time <strong>wastes</strong> the others. Any linear combination of the <span class="math inline">\(\mathbf{z}\)</span>’s is still a valid instrument; the <strong>best</strong> (most correlated with <span class="math inline">\(\mathbf{x}\)</span>) is the first-stage OLS fit <span class="math inline">\(\hat{\mathbf{x}}\)</span>. Let <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span> and <span class="math inline">\(\hat{\bX}=\bP_{\bZ}\bX\)</span>: <span class="math display">\[\bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY.\]</span></p>
+<p>With <span class="math inline">\(\ell&gt;k\)</span> instruments (<span class="math inline">\(\ell_2&gt;k_2\)</span> excluded ones), <strong>each</strong> gives a valid IV — but one at a time <strong>wastes</strong> the others. Any linear combination of the <span class="math inline">\(\mathbf{z}\)</span>’s is still a valid instrument; the <strong>best</strong> (most correlated with <span class="math inline">\(\mathbf{x}\)</span>) is the first-stage OLS fit. Hence literally <strong>two OLS stages</strong>: <span class="math display">\[\textbf{Stage 1: } \hat{\bX}=\bP_{\bZ}\bX,\quad \bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ';\qquad
+\textbf{Stage 2: } \bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY.\]</span> Since <span class="math inline">\(\bP_{\bZ}\)</span> is <strong>symmetric and idempotent</strong> (<span class="math inline">\(\hat{\bX}'\hat{\bX}=\bX'\bP_{\bZ}\bX\)</span>, <span class="math inline">\(\hat{\bX}'\bY=\bX'\bP_{\bZ}\bY\)</span>): <span class="math display">\[\bb_{\text{2SLS}}=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY.\]</span></p>
+<p><strong>Where the formula comes from.</strong> Stage 1 is OLS of each column of <span class="math inline">\(\bX\)</span> on <span class="math inline">\(\bZ\)</span>; the fitted values are <span class="math inline">\(\hat{\bX}=\bZ\hat{\boldsymbol{\Pi}}=\bZ(\bZ'\bZ)^{-1}\bZ'\bX=\bP_{\bZ}\bX\)</span>, with <span class="math inline">\(\bP_{\bZ}\)</span> the <strong>projection onto the column space of <span class="math inline">\(\bZ\)</span></strong>. Stage 2 regresses <span class="math inline">\(\bY\)</span> on <span class="math inline">\(\hat{\bX}\)</span>: <span class="math inline">\(\bb_{\text{2SLS}}=(\hat{\bX}'\hat{\bX})^{-1}\hat{\bX}'\bY\)</span>. Using <span class="math inline">\(\bP_{\bZ}'=\bP_{\bZ}\)</span> and <span class="math inline">\(\bP_{\bZ}\bP_{\bZ}=\bP_{\bZ}\)</span> gives <span class="math inline">\(\hat{\bX}'\hat{\bX}=\bX'\bP_{\bZ}\bX\)</span> and <span class="math inline">\(\hat{\bX}'\bY=\bX'\bP_{\bZ}\bY\)</span>, hence <span class="math inline">\(\bb_{\text{2SLS}}=(\bX'\bP_{\bZ}\bX)^{-1}\bX'\bP_{\bZ}\bY\)</span> — no “second regression” needs to be run separately.</p>
+<p><strong>Exactly identified (<span class="math inline">\(\ell=k\)</span>): 2SLS <em>is</em> IV.</strong> Now <span class="math inline">\(\bX'\bZ\)</span>, <span class="math inline">\(\bZ'\bZ\)</span>, <span class="math inline">\(\bZ'\bX\)</span> are all <strong>square, invertible</strong> <span class="math inline">\(k\times k\)</span> matrices (relevance). Write it out with <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span>: <span class="math display">\[\bb_{\text{2SLS}}=\big(\bX'\bZ(\bZ'\bZ)^{-1}\bZ'\bX\big)^{-1}\bX'\bZ(\bZ'\bZ)^{-1}\bZ'\bY.\]</span> Apply <span class="math inline">\((\bA\bB\bC)^{-1}=\bC^{-1}\bB^{-1}\bA^{-1}\)</span> to the first factor, then cancel: <span class="math display">\[\bb_{\text{2SLS}}=(\bZ'\bX)^{-1}(\bZ'\bZ)(\bX'\bZ)^{-1}\;\bX'\bZ(\bZ'\bZ)^{-1}\bZ'\bY
+=(\bZ'\bX)^{-1}\underbrace{(\bZ'\bZ)(\bZ'\bZ)^{-1}}_{\bI}\bZ'\bY=(\bZ'\bX)^{-1}\bZ'\bY=\bb_{\text{IV}}.\]</span> The pieces <span class="math inline">\((\bX'\bZ)^{-1}\bX'\bZ=\bI\)</span> and <span class="math inline">\((\bZ'\bZ)(\bZ'\bZ)^{-1}=\bI\)</span> cancel: with <strong>as many instruments as regressors there is nothing to combine</strong>, so projecting <span class="math inline">\(\bX\)</span> onto <span class="math inline">\(\bZ\)</span> is the same as using <span class="math inline">\(\bZ\)</span> directly. Only when <span class="math inline">\(\ell&gt;k\)</span> — where <span class="math inline">\(\bZ'\bX\)</span> is not square and cannot be inverted — do IV and 2SLS genuinely differ, and the projection <span class="math inline">\(\bP_{\bZ}\)</span> is what optimally pools the surplus instruments.</p>
 </section>
 <section id="what-the-two-stages-actually-do" class="level3 smaller">
 <h3 class="smaller anchored" data-anchor-id="what-the-two-stages-actually-do">What the two stages actually do</h3>
@@ -985,9 +997,42 @@ window.Quarto = {
 <h3 class="smaller anchored" data-anchor-id="a-binary-endogenous-regressor">A binary endogenous regressor</h3>
 <p>Let <span class="math inline">\(D_i\in\{0,1\}\)</span> be an endogenous <strong>treatment</strong> (people <strong>select</strong> into it) and <span class="math inline">\(z_i\in\{0,1\}\)</span> a binary instrument. The IV estimator becomes the <strong>Wald estimator</strong>, <span class="math display">\[b_{\text{IV}}=\frac{\bar y_{\,z=1}-\bar y_{\,z=0}}{\bar D_{\,z=1}-\bar D_{\,z=0}}
   =\frac{\text{reduced-form effect of }z\text{ on }y}{\text{first-stage effect of }z\text{ on }D}.\]</span></p>
-<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Angrist &amp; Krueger (1991)</span></div><div class="econ-box-body">
-<p>Quarter of birth as an instrument for schooling <span class="citation" data-cites="angrist1991does">(<a href="#ref-angrist1991does" role="doc-biblioref">Angrist and Krueger 1991</a>)</span>: compulsory-schooling laws make birth date shift years of education, plausibly unrelated to earnings except through schooling. The canonical IV study — and, from Lecture 10, the canonical <strong>cautionary tale</strong> about weak instruments.</p>
+<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">KIPP charter schools — Angrist, Dynarski, Kane, Pathak &amp; Walters (2012)</span></div><div class="econ-box-body">
+<p>Oversubscribed <strong>KIPP</strong> charter schools admit by <strong>lottery</strong>: winning the lottery <span class="math inline">\(z\in\{0,1\}\)</span> is <strong>randomly assigned</strong>, a textbook-clean instrument for actually <strong>attending</strong> <span class="math inline">\(D\in\{0,1\}\)</span> (not every winner enrols, and losers rarely attend). 2SLS of test scores on attendance, instrumented by the lottery offer, estimates KIPP’s effect — a <strong>LATE</strong> for the students whose enrolment the lottery moves <span class="citation" data-cites="angrist2012kipp">(<a href="#ref-angrist2012kipp" role="doc-biblioref">Angrist et al. 2012</a>)</span>. (Angrist–Krueger’s quarter-of-birth returns in Lecture 10 as the weak-instrument cautionary tale.)</p>
 </div></div>
+</section>
+<section id="heterogeneous-effects-the-late" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="heterogeneous-effects-the-late"><span class="header-section-number">4.1</span> Heterogeneous effects: the LATE</h2>
+<section id="who-does-the-instrument-move" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="who-does-the-instrument-move">Who does the instrument move?</h3>
+<p>Label each unit by how its treatment <strong>would</strong> respond to the binary instrument — its potential treatments <span class="math inline">\((D_i(0),D_i(1))\)</span>. Read through the <strong>Vietnam draft</strong> <span class="citation" data-cites="angrist1990lifetime">(<a href="#ref-angrist1990lifetime" role="doc-biblioref">Angrist 1990</a>)</span>: <span class="math inline">\(z=\)</span> draft-<strong>eligible</strong> (random lottery number), <span class="math inline">\(D=\)</span> served, <span class="math inline">\(y=\)</span> earnings.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(D_i(0)\,\backslash\,D_i(1)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(D_i(1)=0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(D_i(1)=1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><span class="math inline">\(D_i(0)=0\)</span></strong></td>
+<td style="text-align: center;">never-taker</td>
+<td style="text-align: center;"><strong>complier</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><span class="math inline">\(D_i(0)=1\)</span></strong></td>
+<td style="text-align: center;">defier</td>
+<td style="text-align: center;">always-taker</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-wald-ratio-is-a-late" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-wald-ratio-is-a-late">The Wald ratio is a LATE</h3>
+<p>Under <strong>random <span class="math inline">\(z\)</span></strong>, <strong>exclusion</strong>, <strong>relevance</strong>, and <strong>monotonicity</strong> (no defiers), the Wald ratio identifies the <strong>average treatment effect on compliers</strong>: <span class="math display">\[\frac{\E[y\mid z=1]-\E[y\mid z=0]}{\E[D\mid z=1]-\E[D\mid z=0]}=\E[\,y_1-y_0\mid\text{complier}\,]\equiv\textbf{LATE}.\]</span></p>
+<p><strong>Sketch.</strong> Split <span class="math inline">\(\E[y\mid z]\)</span> by response type, with shares <span class="math inline">\(\pi_c,\pi_a,\pi_n\)</span> (compliers, always-, never-takers; monotonicity kills defiers). Always-takers have <span class="math inline">\(D=1\)</span> under both values of <span class="math inline">\(z\)</span> and never-takers <span class="math inline">\(D=0\)</span> under both; by random assignment their outcome distributions do <strong>not</strong> depend on <span class="math inline">\(z\)</span>, so they cancel in the numerator. Only compliers change <span class="math inline">\(D\)</span> from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span> as <span class="math inline">\(z:0\to1\)</span>, contributing <span class="math inline">\(\pi_c\,\E[y_1-y_0\mid\text{complier}]\)</span>; the denominator is the same <span class="math inline">\(\pi_c\)</span>. The ratio is the <strong>complier average effect</strong> — the LATE of Imbens–Angrist (1994) <span class="citation" data-cites="imbens1994identification">(<a href="#ref-imbens1994identification" role="doc-biblioref">Imbens and Angrist 1994</a>)</span>. With <strong>constant</strong> effects LATE <span class="math inline">\(=\)</span> ATE and the distinction disappears; it is effect <strong>heterogeneity</strong> that makes IV local. Compliers are <strong>latent</strong> — we never see both <span class="math inline">\(D_i(0)\)</span> and <span class="math inline">\(D_i(1)\)</span> for the same person, so we cannot tag them individually — yet their average effect is point-identified.</p>
+</section>
 </section>
 </section>
 <section id="summary" class="level1" data-number="5">
@@ -1011,8 +1056,14 @@ window.Quarto = {
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-angrist1991does" class="csl-entry" role="listitem">
-Angrist, Joshua D., and Alan B. Krueger. 1991. <span>“Does Compulsory School Attendance Affect Schooling and Earnings?”</span> <em>Quarterly Journal of Economics</em> 106 (4): 979–1014.
+<div id="ref-angrist1990lifetime" class="csl-entry" role="listitem">
+Angrist, Joshua D. 1990. <span>“Lifetime Earnings and the <span>Vietnam</span> Era Draft Lottery: Evidence from Social Security Administrative Records.”</span> <em>American Economic Review</em> 80 (3): 313–36.
+</div>
+<div id="ref-angrist2012kipp" class="csl-entry" role="listitem">
+Angrist, Joshua D., Susan M. Dynarski, Thomas J. Kane, Parag A. Pathak, and Christopher R. Walters. 2012. <span>“Who Benefits from <span>KIPP</span>?”</span> <em>Journal of Policy Analysis and Management</em> 31 (4): 837–60.
+</div>
+<div id="ref-imbens1994identification" class="csl-entry" role="listitem">
+Imbens, Guido W., and Joshua D. Angrist. 1994. <span>“Identification and Estimation of Local Average Treatment Effects.”</span> <em>Econometrica</em> 62 (2): 467–75.
 </div>
 </div></section></div></main> <!-- /main -->
 <!--
