@@ -382,12 +382,12 @@ Henrique Veras
 <li><strong>What it is for.</strong> It delivers the <strong>correct distribution</strong> to judge weak-IV 2SLS against — the benchmark behind the first-stage <span class="math inline">\(F\)</span> rule and the weak-robust inference of the next slides.</li>
 </ul>
 </section>
-<section id="the-collapse-in-one-picture" class="slide level3 smaller">
-<h3>The collapse, in one picture</h3>
+<section id="dialing-c-from-weak-to-normal" class="slide level3 smaller">
+<h3>Dialing C: from weak to normal</h3>
 
-<img data-src="../assets/weak-iv-collapse.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:64.0%" alt="Three sampling densities over the coefficient axis: a tight teal '2SLS, strong instrument' curve centred at the true beta; an amber '2SLS, weak instrument' curve, flatter and shifted toward the OLS target beta-star with a long heavy right tail; and a tight grey dotted 'OLS' curve at beta-star. An arrow labelled 'weaker instrument' points from beta toward beta-star."><ul>
-<li>As the first stage weakens, the 2SLS density <strong>slides from <span class="math inline">\(\bbeta\)</span> toward the OLS target <span class="math inline">\(\bbeta^{*}\)</span></strong> (symptom 1) and <strong>flattens into heavy tails</strong> (symptom 2) — the bell curve is gone.</li>
-<li>In the limit it is <strong>indistinguishable from OLS</strong>: every bit of bias IV removed is back.</li>
+<img data-src="../assets/weak-iv-C-ladder.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:66.0%" alt="Four sampling densities over the coefficient axis: a dotted normal centred at the true beta; and three 2SLS densities for increasing C — C low, skewed and shifted toward the OLS target beta-star with a heavy right tail; C medium, partly shifted; and C high, nearly coinciding with the normal at beta. An arrow labelled 'larger C to normal' points from beta-star toward beta."><ul>
+<li><strong>Each <span class="math inline">\(\mathbf{C}\)</span> is one curve.</strong> Small <span class="math inline">\(\mathbf{C}\)</span> (weak first stage): skewed, heavy-tailed, shoved toward the <strong>OLS bias</strong> at <span class="math inline">\(\bbeta^{*}\)</span>. As <span class="math inline">\(\mathbf{C}\)</span> grows the density <strong>marches back onto the normal</strong> at <span class="math inline">\(\bbeta\)</span>.</li>
+<li><strong>The textbook normal is the <span class="math inline">\(\mathbf{C}\to\infty\)</span> edge</strong> — and its sample read-out is the <strong>first-stage <span class="math inline">\(F\)</span></strong>: low <span class="math inline">\(F\)</span> puts you on a left-shifted curve, high <span class="math inline">\(F\)</span> on the normal.</li>
 </ul>
 </section>
 <section id="bias-toward-ols-and-the-concentration-parameter" class="slide level3 smaller">
@@ -406,16 +406,46 @@ Henrique Veras
 </section>
 <section id="the-first-stage-f-and-why-f10-is-not-enough" class="slide level3 smaller">
 <h3>The first-stage F — and why <span class="math inline">\(F&gt;10\)</span> is not enough</h3>
-<p>The <strong>first-stage <span class="math inline">\(F\)</span></strong> — the joint significance of the <strong>excluded</strong> instruments in the first stage — is the sample measure of strength (<span class="math inline">\(\E[F]\approx1+\mu^2/\ell\)</span>, so it estimates <span class="math inline">\(\mu^2\)</span>). Staiger–Stock’s rule of thumb: <span class="math inline">\(F&gt;10\)</span> is “strong enough”.</p>
+<p>The <strong>first-stage <span class="math inline">\(F\)</span></strong> (joint significance of the <strong>excluded</strong> instruments) estimates <span class="math inline">\(\mu^2\)</span> via <span class="math inline">\(\E[F]\approx1+\mu^2/\ell\)</span>, so <span class="math inline">\(\mu^2\approx\ell(F-1)\)</span>. Why the famous threshold <strong>10</strong>? The 2SLS relative bias is <span class="math inline">\(\approx\ell/(\mu^2+\ell)=1/\E[F]\approx 1/F\)</span> — so <span class="math inline">\(F=10\)</span> caps it at about <strong>10%</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">first-stage <span class="math inline">\(F\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mu^2\ (\ell=1)\)</span></th>
+<th style="text-align: center;">2SLS bias <span class="math inline">\(\approx 1/F\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>10</strong></td>
+<td style="text-align: center;"><strong>9</strong></td>
+<td style="text-align: center;"><strong>10%</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">5%</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li><strong>But <span class="math inline">\(F&gt;10\)</span> controls the <em>bias</em>, not the <em><span class="math inline">\(t\)</span>-test.</em></strong> It roughly caps the 2SLS bias at ~10% of OLS; it does <strong>not</strong> make the usual <span class="math inline">\(t\)</span> and confidence interval trustworthy — those can still mislead.</li>
-<li><strong>An honest 5% <span class="math inline">\(t\)</span>-test needs far more</strong> — effective <span class="math inline">\(F\approx 104.7\)</span>, two orders of magnitude above the folklore <span class="citation" data-cites="lee2022valid">(<a href="#/what-to-take-away" role="doc-biblioref" onclick="">Lee et al. 2022</a>)</span>.</li>
-<li><strong>So report <span class="math inline">\(F\)</span>, but do not treat <span class="math inline">\(F&gt;10\)</span> as a clean bill of health</strong> — when in doubt, use weak-robust inference (next slide).</li>
+<li><strong>But <span class="math inline">\(F&gt;10\)</span> controls the <em>bias</em>, not the <em><span class="math inline">\(t\)</span>-test.</em></strong> For an honest 5% <span class="math inline">\(t\)</span>-test you need far more — effective <span class="math inline">\(F\approx104.7\)</span>, two orders above the folklore <span class="citation" data-cites="lee2022valid">(<a href="#/what-to-take-away" role="doc-biblioref" onclick="">Lee et al. 2022</a>)</span>.</li>
+<li><strong>Report <span class="math inline">\(F\)</span>, but do not treat <span class="math inline">\(F&gt;10\)</span> as a clean bill of health</strong> — when in doubt, use weak-robust inference (next slide).</li>
 </ul>
 </section>
 <section id="weak-robust-inference-andersonrubin" class="slide level3 smaller">
 <h3>Weak-robust inference: Anderson–Rubin</h3>
-<p>The fix is inference that is <strong>valid whatever the instrument strength</strong>. The workhorse is the <strong>Anderson–Rubin</strong> (AR) test of <span class="math inline">\(H_0:\bbeta=\bbeta_0\)</span>: under the null, <span class="math inline">\(y_i-\mathbf{x}_i'\bbeta_0=\varepsilon_i\)</span> is exogenous, so <strong>regress the imposed residual on the instruments and test that they have no explanatory power</strong>.</p>
+<p>The fix is inference that is <strong>valid whatever the instrument strength</strong>. The workhorse is the <strong>Anderson–Rubin</strong> (AR) test of a candidate value <span class="math inline">\(\bbeta_0\)</span>: if <span class="math inline">\(\bbeta_0\)</span> is the truth, the <strong>imposed residual</strong> <span class="math inline">\(y-\mathbf{x}'\bbeta_0\)</span> is just the exogenous error, so the <strong>instruments should have no power to predict it</strong> — regress it on them and test exactly that.</p>
 <ul>
 <li><strong>AR statistic:</strong> <span class="math inline">\(F\)</span>-test of <span class="math inline">\(\boldsymbol{\gamma}=\mathbf{0}\)</span> in <span class="math inline">\(\,y_i-\mathbf{x}_i'\bbeta_0=\mathbf{z}_i'\boldsymbol{\gamma}+u_i\)</span> — exact under normality, asymptotically <span class="math inline">\(\chi^2_\ell/\ell\)</span>, and <strong>does not depend on <span class="math inline">\(\boldsymbol{\Pi}\)</span></strong>.</li>
 <li><strong>Weak-robust confidence set</strong> = all <span class="math inline">\(\bbeta_0\)</span> the AR test does <strong>not</strong> reject (invert the test). It can be bounded, empty, or infinite — honestly reflecting what the data identify.</li>
