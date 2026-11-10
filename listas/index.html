@@ -150,6 +150,10 @@ window.MathJax = {
       bOmega:['\\boldsymbol{\\Omega}', 0],
       bV:    ['\\mathbf{V}', 0],
       bGamma:['\\boldsymbol{\\Gamma}', 0],
+      bG:    ['\\mathbf{G}', 0],
+      bW:    ['\\mathbf{W}', 0],
+      bS:    ['\\mathbf{S}', 0],
+      bH:    ['\\mathbf{H}', 0],
       Asyvar:['\\operatorname{Asy.Var}', 0],
       bzero: ['\\mathbf{0}', 0]
     }
@@ -478,13 +482,13 @@ window.MathJax = {
  <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/07-gls.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/08-bootstrap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8 · Bootstrap and Monte Carlo</span></a>
@@ -493,27 +497,34 @@ window.MathJax = {
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">III — Endogeneity, IV, GMM</span></span>
-  </li>
-<li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/09-iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9 · Endogeneity and Instrumental Variables</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/10-weak-iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">10 · Weak Instruments and Specification Tests</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../notas/11-gmm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">11 · Moment Conditions and GMM</span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
  <span class="menu-text">IV — Nonlinear Estimation</span></span>
@@ -567,31 +578,31 @@ window.MathJax = {
  <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/07-gls.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/08-bootstrap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8 · Bootstrap and Monte Carlo</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/09-iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9 · Endogeneity and Instrumental Variables</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/10-weak-iv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">10 · Weak Instruments and Specification Tests</span></a>
   </div>
 </li>
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../slides/notas/11-gmm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">11 · Moment Conditions and GMM</span></a>
@@ -628,6 +639,7 @@ window.MathJax = {
   <ul>
   <li><a href="#list-1-foundations" id="toc-list-1-foundations" class="nav-link active" data-scroll-target="#list-1-foundations"><span class="header-section-number">1</span> List 1 — Foundations</a></li>
   <li><a href="#list-2-finite-and-large-samples" id="toc-list-2-finite-and-large-samples" class="nav-link" data-scroll-target="#list-2-finite-and-large-samples"><span class="header-section-number">2</span> List 2 — Finite and Large Samples</a></li>
+  <li><a href="#list-3-gls-clustering-and-the-bootstrap" id="toc-list-3-gls-clustering-and-the-bootstrap" class="nav-link" data-scroll-target="#list-3-gls-clustering-and-the-bootstrap"><span class="header-section-number">3</span> List 3 — GLS, Clustering, and the Bootstrap</a></li>
   </ul>
 </nav>
     </div>
@@ -677,6 +689,11 @@ window.MathJax = {
 <h2 data-number="2" class="anchored" data-anchor-id="list-2-finite-and-large-samples"><span class="header-section-number">2</span> List 2 — Finite and Large Samples</h2>
 <p>Unbiasedness and omitted-variable bias, the sandwich variance and Gauss–Markov, the exact and asymptotic distributions of OLS, consistency, and a shrinkage estimator.</p>
 <p><a href="lista-2-amostras.pdf" class="btn btn-primary" target="_blank">Download — List 2 (PDF)</a></p>
+</section>
+<section id="list-3-gls-clustering-and-the-bootstrap" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="list-3-gls-clustering-and-the-bootstrap"><span class="header-section-number">3</span> List 3 — GLS, Clustering, and the Bootstrap</h2>
+<p>The generalized regression model and GLS, testing and weighting for heteroskedasticity, clustered dependence and the Moulton factor, and the Monte Carlo and bootstrap methods.</p>
+<p><a href="lista-3-gls-bootstrap.pdf" class="btn btn-primary" target="_blank">Download — List 3 (PDF)</a></p>
 
 
 </section>
