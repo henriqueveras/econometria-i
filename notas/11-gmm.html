@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Henrique Veras">
+
+<title>Moment Conditions and the Generalized Method of Moments – Econometrics I</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../slides/notas/01-map.html" rel="next">
+<link href="../notas/10-weak-iv.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8d695445161a98bc055f58d1fd7d7c9d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c6313bc080ce768837e415cb9c2ec490.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-cad400c46c93dce54b79ec7577b89e54.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f68b32b8dce36fd9d7eb2d7e03ef7ffc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<!--
+  MathJax configuration for Econometrics I.
+
+  Two jobs:
+   (1) load the [tex]/html package so \class{} works, which is what lets
+       \eqt{key}{body} tag a sub-expression for the annotated-equation widget;
+   (2) define the course-wide macro set, so notation is declared once here
+       instead of being re-typed in every lecture.
+
+  This block is injected into <head> via `include-in-header`, so it runs before
+  MathJax itself is loaded and the configuration is picked up.
+
+  Shared by the website AND the Reveal.js decks, so the macro set is declared
+  once. The decks reach MathJax 3 by overriding Quarto's `$mathjaxurl$` (see
+  _quarto-slides.yml); Quarto's bundled Reveal math plugin is written for
+  MathJax 2 and is neutralised by the Hub shim below.
+-->
+<script>
+window.MathJax = {
+  loader: { load: ['[tex]/html', '[tex]/ams', '[tex]/boldsymbol'] },
+  tex: {
+    packages: { '[+]': ['html', 'ams', 'boldsymbol'] },
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams',
+    macros: {
+      // --- annotated-equation term tag -------------------------------------
+      eqt: ['\\class{eqt eqt-#1}{#2}', 2],
+
+      // --- estimators and operators ----------------------------------------
+      plim:  ['\\operatorname*{plim}', 0],
+      argmin:['\\operatorname*{arg\\,min}', 0],
+      argmax:['\\operatorname*{arg\\,max}', 0],
+      tr:    ['\\operatorname{tr}', 0],
+      rank:  ['\\operatorname{rank}', 0],
+      diag:  ['\\operatorname{diag}', 0],
+      vect:  ['\\operatorname{vec}', 0],
+
+      // --- probability ------------------------------------------------------
+      E:     ['\\mathbb{E}', 0],
+      Var:   ['\\operatorname{Var}', 0],
+      Cov:   ['\\operatorname{Cov}', 0],
+      Prob:  ['\\mathbb{P}', 0],
+      indep: ['\\perp\\!\\!\\!\\perp', 0],
+      pto:   ['\\xrightarrow{\\;p\\;}', 0],
+      dto:   ['\\xrightarrow{\\;d\\;}', 0],
+      asto:  ['\\xrightarrow{\\;a.s.\\;}', 0],
+      Normal:['\\mathcal{N}', 0],
+
+      // --- vectors and matrices (bold upright) ------------------------------
+      mat:   ['\\mathbf{#1}', 1],
+      vecb:  ['\\mathbf{#1}', 1],
+      bbeta: ['\\boldsymbol{\\beta}', 0],
+      beps:  ['\\boldsymbol{\\varepsilon}', 0],
+      btheta:['\\boldsymbol{\\theta}', 0],
+      bX:    ['\\mathbf{X}', 0],
+      bY:    ['\\mathbf{y}', 0],
+      bZ:    ['\\mathbf{Z}', 0],
+      bb:    ['\\mathbf{b}', 0],
+      be:    ['\\mathbf{e}', 0],
+      bP:    ['\\mathbf{P}', 0],
+      bM:    ['\\mathbf{M}', 0],
+      bI:    ['\\mathbf{I}', 0],
+      bQ:    ['\\mathbf{Q}', 0],
+      bA:    ['\\mathbf{A}', 0],
+      bD:    ['\\mathbf{D}', 0],
+      bOmega:['\\boldsymbol{\\Omega}', 0],
+      bV:    ['\\mathbf{V}', 0],
+      bGamma:['\\boldsymbol{\\Gamma}', 0],
+      bG:    ['\\mathbf{G}', 0],
+      bW:    ['\\mathbf{W}', 0],
+      bS:    ['\\mathbf{S}', 0],
+      bH:    ['\\mathbf{H}', 0],
+      Asyvar:['\\operatorname{Asy.Var}', 0],
+      bzero: ['\\mathbf{0}', 0]
+    }
+  },
+  options: {
+    enableMenu: true,
+    menuOptions: { settings: { zoom: 'DoubleClick' } }
+  },
+  svg: { displayAlign: 'center', displayIndent: '0', fontCache: 'global' },
+  startup: {
+    ready: function () {
+      // NOTE: Quarto's revealjs template always registers Reveal's MathJax **2**
+      // plugin. Pointed at v3 it loads the library correctly and then throws
+      // once on `MathJax.Hub.Config`, because v3 has no Hub. The error is
+      // cosmetic -- Reveal has already initialised and MathJax 3 typesets on
+      // its own. A Hub shim does not help: the plugin's callback runs before
+      // this hook, so there is nothing to shim yet.
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(function () {
+        // Signal the annotated-equation script that \eqt terms are in the DOM.
+        document.dispatchEvent(new CustomEvent('econ:mathjax-done'));
+        // Reveal sizes slides before the maths exists, so re-measure once it
+        // does. No-op on the website, where Reveal is undefined.
+        if (typeof Reveal !== 'undefined' && Reveal.layout) { Reveal.layout(); }
+      });
+    }
+  }
+};
+
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/components.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Econometrics I</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa/ementa-2026.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/09-iv.html">III — Endogeneity, IV, GMM</a></li><li class="breadcrumb-item"><a href="../notas/11-gmm.html">11 · Moment Conditions and GMM</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Map</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../listas/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercises</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I — Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II — Linear Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/05-large-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · Large Sample Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/06-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/07-gls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/08-bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 · Bootstrap and Monte Carlo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">III — Endogeneity, IV, GMM</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/09-iv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 · Endogeneity and Instrumental Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/10-weak-iv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 · Weak Instruments and Specification Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/11-gmm.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">11 · Moment Conditions and GMM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">IV — Nonlinear Estimation</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">V — Panel Data</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/01-map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1 · Econometrics, the DGP, and the Map</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/02-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2 · Conditional Expectation and Projection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/03-algebra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3 · Algebra and Geometry of Least Squares</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/04-finite-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 · Finite-Sample Properties and Gauss-Markov</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/05-large-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 · Large Sample Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/06-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 · Inference: Tests, Intervals, and Wald</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/07-gls.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7 · GLS and Clustered Dependence</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/08-bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 · Bootstrap and Monte Carlo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/09-iv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 · Endogeneity and Instrumental Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/10-weak-iv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 · Weak Instruments and Specification Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../slides/notas/11-gmm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11 · Moment Conditions and GMM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notas/00-components.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Component Reference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#where-we-are" id="toc-where-we-are" class="nav-link active" data-scroll-target="#where-we-are"><span class="header-section-number">0.1</span> Where we are</a>
+  <ul class="collapse">
+  <li><a href="#where-this-lecture-sits" id="toc-where-this-lecture-sits" class="nav-link" data-scroll-target="#where-this-lecture-sits">Where this lecture sits</a></li>
+  </ul></li>
+  <li><a href="#part-i-from-moment-conditions-to-an-estimator" id="toc-part-i-from-moment-conditions-to-an-estimator" class="nav-link" data-scroll-target="#part-i-from-moment-conditions-to-an-estimator"><span class="header-section-number">1</span> Part I · From moment conditions to an estimator</a>
+  <ul class="collapse">
+  <li><a href="#the-objects" id="toc-the-objects" class="nav-link" data-scroll-target="#the-objects"><span class="header-section-number">1.1</span> The objects</a>
+  <ul class="collapse">
+  <li><a href="#a-moment-condition-mathbfd_i-mathbfg-and-btheta" id="toc-a-moment-condition-mathbfd_i-mathbfg-and-btheta" class="nav-link" data-scroll-target="#a-moment-condition-mathbfd_i-mathbfg-and-btheta">A moment condition: <span class="math inline">\(\mathbf{d}_i\)</span>, <span class="math inline">\(\mathbf{g}\)</span>, and <span class="math inline">\(\btheta\)</span></a></li>
+  </ul></li>
+  <li><a href="#one-recipe-many-estimators" id="toc-one-recipe-many-estimators" class="nav-link" data-scroll-target="#one-recipe-many-estimators"><span class="header-section-number">1.2</span> One recipe, many estimators</a>
+  <ul class="collapse">
+  <li><a href="#the-same-machine-four-choices-of-mathbfg" id="toc-the-same-machine-four-choices-of-mathbfg" class="nav-link" data-scroll-target="#the-same-machine-four-choices-of-mathbfg">The same machine, four choices of <span class="math inline">\(\mathbf{g}\)</span></a></li>
+  </ul></li>
+  <li><a href="#the-moment-system" id="toc-the-moment-system" class="nav-link" data-scroll-target="#the-moment-system"><span class="header-section-number">1.3</span> The moment system</a>
+  <ul class="collapse">
+  <li><a href="#the-equations-the-moments-generate" id="toc-the-equations-the-moments-generate" class="nav-link" data-scroll-target="#the-equations-the-moments-generate">The equations the moments generate</a></li>
+  </ul></li>
+  <li><a href="#exactly-vs.-over-identified" id="toc-exactly-vs.-over-identified" class="nav-link" data-scroll-target="#exactly-vs.-over-identified"><span class="header-section-number">1.4</span> Exactly vs.&nbsp;over-identified</a>
+  <ul class="collapse">
+  <li><a href="#when-ellk-the-instruments-disagree" id="toc-when-ellk-the-instruments-disagree" class="nav-link" data-scroll-target="#when-ellk-the-instruments-disagree">When <span class="math inline">\(\ell&gt;k\)</span>: the instruments disagree</a></li>
+  </ul></li>
+  <li><a href="#the-gmm-criterion" id="toc-the-gmm-criterion" class="nav-link" data-scroll-target="#the-gmm-criterion"><span class="header-section-number">1.5</span> The GMM criterion</a>
+  <ul class="collapse">
+  <li><a href="#minimize-a-weighted-distance-of-the-moments" id="toc-minimize-a-weighted-distance-of-the-moments" class="nav-link" data-scroll-target="#minimize-a-weighted-distance-of-the-moments">Minimize a weighted distance of the moments</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-ii-ols-iv-and-2sls-are-all-gmm" id="toc-part-ii-ols-iv-and-2sls-are-all-gmm" class="nav-link" data-scroll-target="#part-ii-ols-iv-and-2sls-are-all-gmm"><span class="header-section-number">2</span> Part II · OLS, IV and 2SLS are all GMM</a>
+  <ul class="collapse">
+  <li><a href="#least-squares" id="toc-least-squares" class="nav-link" data-scroll-target="#least-squares"><span class="header-section-number">2.1</span> Least squares</a>
+  <ul class="collapse">
+  <li><a href="#ols-is-just-identified-gmm" id="toc-ols-is-just-identified-gmm" class="nav-link" data-scroll-target="#ols-is-just-identified-gmm">OLS is just-identified GMM</a></li>
+  </ul></li>
+  <li><a href="#instrumental-variables" id="toc-instrumental-variables" class="nav-link" data-scroll-target="#instrumental-variables"><span class="header-section-number">2.2</span> Instrumental variables</a>
+  <ul class="collapse">
+  <li><a href="#iv-is-just-identified-gmm" id="toc-iv-is-just-identified-gmm" class="nav-link" data-scroll-target="#iv-is-just-identified-gmm">IV is just-identified GMM</a></li>
+  </ul></li>
+  <li><a href="#two-stage-least-squares" id="toc-two-stage-least-squares" class="nav-link" data-scroll-target="#two-stage-least-squares"><span class="header-section-number">2.3</span> Two-stage least squares</a>
+  <ul class="collapse">
+  <li><a href="#sls-is-over-identified-gmm-with-a-specific-weight" id="toc-sls-is-over-identified-gmm-with-a-specific-weight" class="nav-link" data-scroll-target="#sls-is-over-identified-gmm-with-a-specific-weight">2SLS is over-identified GMM with a specific weight</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-iii-efficient-gmm-and-the-optimal-weight" id="toc-part-iii-efficient-gmm-and-the-optimal-weight" class="nav-link" data-scroll-target="#part-iii-efficient-gmm-and-the-optimal-weight"><span class="header-section-number">3</span> Part III · Efficient GMM and the optimal weight</a>
+  <ul class="collapse">
+  <li><a href="#which-weight" id="toc-which-weight" class="nav-link" data-scroll-target="#which-weight"><span class="header-section-number">3.1</span> Which weight?</a>
+  <ul class="collapse">
+  <li><a href="#every-weight-is-consistent-not-every-weight-is-efficient" id="toc-every-weight-is-consistent-not-every-weight-is-efficient" class="nav-link" data-scroll-target="#every-weight-is-consistent-not-every-weight-is-efficient">Every weight is consistent — not every weight is efficient</a></li>
+  <li><a href="#the-optimal-weight-is-bwbs-1" id="toc-the-optimal-weight-is-bwbs-1" class="nav-link" data-scroll-target="#the-optimal-weight-is-bwbs-1">The optimal weight is <span class="math inline">\(\bW^{\*}=\bS^{-1}\)</span></a></li>
+  </ul></li>
+  <li><a href="#making-it-feasible" id="toc-making-it-feasible" class="nav-link" data-scroll-target="#making-it-feasible"><span class="header-section-number">3.2</span> Making it feasible</a>
+  <ul class="collapse">
+  <li><a href="#feasible-two-step-gmm" id="toc-feasible-two-step-gmm" class="nav-link" data-scroll-target="#feasible-two-step-gmm">Feasible two-step GMM</a></li>
+  </ul></li>
+  <li><a href="#the-distribution" id="toc-the-distribution" class="nav-link" data-scroll-target="#the-distribution"><span class="header-section-number">3.3</span> The distribution</a>
+  <ul class="collapse">
+  <li><a href="#asymptotic-normality-of-gmm" id="toc-asymptotic-normality-of-gmm" class="nav-link" data-scroll-target="#asymptotic-normality-of-gmm">Asymptotic normality of GMM</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-iv-testing-the-overidentifying-restrictions" id="toc-part-iv-testing-the-overidentifying-restrictions" class="nav-link" data-scroll-target="#part-iv-testing-the-overidentifying-restrictions"><span class="header-section-number">4</span> Part IV · Testing the overidentifying restrictions</a>
+  <ul class="collapse">
+  <li><a href="#the-j-test" id="toc-the-j-test" class="nav-link" data-scroll-target="#the-j-test"><span class="header-section-number">4.1</span> The J-test</a>
+  <ul class="collapse">
+  <li><a href="#overidentification-test-the-j-statistic" id="toc-overidentification-test-the-j-statistic" class="nav-link" data-scroll-target="#overidentification-test-the-j-statistic">Overidentification test: the <span class="math inline">\(J\)</span>-statistic</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-v-gmm-in-practice-and-the-bigger-family" id="toc-part-v-gmm-in-practice-and-the-bigger-family" class="nav-link" data-scroll-target="#part-v-gmm-in-practice-and-the-bigger-family"><span class="header-section-number">5</span> Part V · GMM in practice, and the bigger family</a>
+  <ul class="collapse">
+  <li><a href="#where-gmm-is-used" id="toc-where-gmm-is-used" class="nav-link" data-scroll-target="#where-gmm-is-used"><span class="header-section-number">5.1</span> Where GMM is used</a>
+  <ul class="collapse">
+  <li><a href="#structural-vs.-design-based-where-gmm-lives-today" id="toc-structural-vs.-design-based-where-gmm-lives-today" class="nav-link" data-scroll-target="#structural-vs.-design-based-where-gmm-lives-today">Structural vs.&nbsp;design-based: where GMM lives today</a></li>
+  </ul></li>
+  <li><a href="#z-estimation" id="toc-z-estimation" class="nav-link" data-scroll-target="#z-estimation"><span class="header-section-number">5.2</span> Z-estimation</a>
+  <ul class="collapse">
+  <li><a href="#moment-estimators-as-one-family" id="toc-moment-estimators-as-one-family" class="nav-link" data-scroll-target="#moment-estimators-as-one-family">Moment estimators as one family</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#what-to-take-away" id="toc-what-to-take-away" class="nav-link" data-scroll-target="#what-to-take-away">What to take away</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a>
+  <ul class="collapse">
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notas/09-iv.html">III — Endogeneity, IV, GMM</a></li><li class="breadcrumb-item"><a href="../notas/11-gmm.html">11 · Moment Conditions and GMM</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Moment Conditions and the Generalized Method of Moments</h1>
+<p class="subtitle lead">Lecture 11</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Henrique Veras </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            PIMES/UFPE
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="where-we-are" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="where-we-are"><span class="header-section-number">0.1</span> Where we are</h2>
+<section id="where-this-lecture-sits" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="where-this-lecture-sits">Where this lecture sits</h3>
+<p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference is-active">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
+<p>You have been reading estimators as moment conditions all semester, even if quietly. Lecture 4 noted that the OLS normal equations <span class="math inline">\(\bX'\be=\bzero\)</span> are a <strong>sample moment condition</strong>; Lecture 9 wrote IV and 2SLS as <span class="math inline">\(\E[\mathbf{z}\varepsilon]=\bzero\)</span>, one moment per instrument. What was missing was the <strong>name</strong> and the <strong>general machinery</strong>. GMM supplies both: it takes the idea you already use — <em>an estimator is whatever makes a set of moment conditions hold in the sample</em> — and turns it into a method, including the two cases the earlier lectures could only gesture at: what to do when there are <strong>more moment conditions than parameters</strong>, and how to <strong>combine them efficiently</strong>.</p>
+<p>So this is a <strong>consolidation, not a new trick</strong>. Seen through it, OLS, IV and 2SLS are not three methods but one, with three choices of what to call a moment and how to weight them. The payoff is concrete. <strong>Unification:</strong> we will <em>derive</em> — not assert — that 2SLS is GMM with a particular weight matrix. <strong>Efficiency:</strong> Lecture 10 left two debts, and GMM settles both — how to use the moments efficiently when errors are <strong>heteroskedastic</strong> (where 2SLS is no longer best), and the robust form of the Sargan test, the <strong><span class="math inline">\(J\)</span>-statistic</strong>. <strong>A bridge:</strong> the same “solve a moment condition” idea reaches forward to maximum likelihood next lecture. Depth stays deliberately light — the goal is the <strong>language</strong>, not a GMM course.</p>
+<div class="econ-box econ-box-dgp" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span><span class="econ-box-sep">—</span><span class="econ-box-title">What is the DGP, here?</span></div><div class="econ-box-body">
+<p>Not “<span class="math inline">\(y=\mathbf{x}'\bbeta+\varepsilon\)</span> with assumptions.” The primitive is a set of <strong>valid moment conditions</strong> <span class="math inline">\(\E[\mathbf{g}(\mathbf{d}_i,\btheta_0)]=\bzero\)</span>, holding <strong>only</strong> at the true <span class="math inline">\(\btheta_0\)</span>. The parameter <em>is</em> whatever zeroes the population moments; everything else is how we estimate it from the sample.</p>
+</div></div>
+</section>
+</section>
+<section id="part-i-from-moment-conditions-to-an-estimator" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Part I · From moment conditions to an estimator</h1>
+<section id="the-objects" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-objects"><span class="header-section-number">1.1</span> The objects</h2>
+<section id="a-moment-condition-mathbfd_i-mathbfg-and-btheta" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="a-moment-condition-mathbfd_i-mathbfg-and-btheta">A moment condition: <span class="math inline">\(\mathbf{d}_i\)</span>, <span class="math inline">\(\mathbf{g}\)</span>, and <span class="math inline">\(\btheta\)</span></h3>
+<p>Three objects. The <strong>data</strong> <span class="math inline">\(\mathbf{d}_i\)</span> — everything observed for unit <span class="math inline">\(i\)</span> (here <span class="math inline">\(\mathbf{d}_i=(y_i,\mathbf{x}_i,\mathbf{z}_i)\)</span>). The <strong>parameter</strong> <span class="math inline">\(\btheta\)</span> — the <span class="math inline">\(k\times1\)</span> vector we want. The <strong>moment function</strong> <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\btheta)\)</span> — an <span class="math inline">\(\ell\times1\)</span> vector built so that its population mean is zero <strong>only</strong> at the truth, and estimated by its sample average: <span class="math display">\[\underbrace{\E[\mathbf{g}(\mathbf{d}_i,\btheta_0)]=\bzero}_{\ell\text{ population moment conditions}}
+\qquad\xrightarrow{\ \text{analogy principle}\ }\qquad
+\underbrace{\bar{\mathbf{g}}_n(\btheta)=\frac1n\sum_{i=1}^n\mathbf{g}(\mathbf{d}_i,\btheta)\ \approx\ \bzero}_{\text{sample analogue}} .\]</span></p>
+<p>Make it concrete with the oldest estimator of all — the mean. Here <span class="math inline">\(\mathbf{d}_i=y_i\)</span> (a scalar), <span class="math inline">\(\btheta=\mu\)</span>, and <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\mu)=y_i-\mu\)</span>, so <span class="math inline">\(\ell=k=1\)</span>. The moment condition <span class="math inline">\(\E[y_i-\mu]=0\)</span> says exactly “<span class="math inline">\(\mu\)</span> is the population mean”, and it holds at a <strong>single</strong> value, <span class="math inline">\(\mu_0=\E[y_i]\)</span>. The analogy principle replaces the expectation by the average, <span class="math inline">\(\frac1n\sum_i(y_i-\mu)=0\)</span>, whose solution is the sample mean <span class="math inline">\(\hat\mu=\bar y\)</span>. Nothing more is going on in GMM than this — the only things that change across the examples on the next slide are the <strong>choice of <span class="math inline">\(\mathbf{g}\)</span></strong> and, once <span class="math inline">\(\ell&gt;k\)</span>, <strong>how we weight its entries</strong>. One note on symbols, to head off a classic confusion: <span class="math inline">\(\mathbf{d}_i\)</span> (with the subscript <span class="math inline">\(i\)</span>) is the data for one observation; the bold <span class="math inline">\(\bW\)</span> that enters later is the weight matrix. They are different things.</p>
+</section>
+</section>
+<section id="one-recipe-many-estimators" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="one-recipe-many-estimators"><span class="header-section-number">1.2</span> One recipe, many estimators</h2>
+<section id="the-same-machine-four-choices-of-mathbfg" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-same-machine-four-choices-of-mathbfg">The same machine, four choices of <span class="math inline">\(\mathbf{g}\)</span></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>estimator</th>
+<th>parameter <span class="math inline">\(\btheta\)</span></th>
+<th>moment <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\btheta)\)</span></th>
+<th>count</th>
+<th>weight <span class="math inline">\(\bW\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mean</td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(y_i-\mu\)</span></td>
+<td><span class="math inline">\(\ell=k=1\)</span></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>OLS</td>
+<td><span class="math inline">\(\bbeta\)</span></td>
+<td><span class="math inline">\(\mathbf{x}_i(y_i-\mathbf{x}_i'\bbeta)\)</span></td>
+<td><span class="math inline">\(\ell=k\)</span></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>IV (exact)</td>
+<td><span class="math inline">\(\bbeta\)</span></td>
+<td><span class="math inline">\(\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta),\ \dim\mathbf{z}_i=k\)</span></td>
+<td><span class="math inline">\(\ell=k\)</span></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>2SLS</td>
+<td><span class="math inline">\(\bbeta\)</span></td>
+<td><span class="math inline">\(\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta),\ \dim\mathbf{z}_i=\ell&gt;k\)</span></td>
+<td><span class="math inline">\(\ell&gt;k\)</span></td>
+<td><span class="math inline">\((\bZ'\bZ)^{-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Read the table as one machine with a dial. The moment function encodes <em>what you assume is uncorrelated with the error</em>: OLS asserts <span class="math inline">\(\E[\mathbf{x}\varepsilon]=0\)</span> and so uses <span class="math inline">\(\mathbf{x}\)</span> as its own instrument; IV asserts <span class="math inline">\(\E[\mathbf{z}\varepsilon]=0\)</span> and swaps <span class="math inline">\(\mathbf{z}\)</span> in for the endogenous columns; 2SLS keeps that <strong>same</strong> <span class="math inline">\(\mathbf{g}\)</span> but with more instruments than parameters. The counts <span class="math inline">\(k\)</span> and <span class="math inline">\(\ell\)</span> are then read off directly, and the weight matrix <span class="math inline">\(\bW\)</span> enters only for <strong>2SLS</strong> — the one <strong>over-identified</strong> row (<span class="math inline">\(\ell&gt;k\)</span>). The first three rows are exactly identified (<span class="math inline">\(\ell=k\)</span>): the moment system is square, so it is <strong>solved</strong> exactly, <span class="math inline">\(J\)</span> hits its floor of <span class="math inline">\(0\)</span>, and the weight cancels. Everything in Parts II–IV is about the over-identified case: how to <strong>combine</strong> surplus moments, how to <strong>weight</strong> them best, and how to <strong>test</strong> them.</p>
+</section>
+</section>
+<section id="the-moment-system" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="the-moment-system"><span class="header-section-number">1.3</span> The moment system</h2>
+<section id="the-equations-the-moments-generate" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-equations-the-moments-generate">The equations the moments generate</h3>
+<p>One equation per instrument — stack them and the matrix form appears: <span class="math display">\[\frac1n\sum_{i=1}^n z_{ij}\,(y_i-\mathbf{x}_i'\bbeta)=0,\quad j=1,\dots,\ell
+\qquad\Longleftrightarrow\qquad \frac1n\,\bZ'(\bY-\bX\bbeta)=\bzero
+\qquad(\ell\text{ equations},\ k\text{ unknowns}).\]</span> Identification asks whether this system pins <span class="math inline">\(\bbeta\)</span> down. In population it rearranges to a <strong>linear system</strong>, <span class="math display">\[\E[\mathbf{z}\mathbf{x}']\,\bbeta=\E[\mathbf{z}y],\qquad\text{unique solution}\quad
+\bbeta_0=(\E[\mathbf{z}\mathbf{x}'])^{-1}\E[\mathbf{z}y]\ \ \textbf{iff}\ \ \rank\E[\mathbf{z}\mathbf{x}']=k .\]</span></p>
+<p>Each instrument contributes one estimating equation, <span class="math inline">\(\tfrac1n\sum_i z_{ij}(y_i-\mathbf{x}_i'\bbeta)=0\)</span>; stacking the <span class="math inline">\(\ell\)</span> of them is exactly <span class="math inline">\(\tfrac1n\bZ'(\bY-\bX\bbeta)=\bzero\)</span>. So “a moment condition” is not abstract — it is a concrete system of <span class="math inline">\(\ell\)</span> equations in the <span class="math inline">\(k\)</span> unknowns <span class="math inline">\(\bbeta\)</span>. <strong>Identification is the question of whether that system has a unique solution.</strong> Taking expectations and rearranging turns the population version into the linear system <span class="math inline">\(\E[\mathbf{z}\mathbf{x}']\bbeta=\E[\mathbf{z}y]\)</span>, which has the unique solution <span class="math inline">\(\bbeta_0=(\E[\mathbf{z}\mathbf{x}'])^{-1}\E[\mathbf{z}y]\)</span> precisely when <span class="math inline">\(\E[\mathbf{z}\mathbf{x}']\)</span> has full rank <span class="math inline">\(k\)</span> — the same rank condition from Lecture 9, now visible as “the moment system is solvable and the solution is unique.” When rank fails, some combination of <span class="math inline">\(\bbeta\)</span> leaves every moment unchanged: a <strong>flat direction</strong> the data cannot resolve. When <span class="math inline">\(\ell=k\)</span> the system is square and this solution <strong>is</strong> IV; when <span class="math inline">\(\ell&gt;k\)</span> the target is still <span class="math inline">\(k\)</span> unknowns but there are now <span class="math inline">\(\ell&gt;k\)</span> equations — the next slide.</p>
+</section>
+</section>
+<section id="exactly-vs.-over-identified" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="exactly-vs.-over-identified"><span class="header-section-number">1.4</span> Exactly vs.&nbsp;over-identified</h2>
+<section id="when-ellk-the-instruments-disagree" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="when-ellk-the-instruments-disagree">When <span class="math inline">\(\ell&gt;k\)</span>: the instruments disagree</h3>
+<p>One endogenous regressor (<span class="math inline">\(k=1\)</span>), two instruments (<span class="math inline">\(\ell=2\)</span>): each instrument gives its <strong>own</strong> moment equation <span class="math inline">\(m_j(\beta)=0\)</span>, hence its <strong>own</strong> just-identified IV estimate <span class="math inline">\(\hat\beta_j\)</span> — and with <span class="math inline">\(\ell&gt;k\)</span> <strong>they disagree</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/gmm-moments-disagree.svg" class="nostretch img-fluid figure-img" style="width:72.0%" alt="Two downward-sloping moment lines crossing zero at different points, with the GMM estimate between them"></p>
+<figcaption>Each instrument’s moment <span class="math inline">\(m_j(\beta)\)</span> crosses zero at its own IV estimate <span class="math inline">\(\hat\beta_j\)</span>; with <span class="math inline">\(\ell&gt;k\)</span> the crossings differ, and GMM lands a weighted compromise between them.</figcaption>
+</figure>
+</div>
+<p>In symbols, each instrument’s moment and its single-instrument IV estimate are <span class="math display">\[m_j(\beta)=\frac1n\sum_i z_{ij}(y_i-x_i\beta)=0\ \Rightarrow\ \hat\beta_j=\frac{\sum_i z_{ij}y_i}{\sum_i z_{ij}x_i},\qquad j=1,2.\]</span> This is over-identification stripped to one picture. With <span class="math inline">\(k=1\)</span> and <span class="math inline">\(\ell=2\)</span> you have <strong>two estimating equations but only one free parameter</strong> (<span class="math inline">\(\beta\)</span>) to satisfy them with. Each equation, read alone, is an exactly-identified IV estimator using a single instrument, and lands at its own number <span class="math inline">\(\hat\beta_j=\sum_i z_{ij}y_i/\sum_i z_{ij}x_i\)</span>. If both instruments were perfect and the sample infinite, the two numbers would coincide at <span class="math inline">\(\beta_0\)</span>; in any real sample they differ, and under <span class="math inline">\(\ell&gt;k\)</span> there is simply <strong>no</strong> value of that one parameter that sets both sample moments to zero. The naive responses — keep one instrument, or average the two by hand — either throw away information or pick an arbitrary split. GMM makes the split <strong>principled</strong>: it minimizes a weighted size of the whole moment vector <span class="math inline">\(\bar{\mathbf{g}}_n(\beta)=(m_1(\beta),m_2(\beta))'\)</span>, landing <span class="math inline">\(\hat\beta_{\text{GMM}}\)</span> between <span class="math inline">\(\hat\beta_1\)</span> and <span class="math inline">\(\hat\beta_2\)</span>, tilted toward the moment we trust more. “Trust” is exactly what <span class="math inline">\(\bW\)</span> encodes — and Part III shows the optimal tilt is by the <strong>inverse variance</strong> of the moments. The disagreement is not a nuisance to hide: its size is the basis of the overidentification (<span class="math inline">\(J\)</span>) test in Part IV.</p>
+</section>
+</section>
+<section id="the-gmm-criterion" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="the-gmm-criterion"><span class="header-section-number">1.5</span> The GMM criterion</h2>
+<section id="minimize-a-weighted-distance-of-the-moments" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="minimize-a-weighted-distance-of-the-moments">Minimize a weighted distance of the moments</h3>
+<p><span class="math display">\[\boxed{\ J(\btheta)=n\,\bar{\mathbf{g}}_n(\btheta)'\,\bW\,\bar{\mathbf{g}}_n(\btheta)\ },\qquad \bW\succ0,
+\qquad \hat\btheta_{\text{GMM}}=\argmin_{\btheta} J(\btheta).\]</span></p>
+<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">What the computer does</span></div><div class="econ-box-body">
+<p><span class="math inline">\(J\)</span> has <strong>no closed form</strong> in general ⇒ numerical minimization (gancho: a otimização da Aula 13). The <strong>linear</strong> case (OLS/IV/2SLS) is the exception — <span class="math inline">\(\bar{\mathbf{g}}_n\)</span> is linear in <span class="math inline">\(\btheta\)</span>, so <span class="math inline">\(\hat\btheta\)</span> has a closed form (Part II).</p>
+</div></div>
+<p>The criterion <span class="math inline">\(J(\btheta)\)</span> is just the <strong>squared length of the moment vector</strong>, measured in the metric <span class="math inline">\(\bW\)</span>: when the moments are near zero <span class="math inline">\(J\)</span> is small, and minimizing it drives all <span class="math inline">\(\ell\)</span> moments toward zero at once. <span class="math inline">\(\bW\)</span> fixes the exchange rate between moments that conflict — how much a miss on one is worth against a miss on another, and how their correlations count. Two features organize everything that follows. In the <strong>just-identified</strong> case the vector can be driven exactly to zero, so <span class="math inline">\(J\)</span> reaches its floor of <span class="math inline">\(0\)</span> and the weight never matters — we recover method of moments and IV. In the <strong>over-identified</strong> case <span class="math inline">\(J&gt;0\)</span> at the optimum and the choice of <span class="math inline">\(\bW\)</span> changes the answer: Part III finds the <span class="math inline">\(\bW\)</span> that makes the estimator most precise, and Part IV shows that the leftover minimized value <span class="math inline">\(J(\hat\btheta)\)</span> is itself the overidentification test.</p>
+</section>
+</section>
+</section>
+<section id="part-ii-ols-iv-and-2sls-are-all-gmm" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Part II · OLS, IV and 2SLS are all GMM</h1>
+<section id="least-squares" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="least-squares"><span class="header-section-number">2.1</span> Least squares</h2>
+<section id="ols-is-just-identified-gmm" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="ols-is-just-identified-gmm">OLS is just-identified GMM</h3>
+<p>Take <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\bbeta)=\mathbf{x}_i(y_i-\mathbf{x}_i'\bbeta)\)</span>, so <span class="math inline">\(\ell=k\)</span>. The sample moment <strong>is</strong> the OLS normal equation: <span class="math display">\[\bar{\mathbf{g}}_n(\bbeta)=\tfrac1n\bX'(\bY-\bX\bbeta)=\bzero \ \Longleftrightarrow\ \bX'\be=\bzero
+\ \Longrightarrow\ \hat\btheta_{\text{GMM}}=\bb_{\text{OLS}} .\]</span></p>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Closing Lecture 4's moment-condition box</span></div><div class="econ-box-body">
+<p>Lecture 4 split OLS into two routes — minimize the sum of squares, or solve the moment <span class="math inline">\(\bX'\be=\bzero\)</span>. GMM is the second route made general: <strong>every</strong> estimator in this course is “solve (or get as close as possible to) a moment condition.”</p>
+</div></div>
+</section>
+</section>
+<section id="instrumental-variables" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="instrumental-variables"><span class="header-section-number">2.2</span> Instrumental variables</h2>
+<section id="iv-is-just-identified-gmm" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="iv-is-just-identified-gmm">IV is just-identified GMM</h3>
+<p>Swap the instrument: <span class="math inline">\(\mathbf{g}=\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta)\)</span> with <span class="math inline">\(\ell=k\)</span>. Then <span class="math display">\[\bar{\mathbf{g}}_n(\bbeta)=\tfrac1n\bZ'(\bY-\bX\bbeta)=\bzero \ \Longrightarrow\ \hat\btheta_{\text{GMM}}=\bb_{\text{IV}}=(\bZ'\bX)^{-1}\bZ'\bY .\]</span></p>
+</section>
+</section>
+<section id="two-stage-least-squares" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="two-stage-least-squares"><span class="header-section-number">2.3</span> Two-stage least squares</h2>
+<section id="sls-is-over-identified-gmm-with-a-specific-weight" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="sls-is-over-identified-gmm-with-a-specific-weight">2SLS is over-identified GMM with a specific weight</h3>
+<p>Now <span class="math inline">\(\ell&gt;k\)</span> with <span class="math inline">\(\mathbf{g}=\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta)\)</span>. Minimizing <span class="math inline">\(J\)</span> with <span class="math inline">\(\bW=(\bZ'\bZ/n)^{-1}\)</span> gives the closed form <span class="math display">\[\hat\btheta_{\text{GMM}}(\bW)=\big(\bX'\bZ\,\bW\,\bZ'\bX\big)^{-1}\bX'\bZ\,\bW\,\bZ'\bY
+\ \xrightarrow{\ \bW=(\bZ'\bZ)^{-1}\ }\ \bb_{\text{2SLS}}=\big(\bX'\bP_{\bZ}\bX\big)^{-1}\bX'\bP_{\bZ}\bY .\]</span></p>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The whole of Part III in one table</span></div><div class="econ-box-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estimator</th>
+<th>moment <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\btheta)\)</span></th>
+<th>count</th>
+<th>weight <span class="math inline">\(\bW\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OLS</td>
+<td><span class="math inline">\(\mathbf{x}(y-\mathbf{x}'\bbeta)\)</span></td>
+<td><span class="math inline">\(\ell=k\)</span></td>
+<td>irrelevant</td>
+</tr>
+<tr class="even">
+<td>IV</td>
+<td><span class="math inline">\(\mathbf{z}(y-\mathbf{x}'\bbeta)\)</span></td>
+<td><span class="math inline">\(\ell=k\)</span></td>
+<td>irrelevant</td>
+</tr>
+<tr class="odd">
+<td>2SLS</td>
+<td><span class="math inline">\(\mathbf{z}(y-\mathbf{x}'\bbeta)\)</span></td>
+<td><span class="math inline">\(\ell&gt;k\)</span></td>
+<td><span class="math inline">\((\bZ'\bZ)^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Efficient GMM</strong></td>
+<td><span class="math inline">\(\mathbf{z}(y-\mathbf{x}'\bbeta)\)</span></td>
+<td><span class="math inline">\(\ell&gt;k\)</span></td>
+<td><span class="math inline">\(\bS^{-1}\)</span> (Part III)</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+</section>
+</section>
+<section id="part-iii-efficient-gmm-and-the-optimal-weight" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part III · Efficient GMM and the optimal weight</h1>
+<section id="which-weight" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="which-weight"><span class="header-section-number">3.1</span> Which weight?</h2>
+<section id="every-weight-is-consistent-not-every-weight-is-efficient" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="every-weight-is-consistent-not-every-weight-is-efficient">Every weight is consistent — not every weight is efficient</h3>
+<p>For any fixed <span class="math inline">\(\bW\succ0\)</span>, <span class="math inline">\(\hat\btheta_{\text{GMM}}(\bW)\)</span> is <strong>consistent</strong> (the moments are valid); <span class="math inline">\(\bW\)</span> only changes the <strong>asymptotic variance</strong>. So: which <span class="math inline">\(\bW\)</span> makes it smallest?</p>
+</section>
+<section id="the-optimal-weight-is-bwbs-1" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="the-optimal-weight-is-bwbs-1">The optimal weight is <span class="math inline">\(\bW^{\*}=\bS^{-1}\)</span></h3>
+<p>With <span class="math inline">\(\bS=\Asyvar\big(\sqrt n\,\bar{\mathbf{g}}_n\big)=\E[\mathbf{g}\mathbf{g}']\)</span> (the long-run variance of the moments), the efficient GMM weight is <span class="math inline">\(\bW^{\*}=\bS^{-1}\)</span>: <span class="math display">\[\bS=\sigma^2\bQ_{zz}\ \text{(homosk.)}\ \Rightarrow\ \bW^{\*}=(\sigma^2\bQ_{zz})^{-1}\Rightarrow \textbf{2SLS efficient};\qquad
+\bS=\E[\mathbf{z}\mathbf{z}'\varepsilon^2]=\bOmega\ \text{(heterosk.)}\ \Rightarrow\ \textbf{2SLS not efficient.}\]</span></p>
+</section>
+</section>
+<section id="making-it-feasible" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="making-it-feasible"><span class="header-section-number">3.2</span> Making it feasible</h2>
+<section id="feasible-two-step-gmm" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="feasible-two-step-gmm">Feasible two-step GMM</h3>
+<p><span class="math inline">\(\bS\)</span> is unknown, so estimate it: <span class="math display">\[\text{Step 1: } \bW=(\bZ'\bZ)^{-1}\ \Rightarrow\ \hat\btheta^{(1)}\ \Rightarrow\ \hat\varepsilon_i;\qquad
+\hat\bS=\tfrac1n\sum_i \mathbf{z}_i\mathbf{z}_i'\hat\varepsilon_i^2;\qquad
+\text{Step 2: } \bW=\hat\bS^{-1}\ \Rightarrow\ \hat\btheta^{(2)}.\]</span></p>
+</section>
+</section>
+<section id="the-distribution" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-distribution"><span class="header-section-number">3.3</span> The distribution</h2>
+<section id="asymptotic-normality-of-gmm" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="asymptotic-normality-of-gmm">Asymptotic normality of GMM</h3>
+<p>With <span class="math inline">\(\bG=\E[\partial \mathbf{g}/\partial\btheta']\)</span> (the moment Jacobian — the “bread”): <span class="math display">\[\sqrt n\,(\hat\btheta_{\text{GMM}}-\btheta_0)\ \dto\ \Normal\!\Big(\bzero,\ (\bG'\bW\bG)^{-1}\bG'\bW\bS\bW\bG(\bG'\bW\bG)^{-1}\Big)
+\ \xrightarrow{\ \bW=\bS^{-1}\ }\ \Normal\!\big(\bzero,\ (\bG'\bS^{-1}\bG)^{-1}\big).\]</span></p>
+</section>
+</section>
+</section>
+<section id="part-iv-testing-the-overidentifying-restrictions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part IV · Testing the overidentifying restrictions</h1>
+<section id="the-j-test" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="the-j-test"><span class="header-section-number">4.1</span> The J-test</h2>
+<section id="overidentification-test-the-j-statistic" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="overidentification-test-the-j-statistic">Overidentification test: the <span class="math inline">\(J\)</span>-statistic</h3>
+<p>When <span class="math inline">\(\ell&gt;k\)</span>, the surplus <span class="math inline">\(\ell-k\)</span> moments are <strong>testable</strong>. At the efficient GMM estimate, <span class="math display">\[J=n\,\bar{\mathbf{g}}_n(\hat\btheta)'\,\hat\bS^{-1}\,\bar{\mathbf{g}}_n(\hat\btheta)\ \dto\ \chi^2_{\ell-k}
+\quad\text{under } H_0:\ \E[\mathbf{g}(\mathbf{d}_i,\btheta_0)]=\bzero .\]</span></p>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Sargan ⊂ J</span></div><div class="econ-box-body">
+<p>The Lecture 10 Sargan (<span class="math inline">\(n R^2\)</span>, <span class="math inline">\(\chi^2_{\ell-k}\)</span>) is exactly this <span class="math inline">\(J\)</span> under homoskedastic moments. GMM gives its general, robust form — and explains <em>why</em> it is <span class="math inline">\(\chi^2_{\ell-k}\)</span>: <span class="math inline">\(\ell\)</span> moments minus the <span class="math inline">\(k\)</span> directions the estimator already forces to zero.</p>
+</div></div>
+</section>
+</section>
+</section>
+<section id="part-v-gmm-in-practice-and-the-bigger-family" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Part V · GMM in practice, and the bigger family</h1>
+<section id="where-gmm-is-used" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="where-gmm-is-used"><span class="header-section-number">5.1</span> Where GMM is used</h2>
+<section id="structural-vs.-design-based-where-gmm-lives-today" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="structural-vs.-design-based-where-gmm-lives-today">Structural vs.&nbsp;design-based: where GMM lives today</h3>
+<p>GMM did not fade — it <strong>split</strong>. Its place today depends entirely on <strong>which kind of empirical work</strong> you do.</p>
+<p><strong>The honest status.</strong> A student trained in the modern causal toolkit could reasonably think GMM is dated — and, <em>in that corner of the field</em>, the instinct is right. Design-based applied micro has largely abandoned over-identified efficient GMM in favour of <strong>just-identified IV reported transparently</strong> (“show the first stage, show each instrument’s estimate, do not GMM-combine them”). The reason is not fashion: the efficient two-step estimator weights the moments by an <strong>estimated</strong> <span class="math inline">\(\hat\bS^{-1}\)</span>, which is noisy in realistic samples and feeds back as bias — the <strong>same finite-sample fragility</strong> that Lecture 10’s weak- and many-instrument problems are about. Because the credibility revolution prizes <strong>robustness and transparency</strong> over squeezing out the last drop of efficiency, pooling instruments through a weight matrix is exactly the trade it declines to make.</p>
+<p><strong>But GMM never left structural economics.</strong> Wherever a model implies moments — a demand system (Berry, Levinsohn &amp; Pakes), a consumption Euler equation (Hansen–Singleton), an asset-pricing stochastic discount factor (Cochrane) — estimation <strong>is</strong> choosing parameters so that model moments match data moments. When those moments have no closed form, the <strong>simulated method of moments</strong> (SMM) / indirect inference simulates them. This is a large, active part of the field, and it is GMM through and through.</p>
+<p><strong>And as a language it is permanent.</strong> The unifying lesson of this lecture — that OLS, IV and 2SLS are one object — is why GMM stays in the course even for students who will only ever run a design-based study: it is the account that makes every linear estimator legible, and, next lecture, the bridge to maximum likelihood.</p>
+</section>
+</section>
+<section id="z-estimation" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="z-estimation"><span class="header-section-number">5.2</span> Z-estimation</h2>
+<section id="moment-estimators-as-one-family" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="moment-estimators-as-one-family">Moment estimators as one family</h3>
+<p>Estimators that solve <span class="math inline">\(\tfrac1n\sum_i \boldsymbol{\psi}(\mathbf{d}_i,\btheta)=\bzero\)</span> are <strong>Z-estimators</strong> (<span class="math inline">\(Z\)</span> for <em>zero</em>). OLS, IV — and, next lecture, <strong>MLE</strong> (score <span class="math inline">\(=\bzero\)</span>) — are all of this family; GMM extends it to the over-identified case (<span class="math inline">\(\ell&gt;k\)</span>).</p>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Forward to MLE</span></div><div class="econ-box-body">
+<p>The thread continues: minimize a criterion (OLS, GMM) or solve a moment / maximize a likelihood (IV, MLE) — all <strong>extremum / M-estimators</strong>. Lecture 12 names the family and derives MLE inside it.</p>
+</div></div>
+</section>
+</section>
+</section>
+<section id="summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
+<section id="what-to-take-away" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="what-to-take-away">What to take away</h3>
+<ul>
+<li>A parameter is <strong>whatever zeroes the population moments</strong> <span class="math inline">\(\E[\mathbf{g}(W,\btheta_0)]=\bzero\)</span>; estimate by the sample analogue.</li>
+<li>With <strong>more moments than parameters</strong> (<span class="math inline">\(\ell&gt;k\)</span>) you cannot zero them all — minimize the weighted criterion <span class="math inline">\(J(\btheta)=n\,\bar{\mathbf{g}}_n'\bW\bar{\mathbf{g}}_n\)</span>.</li>
+<li><strong>OLS, IV and 2SLS are GMM</strong> with specific <span class="math inline">\((\mathbf{g},\bW)\)</span> — 2SLS is GMM with <span class="math inline">\(\bW=(\bZ'\bZ)^{-1}\)</span>.</li>
+<li>The <strong>optimal weight is <span class="math inline">\(\bS^{-1}\)</span></strong> (inverse variance of the moments); it matters under <strong>heteroskedasticity</strong>, where 2SLS is no longer efficient.</li>
+<li>The <strong><span class="math inline">\(J\)</span>-test</strong> (<span class="math inline">\(\chi^2_{\ell-k}\)</span>) is the robust Sargan: it checks the surplus moments’ mutual consistency — it <strong>falsifies, never confirms</strong>.</li>
+</ul>
+<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Where this shows up</span></div><div class="econ-box-body">
+<p>The original theory is <span class="citation" data-cites="hansen1982gmm">Hansen (<a href="#ref-hansen1982gmm" role="doc-biblioref">1982</a>)</span>. In <strong>structural</strong> work GMM/SMM is standard: demand estimation <span class="citation" data-cites="berry1995automobile">(<a href="#ref-berry1995automobile" role="doc-biblioref">Berry et al. 1995</a>)</span>, consumption Euler equations <span class="citation" data-cites="hansensingleton1982">(<a href="#ref-hansensingleton1982" role="doc-biblioref">Hansen and Singleton 1982</a>)</span>, and the asset-pricing SDF framework. In <strong>dynamic panels</strong>, Arellano–Bond and system GMM <span class="citation" data-cites="arellano1991some">(<a href="#ref-arellano1991some" role="doc-biblioref">Arellano and Bond 1991</a>)</span> are powerful but prone to <strong>instrument proliferation</strong> <span class="citation" data-cites="roodman2009note">(<a href="#ref-roodman2009note" role="doc-biblioref">Roodman 2009</a>)</span>. The design-based retreat reflects the finite-sample cost of the <strong>estimated</strong> optimal weight <span class="citation" data-cites="altonji1996small">(<a href="#ref-altonji1996small" role="doc-biblioref">Altonji and Segal 1996</a>)</span> — the Lecture 10 theme, once more.</p>
+</div></div>
+</section>
+</section>
+<section id="references" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
+<section id="references-1" class="level3 smaller">
+<h3 class="smaller anchored" data-anchor-id="references-1">References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-altonji1996small" class="csl-entry" role="listitem">
+Altonji, Joseph G., and Lewis M. Segal. 1996. <span>“Small-Sample Bias in GMM Estimation of Covariance Structures.”</span> <em>Journal of Business &amp; Economic Statistics</em> 14 (3): 353–66.
+</div>
+<div id="ref-arellano1991some" class="csl-entry" role="listitem">
+Arellano, Manuel, and Stephen Bond. 1991. <span>“Some Tests of Specification for Panel Data: Monte Carlo Evidence and an Application to Employment Equations.”</span> <em>Review of Economic Studies</em> 58 (2): 277–97.
+</div>
+<div id="ref-berry1995automobile" class="csl-entry" role="listitem">
+Berry, Steven, James Levinsohn, and Ariel Pakes. 1995. <span>“Automobile Prices in Market Equilibrium.”</span> <em>Econometrica</em> 63 (4): 841–90.
+</div>
+<div id="ref-hansen1982gmm" class="csl-entry" role="listitem">
+Hansen, Lars Peter. 1982. <span>“Large Sample Properties of Generalized Method of Moments Estimators.”</span> <em>Econometrica</em> 50 (4): 1029–54.
+</div>
+<div id="ref-hansensingleton1982" class="csl-entry" role="listitem">
+Hansen, Lars Peter, and Kenneth J. Singleton. 1982. <span>“Generalized Instrumental Variables Estimation of Nonlinear Rational Expectations Models.”</span> <em>Econometrica</em> 50 (5): 1269–86.
+</div>
+<div id="ref-roodman2009note" class="csl-entry" role="listitem">
+Roodman, David. 2009. <span>“A Note on the Theme of Too Many Instruments.”</span> <em>Oxford Bulletin of Economics and Statistics</em> 71 (1): 135–58.
+</div>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<!--
+  Annotated equations: link each \eqt{key}{...} term in the rendered math to its
+  explanation card, in both directions.
+
+  Injected via `include-after-body`, so the DOM exists when this runs. MathJax
+  typesets asynchronously, so we wait for the `econ:mathjax-done` event fired by
+  assets/mathjax.html (with a polling fallback in case MathJax is absent or the
+  event was missed).
+
+  Behaviour: hovering or focusing either a term or its card highlights both.
+  Clicking a term pins the pair, so it survives the pointer moving away — which
+  matters when the note is long enough to read.
+-->
+<script>
+(function () {
+  'use strict';
+
+  var PINNED = 'eqt-pinned';
+  var ACTIVE = 'eqt-active';
+
+  // wire() can be reached from three paths (the MathJax event, DOMContentLoaded,
+  // and the polling fallback). Without this guard the later paths bind a second
+  // set of handlers and every click toggles the pin twice, i.e. never pins.
+  var wired = false;
+
+  function wire(root) {
+    if (wired) return true;
+
+    var terms = root.querySelectorAll('.eqt');
+    if (!terms.length) return false;
+
+    wired = true;
+
+    // MathJax emits \class{eqt eqt-a} on possibly several nested nodes; index by key.
+    var byKey = {};
+    terms.forEach(function (el) {
+      var key = null;
+      el.classList.forEach(function (c) {
+        if (c.indexOf('eqt-') === 0 && c !== 'eqt-active' && c !== 'eqt-pinned') {
+          key = c.slice(4);
+        }
+      });
+      if (!key) return;
+      (byKey[key] = byKey[key] || []).push(el);
+      el.setAttribute('data-eqt', key);
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Equation term ' + key);
+    });
+
+    var notes = root.querySelectorAll('.econ-eqnote-note');
+    var noteByKey = {};
+    notes.forEach(function (n) { noteByKey[n.getAttribute('data-eqt')] = n; });
+
+    function partners(key) {
+      var list = (byKey[key] || []).slice();
+      if (noteByKey[key]) list.push(noteByKey[key]);
+      return list;
+    }
+
+    function setActive(key, on) {
+      partners(key).forEach(function (el) { el.classList.toggle(ACTIVE, on); });
+    }
+
+    function clearPins(scope) {
+      scope.querySelectorAll('.' + PINNED).forEach(function (el) {
+        el.classList.remove(PINNED);
+        el.classList.remove(ACTIVE);
+      });
+    }
+
+    function togglePin(key, container) {
+      var already = (byKey[key] || []).some(function (el) {
+        return el.classList.contains(PINNED);
+      });
+      clearPins(container);
+      if (!already) {
+        partners(key).forEach(function (el) {
+          el.classList.add(PINNED);
+          el.classList.add(ACTIVE);
+        });
+      }
+    }
+
+    function bind(el) {
+      var key = el.getAttribute('data-eqt');
+      if (!key) return;
+      var container = el.closest('.econ-eqnote') || root;
+
+      el.addEventListener('mouseenter', function () { setActive(key, true); });
+      el.addEventListener('mouseleave', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('focus', function () { setActive(key, true); });
+      el.addEventListener('blur', function () {
+        if (!el.classList.contains(PINNED)) setActive(key, false);
+      });
+      el.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        togglePin(key, container);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          togglePin(key, container);
+        }
+      });
+    }
+
+    terms.forEach(bind);
+    notes.forEach(bind);
+
+    // Clicking outside any annotated equation releases the pin.
+    document.addEventListener('click', function (ev) {
+      if (!ev.target.closest('.econ-eqnote')) clearPins(root);
+    });
+
+    return true;
+  }
+
+  var timer = null;
+
+  function stopPolling() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    if (wire(document)) {
+      stopPolling();
+      return;
+    }
+    if (timer !== null) return;
+    // Fallback: MathJax may not have finished (or may not be present at all).
+    var tries = 0;
+    timer = setInterval(function () {
+      if (wire(document) || ++tries > 40) stopPolling();
+    }, 150);
+  }
+
+  document.addEventListener('econ:mathjax-done', start);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../notas/10-weak-iv.html" class="pagination-link" aria-label="10 · Weak Instruments and Specification Tests">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">10 · Weak Instruments and Specification Tests</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../slides/notas/01-map.html" class="pagination-link" aria-label="1 · Econometrics, the DGP, and the Map">
+        <span class="nav-page-text">1 · Econometrics, the DGP, and the Map</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Econometrics I — PIMES/UFPE</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
