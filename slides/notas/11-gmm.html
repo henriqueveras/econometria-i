@@ -284,7 +284,7 @@ Henrique Veras
 <p></p><div class="econ-stage" role="note" aria-label="Position in the course architecture"><div class="econ-stage-row"><span class="econ-stage-item econ-stage-dgp">DGP</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-identification">Identification</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-estimation is-active">Estimation</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-asymptotics">Asymptotics</span><span class="econ-stage-arrow" aria-hidden="true">→</span><span class="econ-stage-item econ-stage-inference is-active">Inference</span></div><div class="econ-stage-band"><span class="econ-stage-comp">Computation</span></div></div><p></p>
 <ul>
 <li><strong>Already a moment condition:</strong> Lecture 4 read OLS as <span class="math inline">\(\bX'\be=\bzero\)</span>; Lecture 9 read IV as <span class="math inline">\(\E[\mathbf{z}\varepsilon]=\bzero\)</span> — GMM <strong>names</strong> the idea and <strong>generalises</strong> it.</li>
-<li><strong>Lecture 10 left two IOUs:</strong> under heteroskedasticity neither OLS nor 2SLS is efficient; and the robust Sargan. GMM pays both.</li>
+<li><strong>Lecture 10 left two IOUs:</strong> under heteroskedasticity neither OLS nor 2SLS is efficient; and the <strong>overidentification test</strong> (<span class="math inline">\(\ell&gt;k\)</span> was set up, the test deferred to here). GMM pays both.</li>
 <li><strong>Plan:</strong> moments → a weighted criterion → OLS/IV/2SLS as special cases → the optimal weight → the <span class="math inline">\(J\)</span>-test.</li>
 </ul>
 <div class="econ-box econ-box-dgp" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">◆</span><span class="econ-box-label">What is the DGP?</span><span class="econ-box-sep">—</span><span class="econ-box-title">What is the DGP, here?</span></div><div class="econ-box-body">
@@ -296,19 +296,19 @@ Henrique Veras
 <h1>Part I · From moment conditions to an estimator</h1>
 
 </section>
-<section id="the-objects" class="title-slide slide level2 center">
-<h2>The objects</h2>
+<section id="a-parameter-that-solves-a-moment" class="title-slide slide level2 center">
+<h2>A parameter that solves a moment</h2>
 
 </section>
-<section id="a-moment-condition-mathbfd_i-mathbfg-and-btheta" class="slide level3 smaller">
-<h3>A moment condition: <span class="math inline">\(\mathbf{d}_i\)</span>, <span class="math inline">\(\mathbf{g}\)</span>, and <span class="math inline">\(\btheta\)</span></h3>
-<p>Three objects. The <strong>data</strong> <span class="math inline">\(\mathbf{d}_i\)</span> — everything observed for unit <span class="math inline">\(i\)</span> (here <span class="math inline">\(\mathbf{d}_i=(y_i,\mathbf{x}_i,\mathbf{z}_i)\)</span>). The <strong>parameter</strong> <span class="math inline">\(\btheta\)</span> — the <span class="math inline">\(k\times1\)</span> vector we want. The <strong>moment function</strong> <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\btheta)\)</span> — an <span class="math inline">\(\ell\times1\)</span> vector built so that its population mean is zero <strong>only</strong> at the truth, and estimated by its sample average: <span class="math display">\[\underbrace{\E[\mathbf{g}(\mathbf{d}_i,\btheta_0)]=\bzero}_{\ell\text{ population moment conditions}}
+<section id="start-from-the-mean-a-parameter-that-zeroes-a-moment" class="slide level3 smaller">
+<h3>Start from the mean: a parameter that zeroes a moment</h3>
+<p>The simplest estimator there is already works this way. Ask <em>“what is the mean of <span class="math inline">\(y\)</span>?”</em> — the answer <span class="math inline">\(\mu\)</span> is the <strong>one</strong> number for which <span class="math inline">\(y_i-\mu\)</span> averages to zero. That is a moment condition; estimating it is just swapping the population average for the sample one and solving: <span class="math display">\[\E[\,\underbrace{y_i-\mu}_{\textstyle\mathbf{g}(\mathbf{d}_i,\mu)}\,]=0\ \ \text{(only at }\mu_0=\E[y_i])
 \qquad\xrightarrow{\ \text{analogy principle}\ }\qquad
-\underbrace{\bar{\mathbf{g}}_n(\btheta)=\frac1n\sum_{i=1}^n\mathbf{g}(\mathbf{d}_i,\btheta)\ \approx\ \bzero}_{\text{sample analogue}} .\]</span></p>
+\tfrac1n\sum_{i=1}^n (y_i-\mu)=0\ \ \Rightarrow\ \ \hat\mu=\bar y .\]</span> The same three objects name <strong>every</strong> estimator in the course: the <strong>data</strong> <span class="math inline">\(\mathbf{d}_i\)</span> (all you observe for <span class="math inline">\(i\)</span>), the <strong>parameter</strong> <span class="math inline">\(\btheta\)</span> (<span class="math inline">\(k\times1\)</span>), and the <strong>moment</strong> <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\btheta)\)</span> (<span class="math inline">\(\ell\times1\)</span>), built to average to zero <strong>only</strong> at the truth <span class="math inline">\(\btheta_0\)</span>.</p>
 <ul>
-<li><strong>Data</strong> <span class="math inline">\(\mathbf{d}_i\)</span> = all you observe for <span class="math inline">\(i\)</span>; <strong>parameter</strong> <span class="math inline">\(\btheta\)</span> (<span class="math inline">\(k\times1\)</span>); <strong>moment</strong> <span class="math inline">\(\mathbf{g}\)</span> (<span class="math inline">\(\ell\times1\)</span>), mean-zero <strong>only</strong> at <span class="math inline">\(\btheta_0\)</span>.</li>
-<li><strong>Analogy principle:</strong> swap <span class="math inline">\(\E[\cdot]\)</span> for <span class="math inline">\(\tfrac1n\sum_i\)</span>, then <strong>solve</strong> (if <span class="math inline">\(\ell=k\)</span>) or <strong>compromise</strong> (if <span class="math inline">\(\ell&gt;k\)</span>).</li>
-<li><strong>Heads-up on symbols:</strong> <span class="math inline">\(\mathbf{d}_i\)</span> (subscript <span class="math inline">\(i\)</span>) is the <strong>data</strong>; the bold <span class="math inline">\(\bW\)</span> that appears later is the <strong>weight matrix</strong> — unrelated objects.</li>
+<li><strong>The mean is already a moment condition:</strong> <span class="math inline">\(\mu\)</span> is the only number with <span class="math inline">\(\E[y_i-\mu]=0\)</span>. Estimate by swapping <span class="math inline">\(\E[\cdot]\)</span> for <span class="math inline">\(\tfrac1n\sum_i\)</span> and <strong>solving</strong>.</li>
+<li><strong>Three objects, every time:</strong> data <span class="math inline">\(\mathbf{d}_i\)</span>, parameter <span class="math inline">\(\btheta\)</span> (<span class="math inline">\(k\times1\)</span>), moment <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\btheta)\)</span> (<span class="math inline">\(\ell\times1\)</span>) — mean-zero <strong>only</strong> at <span class="math inline">\(\btheta_0\)</span>.</li>
+<li>The whole lecture just varies <strong>what goes in place of <span class="math inline">\(y_i-\mu\)</span></strong>.</li>
 </ul>
 </section>
 
@@ -316,15 +316,15 @@ Henrique Veras
 <h2>One recipe, many estimators</h2>
 
 </section>
-<section id="the-same-machine-four-choices-of-mathbfg" class="slide level3 smaller">
-<h3>The same machine, four choices of <span class="math inline">\(\mathbf{g}\)</span></h3>
+<section id="the-same-move-a-new-mathbfg-ols-then-iv" class="slide level3 smaller">
+<h3>The same move, a new <span class="math inline">\(\mathbf{g}\)</span>: OLS, then IV</h3>
+<p>Only the <strong>moment</strong> changes. OLS asserts <span class="math inline">\(\E[\mathbf{x}\varepsilon]=0\)</span> and uses <span class="math inline">\(\mathbf{x}\)</span> as its own instrument. But that assumption is exactly what <strong>endogeneity breaks</strong> (Lecture 9): when <span class="math inline">\(\E[\mathbf{x}\varepsilon]\neq0\)</span> the OLS moment points at the wrong <span class="math inline">\(\bbeta\)</span>. The fix is to swap in an <strong>instrument</strong> <span class="math inline">\(\mathbf{z}\)</span> we <em>do</em> believe is clean, <span class="math inline">\(\E[\mathbf{z}\varepsilon]=0\)</span> — a new <span class="math inline">\(\mathbf{g}\)</span>, same machine.</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -332,7 +332,6 @@ Henrique Veras
 <th>parameter <span class="math inline">\(\btheta\)</span></th>
 <th>moment <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\btheta)\)</span></th>
 <th>count</th>
-<th>weight <span class="math inline">\(\bW\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -341,34 +340,31 @@ Henrique Veras
 <td><span class="math inline">\(\mu\)</span></td>
 <td><span class="math inline">\(y_i-\mu\)</span></td>
 <td><span class="math inline">\(\ell=k=1\)</span></td>
-<td>—</td>
 </tr>
 <tr class="even">
 <td>OLS</td>
 <td><span class="math inline">\(\bbeta\)</span></td>
 <td><span class="math inline">\(\mathbf{x}_i(y_i-\mathbf{x}_i'\bbeta)\)</span></td>
 <td><span class="math inline">\(\ell=k\)</span></td>
-<td>—</td>
 </tr>
 <tr class="odd">
-<td>IV (exact)</td>
+<td>IV</td>
 <td><span class="math inline">\(\bbeta\)</span></td>
 <td><span class="math inline">\(\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta),\ \dim\mathbf{z}_i=k\)</span></td>
 <td><span class="math inline">\(\ell=k\)</span></td>
-<td>—</td>
 </tr>
 <tr class="even">
 <td>2SLS</td>
 <td><span class="math inline">\(\bbeta\)</span></td>
 <td><span class="math inline">\(\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta),\ \dim\mathbf{z}_i=\ell&gt;k\)</span></td>
-<td><span class="math inline">\(\ell&gt;k\)</span></td>
-<td><span class="math inline">\((\bZ'\bZ)^{-1}\)</span></td>
+<td><span class="math inline">\(\boldsymbol{\ell&gt;k}\)</span></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><strong>Only <span class="math inline">\(\mathbf{g}\)</span> changes.</strong> OLS uses <span class="math inline">\(\mathbf{x}\)</span> as its own instrument; IV swaps in <span class="math inline">\(\mathbf{z}\)</span>; 2SLS keeps the same <span class="math inline">\(\mathbf{g}\)</span> with <strong>more instruments than parameters</strong>.</li>
-<li><strong>The weight <span class="math inline">\(\bW\)</span> is idle until <span class="math inline">\(\ell&gt;k\)</span>.</strong> The first three rows hit <span class="math inline">\(\bar{\mathbf{g}}_n=\bzero\)</span> <strong>exactly</strong>, so the weight cancels (Board, Derivation 0).</li>
+<li><strong>Only <span class="math inline">\(\mathbf{g}\)</span> changes.</strong> OLS uses <span class="math inline">\(\mathbf{x}\)</span> as its own instrument (<span class="math inline">\(\E[\mathbf{x}\varepsilon]=0\)</span>).</li>
+<li><strong>The endogeneity problem (Lecture 9):</strong> when <span class="math inline">\(\E[\mathbf{x}\varepsilon]\neq0\)</span>, swap in an instrument <span class="math inline">\(\mathbf{z}\)</span> with <span class="math inline">\(\E[\mathbf{z}\varepsilon]=0\)</span> — the IV moment.</li>
+<li>First three rows are <strong>exactly identified</strong> (<span class="math inline">\(\ell=k\)</span>) — just solve. The whole lecture is about the <strong>last row</strong>, <span class="math inline">\(\ell&gt;k\)</span>.</li>
 </ul>
 </section>
 
@@ -376,35 +372,36 @@ Henrique Veras
 <h2>The moment system</h2>
 
 </section>
-<section id="the-equations-the-moments-generate" class="slide level3 smaller">
-<h3>The equations the moments generate</h3>
-<p>One equation per instrument — stack them and the matrix form appears: <span class="math display">\[\frac1n\sum_{i=1}^n z_{ij}\,(y_i-\mathbf{x}_i'\bbeta)=0,\quad j=1,\dots,\ell
+<section id="the-iv-moment-system-the-one-from-lecture-9" class="slide level3 smaller">
+<h3>The IV moment system — the one from Lecture 9</h3>
+<p>Write the IV moment condition out and a familiar object returns. One equation per instrument, stacked, <strong>is</strong> the system you already solved for IV: <span class="math display">\[\frac1n\sum_{i=1}^n z_{ij}\,(y_i-\mathbf{x}_i'\bbeta)=0,\quad j=1,\dots,\ell
 \qquad\Longleftrightarrow\qquad \frac1n\,\bZ'(\bY-\bX\bbeta)=\bzero
-\qquad(\ell\text{ equations},\ k\text{ unknowns}).\]</span> Identification asks whether this system pins <span class="math inline">\(\bbeta\)</span> down. In population it rearranges to a <strong>linear system</strong>, <span class="math display">\[\E[\mathbf{z}\mathbf{x}']\,\bbeta=\E[\mathbf{z}y],\qquad\text{unique solution}\quad
+\qquad(\ell\text{ equations},\ k\text{ unknowns}).\]</span> Identification asks whether this pins <span class="math inline">\(\bbeta\)</span> down. In population it is the <strong>linear system</strong> <span class="math display">\[\E[\mathbf{z}\mathbf{x}']\,\bbeta=\E[\mathbf{z}y],\qquad\text{unique solution}\quad
 \bbeta_0=(\E[\mathbf{z}\mathbf{x}'])^{-1}\E[\mathbf{z}y]\ \ \textbf{iff}\ \ \rank\E[\mathbf{z}\mathbf{x}']=k .\]</span></p>
 <ul>
-<li><strong><span class="math inline">\(\ell\)</span> equations, <span class="math inline">\(k\)</span> unknowns:</strong> <span class="math inline">\(\tfrac1n\bZ'(\bY-\bX\bbeta)=\bzero\)</span>, one row <strong>per instrument</strong>.</li>
-<li><strong>Identified</strong> ⟺ the population system <span class="math inline">\(\E[\mathbf{z}\mathbf{x}']\bbeta=\E[\mathbf{z}y]\)</span> has a unique solution ⟺ <span class="math inline">\(\rank\E[\mathbf{z}\mathbf{x}']=k\)</span> — the Lecture 9 rank condition.</li>
-<li><strong>Not identified</strong> = a direction of <span class="math inline">\(\bbeta\)</span> the moments cannot move — a flat valley in the criterion later.</li>
+<li>This <strong>is Lecture 9’s IV system</strong>, re-read as a moment condition: <span class="math inline">\(\tfrac1n\bZ'(\bY-\bX\bbeta)=\bzero\)</span>, one row <strong>per instrument</strong>.</li>
+<li><strong>Identified</strong> ⟺ unique solution ⟺ <span class="math inline">\(\rank\E[\mathbf{z}\mathbf{x}']=k\)</span> — the Lecture 9 <strong>rank condition</strong>.</li>
+<li><strong><span class="math inline">\(\ell=k\)</span>:</strong> square system, solve → IV. The open question: <strong>what if <span class="math inline">\(\ell&gt;k\)</span>?</strong></li>
 </ul>
 </section>
 
-<section id="exactly-vs.-over-identified" class="title-slide slide level2 center">
-<h2>Exactly vs.&nbsp;over-identified</h2>
+<section id="over-identification-revisited" class="title-slide slide level2 center">
+<h2>Over-identification, revisited</h2>
 
 </section>
-<section id="when-ellk-the-instruments-disagree" class="slide level3 smaller">
-<h3>When <span class="math inline">\(\ell&gt;k\)</span>: the instruments disagree</h3>
-<p>One endogenous regressor (<span class="math inline">\(k=1\)</span>), two instruments (<span class="math inline">\(\ell=2\)</span>): each instrument gives its <strong>own</strong> moment equation <span class="math inline">\(m_j(\beta)=0\)</span>, hence its <strong>own</strong> just-identified IV estimate <span class="math inline">\(\hat\beta_j\)</span> — and with <span class="math inline">\(\ell&gt;k\)</span> <strong>they disagree</strong>.</p>
+<section id="more-instruments-than-parameters-you-solved-this-once-already" class="slide level3 smaller">
+<h3>More instruments than parameters — you solved this once already</h3>
+<p>One endogenous regressor, two instruments: each gives its <strong>own</strong> IV estimate <span class="math inline">\(\hat\beta_j\)</span> — and with <span class="math inline">\(\ell&gt;k\)</span> <strong>they disagree</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../assets/gmm-moments-disagree.svg" class="" style="width:72.0%" alt="Two downward-sloping moment lines crossing zero at different points, with the GMM estimate between them"></p>
-<figcaption>Each instrument’s moment <span class="math inline">\(m_j(\beta)\)</span> crosses zero at its own IV estimate <span class="math inline">\(\hat\beta_j\)</span>; with <span class="math inline">\(\ell&gt;k\)</span> the crossings differ, and GMM lands a weighted compromise between them.</figcaption>
+<p><img data-src="../assets/gmm-moments-disagree.svg" class="" style="width:73.0%" alt="Two downward-sloping moment lines crossing zero at different points, with the GMM estimate between them"></p>
+<figcaption>With <span class="math inline">\(\ell&gt;k\)</span> each instrument’s moment crosses zero at a different <span class="math inline">\(\hat\beta_j\)</span>; GMM lands a weighted compromise between them.</figcaption>
 </figure>
 </div>
 <ul>
-<li><strong>No common zero:</strong> the two IV estimates differ, so no single <span class="math inline">\(\beta\)</span> zeroes both moments.</li>
-<li><strong>GMM compromises:</strong> minimize the weighted pair <span class="math inline">\((m_1,m_2)\)</span>; <span class="math inline">\(\bW\)</span> sets <em>where</em> between <span class="math inline">\(\hat\beta_1,\hat\beta_2\)</span>.</li>
+<li><strong><span class="math inline">\(\ell&gt;k\)</span>:</strong> each instrument alone is an IV; they <strong>disagree</strong> — no single <span class="math inline">\(\beta\)</span> zeroes both.</li>
+<li><strong>Not new:</strong> Lecture 9’s <strong>2SLS</strong> already met <span class="math inline">\(\ell&gt;k\)</span>, combining instruments into <span class="math inline">\(\widehat{\bX}=\bP_{\bZ}\bX\)</span> — <span class="math inline">\(\ell\)</span> moments back to <span class="math inline">\(k\)</span>.</li>
+<li><strong>New question:</strong> is 2SLS’s <em>one</em> combination the <strong>best</strong>? Need a principle for <em>how</em> to combine → next slide.</li>
 </ul>
 </section>
 
@@ -412,18 +409,15 @@ Henrique Veras
 <h2>The GMM criterion</h2>
 
 </section>
-<section id="minimize-a-weighted-distance-of-the-moments" class="slide level3 smaller">
-<h3>Minimize a weighted distance of the moments</h3>
-<p><span class="math display">\[\boxed{\ J(\btheta)=n\,\bar{\mathbf{g}}_n(\btheta)'\,\bW\,\bar{\mathbf{g}}_n(\btheta)\ },\qquad \bW\succ0,
+<section id="the-compromise-made-precise-a-weighted-criterion" class="slide level3 smaller">
+<h3>The compromise made precise: a weighted criterion</h3>
+<p>Since no <span class="math inline">\(\btheta\)</span> can zero all <span class="math inline">\(\ell\)</span> moments at once, settle for the <span class="math inline">\(\btheta\)</span> that makes them <strong>jointly smallest</strong>, measured by a weighted sum of squares: <span class="math display">\[\boxed{\ J(\btheta)=n\,\bar{\mathbf{g}}_n(\btheta)'\,\bW\,\bar{\mathbf{g}}_n(\btheta)\ },\qquad \bW\succ0,
 \qquad \hat\btheta_{\text{GMM}}=\argmin_{\btheta} J(\btheta).\]</span></p>
 <ul>
-<li><span class="math inline">\(\bW\)</span> is a <strong>positive-definite weight</strong>: how much each moment (and their correlations) counts.</li>
-<li><strong>Exactly identified:</strong> <span class="math inline">\(J\)</span> reaches <span class="math inline">\(0\)</span> at <span class="math inline">\(\bar{\mathbf{g}}_n=\bzero\)</span> — <span class="math inline">\(\bW\)</span> <strong>drops out</strong> (recovers MoM/IV).</li>
-<li><strong>Over-identified:</strong> <span class="math inline">\(\bW\)</span> decides how the conflicting moments are traded off — different <span class="math inline">\(\bW\)</span>, different estimator.</li>
+<li>Can’t zero all <span class="math inline">\(\ell\)</span> moments → make them <strong>jointly small</strong>: minimise <span class="math inline">\(J(\btheta)=n\,\bar{\mathbf{g}}_n'\bW\bar{\mathbf{g}}_n\)</span>.</li>
+<li><strong><span class="math inline">\(\bW\)</span> is the weight</strong> — how much each moment counts and how conflicts are traded off; equivalently, <em>which combination of instruments</em> you use. <strong>2SLS’s “combine” was one choice of <span class="math inline">\(\bW\)</span>.</strong></li>
+<li><strong>Exactly identified:</strong> <span class="math inline">\(J\)</span> reaches <span class="math inline">\(0\)</span>, <span class="math inline">\(\bW\)</span> <strong>drops out</strong> (recovers MoM/IV). <strong>Over-identified:</strong> <span class="math inline">\(\bW\)</span> changes the answer — Part III finds the best one.</li>
 </ul>
-<div class="econ-box econ-box-hood" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">⚙️</span><span class="econ-box-label">Under the Hood</span><span class="econ-box-sep">—</span><span class="econ-box-title">What the computer does</span></div><div class="econ-box-body">
-<p><span class="math inline">\(J\)</span> has <strong>no closed form</strong> in general ⇒ numerical minimization (gancho: a otimização da Aula 13). The <strong>linear</strong> case (OLS/IV/2SLS) is the exception — <span class="math inline">\(\bar{\mathbf{g}}_n\)</span> is linear in <span class="math inline">\(\btheta\)</span>, so <span class="math inline">\(\hat\btheta\)</span> has a closed form (Part II).</p>
-</div></div>
 </section>
 </section>
 <section>
@@ -431,16 +425,16 @@ Henrique Veras
 <h1>Part II · OLS, IV and 2SLS are all GMM</h1>
 
 </section>
-<section id="least-squares" class="title-slide slide level2 center">
-<h2>Least squares</h2>
+<section id="the-exactly-identified-cases" class="title-slide slide level2 center">
+<h2>The exactly-identified cases</h2>
 
 </section>
-<section id="ols-is-just-identified-gmm" class="slide level3 smaller">
-<h3>OLS is just-identified GMM</h3>
-<p>Take <span class="math inline">\(\mathbf{g}(\mathbf{d}_i,\bbeta)=\mathbf{x}_i(y_i-\mathbf{x}_i'\bbeta)\)</span>, so <span class="math inline">\(\ell=k\)</span>. The sample moment <strong>is</strong> the OLS normal equation: <span class="math display">\[\bar{\mathbf{g}}_n(\bbeta)=\tfrac1n\bX'(\bY-\bX\bbeta)=\bzero \ \Longleftrightarrow\ \bX'\be=\bzero
-\ \Longrightarrow\ \hat\btheta_{\text{GMM}}=\bb_{\text{OLS}} .\]</span></p>
+<section id="ols-and-iv-are-just-identified-gmm-ellk" class="slide level3 smaller">
+<h3>OLS and IV are just-identified GMM (<span class="math inline">\(\ell=k\)</span>)</h3>
+<p>With one moment per parameter there is nothing to weight — set the sample moment to zero and solve, recovering the estimator you already know: <span class="math display">\[\text{OLS: } \mathbf{g}=\mathbf{x}_i(y_i-\mathbf{x}_i'\bbeta)\ \Rightarrow\ \tfrac1n\bX'(\bY-\bX\bbeta)=\bzero\ \Leftrightarrow\ \bX'\be=\bzero\ \Rightarrow\ \bb_{\text{OLS}};\]</span> <span class="math display">\[\text{IV: } \mathbf{g}=\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta)\ \Rightarrow\ \tfrac1n\bZ'(\bY-\bX\bbeta)=\bzero\ \Rightarrow\ \bb_{\text{IV}}=(\bZ'\bX)^{-1}\bZ'\bY .\]</span></p>
 <ul>
-<li>Exactly identified (<span class="math inline">\(\ell=k\)</span>): <span class="math inline">\(J\)</span> hits <span class="math inline">\(0\)</span>, weight irrelevant, GMM <span class="math inline">\(=\)</span> OLS.</li>
+<li>Both are <strong>exactly identified</strong> (<span class="math inline">\(\ell=k\)</span>): <span class="math inline">\(J\)</span> hits <span class="math inline">\(0\)</span>, the weight is irrelevant, GMM <span class="math inline">\(=\)</span> the estimator.</li>
+<li><strong>OLS</strong> sets <span class="math inline">\(\bX'\be=\bzero\)</span>; <strong>IV</strong> sets <span class="math inline">\(\bZ'(\bY-\bX\bbeta)=\bzero\)</span> — same move, instrument <span class="math inline">\(\mathbf{z}\)</span> for <span class="math inline">\(\mathbf{x}\)</span>.</li>
 <li>This <strong>is</strong> the “other route” promised in Lecture 4: minimizing <span class="math inline">\(S(\mathbf{b})\)</span> and solving the moment are the same door.</li>
 </ul>
 <div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Closing Lecture 4's moment-condition box</span></div><div class="econ-box-body">
@@ -448,32 +442,21 @@ Henrique Veras
 </div></div>
 </section>
 
-<section id="instrumental-variables" class="title-slide slide level2 center">
-<h2>Instrumental variables</h2>
-
-</section>
-<section id="iv-is-just-identified-gmm" class="slide level3 smaller">
-<h3>IV is just-identified GMM</h3>
-<p>Swap the instrument: <span class="math inline">\(\mathbf{g}=\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta)\)</span> with <span class="math inline">\(\ell=k\)</span>. Then <span class="math display">\[\bar{\mathbf{g}}_n(\bbeta)=\tfrac1n\bZ'(\bY-\bX\bbeta)=\bzero \ \Longrightarrow\ \hat\btheta_{\text{GMM}}=\bb_{\text{IV}}=(\bZ'\bX)^{-1}\bZ'\bY .\]</span></p>
-<ul>
-<li>Same recipe, instrument <span class="math inline">\(\mathbf{z}\)</span> in place of <span class="math inline">\(\mathbf{x}\)</span> — the Lecture 9 toolbox, now named GMM.</li>
-<li>Exactly identified ⇒ weight still irrelevant.</li>
-</ul>
-</section>
-
 <section id="two-stage-least-squares" class="title-slide slide level2 center">
 <h2>Two-stage least squares</h2>
 
 </section>
-<section id="sls-is-over-identified-gmm-with-a-specific-weight" class="slide level3 smaller">
-<h3>2SLS is over-identified GMM with a specific weight</h3>
+<section id="sls-is-over-identified-gmm-the-first-time-the-weight-matters" class="slide level3 smaller">
+<h3>2SLS is over-identified GMM — the first time the weight matters</h3>
 <p>Now <span class="math inline">\(\ell&gt;k\)</span> with <span class="math inline">\(\mathbf{g}=\mathbf{z}_i(y_i-\mathbf{x}_i'\bbeta)\)</span>. Minimizing <span class="math inline">\(J\)</span> with <span class="math inline">\(\bW=(\bZ'\bZ/n)^{-1}\)</span> gives the closed form <span class="math display">\[\hat\btheta_{\text{GMM}}(\bW)=\big(\bX'\bZ\,\bW\,\bZ'\bX\big)^{-1}\bX'\bZ\,\bW\,\bZ'\bY
 \ \xrightarrow{\ \bW=(\bZ'\bZ)^{-1}\ }\ \bb_{\text{2SLS}}=\big(\bX'\bP_{\bZ}\bX\big)^{-1}\bX'\bP_{\bZ}\bY .\]</span></p>
 <ul>
-<li><strong>2SLS <span class="math inline">\(=\)</span> GMM</strong> with the particular weight <span class="math inline">\(\bW=(\bZ'\bZ)^{-1}\)</span>; substitute and <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span> appears.</li>
-<li>Over-identified: now the weight <strong>matters</strong> — and <span class="math inline">\((\bZ'\bZ)^{-1}\)</span> is <strong>not</strong> generally the best one (Part III).</li>
+<li>Minimize <span class="math inline">\(J\)</span> with <span class="math inline">\(\bW=(\bZ'\bZ)^{-1}\)</span> → closed form → <span class="math inline">\(\bb_{\text{2SLS}}\)</span>, with <span class="math inline">\(\bP_{\bZ}=\bZ(\bZ'\bZ)^{-1}\bZ'\)</span>.</li>
+<li><strong>This is the “combine the instruments” of Lecture 9:</strong> the weight <span class="math inline">\((\bZ'\bZ)^{-1}\)</span> <em>is</em> projecting <span class="math inline">\(\bX\)</span> onto <span class="math inline">\(\bZ\)</span> (<span class="math inline">\(\widehat{\bX}=\bP_{\bZ}\bX\)</span>). Choosing <span class="math inline">\(\bW\)</span> <strong>is</strong> choosing the combination.</li>
+<li>Over-identified ⇒ the weight <strong>matters</strong> — and <span class="math inline">\((\bZ'\bZ)^{-1}\)</span> is <strong>not</strong> generally the best one (Part III).</li>
 </ul>
 <div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">The whole of Part III in one table</span></div><div class="econ-box-body">
+<p>Now that <span class="math inline">\(\bW\)</span> has a meaning, the map completes — each later part fills a row:</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 25%">
@@ -530,36 +513,11 @@ Henrique Veras
 </section>
 <section id="every-weight-is-consistent-not-every-weight-is-efficient" class="slide level3 smaller">
 <h3>Every weight is consistent — not every weight is efficient</h3>
-<p>For any fixed <span class="math inline">\(\bW\succ0\)</span>, <span class="math inline">\(\hat\btheta_{\text{GMM}}(\bW)\)</span> is <strong>consistent</strong> (the moments are valid); <span class="math inline">\(\bW\)</span> only changes the <strong>asymptotic variance</strong>. So: which <span class="math inline">\(\bW\)</span> makes it smallest?</p>
+<p>For any fixed <span class="math inline">\(\bW\succ0\)</span>, <span class="math inline">\(\hat\btheta_{\text{GMM}}(\bW)\)</span> is <strong>consistent</strong> — the moments are valid, so it finds <span class="math inline">\(\btheta_0\)</span> whatever the weight. What <span class="math inline">\(\bW\)</span> changes is only the <strong>asymptotic variance</strong>. So two questions, <strong>in order</strong>: <em>what is that variance</em>, and <em>which <span class="math inline">\(\bW\)</span> makes it smallest?</em></p>
 <ul>
-<li>Consistency comes from <strong>valid moments</strong>, not from the weight.</li>
-<li>The weight is a <strong>precision</strong> choice — the analogue of GLS vs.&nbsp;OLS (Lecture 7).</li>
-</ul>
-</section>
-<section id="the-optimal-weight-is-bwbs-1" class="slide level3 smaller">
-<h3>The optimal weight is <span class="math inline">\(\bW^{\*}=\bS^{-1}\)</span></h3>
-<p>With <span class="math inline">\(\bS=\Asyvar\big(\sqrt n\,\bar{\mathbf{g}}_n\big)=\E[\mathbf{g}\mathbf{g}']\)</span> (the long-run variance of the moments), the efficient GMM weight is <span class="math inline">\(\bW^{\*}=\bS^{-1}\)</span>: <span class="math display">\[\bS=\sigma^2\bQ_{zz}\ \text{(homosk.)}\ \Rightarrow\ \bW^{\*}=(\sigma^2\bQ_{zz})^{-1}\Rightarrow \textbf{2SLS efficient};\qquad
-\bS=\E[\mathbf{z}\mathbf{z}'\varepsilon^2]=\bOmega\ \text{(heterosk.)}\ \Rightarrow\ \textbf{2SLS not efficient.}\]</span></p>
-<ul>
-<li><strong>Weight the moments by the inverse of their own variance</strong> — noisy moments count less.</li>
-<li><strong>Homoskedastic moments:</strong> <span class="math inline">\(\bS=\sigma^2\bQ_{zz}\)</span>, and <span class="math inline">\((\bZ'\bZ)^{-1}\)</span> matches it ⇒ 2SLS <strong>is</strong> efficient GMM.</li>
-<li><strong>Heteroskedastic moments:</strong> <span class="math inline">\(\bS=\bOmega\neq\sigma^2\bQ_{zz}\)</span> ⇒ 2SLS is beaten; efficient GMM reweights by <span class="math inline">\(\bOmega^{-1}\)</span>. <em>This is the “efficient use of the moments” promised in Lecture 10.</em></li>
-</ul>
-</section>
-
-<section id="making-it-feasible" class="title-slide slide level2 center">
-<h2>Making it feasible</h2>
-
-</section>
-<section id="feasible-two-step-gmm" class="slide level3 smaller">
-<h3>Feasible two-step GMM</h3>
-<p><span class="math inline">\(\bS\)</span> is unknown, so estimate it: <span class="math display">\[\text{Step 1: } \bW=(\bZ'\bZ)^{-1}\ \Rightarrow\ \hat\btheta^{(1)}\ \Rightarrow\ \hat\varepsilon_i;\qquad
-\hat\bS=\tfrac1n\sum_i \mathbf{z}_i\mathbf{z}_i'\hat\varepsilon_i^2;\qquad
-\text{Step 2: } \bW=\hat\bS^{-1}\ \Rightarrow\ \hat\btheta^{(2)}.\]</span></p>
-<ul>
-<li><strong>Step 1</strong> — any valid weight gives a consistent <span class="math inline">\(\hat\btheta^{(1)}\)</span> and residuals.</li>
-<li><strong>Step 2</strong> — reweight by <span class="math inline">\(\hat\bS^{-1}\)</span> (heteroskedasticity-robust by construction).</li>
-<li><strong>Iterated / CUE</strong> — repeat to convergence, or minimize over <span class="math inline">\(\btheta\)</span> inside <span class="math inline">\(\bS(\btheta)\)</span>; same asymptotics.</li>
+<li><strong>Consistency comes from valid moments, not from the weight</strong> — every <span class="math inline">\(\bW\succ0\)</span> reaches <span class="math inline">\(\btheta_0\)</span>.</li>
+<li><span class="math inline">\(\bW\)</span> changes only the <strong>asymptotic variance</strong> — a <strong>precision</strong> choice, the analogue of GLS vs.&nbsp;OLS (Lecture 7).</li>
+<li><strong>Plan:</strong> first write the variance down (next slide — a sandwich in <span class="math inline">\(\bW\)</span>), then pick the <span class="math inline">\(\bW\)</span> that minimises it.</li>
 </ul>
 </section>
 
@@ -569,12 +527,48 @@ Henrique Veras
 </section>
 <section id="asymptotic-normality-of-gmm" class="slide level3 smaller">
 <h3>Asymptotic normality of GMM</h3>
-<p>With <span class="math inline">\(\bG=\E[\partial \mathbf{g}/\partial\btheta']\)</span> (the moment Jacobian — the “bread”): <span class="math display">\[\sqrt n\,(\hat\btheta_{\text{GMM}}-\btheta_0)\ \dto\ \Normal\!\Big(\bzero,\ (\bG'\bW\bG)^{-1}\bG'\bW\bS\bW\bG(\bG'\bW\bG)^{-1}\Big)
-\ \xrightarrow{\ \bW=\bS^{-1}\ }\ \Normal\!\big(\bzero,\ (\bG'\bS^{-1}\bG)^{-1}\big).\]</span></p>
+<p>Every fixed <span class="math inline">\(\bW\)</span> gives a consistent, asymptotically <strong>normal</strong> estimator. With <span class="math inline">\(\bG=\E[\partial \mathbf{g}/\partial\btheta']\)</span> (the moment <strong>Jacobian</strong> — how the moments move with <span class="math inline">\(\btheta\)</span>) and <span class="math inline">\(\bS\)</span> the moment variance: <span class="math display">\[\sqrt n\,(\hat\btheta_{\text{GMM}}(\bW)-\btheta_0)\ \dto\ \Normal\!\Big(\bzero,\ \underbrace{(\bG'\bW\bG)^{-1}\bG'\bW\,\bS\,\bW\bG\,(\bG'\bW\bG)^{-1}}_{\textstyle V(\bW)}\Big).\]</span> The variance <span class="math inline">\(V(\bW)\)</span> still <strong>depends on <span class="math inline">\(\bW\)</span></strong> — <span class="math inline">\(\bG,\bS\)</span> are fixed, only <span class="math inline">\(\bW\)</span> is ours. Which <span class="math inline">\(\bW\)</span> makes it smallest is the next slide.</p>
 <ul>
-<li>A <strong>sandwich</strong> again: design inverse <span class="math inline">\(\times\)</span> moment variance <span class="math inline">\(\times\)</span> design inverse.</li>
-<li>At the <strong>optimal</strong> <span class="math inline">\(\bW=\bS^{-1}\)</span> it <strong>collapses</strong> to <span class="math inline">\((\bG'\bS^{-1}\bG)^{-1}\)</span> — the efficiency bound.</li>
-<li>Standard errors: plug in <span class="math inline">\(\hat\bG,\hat\bS\)</span>. Linear case: <span class="math inline">\(\bG=-\bQ_{zx}\)</span> — recovers the Lecture 10 sandwich.</li>
+<li>A <strong>sandwich</strong>: the <strong>bread</strong> <span class="math inline">\((\bG'\bW\bG)^{-1}\)</span> around the <strong>moment variance</strong> <span class="math inline">\(\bS\)</span>. <span class="math inline">\(\bG,\bS\)</span> fixed, only <span class="math inline">\(\bW\)</span> chosen.</li>
+<li>Holds for <strong>any</strong> valid <span class="math inline">\(\bW\)</span> — the estimator is already normal; what remains is to <strong>choose <span class="math inline">\(\bW\)</span></strong>.</li>
+<li>Standard errors: plug in <span class="math inline">\(\hat\bG,\hat\bS\)</span>. Linear case <span class="math inline">\(\bG=-\bQ_{zx}\)</span> — recovers the Lecture 10 sandwich.</li>
+</ul>
+</section>
+
+<section id="the-optimal-weight" class="title-slide slide level2 center">
+<h2>The optimal weight</h2>
+
+</section>
+<section id="the-optimal-weight-is-bwastbs-1" class="slide level3 smaller">
+<h3>The optimal weight is <span class="math inline">\(\bW^{\ast}=\bS^{-1}\)</span></h3>
+<p>Minimise the previous slide’s <span class="math inline">\(V(\bW)\)</span> over <span class="math inline">\(\bW\)</span>: the optimum is <span class="math inline">\(\bW^{\ast}=\bS^{-1}\)</span>, and the variance <strong>collapses</strong> to the efficiency bound <span class="math inline">\((\bG'\bS^{-1}\bG)^{-1}\)</span>. With <span class="math inline">\(\bS=\E[\mathbf{g}\mathbf{g}']\)</span> — the variance of the moment <span class="math inline">\(\mathbf{g}=\mathbf{z}\varepsilon\)</span> at <span class="math inline">\(\btheta_0\)</span> (Board): <span class="math display">\[\begin{aligned}
+\textbf{homosk.:}\quad &amp;\bS=\sigma^2\bQ_{zz}\ \Rightarrow\ \bW^{\ast}=(\sigma^2\bQ_{zz})^{-1}\ \Rightarrow\ \textbf{2SLS efficient};\\[2pt]
+\textbf{heterosk.:}\quad &amp;\bS=\E[\mathbf{z}\mathbf{z}'\varepsilon^2]=\bOmega\neq\sigma^2\bQ_{zz}\ \Rightarrow\ \textbf{2SLS not efficient.}
+\end{aligned}\]</span></p>
+<ul>
+<li><strong>Minimise <span class="math inline">\(V(\bW)\)</span> → <span class="math inline">\(\bW^{\ast}=\bS^{-1}\)</span>;</strong> the variance collapses to the bound <span class="math inline">\((\bG'\bS^{-1}\bG)^{-1}\)</span>.</li>
+<li><strong>Why:</strong> inverse-variance weighting — <span class="math inline">\(V(\bW)=V^{\ast}+\bD\bS\bD'\succeq V^{\ast}\)</span>, equality at <span class="math inline">\(\bW\propto\bS^{-1}\)</span> (Gauss–Markov/Aitken — Board).</li>
+<li><strong>Homoskedastic moments:</strong> <span class="math inline">\(\bS=\sigma^2\bQ_{zz}\)</span>, and <span class="math inline">\((\bZ'\bZ)^{-1}\)</span> matches it ⇒ 2SLS <strong>is</strong> efficient GMM.</li>
+<li><strong>Heteroskedastic moments:</strong> <span class="math inline">\(\bS=\bOmega\neq\sigma^2\bQ_{zz}\)</span> ⇒ 2SLS is beaten; reweight by <span class="math inline">\(\bOmega^{-1}\)</span>. <em>The “efficient use of the moments” promised in Lecture 10.</em></li>
+</ul>
+</section>
+
+<section id="making-it-feasible" class="title-slide slide level2 center">
+<h2>Making it feasible</h2>
+
+</section>
+<section id="feasible-two-step-gmm" class="slide level3 smaller">
+<h3>Feasible two-step GMM</h3>
+<p>The optimal weight <span class="math inline">\(\bW^{\ast}=\bS^{-1}\)</span> needs <span class="math inline">\(\bS=\E[\mathbf{z}\mathbf{z}'\varepsilon^2]\)</span> — the <strong>unknown</strong> errors. Break the circle: get a consistent <span class="math inline">\(\hat\btheta\)</span> with <em>any</em> valid weight, use its residuals to estimate <span class="math inline">\(\bS\)</span>, then reweight. <span class="math display">\[\underbrace{\bW=(\bZ'\bZ)^{-1}\Rightarrow\hat\btheta^{(1)}\Rightarrow\hat\varepsilon_i}_{\textbf{Step 1 (consistent)}}
+\quad
+\underbrace{\hat\bS=\tfrac1n\textstyle\sum_i \mathbf{z}_i\mathbf{z}_i'\hat\varepsilon_i^2}_{\textbf{estimate }\bS}
+\quad
+\underbrace{\bW=\hat\bS^{-1}\Rightarrow\hat\btheta^{(2)}}_{\textbf{Step 2 (efficient)}}.\]</span></p>
+<ul>
+<li><strong>The circularity:</strong> <span class="math inline">\(\bS^{-1}\)</span> needs <span class="math inline">\(\bS\)</span>, which needs <span class="math inline">\(\varepsilon\)</span> — which needs an estimate of <span class="math inline">\(\btheta\)</span>.</li>
+<li><strong>Step 1:</strong> any valid weight (e.g.&nbsp;2SLS) → consistent <span class="math inline">\(\hat\btheta^{(1)}\)</span> → residuals <span class="math inline">\(\hat\varepsilon_i\)</span>.</li>
+<li><strong>Step 2:</strong> form <span class="math inline">\(\hat\bS\)</span> from the <span class="math inline">\(\hat\varepsilon_i^2\)</span>, reweight by <span class="math inline">\(\hat\bS^{-1}\)</span> → efficient <span class="math inline">\(\hat\btheta^{(2)}\)</span>; <span class="math inline">\(\hat\bS\pto\bS\)</span> so it reaches the bound.</li>
+<li><strong>Optional refinements (same asymptotics):</strong> <em>iterated</em> repeats the cycle — residuals, re-estimate <span class="math inline">\(\hat\bS\)</span>, reweight — until <span class="math inline">\(\hat\btheta\)</span> stops changing; <em>CUE</em> puts <span class="math inline">\(\bS(\btheta)\)</span> inside the criterion and minimises in one pass. These help only in finite samples — two-step already attains the bound.</li>
 </ul>
 </section>
 </section>
@@ -587,17 +581,18 @@ Henrique Veras
 <h2>The J-test</h2>
 
 </section>
-<section id="overidentification-test-the-j-statistic" class="slide level3 smaller">
-<h3>Overidentification test: the <span class="math inline">\(J\)</span>-statistic</h3>
-<p>When <span class="math inline">\(\ell&gt;k\)</span>, the surplus <span class="math inline">\(\ell-k\)</span> moments are <strong>testable</strong>. At the efficient GMM estimate, <span class="math display">\[J=n\,\bar{\mathbf{g}}_n(\hat\btheta)'\,\hat\bS^{-1}\,\bar{\mathbf{g}}_n(\hat\btheta)\ \dto\ \chi^2_{\ell-k}
+<section id="the-overidentification-test-sargan-and-the-j-statistic" class="slide level3 smaller">
+<h3>The overidentification test: Sargan and the <span class="math inline">\(J\)</span>-statistic</h3>
+<p>With <span class="math inline">\(\ell&gt;k\)</span> the estimator forces only <span class="math inline">\(k\)</span> combinations of the <span class="math inline">\(\ell\)</span> sample moments to zero — its first-order conditions. The <strong>surplus <span class="math inline">\(\ell-k\)</span> are left free</strong> — noise if every moment is valid, systematically large if one is not — and the minimized criterion measures exactly them: <span class="math display">\[J=n\,\bar{\mathbf{g}}_n(\hat\btheta)'\,\hat\bS^{-1}\,\bar{\mathbf{g}}_n(\hat\btheta)\ \dto\ \chi^2_{\ell-k}
 \quad\text{under } H_0:\ \E[\mathbf{g}(\mathbf{d}_i,\btheta_0)]=\bzero .\]</span></p>
 <ul>
-<li>The <strong>minimized criterion itself</strong> is the test statistic — <span class="math inline">\(J=J(\hat\btheta)\)</span> at the optimal weight.</li>
-<li><strong><span class="math inline">\(=\)</span> heteroskedasticity-robust Sargan</strong> (Lecture 10): same question, robust <span class="math inline">\(\hat\bS^{-1}\)</span> in place of <span class="math inline">\(\sigma^2(\bZ'\bZ)^{-1}\)</span>.</li>
-<li><strong>Same epistemology:</strong> tests mutual <strong>consistency</strong> of the moments; <strong>falsifies, does not confirm</strong> (shared bias passes); <span class="math inline">\(\ell=k\)</span> ⇒ nothing to test. <strong>Reject in the upper tail.</strong></li>
+<li><strong>No new computation:</strong> the <strong>minimized criterion itself</strong> is the statistic, <span class="math inline">\(J=J(\hat\btheta)\)</span> at the optimal weight <span class="math inline">\(\hat\bS^{-1}\)</span>.</li>
+<li><strong>Classic Sargan (homoskedastic):</strong> <span class="math inline">\(nR^2\)</span> from regressing the residuals <span class="math inline">\(\hat\varepsilon\)</span> on <strong>all</strong> instruments <span class="math inline">\(\mathbf{z}\)</span> — valid instruments leave nothing to explain <span class="citation" data-cites="sargan1958estimation">(<a href="#/references-1" role="doc-biblioref" onclick="">Sargan 1958</a>)</span>; the <span class="math inline">\(J\)</span> above is its <strong>robust</strong> (Hansen) form.</li>
+<li><strong><span class="math inline">\(\ell-k\)</span> d.f.:</strong> <span class="math inline">\(\ell\)</span> moments minus the <span class="math inline">\(k\)</span> directions the estimator already zeroes (board, Derivation 4).</li>
+<li><strong>Epistemology:</strong> tests mutual <strong>consistency</strong> of the moments — <strong>falsifies, never confirms</strong> (shared bias passes); <span class="math inline">\(\ell=k\)</span> ⇒ nothing to test. <strong>Reject in the upper tail.</strong></li>
 </ul>
-<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">Sargan ⊂ J</span></div><div class="econ-box-body">
-<p>The Lecture 10 Sargan (<span class="math inline">\(n R^2\)</span>, <span class="math inline">\(\chi^2_{\ell-k}\)</span>) is exactly this <span class="math inline">\(J\)</span> under homoskedastic moments. GMM gives its general, robust form — and explains <em>why</em> it is <span class="math inline">\(\chi^2_{\ell-k}\)</span>: <span class="math inline">\(\ell\)</span> moments minus the <span class="math inline">\(k\)</span> directions the estimator already forces to zero.</p>
+<div class="econ-box econ-box-connection" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">🔗</span><span class="econ-box-label">Connection</span><span class="econ-box-sep">—</span><span class="econ-box-title">One statistic, two faces</span></div><div class="econ-box-body">
+<p>Classic Sargan and the robust <span class="math inline">\(J\)</span> ask the <strong>same question</strong> — are the surplus moments mutually consistent? — and differ only in <span class="math inline">\(\hat\bS\)</span>. Homoskedastic moments give <span class="math inline">\(\hat\bS=\hat\sigma^2(\bZ'\bZ/n)\)</span> and <span class="math inline">\(J\)</span> collapses to Sargan’s <span class="math inline">\(nR^2\)</span>; drop that assumption and White’s <span class="math inline">\(\hat\bS^{-1}\)</span> gives Hansen’s robust version. GMM also <strong>explains</strong> the degrees of freedom: <span class="math inline">\(\ell\)</span> moments minus the <span class="math inline">\(k\)</span> the estimator forces to zero.</p>
 </div></div>
 </section>
 </section>
@@ -651,9 +646,6 @@ Henrique Veras
 <li>The <strong>optimal weight is <span class="math inline">\(\bS^{-1}\)</span></strong> (inverse variance of the moments); it matters under <strong>heteroskedasticity</strong>, where 2SLS is no longer efficient.</li>
 <li>The <strong><span class="math inline">\(J\)</span>-test</strong> (<span class="math inline">\(\chi^2_{\ell-k}\)</span>) is the robust Sargan: it checks the surplus moments’ mutual consistency — it <strong>falsifies, never confirms</strong>.</li>
 </ul>
-<div class="econ-box econ-box-literature" role="note"><div class="econ-box-head"><span class="econ-box-icon" aria-hidden="true">📄</span><span class="econ-box-label">In the Literature</span><span class="econ-box-sep">—</span><span class="econ-box-title">Where this shows up</span></div><div class="econ-box-body">
-<p>The original theory is <span class="citation" data-cites="hansen1982gmm">Hansen (<a href="#/references-1" role="doc-biblioref" onclick="">1982</a>)</span>. In <strong>structural</strong> work GMM/SMM is standard: demand estimation <span class="citation" data-cites="berry1995automobile">(<a href="#/references-1" role="doc-biblioref" onclick="">Berry et al. 1995</a>)</span>, consumption Euler equations <span class="citation" data-cites="hansensingleton1982">(<a href="#/references-1" role="doc-biblioref" onclick="">Hansen and Singleton 1982</a>)</span>, and the asset-pricing SDF framework. In <strong>dynamic panels</strong>, Arellano–Bond and system GMM <span class="citation" data-cites="arellano1991some">(<a href="#/references-1" role="doc-biblioref" onclick="">Arellano and Bond 1991</a>)</span> are powerful but prone to <strong>instrument proliferation</strong> <span class="citation" data-cites="roodman2009note">(<a href="#/references-1" role="doc-biblioref" onclick="">Roodman 2009</a>)</span>. The design-based retreat reflects the finite-sample cost of the <strong>estimated</strong> optimal weight <span class="citation" data-cites="altonji1996small">(<a href="#/references-1" role="doc-biblioref" onclick="">Altonji and Segal 1996</a>)</span> — the Lecture 10 theme, once more.</p>
-</div></div>
 </section></section>
 <section>
 <section id="references" class="title-slide slide level1 center">
@@ -663,23 +655,8 @@ Henrique Veras
 <section id="references-1" class="slide level3 smaller scrollable">
 <h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-altonji1996small" class="csl-entry" role="listitem">
-Altonji, Joseph G., and Lewis M. Segal. 1996. <span>“Small-Sample Bias in GMM Estimation of Covariance Structures.”</span> <em>Journal of Business &amp; Economic Statistics</em> 14 (3): 353–66.
-</div>
-<div id="ref-arellano1991some" class="csl-entry" role="listitem">
-Arellano, Manuel, and Stephen Bond. 1991. <span>“Some Tests of Specification for Panel Data: Monte Carlo Evidence and an Application to Employment Equations.”</span> <em>Review of Economic Studies</em> 58 (2): 277–97.
-</div>
-<div id="ref-berry1995automobile" class="csl-entry" role="listitem">
-Berry, Steven, James Levinsohn, and Ariel Pakes. 1995. <span>“Automobile Prices in Market Equilibrium.”</span> <em>Econometrica</em> 63 (4): 841–90.
-</div>
-<div id="ref-hansen1982gmm" class="csl-entry" role="listitem">
-Hansen, Lars Peter. 1982. <span>“Large Sample Properties of Generalized Method of Moments Estimators.”</span> <em>Econometrica</em> 50 (4): 1029–54.
-</div>
-<div id="ref-hansensingleton1982" class="csl-entry" role="listitem">
-Hansen, Lars Peter, and Kenneth J. Singleton. 1982. <span>“Generalized Instrumental Variables Estimation of Nonlinear Rational Expectations Models.”</span> <em>Econometrica</em> 50 (5): 1269–86.
-</div>
-<div id="ref-roodman2009note" class="csl-entry" role="listitem">
-Roodman, David. 2009. <span>“A Note on the Theme of Too Many Instruments.”</span> <em>Oxford Bulletin of Economics and Statistics</em> 71 (1): 135–58.
+<div id="ref-sargan1958estimation" class="csl-entry" role="listitem">
+Sargan, John D. 1958. <span>“The Estimation of Economic Relationships Using Instrumental Variables.”</span> <em>Econometrica</em> 26 (3): 393–415.
 </div>
 </div>
 
